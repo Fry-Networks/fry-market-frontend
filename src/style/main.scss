@@ -1,0 +1,33 @@
+@import "./global";
+
+// base style
+@import "./base/color";
+@import "./base/mixins";
+@import "./base/reset";
+@import "./base/font";
+@import "./base/typography";
+@import "./base/tailwindConfig";
+@import "./base/animations";
+
+// components
+@import "./components/button";
+@import "./components/checkbox";
+@import "./components/input";
+@import "./components/pagination";
+@import "./components/navbar";
+@import "./components/footer";
+@import "./components/textarea";
+@import "./components/alert";
+@import "./components/radioButton";
+@import "./components/header";
+
+
+ 
+// pages
+//Home
+@import "./page/home/hero.scss";
+@import "./page/home/featured.scss";
+
+
+//Cards
+@import "./components/cards/collectionCard.scss"

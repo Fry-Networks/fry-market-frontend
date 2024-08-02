@@ -1,0 +1,42 @@
+button {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  // border: 1px solid black;
+  border-radius: 8px;
+  // box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease-in;
+  padding: 8px;
+
+  .rotate-360 {
+    animation: rotateAnimation 2s linear infinite;
+  }
+
+  &.btn-primary {
+    color: #fff;
+    background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
+  }
+
+  &.btn-secondary {
+border: 1.8px solid var(--main, #FD0000);
+    color: var(--primary);
+    background: #fff;
+    .rotate-360 {
+      filter: invert(0);
+    }
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+
+  @keyframes rotateAnimation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

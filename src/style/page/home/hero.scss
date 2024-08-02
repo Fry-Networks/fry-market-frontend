@@ -1,0 +1,29 @@
+.heroWrapper {
+min-height: 100vh;
+height: 100%;
+margin-bottom: 140px;
+&::after{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    content: "";
+    top: 0px;
+    left: 0px;
+    background-color: transparent;
+    z-index: 1;
+}
+
+    h1 {
+      line-height: 102px; /* 106.25% */
+      letter-spacing: 3.84px;
+      width: 1146px;
+      margin: 0 auto;
+     // border: 1px solid red;
+    }
+    p{
+        width: 578px;
+        margin: 0 auto;
+        letter-spacing: 0.54px;
+    }
+  
+}
