@@ -1,44 +1,93 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import userImg from "../../assets/home/images/card-userImg.png";
 import cardFeatImg1 from "../../assets/home/images/cardImg1.png";
 import cardFearImg2 from "../../assets/home/images/cardImg2.png";
 import cardFearImg3 from "../../assets/home/images/cardImg2.png";
 import cardFearImg4 from "../../assets/home/images/cardImg2.png";
-
 import Button from "../../components/shared/button";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 
-const CollectionsCard = ({data}) => {
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }) => {
+  const [isSoldbtn, setIsSoldBtn] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (showLayer) {
+      setIsSoldBtn(true);
+    }
+  }, [showLayer]);
+  useEffect(() => {
+    if (showHiddenDiv) {
+      setIsVisible(true);
+    }
+  }, [showHiddenDiv]);
+
   return (
     <>
-      <div className="collectionCardd flex flex-col gap-2">
-        <div className="topArea flex justify-start gap-2">
+      <div className="collectionCardd flex flex-col gap-2 bg-white">
+        <div className="Cardheader flex justify-start gap-2">
           <div className="t-left-part w-1/5">
             <img src={data.userImg} alt="" />
           </div>
           <div className="t-right-part w-4/5">
             <p className="medium font-Apex font-light darkBlack ">
-            {data.userName}
+              {data.userName}
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
-             {data.userEmail}
+              {data.userEmail}
             </p>
           </div>
         </div>
-        <div className="BottomArea relative">
-          <div className="absolute p-3 bottom-0 flex justify-between items-center w-full">
+        <div className="cardBody relative">
+          <div
+            className={` ${
+              isSoldbtn ? " " : "hidden"
+            } absolute w-full h-full top-0 left-0 flex items-center justify-center z-30`}
+          >
+            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
             <Button
-              className="button btn-primary large font-medium ex-small"
-              minWidth={56}
-              minHeight={36}
-              text="Buy"
-            ></Button>
+              className="relative z-10 button btn-primary ex-small font-semibold font-Apex"
+              minWidth={96}
+              minHeight={37}
+              text="Sold"
+            />
+          </div>
+          <div
+            className={`${
+              isVisible ? "" : "hidden"
+            } absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-lg py-2.5 px-4 bg-white bg-opacity-80`}
+          >
+            <p className="medium font-medium darkBlack">3:06:59:18</p>
+          </div>
+          <div className="absolute p-3 bottom-0 flex justify-between items-center w-full">
+            {isAuctionPage ? (
+              <div className="cursor-pointer rounded-lg p-2.5 bg-white flex justify-between items-center gap-4">
+                <p className="ex-small darkBlack font-medium font-Roboto">
+                  In Stock
+                </p>
+                <p className="ex-small lightGray font-medium font-Roboto">7</p>
+              </div>
+            ) : (
+              // <Button
+              //   className="button btn-secondary font-medium ex-small border-none"
+              //   minWidth={56}
+              //   minHeight={36}
+              //   text="In Stock"
+              // />
+              <Button
+                className="button btn-primary font-medium ex-small"
+                minWidth={56}
+                minHeight={36}
+                text="Buy"
+              />
+            )}
             <button className="p-3 bg-white flex gap-2 items-center">
               <span className="ex-small darkBlack fw-medium">Price:</span>
               <div className="flex gap-1">
-                {" "}
                 <img src={timeIcon} alt="" />
-                <span className=" ex-small lightGray font-medium">{data.price}</span>
+                <span className="ex-small lightGray font-medium">
+                  {data.price}
+                </span>
               </div>
             </button>
           </div>

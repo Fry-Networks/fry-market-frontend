@@ -15,6 +15,9 @@ const Input = ({
   value,
   placeholder,
   icon,
+  button,
+  buttonLabel,
+  buttonClass,
   maxWidth,
   maxHeight,
   minHeight,
@@ -29,6 +32,8 @@ const Input = ({
   const [showPassword, setShowPassword] = useState(false);
 
   const inputStyle = {
+    inputClass: inputClass,
+    placeholder: placeholder,
     height: height,
     minHeight: minHeight,
     maxHeight: maxHeight,
@@ -85,6 +90,12 @@ const Input = ({
               className="pointer"
               onClick={togglePassword}
             />
+          )}
+
+{button && (
+            <button className={buttonClass} onClick={onButtonClick}>
+              {buttonLabel}
+            </button>
           )}
         </div>
         {

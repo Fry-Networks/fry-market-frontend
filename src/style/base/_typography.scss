@@ -16,7 +16,7 @@ body {
   }
   h4 {
  
-    font-size: 18px;
+    
   }
 
  .large{
@@ -48,4 +48,8 @@ body {
  .gradient{
 background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
  }
- 
+ .flex-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
