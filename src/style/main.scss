@@ -27,7 +27,10 @@
 //Home
 @import "./page/home/hero.scss";
 @import "./page/home/featured.scss";
+@import "./page/home/faq.scss";
+@import "./page/readyForNext.scss";
 
 
 //Cards
-@import "./components/cards/collectionCard.scss"
+@import "./components/cards/collectionCard.scss";
+@import "./components/cards/auctionCard.scss";

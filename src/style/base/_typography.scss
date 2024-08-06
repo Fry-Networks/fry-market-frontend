@@ -18,7 +18,9 @@ body {
  
     
   }
-
+.ex-large{
+  font-size: 24px;
+}
  .large{
   font-size: 22px;
  }
@@ -44,7 +46,9 @@ body {
  .font-Apex{
   font-family: 'ApexMK2', sans-serif;
  }
-
+.font-Oxanium{
+  font-family: "Oxanium", sans-serif;
+}
  .gradient{
 background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
  }
@@ -53,3 +57,10 @@ background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
   align-items: center;
   justify-content: center;
  }
+
+ .custom-placeholder::placeholder {
+  color: var(--primary)!important;
+
+  opacity: 0.7;
+  font-size: 22px;
+}

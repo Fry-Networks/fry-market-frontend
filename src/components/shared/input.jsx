@@ -14,6 +14,7 @@ const Input = ({
   id,
   value,
   placeholder,
+  placeholderClass,
   icon,
   button,
   buttonLabel,
@@ -40,6 +41,7 @@ const Input = ({
     width: width,
     minWidth: minWidth,
     maxWidth: maxWidth,
+    placeholderClass: placeholderClass,
   };
 
   const togglePassword = () => {
@@ -69,7 +71,7 @@ const Input = ({
         style={inputStyle}
       >
         <label className={labelClass}>{label}</label>
-        <div className="input-wrapper   ">
+        <div className="input-wrapper">
           <input
             autoComplete="off"
             type={getInputType()}
@@ -81,6 +83,8 @@ const Input = ({
             disabled={disabled}
             maxLength={maxLength}
             placeholder={placeholder}
+            placeholderClass={ placeholderClass}
+            
           />
           {/* <label className={`text-capitalize ${labelClass}`}>{placeholder}</label> */}
           {icon && (

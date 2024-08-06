@@ -10,6 +10,9 @@ import TopCollections from "../components/home/topCollections";
 import SoldNft from "../components/home/soldNft";
 import DigitalAssets from "../components/home/digitalAssets";
 import BoostNft from "../components/home/boostNft";
+import Faq from "../components/home/faq";
+import Footer from "../components/layout/footer";
+import ReadyForNext from "../components/home/readyForNext";
 
 const Home = () => {
   return (
@@ -23,7 +26,10 @@ const Home = () => {
       <TopCollections />
       <SoldNft />
       <DigitalAssets />
-      <BoostNft/>
+      <BoostNft />
+      <Faq />
+      <ReadyForNext />
+      <Footer />
       {/* <Components /> */}
     </div>
   );
