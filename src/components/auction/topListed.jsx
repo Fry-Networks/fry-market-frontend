@@ -50,7 +50,7 @@ const TopListed = () => {
   return (
     <>
     <div className="topListedSection relative mb-52">
-      <div className="absolute top-0 left-0">
+      <div className="absolute top-0 left-0 hidden">
         <div className="dropdown w-[300px]  bg-white rounded-[30px]">
           <div className="custom-header" onClick={toggleDropdown}>
             <FilterOutlined className="filter-icon" />
