@@ -42,6 +42,7 @@ const Input = ({
     minWidth: minWidth,
     maxWidth: maxWidth,
     placeholderClass: placeholderClass,
+    icon:icon
   };
 
   const togglePassword = () => {

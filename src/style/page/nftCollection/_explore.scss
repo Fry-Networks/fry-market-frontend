@@ -1,0 +1,50 @@
+:where(.css-dev-only-do-not-override-1pg9a38).ant-tabs-top
+  > .ant-tabs-nav
+  .ant-tabs-ink-bar,
+:where(.css-dev-only-do-not-override-1pg9a38).ant-tabs-top
+  > div
+  > .ant-tabs-nav
+  .ant-tabs-ink-bar {
+  display: none;
+}
+:where(.css-dev-only-do-not-override-1pg9a38).ant-tabs-top
+  > .ant-tabs-nav::before,
+:where(.css-dev-only-do-not-override-1pg9a38).ant-tabs-bottom
+  > .ant-tabs-nav::before,
+:where(.css-dev-only-do-not-override-1pg9a38).ant-tabs-top
+  > div
+  > .ant-tabs-nav::before,
+:where(.css-dev-only-do-not-override-1pg9a38).ant-tabs-bottom
+  > div
+  > .ant-tabs-nav::before {
+  display: none;
+}
+
+.collectionTab {
+  .ant-tabs-nav-list {
+    gap: 30px;
+  }
+  .ant-tabs-tab {
+    padding-left: 5px;
+    .ant-tabs-tab-btn {
+      padding: 14px 25px;
+      color: #000;
+      text-align: center;
+      font-family: Roboto;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      text-transform: capitalize;
+      border-radius: 8px;
+      outline: 2px solid transparent;
+    }
+    &.ant-tabs-tab-active {
+      .ant-tabs-tab-btn {
+        color: #fe0101;
+        outline-color: #fd0000;
+        border-radius: 8px;
+      }
+    }
+  }
+}

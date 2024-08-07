@@ -1,0 +1,29 @@
+.navWrapper{
+    position: relative;
+    z-index: 4;
+    .container{
+        .nav-content{
+            .nav-logo{
+
+            }
+            .nav-items{
+                ul{
+                    z-index: 9999;
+                 
+                    .navlink{
+                    
+                        color: black;
+                        z-index: 9999;
+                        &.active{
+                            color: red;
+                        }
+                        li{
+
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -12,9 +12,9 @@ const Navbar = () => {
             <div className="nav-logo">
               <img src={logo} alt="" />
             </div>
-            <div className="nav-items">
-              <ul className="flex justify-center items-center gap-x-8 font-normal medium darkBlack font-Apex uppercase">
-                <NavLink>
+            <div className="nav-items ">
+              <ul className="flex justify-center items-center gap-x-8 font-normal medium darkBlack font-Apex uppercase cursor-pointer">
+                <NavLink className=" navlink" to="/">
                   <li>Home</li>
                 </NavLink>
 
