@@ -2,6 +2,37 @@
 min-height: 100vh;
 height: 100%;
 margin-bottom: 140px;
+.leftHand{
+    animation: customAni 4s linear 1s normal forwards;
+}
+
+@keyframes customAni {
+    0% {
+
+      left: -350px;
+    }
+  
+    100% {
+
+      left: -120px;
+    }
+  }
+
+  .rightHand{
+    animation: customAnim 4s linear 1s normal forwards;
+}
+
+@keyframes customAnim {
+    0% {
+
+      right: -350px;
+    }
+  
+    100% {
+
+      right: -120px;
+    }
+  }
 &::after{
     width: 100%;
     height: 100%;
