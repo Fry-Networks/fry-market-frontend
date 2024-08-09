@@ -5,7 +5,7 @@ import ReadyForNext from "../components/home/readyForNext";
 import Banner from "../components/createNft/banner";
 import PromptExample from "../components/createNft/promptExample";
 
-const CreateNft = () => {
+const CreateNftPage = () => {
   return (
     <>
       <Navbar />
@@ -17,4 +17,4 @@ const CreateNft = () => {
   );
 };
 
-export default CreateNft;
+export default CreateNftPage;
