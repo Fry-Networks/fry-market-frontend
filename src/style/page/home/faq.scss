@@ -1,49 +1,74 @@
 :where(.css-dev-only-do-not-override-1pg9a38).ant-collapse {
-
-    border: none;
-    border-radius: 8px;
-    width: 1056px;
-    margin: 0 auto;
-    padding: 10px !important;
+  border: none;
+  border-radius: 8px;
+  width: 1056px;
+  margin: 0 auto;
+  padding: 10px !important;
 }
-:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless >.ant-collapse-item {
-border-radius: 20px !important;
-border: 3px solid #E7E7E7 !important;
-
+:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless
+  > .ant-collapse-item {
+  border-radius: 20px !important;
+  border: 3px solid #e7e7e7 !important;
 }
-.ant-collapse-item{
-    padding: 7px !important;
+.ant-collapse-item {
+  padding: 7px !important;
 }
 
+:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse
+  > .ant-collapse-item
+  > .ant-collapse-header {
+  // background-color: #FFE0E0;
+  // border-radius: 20px;
+  // padding: 30px 15px;
+  // display: flex;
+  // align-items: center;
+}
 
-:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse > .ant-collapse-item > .ant-collapse-header {
-    
-    background-color: #FFE0E0;
+:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless
+  > .ant-collapse-item
+  > .ant-collapse-content
+  > .ant-collapse-content-box {
+  padding: 25px 31px 30px 80px;
+  color: #808080;
+  letter-spacing: 0.54px;
+  font-size: 18px;
+  font-weight: 400;
+}
+
+:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse
+  > .ant-collapse-item
+  > .ant-collapse-header
+  .ant-collapse-arrow
+  svg {
+  transition: transform 0.3s;
+  display: none;
+}
+
+:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless
+  > .ant-collapse-item:last-child
+  .ant-collapse-header {
+  border-radius: 20px;
+}
+
+.faqWrapper {
+  .container {
+    .faqAccordion {
+      .faqStyling {
+        .ant-collapse {
+          .ant-collapse-item {
+            &.ant-collapse-item-active {
+              background-color: green !important;
+            }
+          }
+        }
+      }
+    }
+  }
+  .ant-collapse-header {
+    background-color: #ffe0e0;
     border-radius: 20px;
-    padding: 30px 15px;
+    padding: 30px 15px !important;
     display: flex;
     align-items: center;
-}
-
-:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless >.ant-collapse-item>.ant-collapse-content>.ant-collapse-content-box {
-    padding: 25px 31px 30px 80px;
-    color: #808080;
-    letter-spacing: 0.54px;
-    font-size: 18px;
-    font-weight: 400;
-}
-
-:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse>.ant-collapse-item >.ant-collapse-header .ant-collapse-arrow svg {
-    transition: transform 0.3s;
-    display: none;
-}
-
-.active-header {
-    background-color: #FFE0E0;
-    border-radius: 20px;
-    opacity: 0.1;
   }
-
-  :where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless >.ant-collapse-item:last-child .ant-collapse-header{
-    border-radius: 20px;
-  }
+}
