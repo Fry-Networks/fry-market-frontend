@@ -2,35 +2,48 @@
   --primary: #fe0101;
   --darkBlack: #2b2b2b;
   --lightGray: #808080;
-  --text-clr:#6B6B6B;
-  --graybg:#E7E7E7;
+  --grayOpacity: #8B8B8B;
+  --text-clr: #6B6B6B;
+  --graybg: #E7E7E7;
   --white: #fff;
   --black: #000;
+
 }
 
 .primary {
   color: var(--primary);
 }
-.bg-primary{
-background-color: var(--primary);
+
+.bg-primary {
+  background-color: var(--primary);
 }
+
 .darkBlack {
   color: var(--darkBlack);
 }
+
 .lightGray {
   color: var(--lightGray);
 }
+
 .white {
   color: var(--white);
 }
+
 .black {
   color: var(--black);
 }
-.graybg{
+
+.graybg {
   background-color: var(--graybg);
 }
-.text-clr{
+
+.text-clr {
   color: var(--text-clr);
+}
+
+.grayOpacity {
+  color: var(--grayOpacity);
 }
 
 // Light Mode Style
@@ -43,6 +56,7 @@ background-color: var(--primary);
   --neon-green: #4dfe7e;
   --medium-green: #148c36;
   --dark-green: #01320f;
+  --light-green: #4CCB9E;
 }
 
 /* Dark mode styles */
@@ -55,3 +69,4 @@ background-color: var(--primary);
   --medium-green: #148c36;
   --dark-green: #01320f;
 }
+

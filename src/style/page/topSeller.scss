@@ -1,0 +1,77 @@
+.sellerImages {
+    img {
+        border: 3.51px solid #FFF;
+    }
+
+   
+}
+
+
+.sellerTable {
+    border-radius: 13px;
+    border: 1px solid rgba(103, 103, 103, 0.30);
+    background: #FFF;
+    overflow: hidden;
+
+
+    .ant-table-wrapper {
+        overflow: hidden;
+    }
+
+    .ant-table-tbody .ant-table-row {
+        border-collapse: separate;
+        border-spacing: 100px;
+
+    }
+
+    .ant-table-thead {
+        border-radius: 8px;
+        border: 2.8px solid #E7E7E7;
+
+        .ant-table-cell {
+            color: var(--darkBlack);
+            font-family: Roboto;
+            font-size: 22px;
+            font-weight: 600;
+            line-height: normal;
+            letter-spacing: 0.11px;
+            background-color: #FFF9F9 !important;
+            // border-bottom: none;
+            height: 100px;
+
+            &::before {
+                display: none;
+            }
+
+        }
+    }
+
+    .ant-table-row {
+        color: #000;
+        font-family: Roboto;
+        font-size: 16.236px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 27.833px;
+        background: #FFF9F9;
+        text-align: left;
+        // border-radius: 8px; 
+        // border: 2.8px solid #E7E7E7; 
+        // margin-bottom: 10px;
+    }
+
+    .ant-table-cell:nth-child(1) {
+        color: var(--darkBlack);
+        font-family: Roboto;
+        font-size: 22px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+        letter-spacing: 0.11px;
+    }
+
+    .ant-table-cell:nth-child(4) {
+        color: #4CCB9E;
+
+    }
+}
