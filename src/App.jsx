@@ -9,6 +9,8 @@ import CreateNft from "./page/createNft";
 import CreateNftCollection from "./page/createNftCollection";
 import SelectedNft from "./page/selectedNft";
 import NftDetail from "./page/nftDetail";
+import ArtistsProfile from "./page/artistsProfile";
+import CreateNftPage from "./page/createNftPage";
 
 function App() {
   return (
@@ -24,7 +26,9 @@ function App() {
         <Route path="/createnft-collect" element={<CreateNftCollection />} />
         <Route path="/select-nft" element={<SelectedNft />} />
         <Route path="/nft-detail" element={<NftDetail />} />
-        <Route path="/create-nft" element={<CreateNft />} />
+        <Route path="/create-nft-page" element={<CreateNft Page/>} />
+        <Route path="/artist-profile" element={<ArtistsProfile/>} />
+
       </Routes>
     </>
   );
