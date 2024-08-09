@@ -42,7 +42,9 @@ const Input = ({
     minWidth: minWidth,
     maxWidth: maxWidth,
     placeholderClass: placeholderClass,
-    icon:icon
+    icon: icon,
+    label: label,
+    labelClass: labelClass,
   };
 
   const togglePassword = () => {
@@ -84,8 +86,10 @@ const Input = ({
             disabled={disabled}
             maxLength={maxLength}
             placeholder={placeholder}
-            placeholderClass={ placeholderClass}
-            
+            placeholderClass={placeholderClass}
+            label={label}
+            inputClass={inputClass}
+            labelClass={labelClass}
           />
           {/* <label className={`text-capitalize ${labelClass}`}>{placeholder}</label> */}
           {icon && (
@@ -97,16 +101,17 @@ const Input = ({
             />
           )}
 
-{button && (
+          {button && (
             <button className={buttonClass} onClick={onButtonClick}>
               {buttonLabel}
             </button>
           )}
         </div>
-        {
-          errorMessage &&
-        <p className="extra-small text-xs font-medium text-red-600">{errorMessage}</p>
-        }
+        {errorMessage && (
+          <p className="extra-small text-xs font-medium text-red-600">
+            {errorMessage}
+          </p>
+        )}
       </div>
     </>
   );

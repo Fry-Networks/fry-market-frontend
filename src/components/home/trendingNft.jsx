@@ -16,7 +16,7 @@ import trendingNft8 from "../../assets/home/images/trendingNft8.png";
 
 const TrendingNft = () => {
   return (
-    <div className="trendingNftWrapper my-52">
+    <div className="trendingNftWrapper my-52 md:my-20">
       <div className="container">
         <div className='flex justify-between'>
           <h2 className="font-normal font-Apex uppercase">
