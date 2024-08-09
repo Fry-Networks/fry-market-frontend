@@ -27,7 +27,7 @@ import colectionBack from "../../assets/home/images/topCollections/topCollection
 const TopCollections = () => {
   return (
    <>
-   <div className="topCollectionWrapper mb-52 relative">
+   <div className="topCollectionWrapper mb-52 relative md:mb-20">
 <img className='absolute top-[-400px] -z-10' src={colectionBack} alt="" />
     <div className="container">
     <div className='flex justify-between items-center'>

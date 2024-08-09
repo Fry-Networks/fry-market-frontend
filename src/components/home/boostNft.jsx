@@ -5,7 +5,7 @@ import boosterIcon from "../../assets/icons/boosterIvon.svg";
 const BoostNft = () => {
   return (
     <>
-      <div className="boostNftWrapper mb-52 relative">
+      <div className="boostNftWrapper mb-52 relative md:mb-20">
         <img className="absolute bottom-[-500px] left-0 -z-10" src="/src/assets/home/images/leftGlow.png" alt="" />
         <div className="container">
           <div className="inner flex-center">

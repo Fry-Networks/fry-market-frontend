@@ -28,14 +28,14 @@ const Navbar = () => {
             </div>
             <div className="nav-btns flex gap-x-3 font-Roboto">
               <Button
-                className="button btn-primary large font-medium"
+                className="button btn-primary large font-medium btnConnect"
                 minWidth={213}
                 minHeight={58}
                 text="Connect Wallet"
               ></Button>
 
               <Button
-                className="button btn-secondary large font-medium"
+                className="button btn-secondary large font-medium btnCreate"
                 minWidth={176}
                 minHeight={58}
                 text="Create NFT"
