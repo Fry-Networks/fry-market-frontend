@@ -5,12 +5,12 @@ import NftCollection from "./page/nftCollection";
 import TopCollection from "./page/topCollection";
 import TopSeller from "./page/topSeller";
 import SellerCollection from "./page/sellerCollections";
-import CreateNft from "./page/createNft";
 import CreateNftCollection from "./page/createNftCollection";
 import SelectedNft from "./page/selectedNft";
 import NftDetail from "./page/nftDetail";
 import ArtistsProfile from "./page/artistsProfile";
 import CreateNftPage from "./page/createNftPage";
+import CreateNft from "./page/createNft";
 
 function App() {
   return (
@@ -26,9 +26,8 @@ function App() {
         <Route path="/createnft-collect" element={<CreateNftCollection />} />
         <Route path="/select-nft" element={<SelectedNft />} />
         <Route path="/nft-detail" element={<NftDetail />} />
-        <Route path="/create-nft-page" element={<CreateNft Page/>} />
-        <Route path="/artist-profile" element={<ArtistsProfile/>} />
-
+        <Route path="/create-nft-page" element={<CreateNftPage />} />
+        <Route path="/artist-profile" element={<ArtistsProfile />} />
       </Routes>
     </>
   );
