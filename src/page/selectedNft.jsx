@@ -7,7 +7,7 @@ import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
 import { useNavigate } from "react-router-dom";
 
-const  SelectedNft = () => {
+const SelectedNft = () => {
   const navigate = useNavigate();
   const handleClick = () => {
     navigate("/create-nft");
@@ -35,19 +35,21 @@ const  SelectedNft = () => {
                 />
 
                 <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow ">
-                  <div className="relative  overlay"><img src={nft1} alt="profile image" />
-                  <p className="font-normal font-Apex text-[20px] white absolute top-[50%] left-[30%]">SELECTED</p></div>
+                  <div className="relative  overlay">
+                    <img src={nft1} alt="profile image" />
+                    <p className="font-normal font-Apex text-[20px] white absolute top-[50%] left-[30%]">
+                      SELECTED
+                    </p>
+                  </div>
                 </div>
-                
               </div>
 
               <div className="w-[992px]">
-                <div >
+                <div>
                   <Button
                     className="btn-gray w-32 lightGray"
                     text="Single NFT"
                   />
-                 
                 </div>
                 <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px] ">
                   <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
@@ -66,13 +68,23 @@ const  SelectedNft = () => {
                       <Input
                         type="text"
                         label="Token Symbol*"
-                        placeholder="CGPT, for example"
+                        placeholder="$ CGPT, for example"
                         className="w-full input-nft"
                       />
                     </div>
                     <div>
                       <Textarea
-                        label="Description "
+                        label={
+                          <>
+                            <div className="flex flex-col gap-2">
+                              <span>Description</span>
+                              <span className="medium ">
+                                The description will be included on the item's
+                                detail page underneath its image.
+                              </span>
+                            </div>
+                          </>
+                        }
                         rows={6}
                         placeholder="Provide a detailed description of your item"
                       />
@@ -81,7 +93,6 @@ const  SelectedNft = () => {
                       <Button
                         className="btn-primary px-8 py-4 mb-5"
                         text="Mini NFT"
-                       
                       />
                     </div>
                   </form>

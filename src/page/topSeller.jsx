@@ -17,9 +17,9 @@ import table9 from "../assets/icons/topSeller/ts9.svg";
 import table10 from "../assets/icons/topSeller/ts10.svg";
 import table11 from "../assets/icons/topSeller/ts11.svg";
 import logo from "../assets/icons/topSeller/logo.svg";
-
 import ReadyForNext from "../components/home/readyForNext";
 import Button from "../components/shared/button";
+import { Select, Space } from "antd";
 
 const columns = [
   {
@@ -226,6 +226,10 @@ const data = [
   },
 ];
 
+const handleChange = (value) => {
+  console.log(`selected ${value}`);
+};
+
 const TopSeller = () => {
   return (
     <>
@@ -258,8 +262,33 @@ const TopSeller = () => {
         </div>
 
         <div className="flex justify-between mt-9 mb-9">
-          <Button className="btn-white" text="Catagory"/>
-          <Button className="btn-white" text="Last 30 days"/>
+          {/* <Button className="btn-white" text="Catagory"/> */}
+          <div className="catagorySelector">
+            <Select
+              defaultValue="Catagory"
+              style={{
+                width: 138,
+                height:48,
+                boxShadow:"4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
+                borderRadius:8,
+              
+              }}
+              // className="btn-white"
+              onChange={handleChange}
+              // autoFocus={false}
+              options={[
+                {
+                  value: "catagory1",
+                  label: "Catagory 1",
+                },
+                {
+                  value: "catagory2",
+                  label: "Catagory 2",
+                },
+              ]}
+            />
+          </div>
+          <Button className="btn-white" text="Last 30 days" />
         </div>
 
         <div>

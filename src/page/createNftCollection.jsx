@@ -72,13 +72,24 @@ const CreateNftCollection = () => {
                       <Input
                         type="text"
                         label="Token Symbol*"
-                        placeholder="CGPT, for example"
+                       placeholder="$ CGPT, for example"
                         className="w-full input-nft"
                       />
                     </div>
                     <div>
                       <Textarea
-                        label="Description "
+                        // label="Description "
+                        label={
+                          <>
+                            <div className="flex flex-col gap-2">
+                              <span>Description</span>
+                              <span className="medium ">
+                                The description will be included on the item's
+                                detail page underneath its image.
+                              </span>
+                            </div>
+                          </>
+                        }
                         rows={6}
                         placeholder="Provide a detailed description of your item"
                       />
@@ -87,7 +98,6 @@ const CreateNftCollection = () => {
                       <Button
                         className="btn-primary px-8 py-4 mb-5"
                         text="Continue"
-                       
                       />
                     </div>
                   </form>

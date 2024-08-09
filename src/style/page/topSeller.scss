@@ -3,7 +3,7 @@
         border: 3.51px solid #FFF;
     }
 
-   
+
 }
 
 
@@ -74,4 +74,28 @@
         color: #4CCB9E;
 
     }
+}
+
+.catagorySelector {
+
+    .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+    
+        font-weight: 600;
+        color: #2B2B2B;
+        font-family: Roboto;
+        letter-spacing: 0.42px;
+     
+    }
+
+    .ant-select-selector {
+        border: none !important;
+    }
+
+    .anticon svg {
+        color: var(--darkBlack);
+
+        // width: 28px;
+        // height: 28px;
+    }
+    
 }
