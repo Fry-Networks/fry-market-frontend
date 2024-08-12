@@ -25,11 +25,11 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }) => {
   return (
     <>
       <div className="collectionCardd flex flex-col gap-2 bg-white">
-        <div className="Cardheader flex justify-start gap-2">
+        <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part w-1/5">
             <img src={data.userImg} alt="" />
           </div>
-          <div className="t-right-part w-4/5">
+          <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
               {data.userName}
             </p>

@@ -15,7 +15,7 @@ import sellerBack from "../../assets/home/images/topSeller/topsellerBack.png";
 const TopSeller = () => {
   return (
 <>
-<div className="topsellerWrapper mb-52 relative">
+<div className="topsellerWrapper mb-52 relative md:mb-20">
     <img className='absolute top-[-500px] -z-10' src={sellerBack} alt="" />
 <div className="container">
     <div className='flex justify-between items-center'>

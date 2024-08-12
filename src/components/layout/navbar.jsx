@@ -1,4 +1,4 @@
-import React from "react";
+// import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/logo.svg";
 import Button from "../shared/button";
@@ -43,13 +43,13 @@ const Navbar = () => {
             ) : (
               <div className="nav-btns flex gap-x-3 font-Roboto">
                 <Button
-                  className="button btn-primary large font-medium"
+                  className="button btn-primary large font-medium btnConnect"
                   minWidth={213}
                   minHeight={58}
                   text="Connect Wallet"
                 />
                 <Button
-                  className="button btn-secondary large font-medium"
+                  className="button btn-secondary large font-medium btnCreate"
                   minWidth={176}
                   minHeight={58}
                   text="Create NFT"
