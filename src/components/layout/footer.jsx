@@ -7,6 +7,7 @@ import img3 from "/src/assets/icons/linkedin.svg";
 import img4 from "/src/assets/icons/discord.svg";
 import img5 from "/src/assets/icons/instagram.svg";
 import img6 from "/src/assets/icons/tiktok.svg";
+import footerLogo from "/src/assets/home/images/footerLogo.svg";
 const Footer = () => {
   return (
     <>
@@ -17,7 +18,7 @@ const Footer = () => {
             className="innerData flex justify-between gap-36"
           >
             <div className="dataArea1 flex items-start w-1/6">
-              <img src="/src/assets/home/images/footerLogo.svg" alt="" />
+              <img src={footerLogo} alt="" />
             </div>
             <div className="dataArea2 flex flex-col justify-between w-2/6 py-7">
               <div className="area2content1">
