@@ -1,7 +1,7 @@
 // import React, { useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../assets/icons/websiteLogo.svg";
-import { Drawer } from 'antd';
+import { Drawer } from "antd";
 import Button from "../shared/button";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
@@ -17,9 +17,10 @@ const Navbar = () => {
     location.pathname === "/create-nft-page" ||
     location.pathname === "/select-nft";
 
+  console.log(location.pathname);
 
   const [open, setOpen] = useState(false);
-  const [placement, setPlacement] = useState('left');
+  const [placement, setPlacement] = useState("left");
   const showDrawer = () => {
     setOpen(true);
   };
@@ -79,8 +80,6 @@ const Navbar = () => {
         </div>
       </div>
 
-
-
       <div className="mobile-navbar">
         <NavLink className="d-flex" to="/">
           <img className="mobileLogo" src={logo} alt="" />
@@ -88,51 +87,46 @@ const Navbar = () => {
         <button onClick={handleShow} className="menu-btn">
           <img src={menu} alt="Menu" />
         </button>
-      
 
-
-      <Drawer
-     
-        placement={placement}
-        closable={false}
-        onClose={onClose}
-        open={open}
-        key={placement}
-      >
-             <div className="navbar-logo mb-4">
-              <img className="logo" src={logo} alt="" />
-            </div>
-       <div className="navbarList">
-              <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
-                <NavLink>
-                  <li>Home</li>
-                </NavLink>
-                <NavLink>
-                  <li>Marketplace</li>
-                </NavLink>
-                <NavLink>
-                  <li>AI NFT Generation</li>
-                </NavLink>
-
-       
-              </ul>
-            </div>
-            <div className="navbar-btns flex flex-col gap-4 mt-5">
+        <Drawer
+          placement={placement}
+          closable={false}
+          onClose={onClose}
+          open={open}
+          key={placement}
+        >
+          <div className="navbar-logo mb-4">
+            <img className="logo" src={logo} alt="" />
+          </div>
+          <div className="navbarList">
+            <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
+              <NavLink>
+                <li>Home</li>
+              </NavLink>
+              <NavLink>
+                <li>Marketplace</li>
+              </NavLink>
+              <NavLink>
+                <li>AI NFT Generation</li>
+              </NavLink>
+            </ul>
+          </div>
+          <div className="navbar-btns flex flex-col gap-4 mt-5">
             <Button
-                className="button btn-primary small font-medium btnConnect"
-                width={150}
-                minHeight={39}
-                text="Connect Wallet"
-              ></Button>
+              className="button btn-primary small font-medium btnConnect"
+              width={150}
+              minHeight={39}
+              text="Connect Wallet"
+            ></Button>
 
-              <Button
-                className="button btn-secondary small font-medium btnConnect"
-                width={150}
-                minHeight={39}
-                text="Create NFT"
-              ></Button>
-            </div>
-      </Drawer>
+            <Button
+              className="button btn-secondary small font-medium btnConnect"
+              width={150}
+              minHeight={39}
+              text="Create NFT"
+            ></Button>
+          </div>
+        </Drawer>
       </div>
     </>
   );
