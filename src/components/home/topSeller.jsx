@@ -9,10 +9,12 @@ import sellerImg6 from "../../assets/home/images/topSeller/topsellerImg6.png";
 import sellerImg7 from "../../assets/home/images/topSeller/topsellerImg7.png";
 import sellerImg8 from "../../assets/home/images/topSeller/topsellerImg8.png";
 import sellerBack from "../../assets/home/images/topSeller/topsellerBack.png";
+import { useNavigate } from 'react-router-dom';
 
 
 
 const TopSeller = () => {
+    const navigate= useNavigate();
   return (
 <>
 <div className="topsellerWrapper mb-52 relative md:mb-20">
@@ -22,7 +24,9 @@ const TopSeller = () => {
     <h2 className="font-normal font-Apex uppercase mb-10">
           TOP SELLER
           </h2>
-          <p className='primary large font-medium font-Roboto cursor-pointer'>View All</p>
+          <p className='primary large font-medium font-Roboto cursor-pointer' onClick={(()=>(
+            navigate("/top-seller")
+          ))}>View All</p>
     </div>
 
           <div className="sellerCardDiv grid grid-cols-4  gap-x-10 gap-y-4">

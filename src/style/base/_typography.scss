@@ -105,3 +105,55 @@ background: #FFF;
 
   
 }
+
+
+@media screen and (max-width:1200px) {
+  body{
+    h1{
+      font-size: 55px;
+    
+    }
+    h2{
+      font-size: 40px;
+    }
+    h3{
+      font-size: 32px;
+    }
+
+    .ex-large{
+      font-size: 21px;
+    }
+     .large{
+      font-size: 19px;
+     }
+  
+  }
+
+  
+}
+
+
+@media screen and (max-width:600px) {
+  body{
+    h1{
+      font-size: 45px;
+    
+    }
+    h2{
+      font-size: 35px;
+    }
+    h3{
+      font-size: 30px;
+    }
+
+    .ex-large{
+      font-size: 20px;
+    }
+     .large{
+      font-size: 18px;
+     }
+  
+  }
+
+  
+}

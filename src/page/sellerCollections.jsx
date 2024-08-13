@@ -7,11 +7,11 @@ import CollectionCard from "../components/sellerCollection/collectionCards";
 const SellerCollection = () => {
   return (
     <>
-      <Navbar />
+
       <CollectionBanner />
       <CollectionCard />
       <ReadyForNext />
-      <Footer />
+     
     </>
   );
 };

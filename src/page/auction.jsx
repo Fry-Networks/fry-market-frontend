@@ -12,12 +12,12 @@ const Auction = () => {
   }, []);
   return (
     <div>
-      <Navbar />
+     
       <AuctionBanner />
       <TopListed/>
       <LiveAuction/>
       <ReadyForNext />
-      <Footer />
+     
     </div>
   );
 };

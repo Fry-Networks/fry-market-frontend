@@ -8,11 +8,11 @@ import PromptExample from "../components/createNft/promptExample";
 const CreateNftPage = () => {
   return (
     <>
-      <Navbar />
+
       <Banner/>
       <PromptExample/>
       <ReadyForNext />
-      <Footer />
+     
     </>
   );
 };

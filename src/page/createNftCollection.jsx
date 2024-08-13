@@ -14,7 +14,7 @@ const CreateNftCollection = () => {
   };
   return (
     <>
-      <Navbar />
+ 
       <div>
         <div className="nftCollection mt-[107px] h-[110vh]">
           <div className="container">

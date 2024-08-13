@@ -50,7 +50,7 @@ const TopCollections = () => {
           </div>
           <div className="nftCardContainer flex items-center justify-center gap-8 mt-12">
             {topCollectionData.map((data, index) => (
-              <TopCollectionCard data={data} key={data.id} />
+              <TopCollectionCard data={data} key={data.id}   />
             ))}
           </div>
         </div>

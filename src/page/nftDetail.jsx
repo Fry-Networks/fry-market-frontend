@@ -8,11 +8,11 @@ import MoreFromThis from '../components/nftDetail/moreFromThis';
 const NftDetail = () => {
   return (
 <>
-<Navbar />
+
 <NftDetailBanner/>
 <MoreFromThis/>
 <ReadyForNext />
-<Footer />
+
 
 </>
   )

@@ -8,11 +8,11 @@ import PixoNft from "../components/topCollection/pixoNft";
 const TopCollection = () => {
   return (
     <>
-      <Navbar />
+   
       <PixacioBanner/>
       <PixoNft/>
       <ReadyForNext />
-      <Footer />
+ 
     </>
   );
 };

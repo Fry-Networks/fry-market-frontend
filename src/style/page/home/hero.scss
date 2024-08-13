@@ -1,40 +1,40 @@
 .heroWrapper {
-min-height: 100vh;
-height: 100%;
-margin-bottom: 140px;
+  min-height: 100vh;
+  height: 100%;
+  margin-bottom: 140px;
 
-.leftHand{
+  .leftHand {
     animation: customAni 4s linear 1s normal forwards;
-}
+  }
 
-// @keyframes customAni {
-//     0% {
+  // @keyframes customAni {
+  //     0% {
 
-//       left: -350px;
-//     }
-  
-//     100% {
+  //       left: -350px;
+  //     }
 
-//       left: -120px;
-//     }
-//   }
+  //     100% {
 
-  .rightHand{
+  //       left: -120px;
+  //     }
+  //   }
+
+  .rightHand {
     animation: customAnim 4s linear 1s normal forwards;
-}
+  }
 
-// @keyframes customAnim {
-//     0% {
+  // @keyframes customAnim {
+  //     0% {
 
-//       right: -350px;
-//     }
-  
-//     100% {
+  //       right: -350px;
+  //     }
 
-//       right: -120px;
-//     }
-//   }
-&::after{
+  //     100% {
+
+  //       right: -120px;
+  //     }
+  //   }
+  &::after {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -43,38 +43,64 @@ margin-bottom: 140px;
     left: 0px;
     background-color: transparent;
     z-index: 1;
-}
+  }
 
-    h1 {
-      line-height: 102px; /* 106.25% */
-      letter-spacing: 3.84px;
-      width: 1146px;
-      margin: 0 auto;
-     // border: 1px solid red;
-    }
-    p{
-        width: 578px;
-        margin: 0 auto;
-        letter-spacing: 0.54px;
-    }
-  
+  h1 {
+    line-height: 102px; /* 106.25% */
+    letter-spacing: 3.84px;
+    width: 1146px;
+    margin: 0 auto;
+    // border: 1px solid red;
+  }
+  p {
+    width: 578px;
+    margin: 0 auto;
+    letter-spacing: 0.54px;
+  }
 }
-@media screen and (max-width:1440px) {
-
+@media screen and (max-width: 1440px) {
   .heroWrapper {
     height: auto;
     margin-bottom: 80px;
-    .leftHand{
+    &:after {
       display: none;
     }
-    .rightHand{
+    .leftHand {
+      display: none;
+    }
+    .rightHand {
       display: none;
     }
 
-    .container{
-      .inner{
-        h1{
+    .container {
+      .inner {
+        h1 {
           line-height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .heroWrapper {
+    .container {
+      .inner {
+        p{
+          width: 100%;
+        }
+        .heroCards {
+          .heroCardsw {
+            display: none;
+          }
+          .nft-singleItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            visibility: visible;
+          }
         }
       }
     }

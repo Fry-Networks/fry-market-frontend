@@ -6,6 +6,7 @@ import Button from "../shared/button";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import menu from "../../assets/icons/menu.png";
+import { useState } from "react";
 
 const Navbar = () => {
   const location = useLocation();
@@ -48,7 +49,7 @@ const Navbar = () => {
                 <NavLink className="navlink" to="/marketplace">
                   <li>Marketplace</li>
                 </NavLink>
-                <NavLink className="navlink" to="/ai-nft-generation">
+                <NavLink className="navlink" to="/create-nft-page">
                   <li>AI Nft Generation</li>
                 </NavLink>
               </ul>

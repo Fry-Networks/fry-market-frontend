@@ -13,7 +13,7 @@ const CreateNft = () => {
   };
   return (
     <>
-      <Navbar />
+     
       <div className="createNft mt-16">
         <div className="container ">
           <div className="flex items-center justify-between mb-[75px]">

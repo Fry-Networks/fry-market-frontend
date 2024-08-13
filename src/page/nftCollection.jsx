@@ -12,11 +12,11 @@ const NftCollection = () => {
   }, []);
   return (
     <div>
-         <Navbar />
+      
          <NftCollectBanner/>
          <Explore/>
          <ReadyForNext />
-         <Footer />
+        
     </div>
   )
 }

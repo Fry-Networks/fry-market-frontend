@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import Footer from "../components/layout/footer";
 import Navbar from "../components/layout/navbar";
@@ -231,9 +231,13 @@ const handleChange = (value) => {
 };
 
 const TopSeller = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <>
-      <Navbar />
+    
       <div className="container">
         <div className="flex  gap-[146px] items-center h-[80vh]">
           <div>
@@ -302,7 +306,7 @@ const TopSeller = () => {
         </div>
       </div>
       <ReadyForNext />
-      <Footer />
+      
     </>
   );
 };

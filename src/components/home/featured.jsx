@@ -11,16 +11,16 @@ const Featured = () => {
     <>
       <div className="featureWrapper mb-40 mt-72 pt-10">
         <div className="container">
-          <h2 className="font-normal font-Apex uppercase">
+          <h2 className="font-normal font-Apex uppercase lg:text-center">
             Featured Collection
           </h2>
-          <p className="lightGray medium font-light font-Roboto text-left w-[750px]">
+          <p className="lightGray medium font-light font-Roboto text-left w-[750px] ">
             Explore our exclusive featured collection, showcasing innovative
             campaigns and creative storytelling from top brands around the
             world.
           </p>
 
-          <div className="featureCardContainer mt-10 flex justify-center gap-4">
+          <div className="featureCardContainer mt-10 flex justify-center gap-4 ">
             {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
             ))}
