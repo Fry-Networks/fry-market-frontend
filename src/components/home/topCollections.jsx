@@ -1,5 +1,7 @@
 import React from "react";
 import TopCollectionCard from "../cards/topCollectionCard";
+import React from "react";
+import TopCollectionCard from "../cards/topCollectionCard";
 import card1BodyImg1 from "../../assets/home/images/topCollections/cardBodyImg1.png";
 import card1BodyImg2 from "../../assets/home/images/topCollections/cardBodyImg2.png";
 import card1BodyImg3 from "../../assets/home/images/topCollections/cardBodyImg3.png";
