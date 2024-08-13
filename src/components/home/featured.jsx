@@ -9,7 +9,7 @@ import nftImg4 from "../../assets/home/images/cardImg4.png";
 const Featured = () => {
   return (
     <>
-      <div className="featureWrapper my-20 pt-10">
+      <div className="featureWrapper mb-40 mt-72 pt-10">
         <div className="container">
           <h2 className="font-normal font-Apex uppercase">
             Featured Collection

@@ -67,3 +67,38 @@ background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
 .cursor-pointer{
   cursor: pointer;
 }
+
+
+
+@media screen and (max-width:1440px) {
+  body{
+    h1{
+      font-size: 64px;
+
+    }
+    h2{
+      font-size: 44px;
+    }
+    h3{
+      font-size: 30px;
+    }
+
+    .ex-large{
+      font-size: 22px;
+    }
+     .large{
+      font-size: 20px;
+     }
+     .medium,p{
+      font-size: 16px;
+     }
+     .small{
+      font-size: 13px;
+     }
+     .ex-small{
+      font-size: 12px;
+     }
+  }
+
+
+}
