@@ -1,0 +1,90 @@
+//Create NFT
+
+.createNft {
+    .border {
+        border: 1.8px solid #E7E7E7;
+    }
+
+    .group {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .group::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 3.8px solid transparent;
+        border-radius: 20px;
+        transition: border 1000ms ease-in-out, border-radius 1000ms ease-in-out;
+    }
+
+    .group:hover::before {
+        border-color: #FE0101;
+    }
+}
+
+
+//CREATE NFT COLLECTION
+.box-shadow {
+    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
+}
+
+.nftCollection {
+    label {
+        color: #2B2B2B;
+        font-family: Roboto;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        letter-spacing: 0.8px;
+    }
+
+    .input-wrapper {
+
+        box-shadow: none;
+        border-radius: 15px;
+        border: 2.8px solid #E7E7E7;
+        background: #FFF;
+
+        input {
+            position: relative;
+            padding: 19px 30px;
+            color: #000;
+            font-family: Roboto;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 14px;
+            outline: none;
+
+            &::placeholder {
+                color: #6b6b6b;
+            }
+        }
+
+
+    }
+
+    .overlay::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 1);
+        opacity: 0.4;
+        border-radius: 20px;
+
+    }
+}

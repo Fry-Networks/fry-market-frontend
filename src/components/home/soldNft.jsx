@@ -19,7 +19,7 @@ import glow from "../../assets/home/images/heroGlow.png";
 const SoldNft = () => {
   return (
    <>
-   <div className="soldNftWrapper mb-52 relative">
+   <div className="soldNftWrapper mb-52 relative md:mb-20">
     <img className='absolute bottom-[0px] right-[0px] w-full -z-10' src={glow} alt="" />
     <div className="container">
     <h2 className="font-normal font-Apex uppercase mb-10">

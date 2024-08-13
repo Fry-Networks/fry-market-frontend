@@ -16,25 +16,60 @@ button {
   &.btn-primary {
     color: #fff;
     background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
+
+
+  }
+
+
+  &.btn-primaryBorder {
+    border: 2.7px solid rgba(253, 253, 253, 0.15);
   }
 
   &.btn-secondary {
-border: 1.8px solid var(--main, #FD0000);
+    border: 1.8px solid var(--main, #FD0000);
     color: var(--primary);
     background: #fff;
+
     .rotate-360 {
       filter: invert(0);
     }
   }
+
   &:disabled {
     cursor: not-allowed;
   }
+
+  &.btn-white {
+    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
+    background-color: white;
+    color: #2B2B2B;
+    font-family: Roboto;
+    font-size: 14px;
+    letter-spacing: 0.42px;
+    padding: 15px;
+
+  }
+
+  &.btn-gray {
+    // box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
+    background-color: white;
+    // color: var(--lightGray);
+    font-family: Roboto;
+    font-size: 16px;
+    border: 2.8px solid #E7E7E7;
+    border-radius: 15px;
+    padding: 10px;
+    // padding: 10px;
+
+  }
+
 
 
   @keyframes rotateAnimation {
     from {
       transform: rotate(0deg);
     }
+
     to {
       transform: rotate(360deg);
     }

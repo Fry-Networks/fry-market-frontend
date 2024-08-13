@@ -1,8 +1,14 @@
 import React from 'react'
+import Navbar from '../components/layout/navbar';
+import ProfilePage from '../components/artistProfile/profilePage';
+import ProfileData from './profileData';
 
 const ArtistsProfile = () => {
   return (
-    <div>ArtistsProfile</div>
+ <>
+    <Navbar />
+   <ProfileData/>
+ </>
   )
 }
 

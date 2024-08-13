@@ -1,9 +1,11 @@
 import React from "react";
 import loader from "../../assets/icons/loading.svg";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Button = ({
   text,
   img,
+  icon,
   className,
   onClick,
   minHeight,
@@ -26,6 +28,7 @@ const Button = ({
     width: width,
     padding: padding,
     img:img,
+    icon:icon,
     imgClass:imgClass,
   };
   if (loading) {
@@ -48,6 +51,7 @@ const Button = ({
       ) : (
         <>
           {img && <img src={img} alt="Button Image" className={imgClass} />}
+          {icon && icon}
           <span>{text}</span>
         </>
       )}

@@ -44,7 +44,7 @@ const Faq = () => {
   };
 
   return (
-    <div className="faqWrapper mb-52">
+    <div className="faqWrapper mb-52 md:mb-20">
       <div className="container">
         <h2 className="font-bold font-Apex uppercase text-center tracking-wide darkBlack mb-10">
           Frequently Asked Questions

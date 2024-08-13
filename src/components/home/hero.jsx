@@ -9,8 +9,8 @@ const Hero = () => {
   return (
   <>
   <div className="heroWrapper  my-16 relaytive">
-    <img className='leftHand  absolute left-[0px] top-[720px] -z-10' src={leftHand} alt="" />
-    <img className='rightHand absolute right-[0px] top-[720px] -z-10' src={rightHand} alt="" />
+    <img className='leftHand  absolute left-[0px] top-[65%]' src={leftHand} alt="" />
+    <img className='rightHand absolute right-[-350px] top-[65%]' src={rightHand} alt="" />
 
     {/* <img className='absolute bottom-[-290px]' src={hands} alt="" /> */}
     <div className="container">

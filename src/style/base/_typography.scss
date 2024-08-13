@@ -12,7 +12,7 @@ body {
   }
   h3 {
     
-    font-size: 20px;
+    font-size: 40px;
   }
   h4 {
  
@@ -67,14 +67,17 @@ background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
 .cursor-pointer{
   cursor: pointer;
 }
-
-
+.border-gray{
+  border-radius: 15px;
+border: 3px solid #E7E7E7;
+background: #FFF;
+}
 
 @media screen and (max-width:1440px) {
   body{
     h1{
       font-size: 64px;
-
+    
     }
     h2{
       font-size: 44px;
@@ -100,5 +103,5 @@ background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
      }
   }
 
-
+  
 }
