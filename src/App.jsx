@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./page/home";
 import Auction from "./page/auction";
 import NftCollection from "./page/nftCollection";
@@ -11,10 +11,26 @@ import NftDetail from "./page/nftDetail";
 import ArtistsProfile from "./page/artistsProfile";
 import CreateNftPage from "./page/createNftPage";
 import CreateNft from "./page/createNft";
+import Navbar from "./components/layout/navbar";
+import Footer from "./components/layout/footer";
+import ArtistProfileArt from "./page/artistProfileArt";
+import SellMethod from "./page/sellMethod";
 
 function App() {
+  const location = useLocation();
+
+  const isNavbar =
+    location.pathname === "/" ||
+    location.pathname === "/auction" ||
+    location.pathname === "/nft-collection" ||
+    location.pathname === "/top-collection" ||
+    location.pathname === "/top-seller" ||
+    location.pathname === "/seller-collection" ||
+    location.pathname === "/create-nft-page";
+
   return (
     <>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/auction" element={<Auction />} />
@@ -28,7 +44,12 @@ function App() {
         <Route path="/nft-detail" element={<NftDetail />} />
         <Route path="/create-nft-page" element={<CreateNftPage />} />
         <Route path="/artist-profile" element={<ArtistsProfile />} />
+        <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
+        <Route path="/sell-method" element={<SellMethod />} />
+
+
       </Routes>
+      {isNavbar ? <Footer /> : ""}
     </>
   );
 }

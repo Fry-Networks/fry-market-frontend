@@ -17,19 +17,19 @@ import ReadyForNext from "../components/home/readyForNext";
 const Home = () => {
   return (
     <div>
-      <Navbar />
+   
       <Hero />
       <Featured />
-      <TrendingNft />
-      <TopSeller />
+     <TrendingNft />
+        <TopSeller />
       <Auction />
-      <TopCollections />
-      <SoldNft />
-      <DigitalAssets />
-      <BoostNft />
-      <Faq />
-      <ReadyForNext />
-      <Footer />
+       <TopCollections />
+     <SoldNft />
+       <DigitalAssets />
+     <BoostNft />
+     <Faq />
+        <ReadyForNext />
+    
       {/* <Components /> */}
     </div>
   );

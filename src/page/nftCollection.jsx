@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from "../components/layout/navbar";
 import NftCollectBanner from '../components/nftCollection/nftCollectBanner';
 import Explore from '../components/nftCollection/explore';
@@ -6,13 +6,17 @@ import Footer from "../components/layout/footer";
 import ReadyForNext from "../components/home/readyForNext";
 
 const NftCollection = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
-         <Navbar />
+      
          <NftCollectBanner/>
          <Explore/>
          <ReadyForNext />
-         <Footer />
+        
     </div>
   )
 }

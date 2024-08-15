@@ -1,18 +1,18 @@
 import React from "react";
 import leftImg from "../../assets/topCollection/bannerLeftImg.png";
 
-const PixacioBanner = () => {
+const PixacioBanner = ({ name, image }) => {
   return (
     <>
       <div className="topCollectionBanner w-full h-screen flex-center ">
         <div className="container">
-          <div className="inner flex-center gap-5">
+          <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
-              <img className="w-full h-full" src={leftImg} alt="" />
+            <img className="w-full h-full" src={image} alt="" />
             </div>
             <div className="rightArea w-3/5 flex flex-col gap-8 ">
               <h2 className="font-bold font-Apex uppercase text-left tracking-wide darkBlack">
-                PIXACIO
+              {name}
               </h2>
               <div className="itemDiv flex flex-wrap gap-4 gap-y-8">
                 <div

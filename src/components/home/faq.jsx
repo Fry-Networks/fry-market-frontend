@@ -1,6 +1,7 @@
 import React from "react";
 import { Collapse, theme } from "antd";
-
+import minus from "/src/assets/icons/minus.svg";
+import plus from "/src/assets/icons/plus.svg";
 
 const text1 = `
 An NFT (Non-Fungible Token) is a unique digital asset that represents ownership or proof of authenticity of a specific item or piece of content, often associated with digital art, collectibles, or virtual goods, and is stored on a blockchain.
@@ -51,18 +52,11 @@ const Faq = () => {
         </h2>
         <div className="faqAccordion">
           <Collapse
-          className="faqStyling"
+            className="faqStyling"
             bordered={false}
             defaultActiveKey={["1"]}
             expandIcon={({ isActive }) => (
-              <img
-                src={
-                  isActive
-                    ? "/src/assets/icons/minus.svg"
-                    : "/src/assets/icons/plus.svg"
-                }
-                alt=""
-              />
+              <img src={isActive ? minus : plus} alt="" />
             )}
             style={{
               background: token.colorBgContainer,
@@ -79,7 +73,6 @@ const Faq = () => {
               }
               key="1"
               style={panelStyle}
-           
             >
               <p className="text-base">{text1}</p>
             </Collapse.Panel>
@@ -91,7 +84,6 @@ const Faq = () => {
               }
               key="2"
               style={panelStyle}
-            
             >
               <p className="text-base">{text2}</p>
             </Collapse.Panel>
@@ -103,7 +95,6 @@ const Faq = () => {
               }
               key="3"
               style={panelStyle}
-          
             >
               <p className="text-base">{text3}</p>
             </Collapse.Panel>
@@ -115,7 +106,6 @@ const Faq = () => {
               }
               key="4"
               style={panelStyle}
-           
             >
               <p className="text-base">{text4}</p>
             </Collapse.Panel>

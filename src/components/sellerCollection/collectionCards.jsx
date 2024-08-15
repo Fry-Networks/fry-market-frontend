@@ -3,8 +3,10 @@ import card1 from "../../assets/images/sellerCollection/nft1.png";
 import card2 from "../../assets/images/sellerCollection/nft2.png";
 import card3 from "../../assets/images/sellerCollection/nft3.png";
 import { Link } from "react-router-dom";
+import Button from "../../components/shared/button";
+import arrowDown from "../../assets/icons/redDownArw.svg";
 
-const CollectionCard = () => {
+const CollectionCard = ({ isArtistProfile }) => {
   const cards = [
     {
       id: 1,
@@ -82,19 +84,39 @@ const CollectionCard = () => {
     <>
       <div className="container">
         <div>
-          <h2 className="font-bold font-Apex darkBlack mb-6">COLLECTIONS</h2>
+          {isArtistProfile ? (
+            <div className="mt-12 my-6 w-full flex justify-between ">
+              <Button
+                className="button btn-secondary medium font-normal font-Roboto"
+                minWidth={140}
+                minHeight={50}
+                text="Collections"
+             
+              />
+              <Button
+                className="button btn-secondary medium font-normal font-Roboto relative flex items-center justify-center gap-1"
+                minWidth={140}
+                minHeight={50}
+                text="Newest"
+                img={arrowDown}
+                imgClass="order-1"
+              />
+            </div>
+          ) : (
+            <h2 className="font-bold font-Apex darkBlack mb-6">COLLECTIONS</h2>
+          )}
         </div>
         <div className="grid grid-cols-3 gap-9 mb-[200px]">
           {cards.map((card) => (
-            <Link to="/top-collection">
-                <div key={card.id} className="card flex flex-col items-start gap-1" >
-                  <p className="font-Roboto font-bold darkBlack ">{card.title}</p>
-                  <p className="small font-Roboto grayOpacity font-normal">
-                    {card.items}
-                    <span className="ml-2 darkBlack font-bold">{card.value}</span>
-                  </p>
-                  <img src={card.img} alt={card.title} className="mt-3" />
-                </div>
+            <Link to="/top-collection" key={card.id}>
+              <div className="card flex flex-col items-start gap-1">
+                <p className="font-Roboto font-bold darkBlack">{card.title}</p>
+                <p className="small font-Roboto grayOpacity font-normal">
+                  {card.items}
+                  <span className="ml-2 darkBlack font-bold">{card.value}</span>
+                </p>
+                <img src={card.img} alt={card.title} className="mt-3" />
+              </div>
             </Link>
           ))}
         </div>

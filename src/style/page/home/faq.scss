@@ -5,15 +5,21 @@
   margin: 0 auto;
   padding: 10px !important;
 }
-:where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless
-  > .ant-collapse-item {
+.ant-collapse-item {
   border-radius: 20px !important;
   border: 3px solid #e7e7e7 !important;
 }
 .ant-collapse-item {
   padding: 7px !important;
 }
-
+.faqWrapper {
+  .ant-collapse {
+    background: transparent !important;
+  }
+  .ant-collapse-item {
+    background: unset !important;
+  }
+}
 :where(.css-dev-only-do-not-override-1pg9a38).ant-collapse
   > .ant-collapse-item
   > .ant-collapse-header {
@@ -51,6 +57,7 @@
 }
 
 .faqWrapper {
+
   .container {
     .faqAccordion {
       .faqStyling {
@@ -71,4 +78,24 @@
     display: flex;
     align-items: center;
   }
+}
+@media screen and (max-width:1200px) {
+  .faqWrapper{
+    
+    
+       
+          .ant-collapse{
+            width: 100% !important;
+          }
+        
+      
+    
+  }
+}
+
+@media screen and (max-width:1000px) {
+  .faqWrapper{
+    margin-bottom: 40px;
+  }
+ 
 }

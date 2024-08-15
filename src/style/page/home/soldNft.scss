@@ -1,0 +1,53 @@
+.soldNftWrapper{
+  
+    .container{
+        .soldCardContainer{
+
+        }
+    }
+}
+
+@media screen and (max-width:1300px) {
+    .soldNftWrapper{
+        .container{
+            .soldCardContainer{
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+                place-items: center;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:1024px) {
+    .soldNftWrapper{
+        margin-bottom: 30px;
+        .container{
+            h2{
+                text-align: center;
+                margin-bottom: 0px;
+            }
+            .soldCardContainer{
+                display: grid;
+                margin-top: 0px;
+                grid-template-columns: repeat(2,1fr);
+                place-items: center;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:800px) {
+    .soldNftWrapper{
+        .container{
+            .soldCardContainer{
+                display: grid;
+                grid-template-columns: repeat(1,1fr);
+                place-items: center;
+            }
+        }
+    }
+    
+}

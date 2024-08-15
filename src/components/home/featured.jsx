@@ -9,18 +9,18 @@ import nftImg4 from "../../assets/home/images/cardImg4.png";
 const Featured = () => {
   return (
     <>
-      <div className="featureWrapper my-20 pt-10">
+      <div className="featureWrapper mb-40 lg:mt-72 pt-10 ">
         <div className="container">
-          <h2 className="font-normal font-Apex uppercase">
+          <h2 className="font-normal font-Apex uppercase text-center xl:text-left ">
             Featured Collection
           </h2>
-          <p className="lightGray medium font-light font-Roboto text-left w-[750px]">
+          <p className="lightGray medium font-light font-Roboto text-center xl:text-left   w-full xl:w-[750px] ">
             Explore our exclusive featured collection, showcasing innovative
             campaigns and creative storytelling from top brands around the
             world.
           </p>
 
-          <div className="featureCardContainer mt-10 flex justify-center gap-4">
+          <div className="flex flex-wrap xl:flex-nowrap justify-center featureCardContainer mt-10  gap-4 ">
             {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
             ))}

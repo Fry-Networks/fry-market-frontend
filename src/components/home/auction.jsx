@@ -12,12 +12,19 @@ import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
 import Button from "../shared/button";
 import moreUp from "../../assets/icons/moreUpArrow.svg";
 import auctionBack from "../../assets/home/images/auction/auctionBack.png";
+import { useNavigate } from 'react-router-dom';
 
 const Auction = () => {
+  const navigate= useNavigate();
+
+  const goToAuction = () => {
+ 
+    navigate('/auction');
+  };
   return (
     <>
-      <div className="auctionWrapper mb-52 relative md:mb-20">
-        <img className='absolute left-[300px] -z-10' src={auctionBack} alt="" />
+      <div  className="auctionWrapper mb-52 relative md:mb-20">
+        {/* <img className=' auctionBack absolute left-[300px] -z-20' src={auctionBack} alt="" /> */}
         <div className="container">
           <h2 className="font-normal font-Apex uppercase mb-10">
             AUCTION
@@ -36,8 +43,11 @@ const Auction = () => {
               text="Explore More"
                 img={moreUp}
             imgClass="order-1"
+            onClick={goToAuction}
             ></Button>
         </div>
+
+        <img className='auctionBack absolute left-[0] top-[-150px] -z-10 w-full' src={auctionBack} alt="" />
       </div>
     </>
   );

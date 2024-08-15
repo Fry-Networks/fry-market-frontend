@@ -1,12 +1,17 @@
 import React from 'react';
 import headerImg from "../../assets/nftCollection/popularHeaderImg.png";
 import icontick from "../../assets/icons/purplr-bg-tick.svg"; 
+import { useNavigate } from "react-router-dom";
 const ExploreCard = ({data}) => {
 
+  const navigate = useNavigate();
 
+  const handleClick = () => {
+    navigate("/top-collection");
+  };
   return (
     <>
-  <div className="exploreCard w-[417px] h-[276px] rounded-2xl p-2.5 outline outline-2 outline-[#E7E7E7]">
+  <div className="cursor-pointer exploreCard w-[417px] h-[276px] rounded-2xl p-2.5 outline outline-2 outline-[#E7E7E7]" onClick={handleClick}>
    
     <div className="inner flex flex-col gap-3 w-screen">
         <div className="headerArea flex justify-start items-center gap-3 w=1/4">

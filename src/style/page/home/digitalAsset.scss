@@ -1,0 +1,59 @@
+.digitalAssetWrapper{
+    .digitalGrid{
+
+    }
+    .container{
+        .digitalInput{
+
+        }
+    }
+}
+
+@media screen and (max-width:1300px) {
+    .digitalAssetWrapper{
+        .digitalGrid{
+            display: none;
+        }
+     
+    }
+    
+}
+
+
+@media screen and (max-width:1000px) {
+    .digitalAssetWrapper{
+ 
+        .digitalGrid{
+            display: none;
+        }
+        .container{
+            h2{
+                width: 100%;
+
+            }
+            .digitalInput{
+                width: 100% !important;
+                min-width: 100% !important;
+              
+                height: auto;
+                .input-box{
+                    min-width: 100% !important;
+                    width: 100% !important;
+                    margin-top: 200px;
+                    margin-bottom: 200px;
+                }
+                button{
+                    top: 23%;
+                }
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:700px) {
+    .digitalAssetWrapper{
+        margin-bottom: 30px;
+    }
+    
+}

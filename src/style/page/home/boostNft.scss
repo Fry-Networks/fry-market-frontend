@@ -1,0 +1,45 @@
+.boostNftWrapper {
+  .container {
+    .inner {
+      .leftArea {
+      }
+      .rightArea {
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .boostNftWrapper {
+    .container {
+      .inner {
+        flex-direction: column;
+
+        .leftArea {
+          width: 100%;
+          align-items: center;
+          justify-content: center;
+          flex-direction: column;
+          text-align: center;
+          gap: 20px;
+          h2{
+text-align: center;
+          }
+          p{
+            width: 100%;
+          }
+        }
+        .rightArea {
+          width: 100%;
+       display: none;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:800px) {
+    .boostNftWrapper{
+        margin-bottom: 40px;
+    }
+    
+}
