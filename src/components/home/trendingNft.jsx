@@ -18,7 +18,7 @@ const TrendingNft = () => {
   return (
     <div className="trendingNftWrapper my-52 md:my-20">
       <div className="container">
-        <div className='flex justify-between'>
+        <div className='flex inner items-center justify-between'>
           <h2 className="font-normal font-Apex uppercase">
             Trending NFT'S
           </h2>
@@ -33,9 +33,9 @@ const TrendingNft = () => {
           />
         </div>
       
-        <div className="nftWrapper mt-10 grid grid-cols-4  gap-x-10 gap-y-7">
+        <div className="nftWrapper mt-10 grid  grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
           {trendingCard.map((data, index) => (
-            <CollectionsCard key={data.id} data={data} /> // Added key prop
+            <CollectionsCard key={data.id} data={data} /> 
           ))}
         </div>
       </div>

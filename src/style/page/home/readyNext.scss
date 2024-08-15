@@ -1,0 +1,41 @@
+.nextNftWrapper{
+    .container{
+        .nftDropInput{
+            .input-box{
+                .input-wrapper{
+                    input{
+                     padding: 29px 55px;   
+                    }
+                }
+            }
+            button{
+                top: 20px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width:900px) {
+    .nextNftWrapper{
+        .container{
+            .nftDropInput{
+                width: 100% !important;
+                .input-box{
+                    .input-wrapper{
+                      width: 100% !important;
+
+                      input{
+                        padding: 20px;   
+                       }
+                    }
+                }
+                button{
+                 width: 40px;
+                 height: 40px;
+                }
+                
+            }
+        }
+    }
+    
+}

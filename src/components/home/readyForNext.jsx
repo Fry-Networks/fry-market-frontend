@@ -16,7 +16,7 @@ const ReadyForNext = () => {
 
           <div
             style={{ width: "680px", margin: "0 auto"}}
-            className="relative"
+            className="relative nftDropInput"
           >
             <Input
               wrapperClass="flex items-center justify-center mx-auto z-10 border-2 border-red-500 "

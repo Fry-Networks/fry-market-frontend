@@ -1,0 +1,22 @@
+.trendingNftWrapper{
+    .container{
+        .inner{
+
+        }
+    }
+}
+
+@media screen and (max-width:1000px){
+    .trendingNftWrapper{
+        margin-bottom: 30px;
+        margin-top: 30px;
+        .container{
+            .inner{
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    }
+    
+}

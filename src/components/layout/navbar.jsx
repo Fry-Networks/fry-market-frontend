@@ -1,5 +1,5 @@
 // import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/websiteLogo.svg";
 import { Drawer } from "antd";
 import Button from "../shared/button";
@@ -9,13 +9,19 @@ import menu from "../../assets/icons/menu.png";
 import { useState } from "react";
 
 const Navbar = () => {
+  const navigate= useNavigate();
+  const goToCraeteNft = ()=>{
+    navigate("/create-nft-page")
+  }
   const location = useLocation();
 
   const isCreateNftPage =
     location.pathname === "/create-nft" ||
     location.pathname === "/createnft-collect" ||
     location.pathname === "/create-nft-page" ||
-    location.pathname === "/select-nft";
+    location.pathname === "/select-nft"  ||
+    location.pathname === "/sell-method";
+
 
   console.log(location.pathname);
 
@@ -73,6 +79,7 @@ const Navbar = () => {
                   minWidth={176}
                   minHeight={58}
                   text="Create NFT"
+                  onClick={goToCraeteNft}
                 />
               </div>
             )}

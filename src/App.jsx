@@ -13,6 +13,8 @@ import CreateNftPage from "./page/createNftPage";
 import CreateNft from "./page/createNft";
 import Navbar from "./components/layout/navbar";
 import Footer from "./components/layout/footer";
+import ArtistProfileArt from "./page/artistProfileArt";
+import SellMethod from "./page/sellMethod";
 
 function App() {
   const location = useLocation();
@@ -42,6 +44,10 @@ function App() {
         <Route path="/nft-detail" element={<NftDetail />} />
         <Route path="/create-nft-page" element={<CreateNftPage />} />
         <Route path="/artist-profile" element={<ArtistsProfile />} />
+        <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
+        <Route path="/sell-method" element={<SellMethod />} />
+
+
       </Routes>
       {isNavbar ? <Footer /> : ""}
     </>

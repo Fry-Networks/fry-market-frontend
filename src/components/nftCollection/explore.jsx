@@ -201,9 +201,4 @@ const Explore = () => {
 
 export default Explore;
 
-const exploreData=[
-    {
-        id:1,
-        headerImg:headerImg
-    }
-]
+

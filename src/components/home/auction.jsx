@@ -23,8 +23,8 @@ const Auction = () => {
   };
   return (
     <>
-      <div className="auctionWrapper mb-52 relative md:mb-20">
-        <img className='absolute left-[300px] -z-10' src={auctionBack} alt="" />
+      <div  className="auctionWrapper mb-52 relative md:mb-20">
+        {/* <img className=' auctionBack absolute left-[300px] -z-20' src={auctionBack} alt="" /> */}
         <div className="container">
           <h2 className="font-normal font-Apex uppercase mb-10">
             AUCTION
@@ -47,7 +47,7 @@ const Auction = () => {
             ></Button>
         </div>
 
-        <img className='absolute left-[0] top-[-150px] -z-10 w-full' src={auctionBack} alt="" />
+        <img className='auctionBack absolute left-[0] top-[-150px] -z-10 w-full' src={auctionBack} alt="" />
       </div>
     </>
   );

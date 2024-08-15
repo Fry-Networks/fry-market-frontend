@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import TopCollectionCard from "../cards/topCollectionCard";
 import card1BodyImg1 from "../../assets/home/images/topCollections/cardBodyImg1.png";
@@ -27,17 +27,18 @@ import { useNavigate } from "react-router-dom";
 
 const TopCollections = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <div className="topCollectionWrapper mb-52 relative">
         <img
-          className="absolute top-[-400px] -z-10"
+          className="colectionBack absolute top-[-400px] -z-10"
           src={colectionBack}
           alt=""
         />
         <div className="container">
-          <div className="flex justify-between items-center">
-            <h2 className="font-normal font-Apex uppercase mb-10">
+          <div className="headingDiv flex justify-between items-center">
+            <h2 className="font-normal font-Apex uppercase">
               Top collections
             </h2>
             <p
