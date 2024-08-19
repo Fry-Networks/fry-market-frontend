@@ -20,7 +20,23 @@ button {
 
   }
 
+  &.btn-whiteClr{
+    color: var(--darkBlack);
+   background-color: white;
+   border: 2px solid #F4F3F3;
 
+
+  }
+
+  
+  &.btn-grayDark{
+    border-radius: 8px;
+    border: 2px solid #E7E7E7;
+    background-color: #F4F4F4 !important;
+    padding: 16px 32px;
+    color: #2B2B2B;
+    
+  }
   &.btn-primaryBorder {
     border: 2.7px solid rgba(253, 253, 253, 0.15);
   }
@@ -60,6 +76,19 @@ button {
     border-radius: 15px;
     padding: 10px;
     // padding: 10px;
+
+
+    // &.btn-grayDark{
+    //   border-radius: 8px;
+    //   border: 2px solid #E7E7E7;
+    //   background-color: #F4F4F4 !important;
+    //   padding: 16px 32px;
+    //   color: #2B2B2B;
+      
+    // }
+  
+
+
 
   }
 

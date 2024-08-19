@@ -8,7 +8,7 @@ const PromptCard = ({ data }) => {
         className="promptCard  rounded-3xl p-4 outline outline-[#E7E7E7] flex-center gap-11 relative "
       >
         <img
-          className="absolute top-[100px] left-[280px]"
+          className="absolute top-[100px] left-[280px] cursor-pointer"
           src="/src/assets/createNft/copy.png"
           alt=""
         />

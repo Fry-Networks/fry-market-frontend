@@ -13,6 +13,7 @@ import { TreeSelect } from 'antd';
 import AuctionCard from '../cards/auctionCard';
 import { DownOutlined, FilterOutlined } from '@ant-design/icons';
 import '../../style/page/auction/topListed.scss';
+import rightGlow from "../../assets/auction/rightGlow.png";
 
 
 const { TreeNode } = TreeSelect;
@@ -50,6 +51,7 @@ const TopListed = () => {
   return (
     <>
     <div className="topListedSection relative mb-52">
+      <img className='absolute right-0 top-32' src={rightGlow} alt="" />
       <div className="absolute top-0 left-0 hidden">
         <div className="dropdown w-[300px]  bg-white rounded-[30px]">
           <div className="custom-header" onClick={toggleDropdown}>

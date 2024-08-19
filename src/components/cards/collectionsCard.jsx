@@ -91,7 +91,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }) => {
               </div>
             </button>
           </div>
-          <img src={data.nftImg} alt="" />
+          <img className="rounded-lg" src={data.nftImg} alt="" />
         </div>
       </div>
     </>

@@ -1,12 +1,18 @@
-import React from 'react';
+import { useState } from "react";
 import Button from "../../components/shared/button";
 import timeIcon from "../../assets/icons/timeIcon.svg";
+import PlaceBid from "../../modals/placeBid"
 
-const AuctionCard = ({data}) => {
+const AuctionCard = ({ data }) => {
+  const [isbidmodal, setisbidmodal] = useState(false);
+
+  const showplaceBidModal = () => {
+    setisbidmodal(true);
+  };
   return (
-<>
-<div className='auctionCard flex flex-col gap-2 bg-white'>
-<div className="Cardheader flex justify-start gap-2">
+    <>
+      <div className="auctionCard flex flex-col gap-2 bg-white">
+        <div className="Cardheader flex justify-start gap-2">
           <div className="t-left-part w-1/5">
             <img src={data.userImg} alt="" />
           </div>
@@ -20,31 +26,25 @@ const AuctionCard = ({data}) => {
           </div>
         </div>
         <div className="cardBody relative">
-
-
-        <Button
-                className="placeBidBtn button font-Montserrat btn-primary font-semibold ex-small absolute -bottom-9 opacity-0 left-[100px]"
-                minWidth={96}
-                minHeight={37}
-                text="Place a Bid"
-              />
-        <div
-            className="z-50 timimgDiv  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-lg py-2.5 px-4 bg-white bg-opacity-80"
-        >
+          <Button
+            className="placeBidBtn button font-Montserrat btn-primary font-semibold ex-small absolute -bottom-9 opacity-0 left-[100px]"
+            minWidth={96}
+            minHeight={37}
+            text="Place a Bid"
+            onClick={showplaceBidModal}
+          />
+          <div className="z-50 timimgDiv  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-lg py-2.5 px-4 bg-white bg-opacity-80">
             <p className="medium font-medium darkBlack">3:06:59:18</p>
           </div>
-        
+
           <div className="absolute p-3 bottom-0 flex justify-between items-center w-full z-50">
-    
-              <div className="cursor-pointer rounded-lg p-2.5 bg-white flex justify-between items-center gap-4">
-                <p className="ex-small darkBlack font-medium font-Roboto">
-                  In Stock
-                </p>
-                <p className="ex-small lightGray font-medium font-Roboto">7</p>
-              </div>
-          
-          
-        
+            <div className="cursor-pointer rounded-lg p-2.5 bg-white flex justify-between items-center gap-4">
+              <p className="ex-small darkBlack font-medium font-Roboto">
+                In Stock
+              </p>
+              <p className="ex-small lightGray font-medium font-Roboto">7</p>
+            </div>
+
             <button className="p-3 bg-white flex gap-2 items-center">
               <span className="ex-small darkBlack fw-medium">Price:</span>
               <div className="flex gap-1">
@@ -57,9 +57,13 @@ const AuctionCard = ({data}) => {
           </div>
           <img src={data.nftImg} alt="" />
         </div>
-</div>
-</>
-  )
-}
+      </div>
+
+      <PlaceBid
+       isbidmodal={isbidmodal} 
+      setisbidmodal={setisbidmodal} />
+    </>
+  );
+};
 
 export default AuctionCard;
