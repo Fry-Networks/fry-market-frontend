@@ -9,16 +9,19 @@ import newCollect from "../assets/artistsProfile/newCollect.png";
 import Button from "../components/shared/button";
 import tick from "../assets/icons/priceTick.svg"; // Import tick icon
 import { useNavigate } from "react-router-dom";
-import fryIcon from "../assets/icons/fryIcon.svg"
+import fryIcon from "../assets/icons/fryIcon.svg";
+import { Select } from 'antd';
 
 const SellMethod = () => {
   const navigate = useNavigate();
-  const [selectedMethod, setSelectedMethod] = useState(null);
+  const [selectedMethod, setSelectedMethod] = useState("fixed");
 
   const handleMethodSelect = (method) => {
     setSelectedMethod(method);
   };
-
+  const handleChange = (value) => {
+    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+  };
   return (
     <>
       <div className="sellMethodContainer">
@@ -112,22 +115,80 @@ const SellMethod = () => {
                 </div>
               </div>
 
+{
+  selectedMethod==="auction" && (
+
+    <div className="mt-3 flex flex-col gap-2 duration">
+    <label className="darkBlack large font-medium font-Roboto">
+   Duration
+    </label>
+   
+     
+      {/* <input
+        placeholder="1 month"
+        type="text"
+        className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
+      /> */}
+<div className="w-full selectDiv">
+<Select
+    labelInValue
+    defaultValue={{
+      value: 'lucy',
+      label: 'Select time',
+    }}
+    style={{
+      width: 770,
+      fontSize:18,
+      color:"#808080"
+    }}
+    onChange={handleChange}
+    options={[
+      {
+        value: 'day1',
+        label: '1 Day',
+      },
+      {
+        value: 'week1',
+        label: '1 Week',
+      },
+
+      {
+        value: 'month1',
+        label: '1 Month',
+      },
+      {
+        value: 'custom',
+        label: 'Custom',
+      },
+    ]}
+  />
+</div>
+
+    
+  </div>
+  )
+}
+
+{
+  selectedMethod==="fixed" && (
+<div className="mt-3">
+    <label className="darkBlack large font-medium font-Roboto">
+    Schedule Listing
+    </label>
+   
+     
+      <input
+        placeholder="1 month"
+        type="text"
+        className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
+      />
+    
+  </div>
+  )
+}
 
 
-              <div className="mt-3">
-                <label className="darkBlack large font-medium font-Roboto">
-                Schedule Listing
-                </label>
-               
-                 
-                  <input
-                    placeholder="1 month"
-                    type="text"
-                    className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
-                  />
-                
-              </div>
-              {selectedMethod === "auction" && (
+              {/* {selectedMethod === "auction" && (
                 <div className="extraInput mt-4">
                   <label className="darkBlack large font-medium font-Roboto">
                     Additional Info
@@ -138,7 +199,7 @@ const SellMethod = () => {
                     className="w-full py-[19px] px-[30px] rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
                   />
                 </div>
-              )}
+              )} */}
               {/* <div className="chooseCollection my-3">
                 <p className="darkBlack large font-medium font-Roboto">
                   Choose Collection

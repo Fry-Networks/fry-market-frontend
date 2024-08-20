@@ -14,8 +14,8 @@ const Auction = () => {
     <div>
      
       <AuctionBanner />
-      <TopListed/>
-      <LiveAuction/>
+    <TopListed/>
+        <LiveAuction/>
       <ReadyForNext />
      
     </div>

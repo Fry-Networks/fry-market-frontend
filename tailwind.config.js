@@ -23,7 +23,7 @@ export default {
     extend: {
       screens: {
         xs: "100%",
-        lg: "800px",
+        lg: "840px",
         lg10: "1024px",
         xl: "1150px",
         "2xl": "1320px"  // Corrected to include 'px'

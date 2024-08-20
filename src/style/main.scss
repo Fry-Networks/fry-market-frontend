@@ -48,9 +48,13 @@
 
 ///Auction
 @import "./page/auction/topListed.scss";
+@import "./page/auction/auctionBanner.scss";
+@import "./page/auction/liveAuction.scss";
+
 
 ///nftCollection
 @import "./page/nftCollection/explore.scss";
+@import "./page/nftCollection/nftCollectBanner.scss";
 
 //Top Seller
 @import "./page/topSeller.scss";
@@ -73,3 +77,6 @@
 
 //Modals
 @import "./modals/connectWallet.scss";
+
+//Sell Method
+@import "./page/sellMethod/sellMethod.scss";

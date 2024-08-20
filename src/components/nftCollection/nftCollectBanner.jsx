@@ -7,8 +7,9 @@ const NftCollectBanner = () => {
 <div className="nftBanner h-screen">
     <div className="container">
         <div className="inner flex-center gap-3">
-            <div  className="leftArea w-2/5 flex flex-col items-center h-screen justify-center">
-            <h2 className= 'font-bold font-Apex darkBlack'><span className=' primary text-[220px] '>NFT </span>COLLECTIONS</h2>
+            <div  className="leftArea w-2/5 flex flex-col items-center  justify-start">
+            <h2 className= 'nft primary text-[220px] font-bold font-Apex '>NFT</h2>
+            <h2 className='collection darkBlack font-Apex font-bold text-left'>Collection</h2>
           
             </div>
             <div className="rightArea w-3/5 h-full">

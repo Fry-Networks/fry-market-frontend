@@ -10,7 +10,7 @@ const AuctionBanner = () => {
   return (
  <>
  <div className="auctionBannerWrapper h-screen relative">
-    <img className='absolute right-[0px] bottom-[-300px]' src={bannerGrid} alt="" />
+    <img className='bannergrid absolute right-[0px] bottom-[-300px] -z-10' src={bannerGrid} alt="" />
 <div className="container">
     <div className="bannerInner flex flex-col items-center justify-center h-screen gap-3">
         <h1 className='text-[150px] primary font-bold font-Apex text-center tracking-[6px]'>AUCTION</h1>
