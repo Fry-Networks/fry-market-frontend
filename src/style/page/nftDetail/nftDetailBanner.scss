@@ -222,3 +222,160 @@
 .nft-collapes {
   background-color: red;
 }
+
+@media screen and (max-width: 1440px) {
+  .nftDetailBannerWrapper {
+    .topSection {
+      .leftArea {
+      }
+      .rightArea {
+        .pixacioDiv {
+        }
+        .salesEndDiv {
+          .salesHeader {
+          }
+          .salesBody {
+            .area1 {
+            }
+            .area2 {
+              .btnBuy {
+                min-width: 50% !important;
+              }
+
+              .btnOffer {
+                min-width: 50% !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+  }
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  .nftDetailBannerWrapper {
+    .topSection {
+      flex-direction: column;
+      .leftArea {
+        width: 100%;
+        .pixicoImg{
+          width: 300px;
+          margin: 0 auto;
+        }
+
+        .descriptionAccordion{
+          width: 100%;
+        }
+      }
+      .rightArea {
+        width: 100%;
+        .pixacioDiv {
+        }
+        .salesEndDiv {
+          .salesHeader {
+          }
+          .salesBody {
+            .area1 {
+            }
+            .area2 {
+              .btnBuy {
+                min-width: 50% !important;
+              }
+
+              .btnOffer {
+                min-width: 50% !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottomSection {
+    }
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .nftDetailBannerWrapper {
+  .leftGlow{
+    display: none;
+  }
+  .rightGlow{
+    display: none;
+  }
+    .topSection {
+      flex-direction: column;
+      .leftArea {
+     
+      
+
+        .descriptionAccordion{
+          width: 100%;
+
+          .traitsDiv{
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+      }
+      .rightArea {
+        width: 100%;
+        .pixacioDiv {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 100%;
+          align-items: center;
+        }
+        .salesEndDiv {
+          .salesHeader {
+          }
+          .salesBody {
+            .area1 {
+            }
+            .area2 {
+              .btnBuy {
+                min-width: 50% !important;
+              }
+
+              .btnOffer {
+                min-width: 50% !important;
+              }
+            }
+          }
+        }
+
+        .listingAccordion{
+          overflow-x: scroll;
+          .ant-collapse{
+            overflow-x: scroll;
+          }
+        }
+
+        .detailsAccordion{
+          overflow-x: scroll;
+.ant-collapse{
+  overflow-x: scroll;
+}
+        }
+      }
+    }
+    .bottomSection {
+      .itemActivityAccordion{
+        overflow-x: scroll;
+        width: 100%;
+        .ant-collapse{
+          width: 100%;
+          overflow-x: scroll;
+          .ant-collapse-item{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

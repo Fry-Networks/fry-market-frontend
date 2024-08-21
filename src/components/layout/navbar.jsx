@@ -1,6 +1,6 @@
 
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/icons/websiteLogo.svg";
+import logo from "../../assets/icons/logo.svg";
 import { Drawer } from "antd";
 import Button from "../shared/button";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";

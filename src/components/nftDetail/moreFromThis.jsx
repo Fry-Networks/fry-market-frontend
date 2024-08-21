@@ -10,6 +10,8 @@ import collectNft5 from "../../assets/nftDetail/collectPic5.png";
 import collectNft6 from "../../assets/nftDetail/collectPic6.png";
 import collectNft7 from "../../assets/nftDetail/collectPic7.png";
 import collectNft8 from "../../assets/nftDetail/collectPic8.png";
+import leftGlow from "../../assets/nftCollection/redGloww.webp";
+import grid from "../../assets/nftCollection/exploreGrid.webp";
 
 const MoreFromThis = () => {
 
@@ -83,7 +85,10 @@ const MoreFromThis = () => {
       
   return (
    <>
-   <div className="moreFromThisWrapper my-52">
+   <div className="moreFromThisWrapper my-52 relative">
+    <img src={leftGlow} className='absolute left-0 top-[-100px] -z-10' alt="" />
+    <img src={grid} className='absolute right-0 top-[-100px] -z-10' alt="" />
+
     <div className="container">
     <h2 className="font-bold font-Apex uppercase tracking-wide darkBlack mb-10">
     More from this collection

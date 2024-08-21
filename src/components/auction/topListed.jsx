@@ -56,73 +56,10 @@ const TopListed = () => {
       <div className="topListedSection relative mb-52">
         <img className="absolute right-0 top-32 -z-10" src={rightGlow} alt="" />
         <div className="absolute top-0 left-0 w-[200px] collapseDiv">
-          {/* <div className="dropdown w-[300px]  bg-white rounded-[30px]">
-          <div className="custom-header" onClick={toggleDropdown}>
-            <FilterOutlined className="filter-icon" />
-       
-            <DownOutlined className={`dropdown-toggle-icon ${dropdownOpen ? 'open' : ''}`} />
-          </div>
-          {dropdownOpen && (
-            <TreeSelect
-              className="custom-treeselect"
-              style={{ width: '100%', marginBottom: '30px' }}
-              value={value}
-              dropdownStyle={{ maxHeight: 'auto', overflow: 'auto' }}
-              placeholder="Please select"
-              allowClear
-              treeDefaultExpandAll
-              onChange={onChange}
-              showSearch={false}
-              open={dropdownOpen}
-              onDropdownVisibleChange={toggleDropdown}
-            >
-              <TreeNode
-                value="parent 1"
-                title={<CustomTreeNodeTitle text="Popular" count="15" />}
-              >
-                <TreeNode value="parent 1-0" title="parent 1-0" />
-              </TreeNode>
-              <TreeNode
-                value="parent 2"
-                title={<CustomTreeNodeTitle text="Price" count="" />}
-              >
-                <TreeNode value="parent 2-0" title="parent 2-0" />
-              </TreeNode>
-              <TreeNode
-                value="parent 3"
-                title={<CustomTreeNodeTitle text="Background" count="20" />}
-              >
-                <TreeNode value="parent 3-0" title="parent 3-0" />
-              </TreeNode>
-              <TreeNode
-                value="parent 4"
-                title={<CustomTreeNodeTitle text="Clothing" count="110" />}
-              >
-                <TreeNode value="parent 4-0" title="parent 4-0" />
-              </TreeNode>
-              <TreeNode
-                value="parent 5"
-                title={<CustomTreeNodeTitle text="Eye" count="2" />}
-              >
-                <TreeNode value="parent 5-0" title="parent 5-0" />
-              </TreeNode>
-              <TreeNode
-                value="parent 6"
-                title={<CustomTreeNodeTitle text="Body Color" count="11" />}
-              >
-                <TreeNode value="parent 6-0" title="parent 6-0" />
-              </TreeNode>
-              <TreeNode
-                value="parent 7"
-                title={<CustomTreeNodeTitle text="Head" count="33" />}
-              >
-                <TreeNode value="parent 7-0" title="parent 7-0" />
-              </TreeNode>
-            </TreeSelect>
-          )}
-        </div> */}
+      
 
           <Collapse
+           defaultActiveKey={['1']}
             onChange={onTopList}
             items={[
               {
@@ -140,7 +77,8 @@ const TopListed = () => {
                 ),
                 children: (
                   <Collapse
-                    defaultActiveKey="1"
+                 
+                
                     items={[
                       {
                         key: "1-1",
@@ -162,7 +100,7 @@ const TopListed = () => {
                         label: "price",
                         children: (
                           <>
-                          <div className="w-full flex items-center gap-2 mt-3">
+                          <div className="w-full flex items-center justify-center gap-2 mt-3">
                             <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
                             <p>to</p>
                             <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>

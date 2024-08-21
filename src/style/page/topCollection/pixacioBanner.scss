@@ -1,0 +1,83 @@
+.topCollectionBanner {
+  .grid {
+  }
+  .container {
+    .inner {
+      .leftArea {
+      }
+      .rightArea {
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .topCollectionBanner {
+    height: auto;
+    .grid {
+      bottom: 0px;
+      top: 30px;
+    }
+    .container {
+      .inner {
+        margin-top: 50px;
+        .leftArea {
+        }
+        .rightArea {
+          h2 {
+            text-align: center;
+          }
+          .itemDiv {
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .topCollectionBanner {
+    height: auto;
+    margin-bottom: 40px;
+    .grid {
+      bottom: 0px;
+      top: 30px;
+    }
+    .container {
+      .inner {
+        margin-top: 0px;
+        flex-direction: column;
+        gap: 40px;
+        .leftArea {
+          width: 100%;
+          img{
+            width: 300px;
+            margin: 0 auto;
+          }
+        }
+        .rightArea {
+          width: 100%;
+          gap: 20px;
+          h2 {
+          }
+          .itemDiv {
+            width: 100%;
+            row-gap: 15px;
+            div{
+width: 100%;
+            }
+          }
+
+          .socialIcons {
+            justify-content: center;
+            flex-wrap: wrap;
+          }
+          p {
+            text-align: center;
+          }
+        }
+      }
+    }
+  }
+}

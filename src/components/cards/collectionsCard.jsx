@@ -7,6 +7,7 @@ import cardFearImg4 from "../../assets/home/images/cardImg2.png";
 import Button from "../../components/shared/button";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import BoostNft from "../../modals/boostNft";
+import whiteCard from "../../assets/home/images/whiteCard.png";
 
 const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer ,isProfilePage}) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
@@ -30,7 +31,8 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer ,isProf
   };
   return (
     <>
-      <div className="collectionCardd flex flex-col gap-2">
+      <div className="collectionCard flex flex-col gap-2 relative">
+      <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part w-1/5 ">
             <img src={data.userImg} alt="" />
