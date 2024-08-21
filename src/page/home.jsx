@@ -20,15 +20,15 @@ const Home = () => {
    
       <Hero />
       <Featured />
-       <TrendingNft />
-      <TopSeller />
+     <TrendingNft />
+        <TopSeller />
       <Auction />
-      <TopCollections />
-      <SoldNft />
-      <DigitalAssets />
-      <BoostNft />
-      <Faq />
-      <ReadyForNext />
+       <TopCollections />
+     <SoldNft />
+       <DigitalAssets />
+     <BoostNft />
+     <Faq />
+        <ReadyForNext />
     
       {/* <Components /> */}
     </div>

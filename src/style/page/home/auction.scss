@@ -1,0 +1,61 @@
+.auctionWrapper{
+    .container{
+        .nftWrapper{
+
+        }
+    }
+}
+
+@media screen and (max-width:1300px) {
+    .auctionWrapper{
+       // overflow-x: hidden;
+        .auctionBack{
+            display: none !important;
+        }
+        .container{
+            .nftWrapper{
+                display: grid;
+                grid-template-columns: repeat(3,1fr);
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:1024px) {
+    .auctionWrapper{
+       // overflow-x: hidden;
+       margin-bottom: 50px;
+       margin-top: 40px;
+      
+        .container{
+            h2{
+                text-align: center;
+                margin-bottom: 0px;
+            }
+            .nftWrapper{
+                margin-top: 0px;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                place-items: center;
+            }
+        }
+    }
+    
+}
+
+
+@media screen and (max-width:800px) {
+    .auctionWrapper{
+       // overflow-x: hidden;
+      
+        .container{
+            .nftWrapper{
+                display: grid;
+                grid-template-columns: repeat(1,1fr);
+                place-items: center;
+            }
+        }
+    }
+    
+}

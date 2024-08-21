@@ -7,7 +7,7 @@ const ProfileBanner = () => {
         <div className="container">
           <div className="inner  ">
             <img
-              className="mt-10"
+              className="mt-10 w-full"
               src="/src/assets/artistsProfile/bannerImg.png"
               alt=""
             />

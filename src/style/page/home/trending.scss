@@ -1,0 +1,65 @@
+.trendingNftWrapper{
+    .container{
+        .inner{
+
+        }
+    }
+}
+
+@media screen and (max-width:1320px){
+    .trendingNftWrapper{
+        margin-bottom: 30px;
+        margin-top: 30px;
+        .container{
+            .inner{
+                // display: flex;
+                // flex-direction: column;
+                // gap: 10px;
+            }
+            .nftWrapper{
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                place-items: center;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:1100px) {
+    .trendingNftWrapper{
+        .container{
+            .inner{
+                
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                .nftWrapper{
+                    grid-template-columns: repeat(2, 1fr);
+
+                }
+            
+        }
+    }
+    
+}
+
+
+
+@media screen and (max-width:750px) {
+    .trendingNftWrapper{
+        .container{
+            .inner{
+                
+               
+                }
+                .nftWrapper{
+                    grid-template-columns: repeat(1, 1fr);
+
+                }
+            
+        }
+    }
+    
+}

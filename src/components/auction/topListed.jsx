@@ -1,4 +1,4 @@
-import React, { useState,  useRef } from 'react';
+import React, { useState, useRef } from "react";
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
 import trendingNft2 from "../../assets/home/images/auction/auctionImg2.png";
@@ -8,53 +8,58 @@ import trendingNft5 from "../../assets/home/images/auction/auctionImg5.png";
 import trendingNft6 from "../../assets/home/images/auction/auctionImg6.png";
 import trendingNft7 from "../../assets/home/images/auction/auctionImg7.png";
 import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
-import CollectionsCard from '../cards/collectionsCard';
-import { TreeSelect } from 'antd';
-import AuctionCard from '../cards/auctionCard';
-import { DownOutlined, FilterOutlined } from '@ant-design/icons';
-import '../../style/page/auction/topListed.scss';
-
-
-const { TreeNode } = TreeSelect;
-
-const CustomTreeNodeTitle = ({ text, count }) => (
-  <div className="custom-tree-node-title">
-  <span>{text}</span>
-  <div className="count-container">
-    <span className="count">{count}</span>
-    <DownOutlined className="dropdown-arrow" />
-  </div>
-</div>
-);
+import CollectionsCard from "../cards/collectionsCard";
+import { Collapse } from "antd";
+import AuctionCard from "../cards/auctionCard";
+import { DownOutlined, FilterOutlined } from "@ant-design/icons";
+import "../../style/page/auction/topListed.scss";
+import rightGlow from "../../assets/auction/rightGlow.png";
+import filter from "../../assets/icons/filter.svg";
+import Button from "../shared/button";
+import search from "../../assets/icons/search.svg";
 const TopListed = () => {
-  const [value, setValue] = useState();
-  const [dropdownOpen, setDropdownOpen] = useState(true); // Initially open
-  const selectRef = useRef(null);
+  const text = `
+  A dog is a type of domesticated animal.
+  Known for its loyalty and faithfulness.
+`;
 
-  const onChange = (newValue) => {
-    setValue(newValue);
+  const itemsNest = [
+    {
+      key: "1",
+      label: "This is panel nest panel",
+      children: <p>{text}</p>,
+    },
+  ];
+  // const items = [
+  //   {
+  //     key: '1',
+  //     label: 'This is panel header 1',
+  //     children: <Collapse defaultActiveKey="1" items={itemsNest} />,
+  //   },
+  //   {
+  //     key: '2',
+  //     label: 'This is panel header 2',
+  //     children: <p>{text}</p>,
+  //   },
+  //   {
+  //     key: '3',
+  //     label: 'This is panel header 3',
+  //     children: <p>{text}</p>,
+  //   },
+  // ];
+
+  const onTopList = (key) => {
+    console.log(key);
   };
-
-  const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
-  const handleDropdownVisibleChange = (open) => {
-    if (open) {
-      setDropdownOpen(true);
-    } else {
-      setDropdownOpen(false);
-    }
-  };
-
   return (
     <>
-    <div className="topListedSection relative mb-52">
-      <div className="absolute top-0 left-0 hidden">
-        <div className="dropdown w-[300px]  bg-white rounded-[30px]">
+      <div className="topListedSection relative mb-52">
+        <img className="absolute right-0 top-32 -z-10" src={rightGlow} alt="" />
+        <div className="absolute top-0 left-0 w-[200px] collapseDiv">
+          {/* <div className="dropdown w-[300px]  bg-white rounded-[30px]">
           <div className="custom-header" onClick={toggleDropdown}>
             <FilterOutlined className="filter-icon" />
-            {/* <span className="placeholder-text">Please select</span> */}
+       
             <DownOutlined className={`dropdown-toggle-icon ${dropdownOpen ? 'open' : ''}`} />
           </div>
           {dropdownOpen && (
@@ -115,20 +120,228 @@ const TopListed = () => {
               </TreeNode>
             </TreeSelect>
           )}
+        </div> */}
+
+          <Collapse
+            onChange={onTopList}
+            items={[
+              {
+                key: "1",
+                id: "first-element",
+                label: (
+                  <>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="flex items-center">
+                        <img src={filter} className="mr-2" alt="" />
+                      </span>
+                    </div>
+                    {/* <hr className="h-[2px] bg-black w-[97%] mx-auto" /> */}
+                  </>
+                ),
+                children: (
+                  <Collapse
+                    defaultActiveKey="1"
+                    items={[
+                      {
+                        key: "1-1",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Popular</span>
+                            <span className="count">15</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            {/* <p>{text}</p> */}
+                           
+                          </>
+                        ),
+                      },
+                      {
+                        key: "1-2",
+                        label: "price",
+                        children: (
+                          <>
+                          <div className="w-full flex items-center gap-2 mt-3">
+                            <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
+                            <p>to</p>
+                            <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
+
+                          </div>
+                         <div className="mt-5 w-full flex-center">
+                         <Button
+                  className="button btn-primary font-Roboto text-[15px] font-medium"
+                  minWidth={197}
+                  minHeight={41}
+                  text="Apply"
+           
+                />
+                         </div>
+                          </>
+                        )
+                      },
+
+                      {
+                        key: "1-3",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Background</span>
+                            <span className="count">20</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
+                           
+                          </>
+                        ),
+                      },
+
+
+                      {
+                        key: "1-4",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Clothing</span>
+                            <span className="count">110</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            {/* <p>{text}</p> */}
+                           
+                          </>
+                        ),
+                      },
+
+
+                      {
+                        key: "1-5",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Eye</span>
+                            <span className="count">2</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            {/* <p>{text}</p> */}
+                           
+                          </>
+                        ),
+                      },
+
+                      {
+                        key: "1-6",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Body Color</span>
+                            <span className="count">11</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            {/* <p>{text}</p> */}
+                           
+                          </>
+                        ),
+                      },
+
+                      {
+                        key: "1-6",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Head</span>
+                            <span className="count">33</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            {/* <p>{text}</p> */}
+                           
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+              // {
+              //   key: "2",
+              //   label: "This is panel header 2",
+              //   children: <p>{text}</p>,
+              // },
+              // {
+              //   key: "3",
+              //   label: "This is panel header 3",
+              //   children: <p>{text}</p>,
+              // },
+            ]}
+          />
         </div>
-      </div>
-      <div className="container">
-        <div className="topListedInner">
-          <h2 className="font-normal font-Apex uppercase mb-10">TOP LISTED</h2>
-          <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">
-            {auctionData.map((data) => (
-              <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
-            ))}
+        <div className="container">
+          <div className="topListedInner">
+            <h2 className="font-normal font-Apex uppercase mb-10">
+              TOP LISTED
+            </h2>
+            <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">
+              {auctionData.map((data) => (
+                <AuctionCard
+                  key={data.id}
+                  data={data}
+                  showHiddenDiv={true}
+                  isAuctionPage={true}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 

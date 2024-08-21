@@ -1,5 +1,5 @@
-// import React, { useState } from "react";
-import { NavLink, useLocation } from "react-router-dom";
+
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/websiteLogo.svg";
 import { Drawer } from "antd";
 import Button from "../shared/button";
@@ -7,15 +7,22 @@ import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import menu from "../../assets/icons/menu.png";
 import { useState } from "react";
+import ConnectWallet from "../../modals/connectWallet";
 
 const Navbar = () => {
+  const navigate= useNavigate();
+  const goToCraeteNft = ()=>{
+    navigate("/create-nft-page")
+  }
   const location = useLocation();
 
   const isCreateNftPage =
     location.pathname === "/create-nft" ||
     location.pathname === "/createnft-collect" ||
     location.pathname === "/create-nft-page" ||
-    location.pathname === "/select-nft";
+    location.pathname === "/select-nft"  ||
+    location.pathname === "/sell-method";
+
 
   console.log(location.pathname);
 
@@ -34,31 +41,40 @@ const Navbar = () => {
     showDrawer();
   };
 
+  const [isconnectmodal, setisconnectmodal]= useState(false);
+
+  const showConnectModal = () => {
+    setisconnectmodal(true);
+  };
   return (
     <>
       <div className="navWrapper mt-5 ">
         <div className="container">
           <div className="nav-content flex justify-between items-center">
             <div className="nav-logo">
-              <img src={logo} alt="Logo" />
+              <img src={logo} alt="Logo" className="cursor-pointer" onClick={(()=>(
+                navigate("/")
+              ))} />
             </div>
             <div className="nav-items ">
               <ul className="flex justify-center items-center gap-x-8 font-normal medium darkBlack font-Apex uppercase cursor-pointer">
                 <NavLink className="navlink" to="/">
-                  <li>Home</li>
+                Home
                 </NavLink>
-                <NavLink className="navlink" to="/marketplace">
-                  <li>Marketplace</li>
-                </NavLink>
+                <a className="navlink cursor-default" >
+               Marketplace
+                </a>
                 <NavLink className="navlink" to="/create-nft-page">
-                  <li>AI Nft Generation</li>
+                  AI Nft Generation
                 </NavLink>
               </ul>
             </div>
             {isCreateNftPage ? (
               <div className="flex gap-x-3">
                 <img src={logo1} alt="button" className="cursor-pointer" />
-                <img src={logo2} alt="button" className="cursor-pointer" />
+                <img src={logo2} alt="button" className="cursor-pointer"  onClick={(()=>(
+                  navigate("/artist-profile")
+                ))} />
               </div>
             ) : (
               <div className="nav-btns flex gap-x-3 font-Roboto">
@@ -67,12 +83,14 @@ const Navbar = () => {
                   minWidth={213}
                   minHeight={58}
                   text="Connect Wallet"
+                  onClick={showConnectModal}
                 />
                 <Button
                   className="button btn-secondary large font-medium btnCreate"
                   minWidth={176}
                   minHeight={58}
                   text="Create NFT"
+                  onClick={goToCraeteNft}
                 />
               </div>
             )}
@@ -128,6 +146,11 @@ const Navbar = () => {
           </div>
         </Drawer>
       </div>
+
+      <ConnectWallet
+           isconnectmodal={isconnectmodal}
+            setisconnectmodal={setisconnectmodal}
+            />
     </>
   );
 };

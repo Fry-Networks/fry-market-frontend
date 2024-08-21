@@ -29,6 +29,17 @@
 @import "./page/home/featured.scss";
 @import "./page/home/faq.scss";
 @import "./page/readyForNext.scss";
+@import "./page/home/trending.scss";
+@import "./page/home/topseller.scss";
+@import "./page/home/auction.scss";
+@import "./page/home/topcollection.scss";
+@import "./page/home/soldNft.scss";
+@import "./page/home/digitalAsset.scss";
+@import "./page/home/boostNft.scss";
+@import "./page/home/readyNext.scss";
+
+
+
 
 
 //Cards
@@ -37,9 +48,13 @@
 
 ///Auction
 @import "./page/auction/topListed.scss";
+@import "./page/auction/auctionBanner.scss";
+@import "./page/auction/liveAuction.scss";
+
 
 ///nftCollection
 @import "./page/nftCollection/explore.scss";
+@import "./page/nftCollection/nftCollectBanner.scss";
 
 //Top Seller
 @import "./page/topSeller.scss";
@@ -59,3 +74,9 @@
 
 //artistProfile
 @import "./page/artistProfile/artistProfile.scss";
+
+//Modals
+@import "./modals/connectWallet.scss";
+
+//Sell Method
+@import "./page/sellMethod/sellMethod.scss";

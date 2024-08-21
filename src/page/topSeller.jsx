@@ -19,7 +19,8 @@ import table11 from "../assets/icons/topSeller/ts11.svg";
 import logo from "../assets/icons/topSeller/logo.svg";
 import ReadyForNext from "../components/home/readyForNext";
 import Button from "../components/shared/button";
-import { Select, Space } from "antd";
+import { Select} from "antd";
+import { useNavigate } from "react-router-dom";
 
 const columns = [
   {
@@ -231,10 +232,14 @@ const handleChange = (value) => {
 };
 
 const TopSeller = () => {
-
+  const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  const handleRowClick = (record) => {
+    navigate("/seller-collection");
+  };
   return (
     <>
     
@@ -300,7 +305,11 @@ const TopSeller = () => {
             columns={columns}
             dataSource={data}
             pagination={false}
-            rowHoverable={false}
+         
+            rowClassName="cursor-pointer"
+            onRow={(record) => ({
+              onClick: () => handleRowClick(record),
+            })}
             className="mb-[199px] sellerTable"
           />
         </div>

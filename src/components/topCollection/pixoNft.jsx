@@ -17,12 +17,19 @@ import trendNft12 from "../../assets/topCollection/nftImg12.png";
 import trendNft13 from "../../assets/topCollection/nftImg13.png";
 import trendNft14 from "../../assets/topCollection/nftImg14.png";
 import search from "../../assets/icons/search.svg"
+import { useNavigate } from "react-router-dom";
 
 
 
 
 
 const PixoNft = () => {
+
+  const navigate = useNavigate(); // Initialize useNavigate
+
+  const handleCardClick = () => {
+    navigate("/nft-detail"); // Redirect to nft-detail page
+  };
   return (
     <>
       <div className="pixoNftContainer mb-52">
@@ -43,10 +50,12 @@ const PixoNft = () => {
             </div>
 
             <div className="cardsWrap grid grid-cols-4 gap-6">
-              {trendingCard.map((data, index) => (
-                <CollectionsCard key={data.id} data={data} />
-              ))}
-            </div>
+            {trendingCard.map((data) => (
+              <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
+                <CollectionsCard data={data} />
+              </div>
+            ))}
+          </div>
           </div>
         </div>
       </div>

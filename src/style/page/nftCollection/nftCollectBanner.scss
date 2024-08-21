@@ -1,0 +1,80 @@
+.nftBanner{
+    .container{
+        .inner{
+            .leftArea{
+
+            }
+
+            .rightArea{
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1440px) {
+    .nftBanner{
+        height: auto;
+        margin-top: 50px;
+     
+        .container{
+            .inner{
+        
+                .leftArea{
+                    width: 50%;
+                    justify-content: center;
+                    align-items: center;
+                    h2{
+                        text-align: center;
+                    }
+    
+                }
+    
+                .rightArea{
+                    width: 50%;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+    img{
+
+    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:900px) {
+    .nftBanner{
+        height: auto;
+        margin-top: 0px;
+     
+        .container{
+            .inner{
+        flex-direction: column;
+        gap: 100px;
+                .leftArea{
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    .nft{
+                        font-size: 60px;
+                    }
+                    h2{
+                        text-align: center;
+                    }
+    
+                }
+    
+                .rightArea{
+                    width: 100%;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+    img{
+
+    }
+                }
+            }
+        }
+    }
+    
+}
