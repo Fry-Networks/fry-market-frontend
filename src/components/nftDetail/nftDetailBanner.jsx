@@ -3,6 +3,10 @@ import { Collapse, Table } from "antd";
 import { CaretRightOutlined } from "@ant-design/icons";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
+import leftGlow from "../../assets/nftCollection/redGloww.webp";
+import rightGlow from "../../assets/topCollection/rightGlow.webp";
+import grid from "../../assets/nftCollection/exploreGrid.webp";
+import arowlines from "../../assets/nftDetail/gridd.webp";
 
 const NftDetailBanner = () => {
   const onChange = (key) => {
@@ -228,11 +232,16 @@ const NftDetailBanner = () => {
   ];
   return (
     <>
-      <div className="nftDetailBannerWrapper mb-52">
+      <div className="nftDetailBannerWrapper mb-52 relative">
+        <img src={leftGlow} className="leftGlow absolute top-[-400px] left-0 -z-10" alt="" />
+        <img src={rightGlow} className=" rightGlow absolute top-[-200px] right-0 -z-10" alt="" />
+     
+   
+
         <div className="container">
           <div className="topSection flex-center gap-6 mt-10">
             <div className="leftArea w-[546px] flex flex-col gap-7 ">
-              <img src="/src/assets/nftDetail/rightSecPic.png" alt="" />
+              <img className="pixicoImg" src="/src/assets/nftDetail/rightSecPic.png" alt="" />
               <div className="descriptionAccordion">
                 <Collapse
                   expandIconPosition="end"
@@ -290,7 +299,7 @@ const NftDetailBanner = () => {
                       ),
                       children: (
                         <>
-                          <div className="grid grid-cols-3 gap-2">
+                          <div className="grid grid-cols-3 gap-2 traitsDiv">
                             {traitData.map((data, index) => (
                               <TraitsBox data={data} />
                             ))}
@@ -328,16 +337,16 @@ const NftDetailBanner = () => {
                       5.001 FRY
                     </p>
                   </div>
-                  <div className="area2 flex-center gap-3">
+                  <div className="area2 flex-center gap-3 w-full">
                     <Button
-                      className="button btn-secondary large font-medium"
+                      className="button btn-secondary large font-medium btnBuy"
                       minWidth={343}
                       minHeight={44}
                       text="Buy now"
                     ></Button>
 
                     <Button
-                      className="button btn-primary large font-medium"
+                      className="button btn-primary large font-medium btnOffer"
                       minWidth={343}
                       minHeight={44}
                       text="Make offer"

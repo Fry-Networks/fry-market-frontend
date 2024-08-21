@@ -11,7 +11,7 @@ const ExploreCard = ({data}) => {
   };
   return (
     <>
-  <div className="cursor-pointer exploreCard w-[417px] h-[276px] rounded-2xl p-2.5 outline outline-2 outline-[#E7E7E7]" onClick={handleClick}>
+  <div className="exploreCard cursor-pointer exploreCard w-[417px] h-[276px] rounded-2xl p-2.5 outline outline-2 outline-[#E7E7E7]" onClick={handleClick}>
    
     <div className="inner flex flex-col gap-3 w-screen">
         <div className="headerArea flex justify-start items-center gap-3 w=1/4">
@@ -26,10 +26,10 @@ const ExploreCard = ({data}) => {
 </div>
         </div>
         <div className="bodyArea w-3/4 relative" >
-        <div className='absolute py-[8px] px-[17px] bg-[#E7E7E7] rounded-lg bottom-0 left-[152px] ex-small font-normal lightGray'> Items  &nbsp;
+        <div className=' itemBox absolute py-[8px] px-[17px] bg-[#E7E7E7] rounded-lg bottom-0 left-[152px] ex-small font-normal lightGray'> Items  &nbsp;
           <span className="darkBlack font-bold">{data.itemPrice}</span>
         </div>
-           <img src={data.bodyPic} alt="" />
+           <img  src={data.bodyPic} className='exploreBodyImg' alt="" />
         </div>
 
     </div>

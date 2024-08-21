@@ -45,6 +45,7 @@
 //Cards
 @import "./components/cards/collectionCard.scss";
 @import "./components/cards/auctionCard.scss";
+@import "./components/cards/exploreCard.scss";
 
 ///Auction
 @import "./page/auction/topListed.scss";
@@ -55,6 +56,12 @@
 ///nftCollection
 @import "./page/nftCollection/explore.scss";
 @import "./page/nftCollection/nftCollectBanner.scss";
+
+
+//top collection
+@import "./page/topCollection/pixoNft.scss";
+@import "./page/topCollection/pixacioBanner.scss";
+
 
 //Top Seller
 @import "./page/topSeller.scss";
