@@ -12,7 +12,7 @@ const NftDetail = () => {
   return (
     <>
       <NftDetailBanner />
-      {/* <MoreFromThis /> */}
+      <MoreFromThis />
       <ReadyForNext />
     </>
   );
