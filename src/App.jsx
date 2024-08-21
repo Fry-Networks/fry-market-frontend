@@ -15,6 +15,7 @@ import Navbar from "./components/layout/navbar";
 import Footer from "./components/layout/footer";
 import ArtistProfileArt from "./page/artistProfileArt";
 import SellMethod from "./page/sellMethod";
+import MultipleCollect from "./page/multipleCollect";
 
 function App() {
   const location = useLocation();
@@ -46,6 +47,8 @@ function App() {
         <Route path="/artist-profile" element={<ArtistsProfile />} />
         <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
         <Route path="/sell-method" element={<SellMethod />} />
+        <Route path="/multiple-collect" element={<MultipleCollect/>} />
+
 
 
       </Routes>

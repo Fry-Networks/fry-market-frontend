@@ -8,11 +8,13 @@ import discord from "/src/assets/icons/discord.svg";
 import insta from "/src/assets/icons/instagram.svg";
 import tiktok from "/src/assets/icons/tiktok.svg";
 import footerLogo from "/src/assets/home/images/footerLogo.svg";
+import footerGrid from "../../assets/home/images/homeImages/footerGrid.png";
 
 const Footer = () => {
   return (
     <>
-      <div className="footerWrapper my-10">
+      <div className="footerWrapper my-10 relative">
+        <img src={footerGrid} className="absolute top-0 left-0 -z-10" alt="" />
         <div className="container">
           <div
             style={{ backgroundImage: `url(${footerBg})` }}
@@ -24,8 +26,8 @@ const Footer = () => {
             <div className="dataArea2 flex flex-col justify-between w-2/6 py-7">
               <div className="area2content1">
                 <p className="text-white font-normal font-Roboto leading-9">
-                  NFT ALGO is the world’s leading NFTs marketplace where you can
-                  discover, sell and bid NFTs and get rich{" "}
+                fry.market is the world’s leading NFTs marketplace where you can
+                  discover, sell and bid NFTs
                 </p>
               </div>
               <div className="area2content2">

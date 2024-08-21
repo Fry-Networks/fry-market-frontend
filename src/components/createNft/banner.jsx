@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../shared/input";
 import generateIcon from "../../assets/icons/generateIcon.svg";
 import { Select, InputNumber } from "antd";
+import  AddStyleModal from "../../modals/addStyleModal";
+import GenerateNft from "../../modals/generateNft";
 const Banner = () => {
   const onChange = (value) => {
     console.log(`selected ${value}`);
@@ -13,6 +15,20 @@ const Banner = () => {
   const onSupply = (value) => {
     console.log("changed", value);
   };
+  const [isstylemodal, setisstylemodal] = useState(false);
+
+  const showAddStyleModal = () => {
+    setisstylemodal(true);
+  };
+
+
+
+
+  const [isgeneratemodal, setisgeneratemodal] = useState(false);
+
+  const showGenerateNftModal = () => {
+    setisgeneratemodal(true);
+  };
   return (
     <>
       <div className="bannerWrapper mb-44">
@@ -22,7 +38,7 @@ const Banner = () => {
               Create your own <span className="primary">masterpiece</span>
             </h2>
             <img
-              className="mt-10"
+              className="mt-10 w-full"
               src="/src/assets/createNft/bannerImg.png"
               alt=""
             />
@@ -47,7 +63,7 @@ const Banner = () => {
                       type="text"
                       className="m-auto"
                     />
-                    <button className="absolute top-4 right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
+                    <button onClick={showGenerateNftModal} className="absolute top-[14px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
                       Generate
                       <img src={generateIcon} alt="" />
                     </button>
@@ -83,23 +99,34 @@ const Banner = () => {
                       onChange={onSupply}
                     />
                   </div>
-                  <div className="addStyle flex justify-between items-center">
+                  <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
                     <p className="lightGray font-normal medium font-Roboto">Add Styles</p>
                     <img src="/src/assets/icons/plus.svg" alt="" />
                   </div>
 
 
 
-                  <div className="addStyle flex justify-between items-center">
+                  {/* <div className="addStyle flex justify-between items-center">
                     <p className="lightGray font-normal medium font-Roboto">Add Traits</p>
                     <img src="/src/assets/icons/plus.svg" alt="" />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <AddStyleModal
+           isstylemodal={isstylemodal}
+            setisstylemodal={setisstylemodal}
+            />
+
+
+<GenerateNft
+           isgeneratemodal={ isgeneratemodal}
+           setisgeneratemodal={ setisgeneratemodal}
+            />
     </>
   );
 };

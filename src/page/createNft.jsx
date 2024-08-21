@@ -9,7 +9,7 @@ const CreateNft = () => {
   const images = [nft1, nft2, nft3, nft4];
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/createnft-collect");
+    navigate("/select-nft");
   };
   return (
     <>
@@ -26,9 +26,24 @@ const CreateNft = () => {
                 4/4 Generated
               </p>
             </div>
-            <p className="lightGray font-normal font-Roboto text-base ">
-              Select an image to mint
+
+            <div className="flex justify-center items-center gap-3">
+
+            <p className="lightGray font-normal font-Roboto text-base">
+            Select an NFT to mint
             </p>
+
+
+            <Button
+              className="button btn-primary text-[12px] font-medium"
+              width={96}
+              minHeight={37}
+              text="Mint NFT"
+              onClick={handleClick}
+            ></Button>
+
+            </div>
+      
           </div>
           <div className="flex items-center justify-between ">
             {images.map((image, index) => (
@@ -38,11 +53,11 @@ const CreateNft = () => {
                   alt={`nft-${index}`}
                   className="opacity-1 w-full h-full"
                 />
-                <Button
+                {/* <Button
                   className="absolute ex-small w-24 font-semibold btn-primary btn-primaryBorder translate-x-[90px] opacity-0 group-hover:opacity-100 group-hover:translate-y-[-60px] group-hover:block transition-all duration-1000 ease-in-out"
                   text="Mini NFT"
                   onClick={handleClick}
-                />
+                /> */}
               </div>
             ))}
           </div>

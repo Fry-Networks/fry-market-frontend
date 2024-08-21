@@ -115,7 +115,7 @@ const CollectionCard = ({ isArtistProfile }) => {
                   {card.items}
                   <span className="ml-2 darkBlack font-bold">{card.value}</span>
                 </p>
-                <img src={card.img} alt={card.title} className="mt-3" />
+                <img src={card.img} alt={card.title} className="mt-3 w-full " />
               </div>
             </Link>
           ))}

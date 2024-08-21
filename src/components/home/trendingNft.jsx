@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import Button from "../../components/shared/button";
 import arrowDown from "../../assets/icons/arrow-down.svg";
-import CollectionsCard from '../../components/cards/collectionsCard';
+import CollectionsCard from "../../components/cards/collectionsCard";
 
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import trendingNft1 from "../../assets/home/images/trendingNft1.png";
@@ -13,29 +13,25 @@ import trendingNft6 from "../../assets/home/images/trendingNft6.png";
 import trendingNft7 from "../../assets/home/images/trendingNft7.png";
 import trendingNft8 from "../../assets/home/images/trendingNft8.png";
 
-
 const TrendingNft = () => {
   return (
     <div className="trendingNftWrapper my-52 md:my-20">
       <div className="container">
-        <div className='flex inner items-center justify-between'>
-          <h2 className="font-normal font-Apex uppercase">
-            Trending NFT'S
-          </h2>
-          <Button 
+        <div className="flex inner items-center justify-between">
+          <h2 className="font-normal font-Apex uppercase">Trending NFT'S</h2>
+          <Button
             className="button btn-secondary font-normal medium uppercase relative flex items-center justify-center gap-1"
             minWidth={220}
             height={52}
             text="Last 30 minutes"
             img={arrowDown}
             imgClass="order-1"
-
           />
         </div>
-      
-        <div className="nftWrapper mt-10 grid  grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
+
+        <div className="nftWrapper mt-10 grid grid-cols-4 gap-7">
           {trendingCard.map((data, index) => (
-            <CollectionsCard key={data.id} data={data} /> 
+            <CollectionsCard key={data.id} data={data} />
           ))}
         </div>
       </div>
@@ -75,7 +71,7 @@ const trendingCard = [
     userImg: userImg1,
     userName: "STELLA NOVA",
     userEmail: "@Stella Nova",
-    nftImg:  trendingNft4,
+    nftImg: trendingNft4,
     price: "142.02",
   },
   {
@@ -83,7 +79,7 @@ const trendingCard = [
     userImg: userImg1,
     userName: "STELLA NOVA",
     userEmail: "@Stella Nova",
-    nftImg:  trendingNft5,
+    nftImg: trendingNft5,
     price: "142.02",
   },
   {
@@ -99,7 +95,7 @@ const trendingCard = [
     userImg: userImg1,
     userName: "STELLA NOVA",
     userEmail: "@Stella Nova",
-    nftImg:  trendingNft7,
+    nftImg: trendingNft7,
     price: "142.02",
   },
   {

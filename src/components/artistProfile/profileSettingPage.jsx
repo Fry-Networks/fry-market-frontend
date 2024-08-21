@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../shared/input";
-import generateIcon from "../../assets/icons/generateIcon.svg";
 import Button from "../shared/button";
+import UploadImage from "../../modals/uploadImage";
 
 const ProfileSettingPage = () => {
+  const [isuploadmodal, setisuploadmodal] = useState(false);
+
+  const showImageModal = () => {
+    setisuploadmodal(true);
+  };
   return (
     <>
       <div className="profileSetting">
         <div className="container">
           <div className="inner">
             <div className="uploadDiv relative">
-              <button className="absolute top-[125px] left-[550px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg">
+              <button
+                onClick={showImageModal}
+                className="absolute top-[125px] left-[550px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
+              >
                 Upload Banner
               </button>
               <img
@@ -18,7 +26,7 @@ const ProfileSettingPage = () => {
                 src="/src/assets/artistsProfile/uploadImgBanner.png"
                 alt=""
               />
-              <button className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">
+              <button   onClick={showImageModal} className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">
                 Upload Profile
               </button>
             </div>
@@ -181,9 +189,6 @@ const ProfileSettingPage = () => {
                 </div>
               </div>
 
-
-
-
               <div className="nftUserInfo mb-12">
                 <div
                   style={{
@@ -228,6 +233,10 @@ const ProfileSettingPage = () => {
           </div>
         </div>
       </div>
+      <UploadImage
+        isuploadmodal={isuploadmodal}
+        setisuploadmodal={setisuploadmodal}
+      />
     </>
   );
 };

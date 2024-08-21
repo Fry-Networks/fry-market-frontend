@@ -121,7 +121,7 @@ const ProfileNft = () => {
               <Tabs.TabPane tab="All" key="1">
              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
+              <CollectionsCard data={data} isProfilePage={true}  />
             ))}
              {
                 soldCardData.map((data,index)=>(
@@ -129,7 +129,7 @@ const ProfileNft = () => {
                 ))
             }
               {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
+              <CollectionsCard data={data} isProfilePage={true}  />
             ))}
               
              </div>

@@ -1,0 +1,37 @@
+.sellMethodContainer{
+    .container{
+        .inner{
+            .leftArea {
+                
+            }
+            .rightArea{
+                .duration{
+                    .selectDiv{
+                        .ant-select{
+                            .ant-select-selector{
+                                border: 2px solid #E7E7E7;
+                                padding: 19px 30px;
+                                border-radius: 10px;
+                            }
+
+                            .ant-select-arrow{
+                                margin-top: 1px;
+                                margin-right: 10px;
+                            }
+
+                            .ant-select-selection-item{
+                                color: #808080;
+                                font-family: Roboto;
+                                font-size: 16px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: normal;
+                                letter-spacing: 0.54px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

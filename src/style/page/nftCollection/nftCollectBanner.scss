@@ -1,0 +1,99 @@
+.nftBanner{
+   
+    .container{
+        .inner{
+            .leftArea{
+
+            }
+
+            .rightArea{
+
+            }
+        }
+    }
+}
+
+@media screen and (max-width:1440px) {
+    .nftBanner{
+        height: auto;
+        overflow: hidden;
+        margin-top: 50px;
+     
+        .rightGrid {
+            width:600px;
+            top: 100px;
+     
+        }
+        .leftGlow{
+         
+        }
+        .container{
+            .inner{
+        
+                .leftArea{
+                    width: 50%;
+                    justify-content: center;
+                    align-items: center;
+                    h2{
+                        text-align: center;
+                    }
+                    .nft{
+                        font-size: 130px;
+                    }
+                    .collection{
+                        font-size: 60px;
+                    }
+    
+                }
+    
+                .rightArea{
+                    width: 50%;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+    img{
+
+    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width:900px) {
+    .nftBanner{
+        height: auto;
+        margin-top: 0px;
+     
+        .container{
+            .inner{
+        flex-direction: column;
+        gap: 100px;
+                .leftArea{
+                    width: 100%;
+                    justify-content: center;
+                    align-items: center;
+                    .nft{
+                        font-size: 70px;
+                    }
+                    .collection{
+                        font-size: 50px;
+                    }
+                    h2{
+                        text-align: center;
+                    }
+    
+                }
+    
+                .rightArea{
+                    width: 100%;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+    img{
+
+    }
+                }
+            }
+        }
+    }
+    
+}

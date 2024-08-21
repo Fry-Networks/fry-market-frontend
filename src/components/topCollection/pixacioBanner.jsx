@@ -1,10 +1,15 @@
 import React from "react";
 import leftImg from "../../assets/topCollection/bannerLeftImg.png";
+import grid from "../../assets/nftCollection/exploreGrid.webp";
+
 
 const PixacioBanner = ({ name, image }) => {
+
+
   return (
     <>
-      <div className="topCollectionBanner w-full h-screen flex-center ">
+      <div className="topCollectionBanner w-full h-screen flex-center relative">
+        <img className=" grid absolute  bottom-[-200px] right-0 -z-10" src={grid} alt="" />
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
@@ -108,7 +113,7 @@ const PixacioBanner = ({ name, image }) => {
                 sapien justo, interdum sit amet sollicitudin quis, porttitor a
                 metus. In eu accumsan dolor, eu venenatis eros. Aliquam erat
                 volutpat. Etiam suscipit placerat mi. Mauris diam purus,
-                sagittis eu feugiat eu, sodales a quam. Cras elit enim. 
+                sagittis eu feugiat eu, sodales a quam. Cras elit enim.
               </p>
             </div>
           </div>

@@ -26,7 +26,7 @@ const DigitalAssets = () => {
             className="m-auto my-72"
          
           />
-          <button className="absolute top-4 right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">Generate
+          <button className="absolute top-[13px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">Generate
 <img src={generateIcon} alt="" />
           </button>
 </div>

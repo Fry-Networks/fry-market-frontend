@@ -3,219 +3,379 @@
     .leftArea {
       .descriptionAccordion {
         .ant-collapse {
-            box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
-            border-radius: 10px;
+          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          border-radius: 10px;
           width: auto;
           padding: 0px !important;
           .ant-collapse-item {
             padding: 0px !important;
+            border: none !important;
             .ant-collapse-header {
-                border-radius: 20px;
-                padding: 23px 20px;
-                //border-bottom: 2.8px solid #E7E7E7;
-                background: #FFF;
-                  .custom-label {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    font-weight: bold;
-                    font-size: 16px;
-                }
+              border-radius: 20px;
+              padding: 23px 20px;
+              //border-bottom: 2.8px solid #E7E7E7;
+              background: #fff;
+              .custom-label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+                font-size: 16px;
+              }
               .ant-collapse-arrow svg {
                 transition: transform 0.3s;
                 display: block;
               }
             }
-            .ant-collapse-content{
-                border-top: 2px solid #d9d9d9;
-            padding: 10px;
-              
-                .ant-collapse-content-box{
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                }
+            .ant-collapse-content {
+              border-top: 2px solid #d9d9d9;
+              padding: 10px;
+
+              .ant-collapse-content-box {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              }
             }
           }
         }
       }
     }
-    .rightArea{
-        .salesEndDiv{
-            box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
-            border-radius: 8px;
-            .salesHeader{
-                border-bottom: 3px solid #E7E7E7;
-                display: flex;
-                justify-content: flex-start;
-                gap:10px;
-                align-items: center;
-       
-            }
+    .rightArea {
+      .salesEndDiv {
+        box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        .salesHeader {
+          border-bottom: 3px solid #e7e7e7;
+          display: flex;
+          justify-content: flex-start;
+          gap: 10px;
+          align-items: center;
         }
-        .listingAccordion{
-            .ant-collapse{
-                width: auto;
-                background-color: white;
-                box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
-                border-radius: 10px;
-                padding: 0px !important;
+      }
+      .listingAccordion {
+        .ant-collapse {
+          width: auto;
+          background-color: white;
+          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          border-radius: 10px;
+          padding: 0px !important;
 
-
-                .ant-collapse-item {
-                    padding: 0px !important;
-                    .ant-collapse-header {
-                        padding: 23px 20px;
-                        border-radius: 20px;
-                        //border-bottom: 2.8px solid #E7E7E7;
-                        background: #FFF;
-                          .custom-label {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            font-weight: bold;
-                            font-size: 16px;
-                        }
-                      .ant-collapse-arrow svg {
-                        transition: transform 0.3s;
-                        display: block;
-                      }
-                    }
-                    .ant-collapse-content{
-                        border-top: 2px solid #d9d9d9;
-                    padding: 10px;
-                      
-                        .ant-collapse-content-box{
-                            display: flex;
-                            flex-direction: column;
-                            gap: 10px;
-                            .ant-table-wrapper{
-                                .ant-table-thead{
-                                    tr{
-                                        th{
-                                       padding-right: 40px;
-                                        }
-                                    }
-                                }
-                                .ant-table-tbody{
-                                    tr{
-                                        td{
-                                            color: var(--lightGray);
-                                            font-size: 14px;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                  }
-            }
-        }
-        .detailsAccordion{
-            .ant-collapse{
-                width: auto;
-                background-color: white;
-                box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
-                border-radius: 10px;
-                padding: 0px !important;
-
-                .ant-collapse-item {
-                    padding: 0px !important;
-                    .ant-collapse-header {
-                        padding: 23px 20px;
-                        //border-bottom: 2.8px solid #E7E7E7;
-                        background: #FFF;
-                        border-radius: 20px;
-                          .custom-label {
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            font-weight: bold;
-                            font-size: 16px;
-                        }
-                      .ant-collapse-arrow svg {
-                        transition: transform 0.3s;
-                        display: block;
-                      }
-                    }
-                    .ant-collapse-content{
-                        border-top: 2px solid #d9d9d9;
-                    padding: 10px;
-                      
-                        .ant-collapse-content-box{
-                            display: flex;
-                            flex-direction: column;
-                            gap: 10px;
-                          
-                        }
-                    }
-                  }
-            }
-        }
-    }
-  }
-
-  .bottomSection{
-    margin-top:40px;
-    .itemActivityAccordion{
-        .ant-collapse{
+          .ant-collapse-item {
             padding: 0px !important;
-            width: auto;
-            background-color: white;
-            box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
-            border-radius: 8px;
-            
+            border: none !important;
+            .ant-collapse-header {
+              padding: 23px 20px;
+              border-radius: 20px;
+              //border-bottom: 2.8px solid #E7E7E7;
+              background: #fff;
+              .custom-label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+                font-size: 16px;
+              }
+              .ant-collapse-arrow svg {
+                transition: transform 0.3s;
+                display: block;
+              }
+            }
+            .ant-collapse-content {
+              border-top: 2px solid #d9d9d9;
+              padding: 10px;
 
-            .ant-collapse-item {
-                padding: 0px !important;
-                .ant-collapse-header {
-                    border-radius: 20px;
-                    padding: 23px 20px;
-                    //border-bottom: 2.8px solid #E7E7E7;
-                    border-radius: 20px;
-                    background: #FFF;
-                      .custom-label {
-                        display: flex;
-                        justify-content: space-between;
-                        align-items: center;
-                        font-weight: bold;
-                        font-size: 16px;
+              .ant-collapse-content-box {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                .ant-table-wrapper {
+                  .ant-table-thead {
+                    tr {
+                      th {
+                        padding-right: 40px;
+                      }
                     }
-                  .ant-collapse-arrow svg {
-                    transition: transform 0.3s;
-                    display: block;
                   }
-                }
-                .ant-collapse-content{
-                    border-top: 2px solid #d9d9d9;
-                padding: 10px;
-                  
-                    .ant-collapse-content-box{
-                        display: flex;
-                        flex-direction: column;
-                        gap: 10px;
-                        .ant-table-wrapper{
-                            .ant-table-thead{
-                                tr{
-                                    th{
-                                   padding-right: 40px;
-                                    }
-                                }
-                            }
-                            .ant-table-tbody{
-                                tr{
-                                    td{
-                                        color: var(--lightGray);
-                                        font-size: 14px;
-                                    }
-                                }
-                            }
-                        }
+                  .ant-table-tbody {
+                    tr {
+                      td {
+                        color: var(--lightGray);
+                        font-size: 14px;
+                      }
                     }
+                  }
                 }
               }
+            }
+          }
         }
+      }
+      .detailsAccordion {
+        .ant-collapse {
+          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          width: auto;
+          background-color: white;
+          border-radius: 10px;
+          padding: 0px !important;
+
+          .ant-collapse-item {
+            padding: 0px !important;
+            border: none !important;
+            .ant-collapse-header {
+              padding: 23px 20px;
+              //border-bottom: 2.8px solid #E7E7E7;
+              background: #fff;
+              border-radius: 20px;
+              .custom-label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-weight: bold;
+                font-size: 16px;
+              }
+              .ant-collapse-arrow svg {
+                transition: transform 0.3s;
+                display: block;
+              }
+            }
+            .ant-collapse-content {
+              border-top: 2px solid #d9d9d9;
+              padding: 10px;
+
+              .ant-collapse-content-box {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
+  .bottomSection {
+    margin-top: 40px;
+    .itemActivityAccordion {
+      .ant-collapse {
+        padding: 0px !important;
+        box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+        width: auto;
+        background-color: white;
+        border-radius: 8px;
+
+        .ant-collapse-item {
+          padding: 0px !important;
+          border: none !important;
+          .ant-collapse-header {
+            border-radius: 20px;
+            padding: 23px 20px;
+            //border-bottom: 2.8px solid #E7E7E7;
+            border-radius: 20px;
+            background: #fff;
+            .custom-label {
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              font-weight: bold;
+              font-size: 16px;
+            }
+            .ant-collapse-arrow svg {
+              transition: transform 0.3s;
+              display: block;
+            }
+          }
+          .ant-collapse-content {
+            border-top: 2px solid #d9d9d9;
+            padding: 10px;
+
+            .ant-collapse-content-box {
+              display: flex;
+              flex-direction: column;
+              gap: 10px;
+              .ant-table-wrapper {
+                .ant-table-thead {
+                  tr {
+                    th {
+                      padding-right: 40px;
+                    }
+                  }
+                }
+                .ant-table-tbody {
+                  tr {
+                    td {
+                      color: var(--lightGray);
+                      font-size: 14px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.nft-collapes {
+  background-color: red;
+}
+
+@media screen and (max-width: 1440px) {
+  .nftDetailBannerWrapper {
+    .topSection {
+      .leftArea {
+      }
+      .rightArea {
+        .pixacioDiv {
+        }
+        .salesEndDiv {
+          .salesHeader {
+          }
+          .salesBody {
+            .area1 {
+            }
+            .area2 {
+              .btnBuy {
+                min-width: 50% !important;
+              }
+
+              .btnOffer {
+                min-width: 50% !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+  }
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  .nftDetailBannerWrapper {
+    .topSection {
+      flex-direction: column;
+      .leftArea {
+        width: 100%;
+        .pixicoImg{
+          width: 300px;
+          margin: 0 auto;
+        }
+
+        .descriptionAccordion{
+          width: 100%;
+        }
+      }
+      .rightArea {
+        width: 100%;
+        .pixacioDiv {
+        }
+        .salesEndDiv {
+          .salesHeader {
+          }
+          .salesBody {
+            .area1 {
+            }
+            .area2 {
+              .btnBuy {
+                min-width: 50% !important;
+              }
+
+              .btnOffer {
+                min-width: 50% !important;
+              }
+            }
+          }
+        }
+      }
+    }
+    .bottomSection {
+    }
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .nftDetailBannerWrapper {
+  .leftGlow{
+    display: none;
+  }
+  .rightGlow{
+    display: none;
+  }
+    .topSection {
+      flex-direction: column;
+      .leftArea {
+     
+      
+
+        .descriptionAccordion{
+          width: 100%;
+
+          .traitsDiv{
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+      }
+      .rightArea {
+        width: 100%;
+        .pixacioDiv {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          width: 100%;
+          align-items: center;
+        }
+        .salesEndDiv {
+          .salesHeader {
+          }
+          .salesBody {
+            .area1 {
+            }
+            .area2 {
+              .btnBuy {
+                min-width: 50% !important;
+              }
+
+              .btnOffer {
+                min-width: 50% !important;
+              }
+            }
+          }
+        }
+
+        .listingAccordion{
+          overflow-x: scroll;
+          .ant-collapse{
+            overflow-x: scroll;
+          }
+        }
+
+        .detailsAccordion{
+          overflow-x: scroll;
+.ant-collapse{
+  overflow-x: scroll;
+}
+        }
+      }
+    }
+    .bottomSection {
+      .itemActivityAccordion{
+        overflow-x: scroll;
+        width: 100%;
+        .ant-collapse{
+          width: 100%;
+          overflow-x: scroll;
+          .ant-collapse-item{
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
 }
