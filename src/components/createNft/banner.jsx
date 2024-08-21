@@ -4,6 +4,7 @@ import generateIcon from "../../assets/icons/generateIcon.svg";
 import { Select, InputNumber } from "antd";
 import  AddStyleModal from "../../modals/addStyleModal";
 import GenerateNft from "../../modals/generateNft";
+import bannerImg from "../../assets/createNft/bannerImg.png";
 const Banner = () => {
   const onChange = (value) => {
     console.log(`selected ${value}`);
@@ -39,7 +40,7 @@ const Banner = () => {
             </h2>
             <img
               className="mt-10 w-full"
-              src="/src/assets/createNft/bannerImg.png"
+              src={bannerImg}
               alt=""
             />
             <div>

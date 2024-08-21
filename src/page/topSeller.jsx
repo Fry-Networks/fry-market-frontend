@@ -21,6 +21,8 @@ import ReadyForNext from "../components/home/readyForNext";
 import Button from "../components/shared/button";
 import { Select} from "antd";
 import { useNavigate } from "react-router-dom";
+import bannerback from "../assets/home/images/topSeller/bannerBack.png";
+import leftGlow from "../assets/nftCollection/redGlow.webp";
 
 const columns = [
   {
@@ -242,10 +244,12 @@ const TopSeller = () => {
   };
   return (
     <>
-    
-      <div className="container">
-        <div className="flex  gap-[146px] items-center h-[80vh]">
-          <div>
+    <div className="topSell relative">
+<img className="absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
+<img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
+<div className="container">
+        <div className="flex bannerWrapper  gap-[146px] items-center h-[80vh]">
+          <div className="headingDiv">
             <h2 className="font-bold font-Apex darkBlack">
               TOP <br />
               <span className="primary text-[128px]"> SELLERS</span>
@@ -300,7 +304,8 @@ const TopSeller = () => {
           <Button className="btn-white" text="Last 30 days" />
         </div>
 
-        <div>
+        <div className="relative">
+
           <Table
             columns={columns}
             dataSource={data}
@@ -314,6 +319,8 @@ const TopSeller = () => {
           />
         </div>
       </div>
+    </div>
+   
       <ReadyForNext />
       
     </>
