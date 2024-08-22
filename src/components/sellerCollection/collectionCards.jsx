@@ -5,6 +5,7 @@ import card3 from "../../assets/images/sellerCollection/nft3.png";
 import { Link } from "react-router-dom";
 import Button from "../../components/shared/button";
 import arrowDown from "../../assets/icons/redDownArw.svg";
+import sellerCollectGlow  from '../../assets/images/topSellers/collectionGlow.png';
 
 const CollectionCard = ({ isArtistProfile }) => {
   const cards = [
@@ -82,8 +83,10 @@ const CollectionCard = ({ isArtistProfile }) => {
 
   return (
     <>
-      <div className="container">
-        <div>
+    <div className="relative sellerColectCard">
+      <img className="absolute top-[-50px]" src={sellerCollectGlow} alt="" />
+    <div className="container">
+        <div className="condition">
           {isArtistProfile ? (
             <div className="mt-12 my-6 w-full flex justify-between ">
               <Button
@@ -106,7 +109,7 @@ const CollectionCard = ({ isArtistProfile }) => {
             <h2 className="font-bold font-Apex darkBlack mb-6">COLLECTIONS</h2>
           )}
         </div>
-        <div className="grid grid-cols-3 gap-9 mb-[200px]">
+        <div className="grid grid-cols-3 gap-9 mb-[200px] cardContainer">
           {cards.map((card) => (
             <Link to="/top-collection" key={card.id}>
               <div className="card flex flex-col items-start gap-1">
@@ -121,6 +124,8 @@ const CollectionCard = ({ isArtistProfile }) => {
           ))}
         </div>
       </div>
+    </div>
+   
     </>
   );
 };

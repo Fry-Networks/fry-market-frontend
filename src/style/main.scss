@@ -68,6 +68,8 @@
 
 //Seller Collection
 @import "./page/sellerCollection.scss";
+@import "./page/sellerCollection/sellerBanner.scss";
+@import "./page/sellerCollection/collectCard.scss";
 
 //Create Nft
 @import "./page/createNft.scss";
@@ -79,6 +81,8 @@
 
 ///createNft
 @import "./page/createNft/banner.scss";
+@import "./page/createNft/promptExample.scss";
+@import "./page/createNft/promptCard.scss";
 
 //artistProfile
 @import "./page/artistProfile/artistProfile.scss";
