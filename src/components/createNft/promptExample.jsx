@@ -10,6 +10,7 @@ import promptImg5 from "../../assets/createNft/examp5.png";
 import promptImg6 from "../../assets/createNft/examp6.png";
 import promptImg7 from "../../assets/createNft/examp7.png";
 import promptImg8 from "../../assets/createNft/examp8.png";
+import promptBack from "../../assets/createNft/bannerBack.png";
 
 
 
@@ -28,28 +29,28 @@ const PromptExample = () => {
         {
             id:2,
             nftImg:promptImg2,
-            title:"DRAGON WORLD",
+            title:"FANTASY",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:3,
             nftImg:promptImg3,
-            title:"DRAGON WORLD",
+            title:"DRAGON HOUSE",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:4,
             nftImg:promptImg4,
-            title:"DRAGON WORLD",
+            title:"PRINCESS",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:5,
             nftImg:promptImg5,
-            title:"DRAGON WORLD",
+            title:"SPACE TEAM",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
@@ -57,28 +58,29 @@ const PromptExample = () => {
         {
             id:6,
             nftImg:promptImg6,
-            title:"DRAGON WORLD",
+            title:"SEA CREATURER",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:7,
             nftImg:promptImg7,
-            title:"DRAGON WORLD",
+            title:"PIXEL GIRL",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:8,
             nftImg:promptImg8,
-            title:"DRAGON WORLD",
+            title:"SHADOW FIGHTER",
             description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
     ]
   return (
  <>
- <div className="promptWrapper mb-52">
+ <div className="promptWrapper mb-52 relative">
+    <img src={promptBack} className='absolute top-0 left-0' alt="" />
     <div className="container">
     <h2 className="font-bold font-Apex uppercase tracking-wide darkBlack mb-10">
     Prompt examples

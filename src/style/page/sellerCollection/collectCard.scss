@@ -1,0 +1,37 @@
+.sellerColectCard{
+    .container{
+
+        .cardContainer{
+
+        }
+    }
+}
+@media screen and (max-width:1200px) {
+    .sellerColectCard{
+        .container{
+    
+            .cardContainer{
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+            }
+        }
+    } 
+    
+}
+
+@media screen and (max-width:800px) {
+    .sellerColectCard{
+        .container{
+    .condition{
+        h2{
+            text-align: center;
+        }
+    }
+            .cardContainer{
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+            }
+        }
+    } 
+    
+}

@@ -5,6 +5,8 @@ import { Select, InputNumber } from "antd";
 import  AddStyleModal from "../../modals/addStyleModal";
 import GenerateNft from "../../modals/generateNft";
 import bannerImg from "../../assets/createNft/bannerImg.png";
+import banerGlow from "../../assets/images/topSellers/bannerGlow.png";
+
 const Banner = () => {
   const onChange = (value) => {
     console.log(`selected ${value}`);
@@ -32,7 +34,8 @@ const Banner = () => {
   };
   return (
     <>
-      <div className="bannerWrapper mb-44">
+      <div className="bannerWrapper mb-44 relative">
+        <img className="absolute top-[-200px]" src={banerGlow} alt="" />
         <div className="container">
           <div className="inner">
             <h2 className="font-normal font-Apex uppercase darkBlack text-center mt-20">
@@ -53,7 +56,7 @@ const Banner = () => {
                 <div className="part2">
                   <div
                     style={{ width: "1002px", margin: "0 auto" }}
-                    className="relative"
+                    className="relative earnInput"
                   >
                     <Input
                       wrapperClass="flex items-center justify-center mx-auto z-10 "

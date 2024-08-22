@@ -29,6 +29,7 @@ const columns = [
     title: "Collections",
     dataIndex: "collection",
     key: "collection",
+    width:"350px",
     render: (text, record, index) => (
       <div className="flex items-center">
         <span className="mr-3">{index + 1}.</span>
@@ -245,31 +246,31 @@ const TopSeller = () => {
   return (
     <>
     <div className="topSell relative">
-<img className="absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
+<img className=" bannerBack absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
 <img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
 <div className="container">
         <div className="flex bannerWrapper  gap-[146px] items-center h-[80vh]">
-          <div className="headingDiv">
+          <div className="headingDiv w-1/2">
             <h2 className="font-bold font-Apex darkBlack">
               TOP <br />
               <span className="primary text-[128px]"> SELLERS</span>
             </h2>
           </div>
-          <div className="relative sellerImages">
+          <div className="relative sellerImages w-1/2">
             <img
               src={ts1}
               alt="image"
-              className="w-[362px] h-[397px] rounded-3xl z-30 relative"
+              className=" tsImage w-[362px] h-[397px] rounded-3xl z-30 relative"
             />
             <img
               src={ts3}
               alt="image"
-              className="w-[362px] h-[397px] rounded-3xl absolute left-24 top-0 rotate-[20deg]"
+              className="tsImage w-[362px] h-[397px] rounded-3xl absolute left-24 top-0 rotate-[20deg]"
             />
             <img
               src={ts2}
               alt="image"
-              className="w-[362px] h-[397px] rounded-3xl absolute left-11 top-0 rotate-[10deg]"
+              className="tsImage w-[362px] h-[397px] rounded-3xl absolute left-11 top-0 rotate-[10deg]"
             />
           </div>
         </div>
@@ -304,7 +305,7 @@ const TopSeller = () => {
           <Button className="btn-white" text="Last 30 days" />
         </div>
 
-        <div className="relative">
+        <div className="collectionTable relative">
 
           <Table
             columns={columns}
