@@ -11,7 +11,7 @@ import nft10 from "../assets/images/createNft/nftimage2.webp";
 import Navbar from "../components/layout/navbar";
 import Button from "../components/shared/button";
 import { useNavigate } from "react-router-dom";
-
+import bgGlow from "../assets/images/createNft/bgGlow.png";
 const MultipleCollect = () => {
   const images = [nft1, nft2, nft3, nft4, nft5, nft6, nft7, nft8, nft9 , nft10];
   const navigate = useNavigate();
@@ -20,10 +20,11 @@ const MultipleCollect = () => {
   };
   return (
     <>
-      <div className="createNft mt-16">
+      <div className="createNft mt-16 relative">
+        <img  className="absolute top-[-200px] -z-10" src={bgGlow} alt="" />
         <div className="container ">
-          <div className="flex items-center justify-between mb-[75px]">
-            <div className="flex items-center justify-between gap-4 ">
+          <div className=" nftBtnContainer flex items-center justify-between mb-[75px]">
+            <div className="singlenft flex items-center justify-between gap-4 ">
               <Button
                 text="Collection"
                 className="py-4 px-8 lightGray font-medium font-Roboto border"
@@ -33,7 +34,7 @@ const MultipleCollect = () => {
               </p>
             </div>
 
-            <div className="flex justify-center items-center gap-3">
+            <div className="selectnft flex justify-center items-center gap-3">
               <p className="lightGray font-normal font-Roboto text-base">
                 Select an NFT to mint
               </p>
@@ -47,13 +48,13 @@ const MultipleCollect = () => {
               ></Button>
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-x-16 gap-y-10">
+          <div className="multipleCARD grid grid-cols-4 gap-x-16 gap-y-10">
             {images.map((image, index) => (
               <div key={index} className="relative group overflow-hidden">
                 <img
                   src={image}
                   alt={`nft-${index}`}
-                  className="opacity-1 w-full h-full"
+                  className="opacity-1 w-full h-full object-cover"
                 />
                 {/* <Button
                 className="absolute ex-small w-24 font-semibold btn-primary btn-primaryBorder translate-x-[90px] opacity-0 group-hover:opacity-100 group-hover:translate-y-[-60px] group-hover:block transition-all duration-1000 ease-in-out"

@@ -45,9 +45,6 @@ const SelectedNft = () => {
   };
   const navigate = useNavigate();
 
-
-
-  
   const [istraitmodal, setistraitmodal] = useState(false);
 
   const showAddTraitModal = () => {
@@ -64,8 +61,8 @@ const SelectedNft = () => {
       <div>
         <div className="nftCollection mt-[107px] h-[110vh]">
           <div className="container">
-            <div className="flex gap-8">
-              <div className="flex flex-col  items-start">
+            <div className="inner flex gap-8">
+              <div className=" backBtnContainer flex flex-col  items-start">
                 <Button
                   className="btn-white !text-[20px] flex items-center gap-4 !px-5 mb-9"
                   text="Back"
@@ -81,7 +78,7 @@ const SelectedNft = () => {
                 />
 
                 {showOriginalContent && (
-                  <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow">
+                  <div className=" selectedNft p-[20px] bg-white flex justify-center rounded-[20px] box-shadow">
                     <div className="relative overlay">
                       <img src={nft1} alt="profile image" />
                       <p className="font-normal font-Apex text-[20px] white absolute top-[50%] left-[30%]">
@@ -92,16 +89,16 @@ const SelectedNft = () => {
                 )}
               </div>
 
-              <div className="w-[992px]">
+              <div className="w-[992px] rightContent">
                 {showOriginalContent ? (
-                  <div>
-                    <div>
+                  <div className="rightText">
+                    <div className="singleNftBtn">
                       <Button
                         className="btn-gray w-32 lightGray"
                         text="Single NFT"
                       />
                     </div>
-                    <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px] ">
+                    <div className=" nftDetails py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px] ">
                       <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
                         MINT YOUR NFT
                       </h2>
@@ -111,8 +108,8 @@ const SelectedNft = () => {
                             type="text"
                             label="Item Name*"
                             placeholder="Name your NFT"
-                            className="w-full input-nft"
-                            // labelClass="darkBlack font-Roboto font-bold"
+                            className="w-full input-nft medium"
+                           labelClass="darkBlack font-Roboto font-bold medium"
                           />
                         </div>
                         <div>
@@ -120,8 +117,7 @@ const SelectedNft = () => {
                             type="text"
                             label="Token Symbol*"
                             placeholder="$ CGPT, for example"
-                            className="w-full input-nft"
-                     
+                            className="w-full input-nft medium"
                           />
                         </div>
                         <div>
@@ -145,7 +141,7 @@ const SelectedNft = () => {
                         </div>
 
                         <div className="chooseCollection my-3">
-                          <div className="w-full flex justify-between items-center">
+                          <div className="chooseContent w-full flex justify-between items-center">
                             <p className="darkBlack large font-medium font-Roboto">
                               Choose Collection
                             </p>
@@ -157,7 +153,7 @@ const SelectedNft = () => {
                             </p>
                           </div>
 
-                          <p className="lightGray text-[16px] font-Roboto font-normal mt-2">
+                          <p className=" itemAppear lightGray text-[16px] font-Roboto font-normal mt-2">
                             (this is the collection where your item will appear)
                           </p>
                           <div className="newCollectionDiv flex gap-4 mt-4">
@@ -218,7 +214,10 @@ const SelectedNft = () => {
                             <div className="absolute inset-y-0 right-5 top-2 flex items-center space-x-8 pr-2">
                               <EditOutlined
                                 className="text-gray-500 cursor-pointer"
-                                onClick={()=>{handleEditClick();showAddTraitModal();}}
+                                onClick={() => {
+                                  handleEditClick();
+                                  showAddTraitModal();
+                                }}
                               />
                               <div className="h-[24px] w-[1px] bg-gray-400"></div>
                               <CloseOutlined
@@ -230,7 +229,10 @@ const SelectedNft = () => {
                           <hr className="w-full h-[2px] bg-[#E7E7E7]" />
                         </div>
 
-                        <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
+                        <div
+                          onClick={showAddTraitModal}
+                          className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl"
+                        >
                           <p className="lightGray font-normal medium font-Roboto">
                             Add Traits
                           </p>
@@ -261,15 +263,15 @@ const SelectedNft = () => {
                     style={{
                       boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
                     }}
-                    className=" py-4 px-[89px] w-[11] bg-white box-shadow rounded-[20px] mt-[59px] "
+                    className="choseCollectionBox py-4 px-[89px] w-[11] bg-white box-shadow rounded-[20px] mt-[59px] "
                   >
-                    <div className="chooseCollection my-3">
-                      <div className="w-full flex justify-center items-center">
+                    <div className="chooseCollection2 my-3">
+                      <div className=" heading w-full flex justify-center items-center">
                         <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
                           Choose collection
                         </h2>
                       </div>
-                      <div className="lightGray text-[16px] font-Roboto font-normal mt-2 flex flex-col gap-6">
+                      <div  className=" artWorkContainer lightGray text-[16px] font-Roboto font-normal mt-2 flex flex-col gap-6">
                         <div className="artWork w-[626px] mx-auto p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex justify-between items-center ">
                           <div className="leftSide flex gap-3">
                             <div className="part1">
@@ -383,7 +385,6 @@ const SelectedNft = () => {
                             minWidth={102}
                             minHeight={53}
                             text="Next"
-                       
                           />
                         </div>
                       </div>
@@ -398,14 +399,11 @@ const SelectedNft = () => {
       </div>
 
       <AddTraits
-           istraitmodal={ istraitmodal}
-           setistraitmodal={ setistraitmodal}
-            />
+        istraitmodal={istraitmodal}
+        setistraitmodal={setistraitmodal}
+      />
 
-<MintNft
-          ismintmodal={ ismintmodal}
-           setismintmodal={setismintmodal}
-            />
+      <MintNft ismintmodal={ismintmodal} setismintmodal={setismintmodal} />
     </>
   );
 };

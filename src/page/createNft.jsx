@@ -5,6 +5,7 @@ import nft4 from "../assets/images/createNft/nftimage4.webp";
 import Navbar from "../components/layout/navbar";
 import Button from "../components/shared/button";
 import { useNavigate } from "react-router-dom";
+import bgGlow from "../assets/images/createNft/bgGlow.png";
 const CreateNft = () => {
   const images = [nft1, nft2, nft3, nft4];
   const navigate = useNavigate();
@@ -14,10 +15,11 @@ const CreateNft = () => {
   return (
     <>
      
-      <div className="createNft mt-16">
+      <div className="createNft mt-16 relative">
+        <img className="absolute top-[-200px] -z-10" src={bgGlow} alt="" />
         <div className="container ">
-          <div className="flex items-center justify-between mb-[75px]">
-            <div className="flex items-center justify-between gap-4 ">
+          <div className="nftBtnContainer flex items-center justify-between mb-[75px]">
+            <div className="singlenft flex items-center justify-between gap-4 ">
               <Button
                 text="Single NFT"
                 className="py-4 px-8 lightGray font-medium font-Roboto border"
@@ -27,7 +29,7 @@ const CreateNft = () => {
               </p>
             </div>
 
-            <div className="flex justify-center items-center gap-3">
+            <div className="selectnft flex justify-center items-center gap-3">
 
             <p className="lightGray font-normal font-Roboto text-base">
             Select an NFT to mint
@@ -45,7 +47,7 @@ const CreateNft = () => {
             </div>
       
           </div>
-          <div className="flex items-center justify-between ">
+          <div className="singleNftCard flex items-center justify-between ">
             {images.map((image, index) => (
               <div key={index} className="relative group overflow-hidden">
                 <img
