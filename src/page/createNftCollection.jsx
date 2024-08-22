@@ -18,8 +18,8 @@ const CreateNftCollection = () => {
       <div>
         <div className="nftCollection mt-[107px] h-[110vh]">
           <div className="container">
-            <div className="flex gap-8">
-              <div className="flex flex-col  items-start">
+            <div className="inner flex gap-8">
+              <div className="backBtnContainer flex flex-col  items-start">
                 <Button
                   className="btn-white !text-[20px] flex items-center gap-4 !px-5 mb-9"
                   text="Back"
@@ -44,8 +44,8 @@ const CreateNftCollection = () => {
                 />
               </div>
 
-              <div className="w-[992px]">
-                <div className="flex gap-3 items-center">
+              <div className="w-[992px]  rightContent">
+                <div className=" rightText flex gap-3 items-center">
                   <Button
                     className="btn-gray w-32 lightGray"
                     text="Collection"
@@ -55,7 +55,7 @@ const CreateNftCollection = () => {
                     text="100 Items"
                   />
                 </div>
-                <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px]">
+                <div className=" nftDetails py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px]">
                   <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
                     MINT YOUR NFT
                   </h2>
