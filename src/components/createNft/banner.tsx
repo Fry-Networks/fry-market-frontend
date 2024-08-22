@@ -1,7 +1,11 @@
 import { InputNumber, Select } from "antd";
+import { useState } from "react";
 import generateIcon from "../../assets/icons/generateIcon.svg";
 import Input from "../shared/input";
 const Banner = () => {
+
+  const [inputValue, setInputValue] = useState("")
+  const [supply, setSupply] = useState(1)
   const onChange = (value: any) => {
     console.log(`selected ${value}`);
   };
@@ -11,7 +15,18 @@ const Banner = () => {
 
   const onSupply = (value: any) => {
     console.log("changed", value);
+    setSupply(value);
   };
+  const handleChange = (e: any) => {
+    console.log("handleChange", e.target.value);
+    setInputValue(e.target.value);
+  }
+  const handleGenerate = () => {
+    console.log("generate")
+    console.log("inputValue", inputValue)
+    console.log("Supply", supply)
+  }
+
   return (
     <>
       <div className="bannerWrapper mb-44">
@@ -45,8 +60,9 @@ const Banner = () => {
                       height={70}
                       type="text"
                       className="m-auto"
+                      onChange={handleChange}
                     />
-                    <button className="absolute top-4 right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
+                    <button onClick={handleGenerate} className="absolute top-4 right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
                       Generate
                       <img src={generateIcon} alt="" />
                     </button>
@@ -78,7 +94,7 @@ const Banner = () => {
                     <InputNumber
                       min={1}
                       max={99999999999}
-                      defaultValue={3}
+                      defaultValue={1}
                       onChange={onSupply}
                     />
                   </div>
@@ -86,8 +102,6 @@ const Banner = () => {
                     <p className="lightGray font-normal medium font-Roboto">Add Styles</p>
                     <img src="/src/assets/icons/plus.svg" alt="" />
                   </div>
-
-
 
                   <div className="addStyle flex justify-between items-center">
                     <p className="lightGray font-normal medium font-Roboto">Add Traits</p>
