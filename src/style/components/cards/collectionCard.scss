@@ -1,4 +1,4 @@
-.collectionCard {
+.collectionCardd {
   // border-radius: 23.516px;
   // border: 0.784px solid #eaeaea;
   // background: rgba(255, 255, 255);
@@ -9,15 +9,10 @@
   // -moz-box-shadow: 3px 1px 9px 0px rgba(0,0,0,0.75);
   width: 310px;
   padding: 36px 20px 20px 20px;
-  background-color: none;
   position: relative;
-
-  .whiteCard {
-    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.27));
-  }
-  // background-image: url(src/assets/images/cardback.webp);
-  // background-position: center;
-  // background-size: 100% 100%;
+  background-image: url(src/assets/images/cardback.webp);
+  background-position: center;
+  background-size: 100% 100%;
 
   // &::before {
   //   position: absolute;
