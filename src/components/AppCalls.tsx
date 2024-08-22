@@ -53,19 +53,19 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
       onUpdate: OnUpdate.AppendApp,
     }
 
-    const response = await appClient.create.createApplication({ assetId: BigInt(704951701), unitaryPrice: BigInt(0) }).catch((e: Error) => {
-      enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
-      setLoading(false)
-      return
-    })
+    // const response = await appClient.create.createApplication({ assetId: BigInt(704951701), unitaryPrice: BigInt(0) }).catch((e: Error) => {
+    //   enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
+    //   setLoading(false)
+    //   return
+    // })
 
-    console.log("response", response)
+    // console.log("response", response)
 
-    setAppAddress(response!.appAddress)
-    setAppId(Number(response!.appId))
+    // setAppAddress(response!.appAddress)
+    // setAppId(Number(response!.appId))
 
 
-    const algorandClient: algokit.AlgorandClient = algokit.AlgorandClient.fromConfig({ algodConfig })
+    // const algorandClient: algokit.AlgorandClient = algokit.AlgorandClient.fromConfig({ algodConfig })
 
     // const info = await appClient.getAssetInfo({}).catch((e: Error) => {
     //   enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
@@ -85,96 +85,96 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
     // console.log("asset", asset, newAsset);
 
 
-    const mbrTxn = await algorandClient.transactions.payment({
-      sender: activeAddress,
-      receiver: response!.appAddress,
-      amount: algokit.algos(0.1),
-      extraFee: algokit.algos(0.001),
-      signer: signer
-    });
+    //   const mbrTxn = await algorandClient.transactions.payment({
+    //     sender: activeAddress,
+    //     receiver: response!.appAddress,
+    //     amount: algokit.algos(0.1),
+    //     extraFee: algokit.algos(0.001),
+    //     signer: signer
+    //   });
 
-    const listresp = await appClient.listNft({ mbrPay: (mbrTxn) }, { assets: [704951701] }).catch((e: Error) => {
-      enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
+    //   const listresp = await appClient.listNft({ mbrPay: (mbrTxn) }, { assets: [704951701] }).catch((e: Error) => {
+    //     enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
+    //     setLoading(false)
+    //     return
+    //   })
+    //   await algorandClient.send.assetTransfer({
+    //     sender: activeAddress,
+    //     assetId: BigInt(704951701),
+    //     receiver: response!.appAddress,
+    //     amount: BigInt(1),
+    //     signer
+    //   })
+
+    //   console.log(listresp)
+
+    //   enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
+    //   setLoading(false)
+    // }
+
+
+    const sendBuyCall = async () => {
+      setLoading(true)
+      if (!activeAddress) return
+
+      // Please note, in typical production scenarios,
+      // you wouldn't want to use deploy directly from your frontend.
+      // Instead, you would deploy your contract on your backend and reference it by id.
+      // Given the simplicity of the starter contract, we are deploying it on the frontend
+      // for demonstration purposes.
+      const appDetails = {
+        resolveBy: 'creatorAndName',
+        sender: { signer, addr: activeAddress } as TransactionSignerAccount,
+        creatorAddress: activeAddress,
+        findExistingUsing: indexer,
+      } as AppDetails
+
+      const appClient = new AlgoMarketClient(appDetails, algodClient)
+      const deployParams = {
+        onSchemaBreak: OnSchemaBreak.AppendApp,
+        onUpdate: OnUpdate.AppendApp,
+      }
+      // await appClient.deploy(deployParams).catch((e: Error) => {
+      //   enqueueSnackbar(`Error deploying the contract: ${e.message}`, { variant: 'error' })
+      //   setLoading(false)
+      //   return
+      // })
+
+      // console.log("appClient", )
+
+      // const suggestedParams = await algodClient.getTransactionParams().do();
+
+      // const response = await appClient.create.createApplication({ assetId: 704441505, unitaryPrice: 0  }).catch((e: Error) => {
+      //   enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
+      //   setLoading(false)
+      //   return
+      // })
+
+      // console.log("response", response)
+
+      const algorandClient: algokit.AlgorandClient = algokit.AlgorandClient.fromConfig({ algodConfig })
+
+      const mbrTxn = await algorandClient.transactions.payment({
+        sender: activeAddress,
+        receiver: appAddress,
+        amount: algokit.algos(0.1 + 0.1),
+        extraFee: algokit.algos(0.001),
+        signer: signer
+      });
+
+
+      // const buyresp = await appClient.buy({ buyerTx: (mbrTxn), quantity: 10 }).catch((e: Error) => {
+      //   enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
+      //   setLoading(false)
+      //   return
+      // })
+
+      // console.log(buyresp)
+
+      // enqueueSnackbar(`Response from the contract: ${buyresp?.return}`, { variant: 'success' })
       setLoading(false)
-      return
-    })
-    await algorandClient.send.assetTransfer({
-      sender: activeAddress,
-      assetId: BigInt(704951701),
-      receiver: response!.appAddress,
-      amount: BigInt(1),
-      signer
-    })
-
-    console.log(listresp)
-
-    enqueueSnackbar(`Response from the contract: ${response?.return}`, { variant: 'success' })
-    setLoading(false)
-  }
-
-
-  const sendBuyCall = async () => {
-    setLoading(true)
-    if (!activeAddress) return
-
-    // Please note, in typical production scenarios,
-    // you wouldn't want to use deploy directly from your frontend.
-    // Instead, you would deploy your contract on your backend and reference it by id.
-    // Given the simplicity of the starter contract, we are deploying it on the frontend
-    // for demonstration purposes.
-    const appDetails = {
-      resolveBy: 'creatorAndName',
-      sender: { signer, addr: activeAddress } as TransactionSignerAccount,
-      creatorAddress: activeAddress,
-      findExistingUsing: indexer,
-    } as AppDetails
-
-    const appClient = new AlgoMarketClient(appDetails, algodClient)
-    const deployParams = {
-      onSchemaBreak: OnSchemaBreak.AppendApp,
-      onUpdate: OnUpdate.AppendApp,
     }
-    // await appClient.deploy(deployParams).catch((e: Error) => {
-    //   enqueueSnackbar(`Error deploying the contract: ${e.message}`, { variant: 'error' })
-    //   setLoading(false)
-    //   return
-    // })
-
-    // console.log("appClient", )
-
-    // const suggestedParams = await algodClient.getTransactionParams().do();
-
-    // const response = await appClient.create.createApplication({ assetId: 704441505, unitaryPrice: 0  }).catch((e: Error) => {
-    //   enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
-    //   setLoading(false)
-    //   return
-    // })
-
-    // console.log("response", response)
-
-    const algorandClient: algokit.AlgorandClient = algokit.AlgorandClient.fromConfig({ algodConfig })
-
-    const mbrTxn = await algorandClient.transactions.payment({
-      sender: activeAddress,
-      receiver: appAddress,
-      amount: algokit.algos(0.1 + 0.1),
-      extraFee: algokit.algos(0.001),
-      signer: signer
-    });
-
-
-    const buyresp = await appClient.buy({ buyerTx: (mbrTxn), quantity: 10 }).catch((e: Error) => {
-      enqueueSnackbar(`Error calling the contract: ${e.message}`, { variant: 'error' })
-      setLoading(false)
-      return
-    })
-
-    console.log(buyresp)
-
-    enqueueSnackbar(`Response from the contract: ${buyresp?.return}`, { variant: 'success' })
-    setLoading(false)
   }
-
   console.log(activeAddress)
 
 
@@ -202,9 +202,9 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
             {loading ? <span className="loading loading-spinner" /> : 'Send application call'}
           </button>
 
-          <button className={`btn`} onClick={sendBuyCall}>
+          {/* <button className={`btn`} onClick={sendBuyCall}>
             buy
-          </button>
+          </button> */}
         </div>
       </form>
     </dialog>
