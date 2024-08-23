@@ -26,6 +26,10 @@
   }
   .ant-tabs-tab {
     padding-left: 5px;
+    &:hover{
+      
+
+    }
     .ant-tabs-tab-btn {
       padding: 14px 25px;
       color: #000;
@@ -40,6 +44,7 @@
       outline: 2px solid transparent;
     }
     &.ant-tabs-tab-active {
+  
       .ant-tabs-tab-btn {
         color: #fe0101;
         outline-color: #fd0000;
@@ -48,7 +53,9 @@
     }
   }
 }
+.ant-tabs-tab .ant-tabs-tab-active{
 
+}
 .exploreWrapper {
 
   .container {
@@ -57,6 +64,10 @@
         .ant-tabs-nav {
           .ant-tabs-nav-wrap {
             .ant-tabs-nav-list {
+              border-bottom: 0px;
+              .ant-tabs-tab-active{
+            
+              }
             }
           }
         }
@@ -64,6 +75,9 @@
     }
   }
 }
+
+
+
 @media screen and (max-width: 1380px) {
   .exploreWrapper {
     overflow: hidden;
@@ -79,6 +93,7 @@
             .ant-tabs-nav {
               .ant-tabs-nav-wrap {
                 .ant-tabs-nav-list {
+                  
                   gap: 10px;
                   .ant-tabs-tab{
                     margin: 0px !important;

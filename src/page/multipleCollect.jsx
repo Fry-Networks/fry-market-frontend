@@ -71,3 +71,4 @@ const MultipleCollect = () => {
 };
 
 export default MultipleCollect;
+
