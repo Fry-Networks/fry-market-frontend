@@ -1,14 +1,16 @@
 import React, { useState } from "react";
-
+import rightGlow from "../../assets/topCollection/rightGlow.webp";
+import bannerImg from "../../assets/artistsProfile/bannerImg.png";
 const ProfileBanner = () => {
   return (
     <>
-      <div className="profileBanner">
+      <div className="profileBanner relative">
+        <img className="absolute top-[-600px] right-0" src={rightGlow} alt="" />
         <div className="container">
           <div className="inner  ">
             <img
               className="mt-10 w-full"
-              src="/src/assets/artistsProfile/bannerImg.png"
+              src={bannerImg}
               alt=""
             />
             <div className="profileContent flex flex-col gap-5 justify-center items-center">

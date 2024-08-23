@@ -2,6 +2,14 @@ import React from "react";
 import card1 from "../../assets/images/sellerCollection/nft1.png";
 import card2 from "../../assets/images/sellerCollection/nft2.png";
 import card3 from "../../assets/images/sellerCollection/nft3.png";
+import card4 from "../../assets/artistsProfile/artistPic4.png";
+import card5 from "../../assets/artistsProfile/artistPic5.png";
+import card6 from "../../assets/artistsProfile/artistPic6.png";
+import card7 from "../../assets/artistsProfile/artistPic7.png";
+import card8 from "../../assets/artistsProfile/artistPic8.png";
+
+
+
 import { Link } from "react-router-dom";
 import Button from "../../components/shared/button";
 import arrowDown from "../../assets/icons/redDownArw.svg";
@@ -35,50 +43,37 @@ const CollectionCard = ({ isArtistProfile }) => {
       title: "WONDERFUL ARTWORK",
       items: "Items",
       value: "1.5k",
-      img: card1,
+      img: card4,
     },
     {
       id: 5,
       title: "WONDERFUL ARTWORK",
       items: "Items",
       value: "1.5k",
-      img: card2,
+      img: card5,
     },
     {
       id: 6,
       title: "WONDERFUL ARTWORK",
       items: "Items",
       value: "1.5k",
-      img: card3,
+      img: card6,
     },
     {
       id: 7,
       title: "WONDERFUL ARTWORK",
       items: "Items",
       value: "1.5k",
-      img: card1,
+      img: card7,
     },
     {
       id: 8,
       title: "WONDERFUL ARTWORK",
       items: "Items",
       value: "1.5k",
-      img: card2,
+      img: card8,
     },
-    {
-      id: 9,
-      title: "WONDERFUL ARTWORK",
-      items: "Items",
-      value: "1.5k",
-      img: card3,
-    },
-    {
-      id: 10,
-      title: "WONDERFUL ARTWORK",
-      items: "Items",
-      value: "1.5k",
-      img: card1,
-    },
+ 
   ];
 
   return (

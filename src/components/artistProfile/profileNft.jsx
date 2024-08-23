@@ -15,6 +15,7 @@ import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
+import pageGlow from "../../assets/artistsProfile/artistGlow.png";
 
 const ProfileNft = () => {
 
@@ -108,7 +109,8 @@ const ProfileNft = () => {
       ];
   return (
  <>
- <div className="profileNft mt-24">
+ <div className="profileNft mt-24 relative">
+  <img className='absolute top-[-900px]' src={pageGlow} alt="" />
 <div className="container">
     <div className="nftContainer">
     <Tabs
