@@ -1,9 +1,20 @@
 import { InputNumber, Select } from "antd";
 import { useState } from "react";
 import generateIcon from "../../assets/icons/generateIcon.svg";
+import AddStyleModal from "../../modals/addStyleModal";
+import GenerateNft from "../../modals/generateNft";
 import Input from "../shared/input";
 const Banner = () => {
+  const [isstylemodal, setisstylemodal] = useState(false);
+  const showAddStyleModal = () => {
+    setisstylemodal(true);
+  };
 
+  const [isgeneratemodal, setisgeneratemodal] = useState(false);
+
+  const showGenerateNftModal = () => {
+    setisgeneratemodal(true);
+  };
   const [inputValue, setInputValue] = useState("")
   const [supply, setSupply] = useState(1)
   const onChange = (value: any) => {
@@ -98,7 +109,7 @@ const Banner = () => {
                       onChange={onSupply}
                     />
                   </div>
-                  <div className="addStyle flex justify-between items-center">
+                  <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
                     <p className="lightGray font-normal medium font-Roboto">Add Styles</p>
                     <img src="/src/assets/icons/plus.svg" alt="" />
                   </div>
@@ -113,6 +124,17 @@ const Banner = () => {
           </div>
         </div>
       </div>
+
+      <AddStyleModal
+        isstylemodal={isstylemodal}
+        setisstylemodal={setisstylemodal}
+      />
+
+
+      <GenerateNft
+        isgeneratemodal={isgeneratemodal}
+        setisgeneratemodal={setisgeneratemodal}
+      />
     </>
   );
 };

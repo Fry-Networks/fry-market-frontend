@@ -42,7 +42,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
               <div className="w-1/2">
                 <img className="h-[247px]" src={noneImg} alt="" />
               </div>
-              <div className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl">
+              <label htmlFor="helloworld" className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl" >
+                <input className="hidden" type="checkbox" id="helloworld" />
                 <img src={cartoonImg} alt="" />
                 <Button
                   className="button btn-whiteClr medium font-Roboto font-medium"
@@ -50,7 +51,7 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
                   minHeight={44}
                   text="Cartoon"
                 ></Button>
-              </div>
+              </label>
 
 
             </div>
