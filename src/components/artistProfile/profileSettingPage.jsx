@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import Input from "../shared/input";
 import Button from "../shared/button";
 import UploadImage from "../../modals/uploadImage";
+import uploadBanner from "../../assets/artistsProfile/uploadImgBanner.png";
+import plusIcon from "../../assets/artistsProfile/plusIcon.png";
+import bannerGlow from "../../assets/artistsProfile/artistGlow.png";
 
 const ProfileSettingPage = () => {
   const [isuploadmodal, setisuploadmodal] = useState(false);
@@ -11,19 +14,21 @@ const ProfileSettingPage = () => {
   };
   return (
     <>
-      <div className="profileSetting">
+      <div className="profileSetting relative">
+        <img className="absolute top-[-180px]" src={bannerGlow} alt="" />
         <div className="container">
           <div className="inner">
             <div className="uploadDiv relative">
               <button
                 onClick={showImageModal}
-                className="absolute top-[125px] left-[550px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
+                className="absolute top-[125px] left-[570px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
               >
                 Upload Banner
               </button>
+              <img className="absolute bottom-[40px] left-[590px] cursor-pointer" src={plusIcon} alt=""   onClick={showImageModal} />
               <img
-                className="mt-7"
-                src="/src/assets/artistsProfile/uploadImgBanner.png"
+                className="my-7 mb-16"
+                src={uploadBanner}
                 alt=""
               />
               <button   onClick={showImageModal} className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">

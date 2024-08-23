@@ -21,7 +21,9 @@ const Navbar = () => {
     location.pathname === "/createnft-collect" ||
     location.pathname === "/create-nft-page" ||
     location.pathname === "/select-nft"  ||
-    location.pathname === "/sell-method";
+    location.pathname === "/sell-method"||
+    location.pathname === "/artist-profile-art"||
+  location.pathname === "/artist-profile"
 
 
   console.log(location.pathname);
