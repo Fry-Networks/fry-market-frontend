@@ -32,30 +32,3 @@ export default {
   },
   plugins: [],
 };
-
-
-
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-//   theme: {
-//     container: {
-//       center: true,
-//       padding: {
-//         DEFAULT: "1rem",
-     
-//       },
-  
-//     },
-//     extend: {
-//       screens: {
-//         xs: "430px",
-//         lg: "992px",
-//         lg10: "1024px",
-//         xl: "1280px",
-//         "2xl": "1360px",  
-//       },
-//     },
-//   },
-//   plugins: [],
-// };

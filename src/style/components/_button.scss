@@ -104,3 +104,16 @@ button {
     }
   }
 }
+
+@media screen and (max-width:800px) {
+
+  button{
+    
+  &.btn-primary{
+    min-height: 34px !important;
+  }
+  &.btn-secondary{
+    min-height: 34px !important;
+  }
+  }
+}
