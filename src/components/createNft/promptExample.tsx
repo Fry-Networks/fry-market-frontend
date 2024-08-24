@@ -30,28 +30,28 @@ const PromptExample = () => {
             id:2,
             nftImg:promptImg2,
             title:"FANTASY",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:3,
             nftImg:promptImg3,
             title:"DRAGON HOUSE",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. "
 
         },
         {
             id:4,
             nftImg:promptImg4,
             title:"PRINCESS",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu."
 
         },
         {
             id:5,
             nftImg:promptImg5,
             title:"SPACE TEAM",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
 
@@ -59,28 +59,28 @@ const PromptExample = () => {
             id:6,
             nftImg:promptImg6,
             title:"SEA CREATURER",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Pmied vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. "
 
         },
         {
             id:7,
             nftImg:promptImg7,
             title:"PIXEL GIRL",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet Nam maximus augue."
 
         },
         {
             id:8,
             nftImg:promptImg8,
             title:"SHADOW FIGHTER",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim."
 
         },
     ]
   return (
  <>
  <div className="promptWrapper mb-52 relative">
-    <img src={promptBack} className='absolute top-0 left-0' alt="" />
+    <img src={promptBack} className='absolute top-0 left-0 -z-50' alt="" />
     <div className="container">
     <h2 className="font-bold font-Apex uppercase tracking-wide darkBlack mb-10">
     Prompt examples

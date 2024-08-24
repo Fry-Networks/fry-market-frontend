@@ -1,10 +1,15 @@
 import Button from "../shared/button";
 import Input from "../shared/input";
+import settingBanerGlow from "../../assets/artistsProfile/settingBanerGlow.png";
+import midGlow from "../../assets/artistsProfile/midGlow.png";
 
 const ProfileSettingPage = () => {
   return (
     <>
-      <div className="profileSetting">
+      <div className="profileSetting relative mb-20">
+        <img className="absolute top-[-180px] -z-30" src={settingBanerGlow} alt="" />
+        <img className="absolute bottom-[-100px] -z-30" src={midGlow} alt="" />
+
         <div className="container">
           <div className="inner">
             <div className="uploadDiv relative">

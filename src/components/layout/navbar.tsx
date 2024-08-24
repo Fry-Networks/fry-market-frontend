@@ -57,7 +57,10 @@ const Navbar = (props: Toggle) => {
         <div className="container">
           <div className="nav-content flex justify-between items-center">
             <div className="nav-logo">
-              <img src={logo} alt="Logo" />
+              <img src={logo} alt="Logo" className="cursor-pointer"
+               onClick={(() => (
+                navigate("/")
+              ))} />
             </div>
             <div className="nav-items ">
               <ul className="flex justify-center items-center gap-x-8 font-normal medium darkBlack font-Apex uppercase cursor-pointer">
@@ -79,7 +82,9 @@ const Navbar = (props: Toggle) => {
             {isCreateNftPage ? (
               <div className="flex gap-x-3">
                 <img src={logo1} alt="button" className="cursor-pointer" />
-                <img src={logo2} alt="button" className="cursor-pointer" />
+                <img src={logo2} alt="button" className="cursor-pointer" onClick={(() => (
+                  navigate("/artist-profile-art")
+                ))} />
               </div>
             ) : (
               <div className="nav-btns flex gap-x-3 font-Roboto">

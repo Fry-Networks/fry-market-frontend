@@ -57,7 +57,7 @@ const TopListed = () => {
   return (
     <>
       <div className="topListedSection relative mb-52">
-      <img className="absolute right-0 top-32 -z-10" src={rightGlow} alt="" />
+      <img className="absolute right-0 top-32 -z-20" src={rightGlow} alt="" />
         <div className="absolute top-0 left-0 w-[200px] collapseDiv">
       
 

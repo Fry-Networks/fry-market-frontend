@@ -15,6 +15,7 @@ import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
 import AddTraits from "../modals/addTraits";
 import MintNft from "../modals/mintNft";
+import selectNftGlow from "../assets/createNft/selectedNftGlow.png";
 
 const SelectedNft = () => {
   const [showOriginalContent, setShowOriginalContent] = useState(true);
@@ -61,7 +62,8 @@ const SelectedNft = () => {
   return (
     <>
       <div>
-        <div className="nftCollection mt-[107px] h-[110vh]">
+        <div className="nftCollection mt-[107px] h-[110vh] relative">
+          <img className="absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
           <div className="container">
             <div className="flex gap-8">
               <div className="flex flex-col  items-start">

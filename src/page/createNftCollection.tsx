@@ -4,6 +4,7 @@ import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
+import nftColGlow from "../assets/artistsProfile/createGlow.png";
 
 const CreateNftCollection = () => {
   const navigate = useNavigate();
@@ -14,7 +15,8 @@ const CreateNftCollection = () => {
     <>
 
       <div>
-        <div className="nftCollection mt-[107px] h-[110vh]">
+        <div className="nftCollection mt-[107px] h-[110vh] relative">
+          <img className="absolute top-[-200px] -z-40" src={nftColGlow} alt="" />
           <div className="container">
             <div className="flex gap-8">
               <div className="flex flex-col  items-start">
@@ -48,10 +50,10 @@ const CreateNftCollection = () => {
                     className="btn-gray w-32 lightGray"
                     text="Collection"
                   />
-                  <Button
+                  {/* <Button
                     className="btn-gray w-32 lightGray "
                     text="100 Items"
-                  />
+                  /> */}
                 </div>
                 <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px]">
                   <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24 uppercase">
@@ -82,7 +84,7 @@ const CreateNftCollection = () => {
                         // label="Description "
                         label={
                           <>
-                            <div className="flex flex-col gap-2">
+                            <div className="flex flex-col gap-2 mt-9">
                               <span>Description</span>
                               <span className="medium ">
                                 The description will be included on the item's
