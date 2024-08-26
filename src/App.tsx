@@ -13,6 +13,7 @@ import Transact from './components/Transact'
 import ArtistProfileArt from "./page/artistProfileArt"
 import ArtistsProfile from "./page/artistsProfile"
 import Auction from "./page/auction"
+import CreateNftCollectionManual from './page/createCollectionManual'
 import CreateNft from "./page/createNft"
 import CreateNftCollection from "./page/createNftCollection"
 import CreateNftPage from "./page/createNftPage"
@@ -98,6 +99,7 @@ export default function App() {
           <Route path="/seller-collection" element={<SellerCollection />} />
           <Route path="/create-nft" element={<CreateNft />} />
           <Route path="/createnft-collect" element={<CreateNftCollection />} />
+          <Route path="/create-collection" element={<CreateNftCollectionManual />} />
           <Route path="/select-nft" element={<SelectedNft />} />
           <Route path="/nft-detail" element={<NftDetail />} />
           <Route path="/create-nft-page" element={<CreateNftPage />} />
