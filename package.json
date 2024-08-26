@@ -43,6 +43,7 @@
     "@walletconnect/modal-sign-html": "^2.6.1",
     "algosdk": "^2.7.0",
     "antd": "^5.20.2",
+    "axios": "^1.7.5",
     "classnames": "^2.5.1",
     "daisyui": "^4.12.10",
     "notistack": "^3.0.1",
