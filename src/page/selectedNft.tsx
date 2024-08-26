@@ -1,7 +1,9 @@
+import * as algokit from "@algorandfoundation/algokit-utils";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useWallet } from "@txnlab/use-wallet";
 import { Switch } from "antd";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import newCollect from "../assets/artistsProfile/newCollect.png";
 import collect1 from "../assets/createNft/collect1.webp";
@@ -13,8 +15,11 @@ import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
+import { getAllListed, Listing } from "../fryMarketMethods";
 import AddTraits from "../modals/addTraits";
 import MintNft from "../modals/mintNft";
+import { mintMultipleNft } from "../utils/minting/minting";
+import { getAlgodConfigFromViteEnvironment } from "../utils/network/getAlgoClientConfigs";
 
 const SelectedNft = () => {
   const [showOriginalContent, setShowOriginalContent] = useState(true);
@@ -23,6 +28,13 @@ const SelectedNft = () => {
   };
   const [value, setValue] = useState("blue: fox");
   const [isEditing, setIsEditing] = useState(false);
+
+  const { activeAddress, signer, sendTransactions, signTransactions } = useWallet()
+  algokit.Config.configure({ populateAppCallResources: true });
+
+  const algodConfig = getAlgodConfigFromViteEnvironment()
+  const algorandClient: algokit.AlgorandClient = algokit.AlgorandClient.fromConfig({ algodConfig })
+  algorandClient.setDefaultSigner(signer);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -58,6 +70,69 @@ const SelectedNft = () => {
   const showMintModal = () => {
     setismintmodal(true);
   };
+
+
+  const mintNft = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      const uris: string[] = [
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_0.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_1.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_2.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_3.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_4.png"
+      ]
+
+      let expandedUris: string[] = [];
+      while (expandedUris.length < 16) {
+        expandedUris = expandedUris.concat(uris);
+      }
+      expandedUris = expandedUris.slice(0, 16);
+
+      console.log(expandedUris.length)
+      const mintingTsx: Uint8Array[] = await mintMultipleNft(algorandClient, expandedUris, activeAddress!, signer)
+
+      const signedTransactions = await signTransactions(mintingTsx)
+      const waitRoundsToConfirm = 4
+      const { id } = await sendTransactions(signedTransactions, waitRoundsToConfirm)
+      console.log(id)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const lisMyNft = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const assetId = 709435738;
+
+    //! Mint Nft
+    await mintNft(e)
+
+    //! list Nfts
+    // const nftList = await listNft(activeAddress!, BigInt(assetId), signer)
+    // console.log(nftList)
+
+    //! update Nft Price
+
+    // const updatePrice = await updateNftListPrice(activeAddress!, BigInt(assetId), signer, BigInt(2000000))
+    // console.log(updatePrice)
+
+    //! get listed nfts
+    const listedNfts: Listing[] = await getAllListed()
+    console.log(listedNfts)
+
+    //! cancel list
+    // const cancellist = await cancelList(activeAddress!, BigInt(assetId), signer)
+    // console.log(cancellist)
+
+    //! Buy Nft
+    // const buyListedNft = await buyNft(activeAddress!, BigInt(assetId), signer, "FW5K3IUZ2WQDCFDWPCBBSXAZXQQDONNN54FDVYHFCMOCK7PFDLROPGTTWM", 1000000)
+    // console.log(buyListedNft)
+
+
+  }
+
+  console.log(activeAddress)
   return (
     <>
       <div>
@@ -248,7 +323,7 @@ const SelectedNft = () => {
                           <Button
                             className="btn-primary px-8 py-4 mb-5"
                             text="Mint NFT"
-                            onClick={showMintModal}
+                            onClick={lisMyNft}
                           />
                         </div>
                       </form>
