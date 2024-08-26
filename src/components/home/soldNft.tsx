@@ -20,12 +20,12 @@ const SoldNft = () => {
   return (
    <>
    <div className="soldNftWrapper mb-52 relative md:mb-20">
-    <img className='absolute bottom-[0px] right-[0px] w-full -z-10' src={glow} alt="" />
+    <img className='absolute bottom-[0px] right-[0px] w-full -z-40' src={glow} alt="" />
     <div className="container">
     <h2 className="font-normal font-Apex uppercase mb-10">
     SOLD NFT'S
           </h2>
-          <div className="soldCardContainer mt-10 grid grid-cols-4  gap-x-10 gap-y-7">
+          <div className="soldCardContainer mt-10 grid grid-cols-4  gap-x-10 gap-y-7 relative z-50">
             {
                 soldCardData.map((data,index)=>(
                     <CollectionsCard data={data} key={data.id} showLayer={true}/>

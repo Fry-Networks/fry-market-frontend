@@ -19,216 +19,10 @@ import ts1 from "../assets/images/topSellers/tss1.png";
 import ReadyForNext from "../components/home/readyForNext";
 import Button from "../components/shared/button";
 
-const columns = [
-  {
-    title: "Collections",
-    dataIndex: "collection",
-    key: "collection",
-    render: ({ text, record, index }: any) => (
-      <div className="flex items-center">
-        <span className="mr-3">{index + 1}.</span>
-        <img src={record.image} alt="icon" className="mr-2" />
-        <span>{text}</span>
-      </div>
-    ),
-  },
-  {
-    title: "Volume",
-    dataIndex: "volume",
-    key: "volume",
-    render: (text: any) => (
-      <div className="flex items-center">
-        <img src={logo} alt="icon" className="mr-2" />
-        <span>{text}</span>
-      </div>
-    ),
-  },
-  {
-    title: "Followers",
-    dataIndex: "follower",
-    key: "follower",
-  },
-  {
-    title: "24%",
-    dataIndex: "percentage",
-    key: "percentage",
-  },
-  {
-    title: "Floor Price",
-    dataIndex: "price",
-    key: "price",
-    render: (text: any) => (
-      <div className="flex items-center">
-        <img src={logo} alt="icon" className="mr-2" />
-        <span>{text}</span>
-      </div>
-    ),
-  },
-  {
-    title: "Items",
-    dataIndex: "items",
-    key: "items",
-  },
-];
-
-const data = [
-  {
-    key: "1",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 100,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table1,
-  },
-  {
-    key: "2",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 150,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table2,
-  },
-  {
-    key: "3",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 75,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table3,
-  },
-  {
-    key: "4",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 75,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table4,
-  },
-  {
-    key: "5",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 33,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table5,
-  },
-  {
-    key: "6",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 24,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table6,
-  },
-  {
-    key: "7",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 22,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table7,
-  },
-  {
-    key: "8",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 64,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table1,
-  },
-  {
-    key: "9",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 877,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table8,
-  },
-  {
-    key: "10",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 55,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table9,
-  },
-  {
-    key: "11",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 35,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table10,
-  },
-  {
-    key: "12",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 32,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table3,
-  },
-  {
-    key: "13",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 94,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table2,
-  },
-  {
-    key: "14",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 75,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table1,
-  },
-  {
-    key: "15",
-    collection: "Jacob Jones",
-    volume: 154.0,
-    follower: 25,
-    percentage: "+237.67%",
-    price: "4,901",
-    items: "9.8k",
-    image: table11,
-  },
-];
-
-const handleChange = (value: any) => {
-  console.log(`selected ${value}`);
-};
 
 const TopSeller = () => {
+
+
   const navigate = useNavigate();
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -237,6 +31,231 @@ const TopSeller = () => {
   const handleRowClick = (record: any) => {
     navigate("/seller-collection");
   };
+  interface DataType {
+    key: string;
+    collection: string;
+    volume: number;
+    follower: number;
+    percentage: string;
+    price: string;
+    items: string;
+    image: string;
+
+  }
+  const data: DataType[] = [
+    {
+      key: "1",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 100,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table1,
+    },
+    {
+      key: "2",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 150,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table2,
+    },
+    {
+      key: "3",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 75,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table3,
+    },
+    {
+      key: "4",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 75,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table4,
+    },
+    {
+      key: "5",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 33,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table5,
+    },
+    {
+      key: "6",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 24,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table6,
+    },
+    {
+      key: "7",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 22,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table7,
+    },
+    {
+      key: "8",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 64,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table1,
+    },
+    {
+      key: "9",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 877,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table8,
+    },
+    {
+      key: "10",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 55,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table9,
+    },
+    {
+      key: "11",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 35,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table10,
+    },
+    {
+      key: "12",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 32,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table3,
+    },
+    {
+      key: "13",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 94,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table2,
+    },
+    {
+      key: "14",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 75,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table1,
+    },
+    {
+      key: "15",
+      collection: "Jacob Jones",
+      volume: 154.0,
+      follower: 25,
+      percentage: "+237.67%",
+      price: "4,901",
+      items: "9.8k",
+      image: table11,
+    },
+  ];
+  const columns = [
+    {
+      title: "Collections",
+      dataIndex: "image",
+      key: "image",
+
+      render: (record: any) => (
+        <>
+          <img src={record?.image} alt="" />
+        </>
+
+      ),
+
+    },
+    {
+      title: "Volume",
+      dataIndex: "volume",
+      key: "volume",
+      render: (text: any) => (
+        <div className="flex items-center">
+          <img src={logo} alt="icon" className="mr-2" />
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Followers",
+      dataIndex: "follower",
+      key: "follower",
+    },
+    {
+      title: "24%",
+      dataIndex: "percentage",
+      key: "percentage",
+    },
+    {
+      title: "Floor Price",
+      dataIndex: "price",
+      key: "price",
+      render: (text: any) => (
+        <div className="flex items-center">
+          <img src={logo} alt="icon" className="mr-2" />
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: "Items",
+      dataIndex: "items",
+      key: "items",
+    },
+  ];
+
+
+
+  const handleChange = (value: any) => {
+    console.log(`selected ${value}`);
+  };
+
+
+  console.log(data);
+
   return (
     <>
 

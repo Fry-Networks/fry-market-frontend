@@ -1,6 +1,7 @@
 import { Collapse, Table } from "antd";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
+import rightSecPic from "../../assets/nftDetail/rightSecPic.png";
 
 const NftDetailBanner = () => {
   const onChange = (key: any) => {
@@ -240,7 +241,7 @@ const NftDetailBanner = () => {
         <div className="container">
           <div className="topSection flex-center gap-6 mt-10">
             <div className="leftArea w-[546px] flex flex-col gap-7 ">
-              <img src="/src/assets/nftDetail/rightSecPic.png" alt="" />
+              <img src={rightSecPic} alt="" />
               <div className="descriptionAccordion">
                 <Collapse
                   expandIconPosition="end"

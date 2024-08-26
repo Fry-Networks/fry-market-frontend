@@ -26,6 +26,7 @@ import SellMethod from "./page/sellMethod"
 import TopCollection from "./page/topCollection"
 import TopSeller from "./page/topSeller"
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
+import ManualCreateNft from './page/manualCreateNft'
 
 let providersArray: ProvidersArray
 if (import.meta.env.VITE_ALGOD_NETWORK === '') {
@@ -79,7 +80,8 @@ export default function App() {
     location.pathname === "/top-collection" ||
     location.pathname === "/top-seller" ||
     location.pathname === "/seller-collection" ||
-    location.pathname === "/create-nft-page";
+    location.pathname === "/create-nft-page"||
+    location.pathname==="/createnft-collect";
 
 
   const toggleWalletModal = () => {
@@ -106,6 +108,8 @@ export default function App() {
           <Route path="/artist-profile" element={<ArtistsProfile />} />
           <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
           <Route path="/sell-method" element={<SellMethod />} />
+          <Route path="/manual-create-nft" element={<ManualCreateNft />} />
+
         </Routes>
         {isNavbar ? <Footer /> : ""}
         <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import bannerImg from "../../assets/nftCollection/bannerImg.png"
+import bannerImg from "../../assets/nftCollection/bannerImg.webp";
 
 const NftCollectBanner = () => {
   return (

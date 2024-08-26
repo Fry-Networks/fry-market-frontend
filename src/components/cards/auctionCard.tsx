@@ -1,10 +1,12 @@
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import Button from "../shared/button";
+import whiteCard from "../../assets/home/images/whiteCard.png";
 
 const AuctionCard = ({ data }: any) => {
   return (
     <>
-      <div className='auctionCard flex flex-col gap-2 bg-white'>
+      <div className='auctionCard flex flex-col gap-2 relative'>
+      <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start gap-2">
           <div className="t-left-part w-1/5">
             <img src={data.userImg} alt="" />

@@ -62,3 +62,54 @@ padding: 19px 30px;
     }
   }
 }
+@media screen and (max-width:1200px) {
+  .bannerWrapper{
+    .container{
+      .inner{
+        .earnMoneyDiv{
+          width: 100% !important;
+          .part1{
+
+          }
+          .part2{
+            width: 100%;
+.earnInput{
+  width: 100% !important;
+
+  .input-box{
+    width: 100% !important;
+    .input-wrapper{
+width: 100% !important;
+input{
+  //width: 100% !important;
+}
+    }
+  }
+}
+          }
+        }
+      }
+    }
+  }
+  
+}
+
+
+
+@media screen and (max-width:800px) {
+  .bannerWrapper{
+    .container{
+      .inner{
+        .earnMoneyDiv{
+          width: 100% !important;
+        
+          .part3{
+flex-wrap: wrap;
+gap: 20px;
+          }
+        }
+      }
+    }
+  }
+  
+}

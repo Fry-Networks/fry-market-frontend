@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
+import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
+import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
-const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }: any) => {
+
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -17,9 +20,31 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }: any)
     }
   }, [showHiddenDiv]);
 
+
+  // const [isSoldbtn, setIsSoldBtn] = useState(false);
+  // const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    if (showLayer) {
+      setIsSoldBtn(true);
+    }
+  }, [showLayer]);
+  useEffect(() => {
+    if (showHiddenDiv) {
+      setIsVisible(true);
+    }
+  }, [showHiddenDiv]);
+
+  const [isboostmodal, setisboostmodal] = useState(false);
+
+  const showBoostModal = () => {
+    setisboostmodal(true);
+  };
+
   return (
     <>
-      <div className="collectionCardd flex flex-col gap-2">
+      <div className="collectionCard flex flex-col gap-2 relative">
+        <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part w-1/5 ">
             <img src={data.userImg} alt="" />
@@ -61,18 +86,22 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }: any)
                 <p className="ex-small lightGray font-medium font-Roboto">7</p>
               </div>
             ) : (
-              // <Button
-              //   className="button btn-secondary font-medium ex-small border-none"
-              //   minWidth={56}
-              //   minHeight={36}
-              //   text="In Stock"
-              // />
-              <Button
-                className="button btn-primary font-medium ex-small"
-                minWidth={56}
-                minHeight={36}
-                text="Buy"
-              />
+              isProfilePage ? (
+                <Button
+                  className="button btn-primary font-medium ex-small border-none"
+                  minWidth={56}
+                  minHeight={36}
+                  text="Boost"
+                  onClick={showBoostModal}
+                />
+              ) : (
+                <Button
+                  className="button btn-primary font-medium ex-small"
+                  minWidth={56}
+                  minHeight={36}
+                  text="Buy"
+                />
+              )
             )}
             <button className="p-3 bg-white flex gap-2 items-center">
               <span className="ex-small darkBlack fw-medium">Price:</span>
@@ -84,9 +113,15 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer }: any)
               </div>
             </button>
           </div>
-          <img src={data.nftImg} alt="" />
+          <img className="rounded-lg" src={data.nftImg} alt="" />
         </div>
       </div>
+
+
+      <BoostNft
+        isboostmodal={isboostmodal}
+        setisboostmodal={setisboostmodal}
+      />
     </>
   );
 };

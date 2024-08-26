@@ -10,6 +10,7 @@ import promptImg5 from "../../assets/createNft/examp5.png";
 import promptImg6 from "../../assets/createNft/examp6.png";
 import promptImg7 from "../../assets/createNft/examp7.png";
 import promptImg8 from "../../assets/createNft/examp8.png";
+import promptBack from "../../assets/createNft/bannerBack.png";
 
 
 
@@ -28,57 +29,58 @@ const PromptExample = () => {
         {
             id:2,
             nftImg:promptImg2,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"FANTASY",
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
         {
             id:3,
             nftImg:promptImg3,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"DRAGON HOUSE",
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. "
 
         },
         {
             id:4,
             nftImg:promptImg4,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"PRINCESS",
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu."
 
         },
         {
             id:5,
             nftImg:promptImg5,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"SPACE TEAM",
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
 
         },
 
         {
             id:6,
             nftImg:promptImg6,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"SEA CREATURER",
+            description:"Pmied vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. "
 
         },
         {
             id:7,
             nftImg:promptImg7,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"PIXEL GIRL",
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet Nam maximus augue."
 
         },
         {
             id:8,
             nftImg:promptImg8,
-            title:"DRAGON WORLD",
-            description:"Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            title:"SHADOW FIGHTER",
+            description:"Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim."
 
         },
     ]
   return (
  <>
- <div className="promptWrapper mb-52">
+ <div className="promptWrapper mb-52 relative">
+    <img src={promptBack} className='absolute top-0 left-0 -z-50' alt="" />
     <div className="container">
     <h2 className="font-bold font-Apex uppercase tracking-wide darkBlack mb-10">
     Prompt examples

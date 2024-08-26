@@ -53,7 +53,7 @@
 :where(.css-dev-only-do-not-override-1pg9a38).ant-collapse-borderless
   > .ant-collapse-item:last-child
   .ant-collapse-header {
-  border-radius: 20px;
+  border-radius: 20px !important;
 }
 
 .faqWrapper {
@@ -63,6 +63,12 @@
       .faqStyling {
         .ant-collapse {
           .ant-collapse-item {
+            &:last-child{
+              .ant-collapse-header{
+                border-radius: 20px !important;
+              }
+            }
+           
             &.ant-collapse-item-active {
               background-color: green !important;
             }
@@ -79,6 +85,12 @@
     align-items: center;
   }
 }
+
+.ant-collapse-borderless >.ant-collapse-item:last-child .ant-collapse-header {
+  border-radius: 20px;
+}
+
+
 @media screen and (max-width:1200px) {
   .faqWrapper{
     

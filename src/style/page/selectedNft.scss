@@ -1,0 +1,173 @@
+.nftCollection {
+  .container {
+    .inner {
+      .backBtnContainer {
+        .selectedNft {
+        }
+      }
+      .rightContent {
+        .rightText {
+          .nftDetails {
+          }
+        }
+
+        .choseCollectionBox{
+            .chooseCollection2{
+                .artWorkContainer{
+                    .artWork{
+
+                    }
+                }
+            }
+        }
+      }
+    }
+  }
+  label{
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .nftCollection {
+    margin-top: 10px;
+    .container {
+      .inner {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        .backBtnContainer {
+          align-items: center;
+          justify-content: center;
+          button{
+            margin-bottom: 20px;
+          }
+          .selectedNft {
+          }
+        }
+        .rightContent {
+          width: 100%;
+
+          .rightText {
+            .nftDetails {
+                padding: 30px !important;
+
+                h2{
+                    font-size: 30px;
+                }
+
+                form{
+                    .chooseCollection{
+.chooseContent{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.itemAppear {
+    text-align: center;
+                    }
+.newCollectionDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    .createNewCollection {
+width: 100%;
+    }
+}
+                    }
+                }
+            }
+          }
+
+          .choseCollectionBox{
+            padding: 30px;
+            .chooseCollection2{
+                .heading{
+                    h2{
+                        font-size: 30px;
+                        margin-bottom: 10px;
+
+                    }
+                }
+                .artWorkContainer{
+                    .artWork{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        }
+      }
+    }
+  }
+}
+
+
+
+@media screen and (max-width: 600px) {
+    .nftCollection {
+      .container {
+        .inner {
+        
+       
+          .rightContent {
+            width: 100%;
+  
+            .rightText {
+              .nftDetails {
+                  padding: 30px;
+  
+                  h2{
+                      font-size: 30px;
+                  }
+  
+                  form{
+                      .chooseCollection{
+  .chooseContent{
+      display: flex;
+      flex-direction: column;
+  }
+  
+  .newCollectionDiv{
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      .createNewCollection {
+  width: 100%;
+      }
+  }
+                      }
+                  }
+              }
+            }
+  
+            .choseCollectionBox{
+              padding: 30px;
+              .chooseCollection2{
+                  .artWorkContainer{
+                      .artWork{
+                          width: 100%;
+                          display: flex;
+                          flex-direction: column;
+                          gap: 20px;
+
+                          .leftSide{
+                            width: 100%;
+                            justify-content: center;
+                          }
+                          .rightSide{
+                            width: 100%;
+                            justify-content: center;
+                            display: flex;
+                          }
+                      }
+                  }
+              }
+          }
+          }
+        }
+      }
+    }
+  }
+  

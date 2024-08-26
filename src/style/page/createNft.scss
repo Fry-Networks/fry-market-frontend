@@ -1,6 +1,18 @@
 //Create NFT
 
 .createNft {
+
+    .container{
+.nftBtnContainer{
+
+}
+.singleNftCard {
+
+}
+.multipleCARD {
+    
+}
+    }
     .border {
         border: 1.8px solid #E7E7E7;
     }
@@ -86,5 +98,67 @@
         opacity: 0.4;
         border-radius: 20px;
 
+    }
+}
+
+@media screen and (max-width:1400px) {
+    .createNft{
+        .container{
+            .nftBtnContainer{
+
+            }
+            .singleNftCard{
+                flex-wrap: wrap;
+                gap: 30px;
+           justify-content: center;
+            }
+            .multipleCARD {
+                grid-template-columns: repeat(3,1fr);
+                place-items: center;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:1000px) {
+    .createNft{
+        .container{
+            .nftBtnContainer{
+
+            }
+        
+            .multipleCARD {
+                grid-template-columns: repeat(2,1fr);
+                place-items: center;
+            }
+        }
+    }
+}
+@media screen and (max-width:700px) {
+    .createNft{
+        .container{
+            .nftBtnContainer{
+justify-content: center;
+align-items: center;
+flex-direction: column;
+                .singlenft{
+
+                }
+                .selectnft{
+
+                }
+            }
+            .singleNftCard{
+                flex-wrap: wrap;
+                gap: 30px;
+           justify-content: center;
+            }
+
+            .multipleCARD {
+                grid-template-columns: repeat(1,1fr);
+                place-items: center;
+            }
+        }
     }
 }

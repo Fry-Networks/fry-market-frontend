@@ -4,6 +4,7 @@ import CollectionCard from '../components/sellerCollection/collectionCards'
 const ArtistProfileArt = () => {
   return (
     <>
+    
       <ProfileBanner />
       <CollectionCard isArtistProfile={true} />
     </>

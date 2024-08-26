@@ -1,10 +1,25 @@
-.sellerImages {
-    img {
-        border: 3.51px solid #FFF;
+.topSell{
+    .container{
+        .bannerWrapper {
+            .headingDiv{
+                h2{
+                    span{
+
+                    }
+                }
+            }
+        }
+        .sellerImages {
+            img {
+                border: 3.51px solid #FFF;
+            }
+        
+        
+        }
     }
-
-
 }
+
+
 
 
 .sellerTable {
@@ -96,6 +111,91 @@
 
         // width: 28px;
         // height: 28px;
+    }
+    
+}
+
+@media screen and (max-width:1440px) {
+
+    .topSell{
+        margin-top: 100px;
+        .container{
+            .bannerWrapper {
+                .headingDiv{
+                    width: 50%;
+                    h2{
+                        font-size: 60px;
+                        span{
+    font-size: 90px;
+                        }
+                    }
+                }
+            }
+            .sellerImages {
+                width: 50%;
+                img {
+                    border: 3.51px solid #FFF;
+                }
+            
+            
+            }
+        }
+    }
+    
+}
+@media screen and (max-width:1100px) {
+
+    .topSell{
+        .bannerBack{
+            display: none;
+        }
+        .container{
+            .bannerWrapper{
+           
+
+            }
+
+            .collectionTable{
+                overflow-x: scroll;
+                .ant-table-wrapper{
+                overflow-x: scroll !important;
+
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:1000px) {
+    .topSell{
+        .container{
+            .bannerWrapper{
+                flex-direction: column;
+                .headingDiv{
+
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    h2{
+                        font-size: 50px;
+                        span{
+    font-size: 70px;
+                        }
+                    }
+                }
+                .sellerImages{
+
+                    width: 100%;
+                    height: 800px;
+                    .tsImage{
+                //    width: 300px;
+                //    height: 300px;
+                  
+                          }
+                }
+            }
+        }
     }
     
 }
