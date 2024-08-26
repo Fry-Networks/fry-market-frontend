@@ -26,6 +26,7 @@ import TopCollection from "./page/topCollection"
 import TopSeller from "./page/topSeller"
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 import ManualCreateNft from './page/manualCreateNft'
+import MultipleCollect from './page/multipleCollect'
 
 let providersArray: ProvidersArray
 if (import.meta.env.VITE_ALGOD_NETWORK === '') {
@@ -101,6 +102,7 @@ export default function App() {
           <Route path="/create-nft" element={<CreateNft />} />
           <Route path="/createnft-collect" element={<CreateNftCollection />} />
           <Route path="/select-nft" element={<SelectedNft />} />
+          <Route path="/multiple-collect" element={<MultipleCollect />} />
           <Route path="/nft-detail" element={<NftDetail />} />
           <Route path="/create-nft-page" element={<CreateNftPage />} />
           <Route path="/artist-profile" element={<ArtistsProfile />} />

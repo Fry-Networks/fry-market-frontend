@@ -7,8 +7,8 @@ const ProfilePage = () => {
   return (
     <>
       <ProfileBanner />
-      <PixacioBanner name="WONDERFUL ARTWORK" image={artistImage} />
-      <ProfileNft />
+     <PixacioBanner name="WONDERFUL ARTWORK" image={artistImage} />
+       <ProfileNft />
     </>
   )
 }

@@ -32,12 +32,12 @@ const SellMethod = () => {
               <button
                 onClick={() => navigate("/artist-profile")}
                 style={{ boxShadow: "4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                className="flex-center gap-3 w-[126px] h-[64px] rounded-2xl bg-white large darkBlack font-normal"
+                className=" doorBtn flex-center gap-3 w-[126px] h-[64px] rounded-2xl bg-white large darkBlack font-normal"
               >
                 <img src={door} alt="" />
                 Back
               </button>
-              <img src={sellImg} alt="" />
+              <img className='sellImg' src={sellImg} alt="" />
               <p className="ex-large darkBlack font-medium font-Roboto">
                 Preview your item
               </p>
@@ -100,12 +100,12 @@ const SellMethod = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-1 mt-3">
+              <div className="flex flex-col gap-1 mt-3 priceBox">
                 <label className="darkBlack large font-medium font-Roboto">
                   Price
                 </label>
-                <div className="flex justify-start items-center gap-3">
-                  <div className="py-[8px] px-[20px]  border-2 border-solid border-[#E7E7E7] rounded-lg flex gap-2">
+                <div className="flex justify-start items-center gap-3 enterPrice">
+                  <div className="py-[8px] px-[20px]  border-2 border-solid border-[#E7E7E7] rounded-lg flex gap-2  fryText">
                     <img src={fryIcon} alt="" />
                     FRY</div>
                   <input

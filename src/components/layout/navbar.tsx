@@ -58,9 +58,9 @@ const Navbar = (props: Toggle) => {
           <div className="nav-content flex justify-between items-center">
             <div className="nav-logo">
               <img src={logo} alt="Logo" className="cursor-pointer"
-               onClick={(() => (
-                navigate("/")
-              ))} />
+                onClick={(() => (
+                  navigate("/")
+                ))} />
             </div>
             <div className="nav-items ">
               <ul className="flex justify-center items-center gap-x-8 font-normal medium darkBlack font-Apex uppercase cursor-pointer">
@@ -129,15 +129,19 @@ const Navbar = (props: Toggle) => {
           </div>
           <div className="navbarList">
             <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
-              <NavLink to="">
-                <li>Home</li>
-              </NavLink>
-              <NavLink to="">
-                <li>Marketplace</li>
-              </NavLink>
-              <NavLink to="">
-                <li>AI NFT Generation</li>
-              </NavLink>
+            <NavLink className="navlink" to="/">
+                  <li>Home</li>
+                </NavLink>
+                <NavLink className="navlink" to="/marketplace">
+                  <li>Marketplace</li>
+                </NavLink>
+                <NavLink className="navlink" to="/create-nft-page">
+                  <li>AI Nft Generation</li>
+                </NavLink>
+
+                <NavLink className="navlink" to="/createnft-collect">
+                  <li>Create NFt Collection</li>
+                </NavLink>
             </ul>
           </div>
           <div className="navbar-btns flex flex-col gap-4 mt-5">

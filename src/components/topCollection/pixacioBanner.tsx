@@ -2,7 +2,7 @@
 const PixacioBanner = ({ name, image }: any) => {
   return (
     <>
-      <div className="topCollectionBanner w-full h-screen flex-center ">
+      <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center ">
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
