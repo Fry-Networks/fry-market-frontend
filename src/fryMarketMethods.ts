@@ -20,6 +20,17 @@ const getAlgodClient = async (): Promise<algosdk.Algodv2> => {
     return algodClient
 }
 
+const getIndexerClient = async (): Promise<algosdk.Indexer> => {
+    const algodConfig = getAlgodConfigFromViteEnvironment()
+    const indexer = algokit.getAlgoIndexerClient({
+        server: algodConfig.server,
+        port: algodConfig.port,
+        token: algodConfig.token,
+    })
+
+    return indexer
+}
+
 const createFryMarketClient = async (signer: TransactionSigner, activeAddress: string) => {
     algokit.Config.configure({ populateAppCallResources: true });
 
@@ -240,4 +251,12 @@ export const mintMultipleNft = async (metaUris: string[], sender: string, signer
         console.log(e)
         return []
     }
+}
+
+export const getAllCollectionNft = async (sender: string) => {
+    const indexer = await getIndexerClient()
+    const nfts: any = await algokit.lookupAccountByAddress(sender, indexer)
+    const createdNft: any = nfts["created-assets"]
+    const collection = createdNft.length > 0 ? createdNft.filter((item: any) => item.params.decimals === 0 && item.params.total === 1) : []
+    return collection
 }

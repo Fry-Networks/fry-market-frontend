@@ -16,7 +16,7 @@ import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
-import { getAllListed, Listing } from "../fryMarketMethods";
+import { getAllCollectionNft, getAllListed, Listing } from "../fryMarketMethods";
 import AddTraits from "../modals/addTraits";
 import MintNft from "../modals/mintNft";
 import { mintMultipleNft } from "../utils/minting/minting";
@@ -107,7 +107,7 @@ const SelectedNft = () => {
     const assetId = 709435738;
 
     //! Mint Nft
-    await mintNft(e)
+    // await mintNft(e)
 
     //! list Nfts
     // const nftList = await listNft(activeAddress!, BigInt(assetId), signer)
@@ -129,6 +129,10 @@ const SelectedNft = () => {
     //! Buy Nft
     // const buyListedNft = await buyNft(activeAddress!, BigInt(assetId), signer, "FW5K3IUZ2WQDCFDWPCBBSXAZXQQDONNN54FDVYHFCMOCK7PFDLROPGTTWM", 1000000)
     // console.log(buyListedNft)
+
+    //!getAllNfts
+    const nfts = await getAllCollectionNft(activeAddress!);
+    console.log(nfts)
 
 
   }
