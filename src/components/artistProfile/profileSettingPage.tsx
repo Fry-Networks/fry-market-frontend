@@ -13,7 +13,7 @@ const ProfileSettingPage = () => {
         <div className="container">
           <div className="inner">
             <div className="uploadDiv relative">
-              <button className="absolute top-[125px] left-[550px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg">
+              <button className="absolute top-[40%] left-[45%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg">
                 Upload Banner
               </button>
               <img
@@ -29,13 +29,13 @@ const ProfileSettingPage = () => {
             <div className="formData w-[817px] h-auto mx-auto flex flex-col gap-12">
               <div className="nftUserInfo mb-11">
                 <div
-                  style={{
-                    width: "817px",
-                    height: "58px",
-                    margin: "0 auto",
-                    overflow: "visible",
-                  }}
-                  className="relative"
+                  // style={{
+                  //   width: "817px",
+                  //   height: "58px",
+                  //   margin: "0 auto",
+                  //   overflow: "visible",
+                  // }}
+                  className="relative displayDiv "
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -70,7 +70,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -100,7 +100,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -124,7 +124,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -158,7 +158,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -195,7 +195,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -222,7 +222,7 @@ const ProfileSettingPage = () => {
               </div>
 
               <Button
-                className="button btn-primary medium font-Roboto font-medium flex justify-center items-center"
+                className=" saveBtn button btn-primary medium font-Roboto font-medium flex justify-center items-center"
                 width={179}
                 minHeight={53}
                 text="Save changes"

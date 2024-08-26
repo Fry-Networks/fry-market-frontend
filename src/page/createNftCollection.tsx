@@ -16,10 +16,10 @@ const CreateNftCollection = () => {
 
       <div>
         <div className="nftCollection mt-[107px] h-[110vh] relative">
-          <img className="absolute top-[-200px] -z-40" src={nftColGlow} alt="" />
+          <img className=" nftGlow absolute top-[-200px] -z-40" src={nftColGlow} alt="" />
           <div className="container">
-            <div className="flex gap-8">
-              <div className="flex flex-col  items-start">
+            <div className="inner flex gap-8">
+              <div className="backBtnContainer flex flex-col  items-start">
                 <Button
                   className="btn-white !text-[20px] flex items-center gap-4 !px-5 mb-9"
                   text="Back"
@@ -34,7 +34,7 @@ const CreateNftCollection = () => {
                   }
                 />
 
-                <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow ">
+                <div className="selectedNft p-[20px] bg-white flex justify-center rounded-[20px] box-shadow ">
                   <img src={nft1} alt="profile image" />
                 </div>
                 <Button
@@ -44,8 +44,8 @@ const CreateNftCollection = () => {
                 />
               </div>
 
-              <div className="w-[992px]">
-                <div className="flex gap-3 items-center">
+              <div className="rightContent w-[992px]">
+                <div className="singleNftBtn flex gap-3 items-center">
                   <Button
                     className="btn-gray w-32 lightGray"
                     text="Collection"
@@ -55,7 +55,7 @@ const CreateNftCollection = () => {
                     text="100 Items"
                   /> */}
                 </div>
-                <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px]">
+                <div className=" nftDetails py-4 px-[89px] bg-white box-shadow rounded-[20px] mt-[59px]">
                   <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24 uppercase">
                     create a collection
                   </h2>
@@ -86,7 +86,7 @@ const CreateNftCollection = () => {
                           <>
                             <div className="flex flex-col gap-2 mt-9">
                               <span>Description</span>
-                              <span className="medium ">
+                              <span className="medium mb-3">
                                 The description will be included on the item's
                                 detail page underneath its image.
                               </span>

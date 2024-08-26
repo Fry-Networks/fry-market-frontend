@@ -31,7 +31,8 @@
 
 @media screen and (max-width: 1100px) {
   .nftCollection {
-    margin-top: 10px;
+    margin-top: 10px !important;
+    height: auto;
     .container {
       .inner {
         display: flex;
@@ -107,6 +108,10 @@ width: 100%;
 
 @media screen and (max-width: 600px) {
     .nftCollection {
+      margin-top: 20px;
+      .nftGlow{
+        display: none;
+      }
       .container {
         .inner {
         

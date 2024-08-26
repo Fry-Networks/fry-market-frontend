@@ -49,17 +49,18 @@ img{
                 }
                 .nav-btns{
                     .btnConnect{
-                        min-width:150px !important;
+                        min-width:145px !important;
                         font-size:16px;
                         height: 40px !important;
-                        min-height: 50px !important;
+                        min-height: 40px !important;
+                    
                     }
 
                     .btnCreate{
-                        min-width:150px !important;
+                        min-width:145px !important;
                         font-size:16px;
                         height: 40px !important;
-                        min-height: 50px !important;
+                        min-height: 40px !important;
                     }
                 }
             }
@@ -71,6 +72,29 @@ img{
         .container{
             .nav-content{
                 
+                .nav-btns{
+                    .btnConnect{
+                        min-width:100px !important;
+                        font-size:14px;
+                        height: 40px !important;
+                        min-height: 50px !important;
+                    }
+
+                    .btnCreate{
+                        min-width:100px !important;
+                        font-size:14px;
+                        height: 40px !important;
+                        min-height: 50px !important;
+                    }
+                }
+
+                .nav-items{
+                   a{
+                    li{
+                        font-size: 14px;
+                    }
+                   }
+                }
             }
         }
     }
@@ -119,6 +143,18 @@ img{
             .navbar-logo{
                 .logo{
                     width: 80px;
+                }
+            }
+            .navbarList{
+                ul{
+                    .navlink{
+                        &:hover{
+                            color: var(--primary);
+                        }
+                        &:active{
+                            color: var(--primary);
+                        }
+                    }
                 }
             }
         }

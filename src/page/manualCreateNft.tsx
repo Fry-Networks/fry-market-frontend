@@ -1,19 +1,15 @@
-import React, { useState } from 'react';
-import { Upload, message, Switch } from 'antd';
-import { LoadingOutlined, EditOutlined, CloseOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { message, Switch, Upload } from 'antd';
+import { RcFile } from 'antd/es/upload';
+import { useState } from 'react';
+import newCollect from '../assets/artistsProfile/newCollect.png';
+import selectNftGlow from '../assets/createNft/selectedNftGlow.png';
+import plus from '../assets/icons/plus.svg';
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from '../components/shared/textarea';
 import AddTraits from '../modals/addTraits';
 import MintNft from '../modals/mintNft';
-import newCollect from '../assets/artistsProfile/newCollect.png';
-import collect1 from '../assets/createNft/collect1.webp';
-import collect2 from '../assets/createNft/collect2.webp';
-import collect3 from '../assets/createNft/collect3.webp';
-import collect4 from '../assets/createNft/collect4.webp';
-import selectNftGlow from '../assets/createNft/selectedNftGlow.png';
-import plus from '../assets/icons/plus.svg';
-import { RcFile } from 'antd/es/upload';
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
     const reader = new FileReader();
@@ -110,10 +106,10 @@ const ManualCreateNft = () => {
         <>
             <div>
                 <div className="nftCollection mt-[107px] h-[110vh] relative">
-                    <img className="absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
+                    <img className="glow absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
                     <div className="container">
-                        <div className="flex gap-8 leftArea">
-                            <div className="leftContent flex flex-col items-start">
+                        <div className="contentWrapper flex gap-8 leftArea">
+                            <div className="leftContent  flex flex-col items-start">
                                 <div className='uploadDiv w-[300px]'>
                                     <Upload
                                         name="avatar"
@@ -141,10 +137,10 @@ const ManualCreateNft = () => {
                                 </div>
                             </div>
 
-                            <div className="w-[992px]">
+                            <div className="w-[992px]  rightContent">
                                 {showOriginalContent ? (
-                                    <div>
-                                        <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px]">
+                                    <div className='rightText'>
+                                        <div className="manualDiv py-4 px-[89px] bg-white box-shadow rounded-[20px]">
                                             <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
                                                 MANUAL CREATE NFT
                                             </h2>
@@ -185,54 +181,55 @@ const ManualCreateNft = () => {
                                                     />
                                                 </div>
 
-                                                <div className="chooseCollection my-3">
-                                                    <div className="w-full flex justify-between items-center">
-                                                        <p className="darkBlack large font-medium font-Roboto">
-                                                            Choose Collection
-                                                        </p>
-                                                        <p
-                                                            className="underline lightGray medium font-normal cursor-pointer"
-                                                            onClick={handleChooseFromExistedClick}
-                                                        >
-                                                            Choose From Existed
-                                                        </p>
-                                                    </div>
+                                               
+                        <div className="chooseCollection my-3">
+                          <div className=" chooseContent w-full flex justify-between items-center">
+                            <p className="darkBlack large font-medium font-Roboto">
+                              Choose Collection
+                            </p>
+                            <p
+                              className="underline lightGray medium font-normal cursor-pointer"
+                              onClick={handleChooseFromExistedClick}
+                            >
+                              Choose From Existed
+                            </p>
+                          </div>
 
-                                                    <p className="lightGray text-[16px] font-Roboto font-normal mt-2">
-                                                        (this is the collection where your item will appear)
-                                                    </p>
-                                                    <div className="newCollectionDiv flex gap-4 mt-4">
-                                                        <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
-                                                            <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
-                                                                <img src={plus} alt="" />
-                                                            </div>
-                                                            <div className="rightContnt flex flex-col justify-center">
-                                                                <p className="darkBlack medium font-medium font-Roboto">
-                                                                    Create new collection
-                                                                </p>
-                                                                <p className="lightGray small font-Roboto font-normal mt-2">
-                                                                    Type to create
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                        <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
-                                                            <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
-                                                                <img src={newCollect} alt="" />
-                                                            </div>
-                                                            <div className="rightContnt flex flex-col justify-center">
-                                                                <p className="darkBlack medium font-medium font-Roboto">
-                                                                    Wonderful Artwork
-                                                                </p>
-                                                                <p className="lightGray small font-Roboto font-normal mt-2">
-                                                                    Items{" "}
-                                                                    <span className="font-medium darkBlack">
-                                                                        1.5k
-                                                                    </span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                          <p className="itemAppear lightGray text-[16px] font-Roboto font-normal mt-2">
+                            (this is the collection where your item will appear)
+                          </p>
+                          <div className="newCollectionDiv flex gap-4 mt-4">
+                            <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
+                              <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
+                                <img src={plus} alt="" />
+                              </div>
+                              <div className="rightContnt flex flex-col justify-center">
+                                <p className="darkBlack medium font-medium font-Roboto">
+                                  Create new collection
+                                </p>
+                                <p className="lightGray small font-Roboto font-normal mt-2">
+                                  Type to create
+                                </p>
+                              </div>
+                            </div>
+                            <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
+                              <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
+                                <img src={newCollect} alt="" />
+                              </div>
+                              <div className="rightContnt flex flex-col justify-center">
+                                <p className="darkBlack medium font-medium font-Roboto">
+                                  Wonderful Artwork
+                                </p>
+                                <p className="lightGray small font-Roboto font-normal mt-2">
+                                  Items{" "}
+                                  <span className="font-medium darkBlack">
+                                    1.5k
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
 
                                                 <div className="addTraits flex flex-col gap-3">
                                                     <p className="darkBlack large font-medium font-Roboto">
@@ -245,28 +242,28 @@ const ManualCreateNft = () => {
                                                     </p>
 
                                                     <div className="relative">
-                            <Input
-                              type="text"
-                              value={value}
-                              onChange={(e: any) => setValue(e.target.value)}
-                              placeholder="blue: fox"
-                              className="w-full"
-                              inputClass={`w-full  bg-[#F4F4F4] border-none pl-4 pr-12 ${isEditing ? "outline-none focus:ring-2" : ""
-                                }`}
-                              readOnly={!isEditing}
-                            />
-                            <div className="absolute inset-y-0 right-5 top-2 flex items-center space-x-8 pr-2">
-                              <EditOutlined
-                                className="text-gray-500 cursor-pointer"
-                                onClick={() => { handleEditClick(); showAddTraitModal(); }}
-                              />
-                              <div className="h-[24px] w-[1px] bg-gray-400"></div>
-                              <CloseOutlined
-                                className="text-gray-500 cursor-pointer"
-                                onClick={handleClearClick}
-                              />
-                            </div>
-                          </div>
+                                                        <Input
+                                                            type="text"
+                                                            value={value}
+                                                            onChange={(e: any) => setValue(e.target.value)}
+                                                            placeholder="blue: fox"
+                                                            className="w-full"
+                                                            inputClass={`w-full  bg-[#F4F4F4] border-none pl-4 pr-12 ${isEditing ? "outline-none focus:ring-2" : ""
+                                                                }`}
+                                                            readOnly={!isEditing}
+                                                        />
+                                                        <div className="absolute inset-y-0 right-5 top-2 flex items-center space-x-8 pr-2">
+                                                            <EditOutlined
+                                                                className="text-gray-500 cursor-pointer"
+                                                                onClick={() => { handleEditClick(); showAddTraitModal(); }}
+                                                            />
+                                                            <div className="h-[24px] w-[1px] bg-gray-400"></div>
+                                                            <CloseOutlined
+                                                                className="text-gray-500 cursor-pointer"
+                                                                onClick={handleClearClick}
+                                                            />
+                                                        </div>
+                                                    </div>
                                                     <Button
                                                         type="primary"
                                                         text="Add Traits"
@@ -275,40 +272,32 @@ const ManualCreateNft = () => {
                                                     />
                                                 </div>
 
-                                                {/* <div className="create flex justify-center mt-5">
+                
+
+                                                <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
+                                                    <p className="lightGray font-normal medium font-Roboto">
+                                                        Add Traits
+                                                    </p>
+                                                    <img src="/src/assets/icons/plus.svg" alt="" />
+                                                </div>
+                                                <div className="royality flex flex-col gap-5">
+                                                    <p className="darkBlack font-Roboto large font-medium">
+                                                        Royalties
+                                                    </p>
+                                                    <Switch
+                                                        className="w-[60px]"
+                                                        defaultChecked
+                                                        onChange={onSwitch}
+                                                    />
+                                                </div>
+                                                <div className="flex justify-end">
                                                     <Button
-                                                        type="primary"
-                                                        text="Create"
-                                                        className="text-white rounded-xl mt-2"
+                                                        className="btn-primary px-8 py-4 mb-5"
+                                                        text="Mint NFT"
                                                         onClick={showMintModal}
                                                     />
-                                                </div> */}
+                                                </div>
 
-                                                
-                        <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
-                          <p className="lightGray font-normal medium font-Roboto">
-                            Add Traits
-                          </p>
-                          <img src="/src/assets/icons/plus.svg" alt="" />
-                        </div>
-                        <div className="royality flex flex-col gap-5">
-                          <p className="darkBlack font-Roboto large font-medium">
-                            Royalties
-                          </p>
-                          <Switch
-                            className="w-[60px]"
-                            defaultChecked
-                            onChange={onSwitch}
-                          />
-                        </div>
-                        <div className="flex justify-end">
-                          <Button
-                            className="btn-primary px-8 py-4 mb-5"
-                            text="Mint NFT"
-                            onClick={showMintModal}
-                          />
-                        </div>
-                   
                                             </form>
                                         </div>
                                     </div>
