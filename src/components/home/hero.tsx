@@ -3,6 +3,7 @@ import hands from "../../assets/home/images/fingers.svg";
 import heroCards from "../../assets/home/images/heroCards.png";
 import leftHand from "../../assets/home/images/leftHand.png";
 import rightHand from "../../assets/home/images/rightHand.png";
+import heroleftGrid from "../../assets/home/images/homeImages/heroLeftGrid.webp";
 import homeCard1 from "../../assets/home/images/homeImages/homeCardImg1.png";
 import homeCard2 from "../../assets/home/images/homeImages/homeCardImg2.png";
 import homeCard3 from "../../assets/home/images/homeImages/homeCardImg3.png";
@@ -17,6 +18,7 @@ const Hero = () => {
   <div className="heroWrapper  my-16 relaytive">
     <img className='leftHand  absolute left-[0px] top-[78%]' src={leftHand} alt="" />
     <img className='rightHand absolute right-[0px] top-[78%]' src={rightHand} alt="" />
+    <img className='absolute top-0 left-0 -z-50' src={heroleftGrid} alt="" />
 
     {/* <img className='absolute bottom-[-290px]' src={hands} alt="" /> */}
     <div className="container">

@@ -45,6 +45,7 @@ const CreateNftCollection = () => {
               </div>
 
               <div className="rightContent w-[992px]">
+                <div className="rightText">
                 <div className="singleNftBtn flex gap-3 items-center">
                   <Button
                     className="btn-gray w-32 lightGray"
@@ -106,6 +107,8 @@ const CreateNftCollection = () => {
                     </div>
                   </form>
                 </div>
+                </div>
+                
               </div>
             </div>
           </div>

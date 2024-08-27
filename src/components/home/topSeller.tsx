@@ -17,7 +17,7 @@ const TopSeller = () => {
     const navigate= useNavigate();
   return (
 <>
-<div className="topsellerWrapper mb-52 relative lg:mb-20">
+<div className="topsellerWrapper mb-52 relative lg:mb-24">
     <img className='absolute top-[-500px] -z-10' src={sellerBack} alt="" />
 <div className="container">
     <div className='flex justify-between items-center headWrappr'>
