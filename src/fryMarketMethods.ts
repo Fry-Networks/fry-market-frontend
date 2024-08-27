@@ -220,15 +220,15 @@ export const getAllListed = async (): Promise<Listing[]> => {
 }
 
 
-export const mintMultipleNft = async (metaUris: string[], sender: string, signer: TransactionSigner): Promise<Uint8Array[]> => {
+export const mintMultipleNft = async (metaUris: string[], sender: string, signer: TransactionSigner, name: string): Promise<Uint8Array[]> => {
     try {
         const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
 
         let txnArray: Transaction[] = []
         for (let i = 0; i < metaUris.length; i++) {
             const mintTx = await algorandClient.transactions.assetCreate({
-                assetName: "Shiba #" + i.toString(),
-                unitName: "SHIBA",
+                assetName: `${name} #` + i.toString(),
+                unitName: name,
                 url: metaUris[i],
                 decimals: 0,
                 total: BigInt(1),

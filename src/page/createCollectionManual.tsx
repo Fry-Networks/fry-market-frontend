@@ -3,10 +3,12 @@ import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateNftCollectionManual = () => {
   const [prevImage, setPrevImage] = useState("")
@@ -32,7 +34,7 @@ const CreateNftCollectionManual = () => {
   };
 
   const validation = () => {
-    if (formData.collection_name && formData.description) {
+    if (formData.collection_name && formData.description && activeAccount?.address && prevImage) {
       return true
     }
     else {
@@ -41,43 +43,62 @@ const CreateNftCollectionManual = () => {
   }
 
   const uploadImage = async () => {
+
     try {
-      if (validation()) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const formDataForImage = new FormData;
+          formDataForImage.append("images", prevImage);
+          const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
+          console.log("Response in upload Image", response.data);
+          setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
+          if (response.data?.image_urls[0]) {
 
-        const formDataForImage = new FormData;
-        formDataForImage.append("images", prevImage);
-        const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-        console.log("Response in upload Image", response.data);
-        setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
-        if (response.data?.image_urls[0]) {
+            if (await handleContinue(response.data?.image_urls[0])) {
+              resolve(true);
+            }
+            else {
+              reject(false);
+            }
+          }
+          else {
+            console.log("Some Error Occured while uploading image. Please try again.");
+            reject(false);
 
-          handleContinue(response.data?.image_urls[0])
+          }
+
         }
-        else {
-          console.log("Some Error Occured while uploading image. Please try again.");
-
+        catch (e) {
+          reject(false)
         }
-      }
-      else {
-        console.log("Please provide all information.");
 
-      }
+
+
+
+      })
+
     }
     catch (e) {
       console.log("Error Uploading Image", e);
 
 
     }
+
+
   }
 
   const handleContinue = async (imageUrl: any) => {
     try {
-      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount });
+
+      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address });
       console.log("Hehe", response.data);
+      return true;
 
     }
     catch (e) {
       console.log("Error Creating Collection");
+      // toast.error("Error Creating Collection");
+      return false
 
     }
   }
@@ -101,7 +122,7 @@ const CreateNftCollectionManual = () => {
                   <label htmlFor="collectionImage" className="block">
                     <img src={
                       // @ts-ignore
-                      prevImage == "" ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" />
+                      prevImage == "" ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
                     <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
                     <span
                       className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
@@ -176,7 +197,30 @@ const CreateNftCollectionManual = () => {
                         onClick={(e: any) => {
                           e.preventDefault(); console.log("hello");
                           //  navigate("/select-nft") 
-                          uploadImage();
+                          if (validation()) {
+
+                            toast.promise(
+                              uploadImage().then((response) => {
+                                if (response) {
+                                  navigate("/manual-create-nft")
+                                }
+
+                              }),
+                              {
+                                pending: "Collection is creating",
+                                error: "There was an error Creating Collection",
+                                success: "Collection created successfully ."
+
+                              }
+
+
+                            )
+                          }
+                          else {
+                            toast.error("Please provide all information.");
+
+                          }
+
                         }}
                       />
                     </div>
