@@ -1,14 +1,15 @@
 // import React, { useState } from "react";
 import { Drawer } from "antd";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/icons/websiteLogo.svg";
-//@ts-ignore
+import logo from "../../assets/icons/newLogo.svg";
+import mobileLogo from "../../assets/icons/logo.svg";
 import { useWallet } from "@txnlab/use-wallet";
 import { useState } from "react";
 import menu from "../../assets/icons/menu.png";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import Button from "../shared/button";
+import { Icon } from "@iconify/react";
 
 interface Toggle {
   open: boolean,
@@ -67,7 +68,7 @@ const Navbar = (props: Toggle) => {
                 <NavLink className="navlink" to="/">
                   <li>Home</li>
                 </NavLink>
-                <NavLink className="navlink" to="/marketplace">
+                <NavLink className="navlink cursor-default" to="/marketplace">
                   <li>Marketplace</li>
                 </NavLink>
                 <NavLink className="navlink" to="/create-nft-page">
@@ -89,14 +90,14 @@ const Navbar = (props: Toggle) => {
             ) : (
               <div className="nav-btns flex gap-x-3 font-Roboto">
                 <Button
-                  className="button btn-primary large font-medium btnConnect"
+                  className="button btn-primary large font-medium btnConnect font-Roboto"
                   minWidth={213}
                   minHeight={58}
                   text={activeAddress ? activeAddress.slice(0, 6) + "...." + activeAddress.slice(-6) : "Connect Wallet"}
                   onClick={toggleWalletModal}
                 />
                 <Button
-                  className="button btn-secondary large font-medium btnCreate"
+                  className="button btn-secondary large font-medium btnCreate font-Roboto"
                   minWidth={176}
                   minHeight={58}
                   text="Create NFT"
@@ -124,15 +125,16 @@ const Navbar = (props: Toggle) => {
           open={open}
           key={placement}
         >
-          <div className="navbar-logo mb-4">
-            <img className="logo" src={logo} alt="" />
+          <div className="navbar-logo mb-4 flex justify-between">
+            <img className="logo" src={mobileLogo} alt="" />
+            <Icon className="mt-3" icon="basil:cross-solid" width="30" height="30"  style={{color: "black"}} onClick={onClose} />
           </div>
           <div className="navbarList">
             <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
             <NavLink className="navlink" to="/">
                   <li>Home</li>
                 </NavLink>
-                <NavLink className="navlink" to="/marketplace">
+                <NavLink className="navlink cursor-default" to="/marketplace">
                   <li>Marketplace</li>
                 </NavLink>
                 <NavLink className="navlink" to="/create-nft-page">
@@ -146,7 +148,7 @@ const Navbar = (props: Toggle) => {
           </div>
           <div className="navbar-btns flex flex-col gap-4 mt-5">
             <Button
-              className="button btn-primary small font-medium btnConnect"
+              className="button btn-primary small font-medium btnConnect font-Roboto"
               width={150}
               minHeight={39}
               text="Connect Wallet"
@@ -155,10 +157,11 @@ const Navbar = (props: Toggle) => {
             ></Button>
 
             <Button
-              className="button btn-secondary small font-medium btnConnect"
+              className="button btn-secondary small font-medium btnConnect font-Roboto"
               width={150}
               minHeight={39}
               text="Create NFT"
+              onClick={goToCraeteNft}
             ></Button>
           </div>
         </Drawer>

@@ -11,18 +11,20 @@ import trendingNft5 from "../../assets/home/images/trendingNft5.png";
 import trendingNft6 from "../../assets/home/images/trendingNft6.png";
 import trendingNft7 from "../../assets/home/images/trendingNft7.png";
 import trendingNft8 from "../../assets/home/images/trendingNft8.png";
+import colectionBack from "../../assets/home/images/topCollections/topCollectionBack.png";
 
 
 const TrendingNft = () => {
   return (
-    <div className="trendingNftWrapper my-52 md:my-20">
+    <div className="trendingNftWrapper my-52 md:my-24 relative">
+      <img className="absolute top-[-400px] -z-50" src={colectionBack} alt="" />
       <div className="container">
         <div className='flex inner items-center justify-between'>
           <h2 className="font-normal font-Apex uppercase">
             Trending NFT'S
           </h2>
           <Button
-            className="button btn-secondary font-normal medium uppercase relative flex items-center justify-center gap-1"
+            className="button btn-secondary font-normal medium uppercase relative flex items-center justify-center gap-1 bg-transparent"
             minWidth={220}
             height={52}
             text="Last 30 minutes"
