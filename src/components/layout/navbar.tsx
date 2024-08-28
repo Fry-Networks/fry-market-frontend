@@ -58,7 +58,7 @@ const Navbar = (props: Toggle) => {
         <div className="container">
           <div className="nav-content flex justify-between items-center">
             <div className="nav-logo">
-              <img src={logo} alt="Logo" className="cursor-pointer"
+              <img src={mobileLogo} alt="Logo" className="cursor-pointer"
                 onClick={(() => (
                   navigate("/")
                 ))} />

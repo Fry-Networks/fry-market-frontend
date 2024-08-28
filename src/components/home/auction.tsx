@@ -12,6 +12,7 @@ import userImg1 from "../../assets/home/images/card-userImg.png";
 import moreUp from "../../assets/icons/moreUpArrow.svg";
 import CollectionsCard from '../cards/collectionsCard';
 import Button from "../shared/button";
+import AuctionCard from '../cards/auctionCard';
 
 const Auction = () => {
   const navigate = useNavigate();
@@ -29,9 +30,9 @@ const Auction = () => {
             AUCTION
           </h2>
 
-          <div className="nftWrapper mt-10 grid grid-cols-4 gap-x-10 gap-y-7 relative z-20">
+          <div className="nftWrapper mt-10 grid grid-cols-4 gap-x-10 gap-y-9 relative z-20">
             {auctionCard.map((data, index) => (
-              <CollectionsCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
+           <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))}
           </div>
 

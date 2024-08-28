@@ -7,11 +7,13 @@ import insta from "/src/assets/icons/instagram.svg";
 import linkedIn from "/src/assets/icons/linkedin.svg";
 import telegram from "/src/assets/icons/telegram.svg";
 import tiktok from "/src/assets/icons/tiktok.svg";
+import footerGrid from "../../assets/home/images/homeImages/footerGrid.png";
 
 const Footer = () => {
   return (
     <>
-      <div className="footerWrapper my-10">
+      <div className="footerWrapper my-10 relative">
+      <img src={footerGrid} className="absolute top-0 left-0 -z-20" alt="" />
         <div className="container">
           <div
             style={{ backgroundImage: `url(${footerBg})` }}
