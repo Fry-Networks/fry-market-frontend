@@ -15,8 +15,8 @@ const AuctionCard = ({ data }: any) => {
       <div className='auctionCard flex flex-col gap-2 relative'>
       <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start gap-2">
-          <div className="t-left-part w-1/5">
-            <img src={data.userImg} alt="" />
+          <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
+            <img className="w-full h-full object-cover" src={data.userImg} alt="" />
           </div>
           <div className="t-right-part w-4/5">
             <p className="medium font-Apex font-light darkBlack ">
@@ -64,7 +64,7 @@ const AuctionCard = ({ data }: any) => {
               </div>
             </button>
           </div>
-          <img src={data.nftImg} alt="" />
+          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data.nftImg} alt="" />
         </div>
       </div>
 

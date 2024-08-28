@@ -34,7 +34,7 @@ const TrendingNft = () => {
           />
         </div>
 
-        <div className="nftWrapper mt-10 grid  grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
+        <div className="nftWrapper mt-10 grid grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
           {trendingCard.map((data, index) => (
             <CollectionsCard key={data.id} data={data} />
           ))}
