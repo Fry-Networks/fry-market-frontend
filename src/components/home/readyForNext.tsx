@@ -1,5 +1,6 @@
 import sendIcon from "../../assets/icons/sendIcon.svg";
 import Input from "../shared/input";
+import readyDropIcon from "../../assets/home/images/homeImages/readyDropBtn.webp";
 
 const ReadyForNext = () => {
   const placeholderStyle = {
@@ -28,13 +29,14 @@ const ReadyForNext = () => {
 
 
             />
-            <button className="absolute top-[14px] right-5  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2 rounded-lg">
+          
               <img
-                style={{ width: "32px", height: "32px" }}
-                src={sendIcon}
+              className="absolute top-2 right-8 object-cover cursor-pointer"
+                style={{ width: "88px", height: "76px" }}
+                src={readyDropIcon}
                 alt=""
               />
-            </button>
+        
           </div>
         </div>
       </div>

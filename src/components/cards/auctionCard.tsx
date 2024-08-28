@@ -1,8 +1,15 @@
-import timeIcon from "../../assets/icons/timeIcon.svg";
+import { useState } from "react";
 import Button from "../shared/button";
 import whiteCard from "../../assets/home/images/whiteCard.png";
+import timeIcon from "../../assets/icons/timeIcon.svg";
+import PlaceBid from "../../modals/placeBid"
 
 const AuctionCard = ({ data }: any) => {
+  const [isbidmodal, setisbidmodal] = useState(false);
+
+  const showplaceBidModal = () => {
+    setisbidmodal(true);
+  };
   return (
     <>
       <div className='auctionCard flex flex-col gap-2 relative'>
@@ -24,10 +31,11 @@ const AuctionCard = ({ data }: any) => {
 
 
           <Button
-            className="placeBidBtn button font-Montserrat btn-primary font-semibold ex-small absolute -bottom-9 opacity-0 left-[100px]"
+            className="placeBidBtn button font-Montserrat btn-primary font-semibold ex-small absolute -bottom-9 opacity-0 left-[90px]"
             minWidth={96}
             minHeight={37}
             text="Place a Bid"
+            onClick={showplaceBidModal}
           />
           <div
             className="z-50 timimgDiv  absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-lg py-2.5 px-4 bg-white bg-opacity-80"
@@ -59,6 +67,11 @@ const AuctionCard = ({ data }: any) => {
           <img src={data.nftImg} alt="" />
         </div>
       </div>
+
+      
+      <PlaceBid
+       isbidmodal={isbidmodal} 
+      setisbidmodal={setisbidmodal} />
     </>
   )
 }
