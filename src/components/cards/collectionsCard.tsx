@@ -46,8 +46,8 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
       <div className="collectionCard flex flex-col gap-2 relative">
         <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
-          <div className="t-left-part w-1/5 ">
-            <img src={data.userImg} alt="" />
+          <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
+            <img className="w-full h-full object-cover rounded-full" src={data.userImg} alt="" />
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
@@ -63,7 +63,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             className={` ${isSoldbtn ? " " : "hidden"
               } absolute w-full h-full top-0 left-0 flex items-center justify-center z-30`}
           >
-            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
+            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40 rounded-xl"></div>
             <Button
               className="relative z-10 button ex-small font-semibold font-Apex text-white bg-[linear-gradient(318deg,#FD0000_26.88%,#BB5151_105.85%)]"
               minWidth={96}
@@ -114,7 +114,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               </div>
             </button>
           </div>
-          <img className="rounded-lg" src={data.nftImg} alt="" />
+          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data.nftImg} alt="" />
         </div>
       </div>
 

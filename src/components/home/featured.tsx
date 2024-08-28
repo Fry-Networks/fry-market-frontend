@@ -48,7 +48,7 @@ const Featured = () => {
           <div className="mt-10 featureSwiper">
           <Swiper
     modules={[Navigation]}
-    spaceBetween={30}
+    spaceBetween={0}
     slidesPerView={1}
     navigation={{
       nextEl: '.swiper-button-next-custom',
@@ -76,7 +76,7 @@ const Featured = () => {
     }}
   >
     {featureCard.map((data, index) => (
-      <SwiperSlide key={index} className="mt-4 swipperSlide">
+      <SwiperSlide key={index} className="mt-4 swipperSlide ps-2">
         <CollectionsCard data={data} />
       </SwiperSlide>
     ))}

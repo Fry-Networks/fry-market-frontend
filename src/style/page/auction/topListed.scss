@@ -32,6 +32,17 @@
         }
 
         .ant-collapse-content {
+          div{
+            input{
+             // border: 3px solid #FE0101;
+              &::placeholder{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+              }
+            }
+          }
           .ant-collapse-content-box {
             padding: 10px;
 
@@ -39,7 +50,8 @@
               width: auto;
               padding: 0px !important;
               border-radius: 8px !important;
-              background-color: transparent !important;
+              //background-color: transparent !important;
+              border: 2px solid white;
               box-shadow: none;
               .ant-collapse-item {
                 margin-bottom: 20px;
@@ -96,7 +108,7 @@
   padding: 0px !important;
   border: 2px solid transparent !important;
 }
-@media screen and (max-width:1440px) {
+@media screen and (max-width:1300px) {
   .topListedSection{
     margin-top: 100px;
     position: relative;

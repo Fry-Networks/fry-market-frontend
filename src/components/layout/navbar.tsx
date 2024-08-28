@@ -68,7 +68,7 @@ const Navbar = (props: Toggle) => {
                 <NavLink className="navlink" to="/">
                   <li>Home</li>
                 </NavLink>
-                <NavLink className="navlink cursor-default" to="/marketplace">
+                <NavLink className="cursor-default" to="#">
                   <li>Marketplace</li>
                 </NavLink>
                 <NavLink className="navlink" to="/create-nft-page">
@@ -134,7 +134,7 @@ const Navbar = (props: Toggle) => {
             <NavLink className="navlink" to="/">
                   <li>Home</li>
                 </NavLink>
-                <NavLink className="navlink cursor-default" to="/marketplace">
+                <NavLink className=" cursor-default" to="#">
                   <li>Marketplace</li>
                 </NavLink>
                 <NavLink className="navlink" to="/create-nft-page">

@@ -15,7 +15,7 @@ const ReadyForNext = () => {
           </h2>
 
           <div
-            style={{ width: "680px", margin: "0 auto" }}
+            style={{ width: "680px", height:"96px", margin: "0 auto" }}
             className="relative nftDropInput"
           >
             <Input
@@ -24,6 +24,7 @@ const ReadyForNext = () => {
               inputClass="ex-large font-normal font-Roboto primary mx-auto  flex items-center justify-center custom-placeholder border-2 border-red-500"
               width={680}
               height={96}
+              minHeight={96}
               type="text"
               className="m-auto nftdropInput"
 
@@ -31,7 +32,7 @@ const ReadyForNext = () => {
             />
           
               <img
-              className="absolute top-2 right-8 object-cover cursor-pointer"
+              className="absolute top-[17px] right-8 object-cover cursor-pointer"
                 style={{ width: "88px", height: "76px" }}
                 src={readyDropIcon}
                 alt=""
