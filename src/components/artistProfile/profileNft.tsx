@@ -105,6 +105,9 @@ const ProfileNft = () => {
     },
 
   ];
+
+
+
   return (
     <>
       <div className="profileNft mt-24">

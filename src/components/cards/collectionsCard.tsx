@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import nftImg1 from "../../assets/home/images/cardImg1.png";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import BoostNft from "../../modals/boostNft";
@@ -47,14 +48,14 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part w-1/5 ">
-            <img src={data.userImg} alt="" />
+            <img src={nftImg1} alt="" />
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
-              {data.userName}
+              Sheraz Alam
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
-              {data.userEmail}
+              @Sheraz
             </p>
           </div>
         </div>
@@ -113,7 +114,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               </div>
             </button>
           </div>
-          <img className="rounded-lg" src={data.nftImg} alt="" />
+          <img className="rounded-lg" src={data?.params?.url ? data?.params?.url : data.nftImg} alt="" />
         </div>
       </div>
 

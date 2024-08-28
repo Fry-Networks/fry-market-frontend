@@ -1,8 +1,7 @@
-import React from 'react';
 import { Tabs } from "antd";
-import ExploreCard from "../cards/exploreCard";
-import headerImg from "../../assets/nftCollection/popularHeaderImg.png";
+import React, { useEffect, useState } from 'react';
 import bodyImg from "../../assets/nftCollection/popularBodyImg.png";
+import headerImg from "../../assets/nftCollection/popularHeaderImg.png";
 
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import nftImg1 from "../../assets/home/images/cardImg1.png";
@@ -11,16 +10,21 @@ import nftImg3 from "../../assets/home/images/cardImg3.png";
 import nftImg4 from "../../assets/home/images/cardImg4.png";
 import CollectionsCard from '../cards/collectionsCard';
 
+import { useWallet } from "@txnlab/use-wallet";
+import pageGlow from "../../assets/artistsProfile/artistGlow.png";
 import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
-import pageGlow from "../../assets/artistsProfile/artistGlow.png";
+import { getAllCollectionNft } from "../../fryMarketMethods";
+import Loader from "../Loader";
 
 const ProfileNft = () => {
 
     const [activeKey, setActiveKey] = React.useState("1");
-
+    const [mintedNft, setMintedNft] = useState([])
+    const [loading, setLoading] = useState(false);
+    const { activeAccount } = useWallet()
     const onChange = (key) => {
       setActiveKey(key);
       console.log(key);
@@ -107,6 +111,32 @@ const ProfileNft = () => {
         },
         
       ];
+
+      const getMintedNft = async () => {
+        try{
+
+          if (activeAccount?.address) {
+            setLoading(true);
+            const response = await getAllCollectionNft(activeAccount?.address);
+            console.log("NftMinted", response);
+            setMintedNft(response);
+            setLoading(false)
+          }
+        }
+        catch(e){
+          setLoading(false);
+        }
+      }
+    
+      useEffect(() => {
+        console.log("heeh");
+    
+        if (activeAccount?.address) {
+          getMintedNft();
+        }
+    
+      }, [activeAccount])
+
   return (
  <>
  <div className="profileNft mt-24 relative">
@@ -153,8 +183,8 @@ const ProfileNft = () => {
              </div>
               </Tabs.TabPane>
               <Tabs.TabPane tab="Minted" key="3">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
+            
+             {/* {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
             ))}
              {
@@ -164,9 +194,31 @@ const ProfileNft = () => {
             }
               {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
+            ))} */}
+{
+loading ? 
+<div style={{display: "flex", justifyContent: 'center'}}>
+<Loader></Loader>
+</div>
+:
+<>
+{mintedNft.length > 0 ? 
+
+<div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+{mintedNft.map((data, index) => (
+              <CollectionsCard data={data} />
+             
             ))}
-              
-             </div>
+            </div>
+          :
+          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Nft Minted yet.</div>
+          }   
+            </>
+
+}
+
+
+
               </Tabs.TabPane>
               <Tabs.TabPane tab="On Sale" key="4">
               <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">

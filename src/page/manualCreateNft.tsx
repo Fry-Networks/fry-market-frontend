@@ -4,6 +4,7 @@ import { message, Switch } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import selectNftGlow from '../assets/createNft/selectedNftGlow.png';
 import plus from '../assets/icons/plus.svg';
@@ -12,7 +13,7 @@ import Loader from '../components/Loader';
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from '../components/shared/textarea';
-import { mintMultipleNft } from '../fryMarketMethods';
+import { getAllCollectionNft, mintMultipleNft } from '../fryMarketMethods';
 import AddTraits from '../modals/addTraits';
 import MintNft from '../modals/mintNft';
 
@@ -52,7 +53,8 @@ const ManualCreateNft = () => {
     const [collectionData, setCollectionData] = useState<any>(false);
     const [formData, setFormData] = useState<any>({})
     const [collectionSelected, setCollectionSelected] = useState(false)
-    const { activeAccount, signer } = useWallet()
+    const navigate = useNavigate();
+    const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
     // const handleChange = (info: any) => {
     //     if (info.file.status === 'uploading') {
     //         setLoading(true);
@@ -198,7 +200,7 @@ const ManualCreateNft = () => {
 
     const minNft = async (imageUrl: any) => {
         try {
-            const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, formData.itemName)
+            const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, formData.itemName, signTransactions, sendTransactions)
             console.log("response after minting", response);
             // toast.success("Mint Successful")
             return true
@@ -220,6 +222,25 @@ const ManualCreateNft = () => {
             getNftCollection()
         }
     }, [activeAccount])
+
+    useEffect(() => {
+        getNfts();
+    }, [activeAccount])
+    const getNfts = async () => {
+        try {
+            console.log("hehehe");
+
+            if (activeAccount?.address) {
+
+                const response = await getAllCollectionNft(activeAccount?.address);
+                console.log("got NFTS", response);
+
+            }
+
+        } catch (error) {
+
+        }
+    }
     return (
         <>
             <div>
@@ -256,7 +277,7 @@ const ManualCreateNft = () => {
                                     <label htmlFor="collectionImage" className="block">
                                         <img src={
                                             // @ts-ignore
-                                            prevImage == "" ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
+                                            prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
                                         <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
                                         <span
                                             className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
@@ -335,7 +356,7 @@ const ManualCreateNft = () => {
                                                         (this is the collection where your item will appear)
                                                     </p>
                                                     <div className="newCollectionDiv flex gap-4 mt-4">
-                                                        <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
+                                                        <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2" onClick={() => navigate("/create-collection")} style={{ cursor: "pointer" }}>
                                                             <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
                                                                 <img src={plus} alt="" />
                                                             </div>
@@ -349,8 +370,10 @@ const ManualCreateNft = () => {
                                                             </div>
                                                         </div>
                                                         {
-                                                            loading ?
+                                                            loading ? <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", margin: "0 auto" }}>
                                                                 <Loader></Loader>
+                                                                <p>Loading Exiting Collections</p>
+                                                            </div>
                                                                 :
                                                                 collectionData ?
                                                                     <div className={`createNewCollection rounded-xl border-solid border-[${collectionSelected ? "red" : "#E7E7E7"}] border-2 p-[15px] flex justify-start gap-3 w-1/2`} onClick={() => { setCollectionSelected(prev => !prev) }}>
@@ -474,7 +497,6 @@ const ManualCreateNft = () => {
                                                             () => {
                                                                 if (validation()) {
                                                                     toast.promise(
-
                                                                         uploadImage(),
                                                                         {
                                                                             pending: "NFT is minting",
@@ -482,15 +504,16 @@ const ManualCreateNft = () => {
                                                                             success: "NFT minted successfully"
 
                                                                         }
-
                                                                     )
                                                                 }
                                                                 else {
-                                                                    toast.error("Please provide all information.");
-
+                                                                    if (!activeAccount?.address) {
+                                                                        toast.error("Please connect wallet first");
+                                                                    }
+                                                                    else {
+                                                                        toast.error("Please provide all information.");
+                                                                    }
                                                                 }
-
-
                                                             }
                                                         }
                                                     />

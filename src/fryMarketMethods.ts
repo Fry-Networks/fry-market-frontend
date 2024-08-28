@@ -220,7 +220,7 @@ export const getAllListed = async (): Promise<Listing[]> => {
 }
 
 
-export const mintMultipleNft = async (metaUris: string[], sender: string, signer: TransactionSigner, name: string): Promise<Uint8Array[]> => {
+export const mintMultipleNft = async (metaUris: string[], sender: string, signer: TransactionSigner, name: string, signTransactions: any, sendTransactions: any): Promise<Uint8Array[]> => {
     try {
         const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
 
@@ -246,10 +246,16 @@ export const mintMultipleNft = async (metaUris: string[], sender: string, signer
 
             encodedTransaction.push(newEncodedtx)
         })
-        return encodedTransaction
+
+        const signedTransactions = await signTransactions(encodedTransaction)
+        const waitRoundsToConfirm = 4
+        const { id } = await sendTransactions(signedTransactions, waitRoundsToConfirm)
+        //   console.log(id)
+
+        return id
     } catch (e) {
         console.log(e)
-        return []
+        throw e
     }
 }
 

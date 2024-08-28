@@ -122,7 +122,7 @@ const CreateNftCollectionManual = () => {
                   <label htmlFor="collectionImage" className="block">
                     <img src={
                       // @ts-ignore
-                      prevImage == "" ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
+                      prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
                     <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
                     <span
                       className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
@@ -217,7 +217,12 @@ const CreateNftCollectionManual = () => {
                             )
                           }
                           else {
-                            toast.error("Please provide all information.");
+                            if (!activeAccount?.address) {
+                              toast.error("Please connect wallet first");
+                            }
+                            else {
+                              toast.error("Please provide all information.");
+                            }
 
                           }
 
