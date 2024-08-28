@@ -93,7 +93,7 @@ const NftDetailBanner = () => {
             className="button btn-primary font-medium"
             minWidth={54}
             minHeight={32}
-            text="Bye"
+            text="Buy"
           />
         </div>
       ),
@@ -239,7 +239,7 @@ const NftDetailBanner = () => {
     <>
       <div className="nftDetailBannerWrapper mb-52">
         <div className="container">
-          <div className="topSection flex-center gap-6 mt-10">
+          <div className="topSection flex items-start gap-6 mt-10">
             <div className="leftArea w-[546px] flex flex-col gap-7 ">
               <img src={rightSecPic} alt="" />
               <div className="descriptionAccordion">

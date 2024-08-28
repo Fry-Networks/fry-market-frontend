@@ -27,7 +27,7 @@ const BoostNft = () => {
               ></Button>
             </div>
             <div className="rightArea w-2/5">
-              <img className="w-full h-full object-cover" src={monkey} alt="" /></div>
+              <img className="w-full h-full object-cover max-w-[554px] max-h-[611px]" src={monkey} alt="" /></div>
           </div>
         </div>
       </div>

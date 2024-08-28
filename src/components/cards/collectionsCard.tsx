@@ -63,7 +63,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             className={` ${isSoldbtn ? " " : "hidden"
               } absolute w-full h-full top-0 left-0 flex items-center justify-center z-30`}
           >
-            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
+            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40 rounded-xl"></div>
             <Button
               className="relative z-10 button ex-small font-semibold font-Apex text-white bg-[linear-gradient(318deg,#FD0000_26.88%,#BB5151_105.85%)]"
               minWidth={96}

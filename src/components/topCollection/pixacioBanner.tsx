@@ -1,8 +1,17 @@
 
+import React from "react";
+import leftImg from "../../assets/topCollection/bannerLeftImg.png";
+import grid from "../../assets/nftCollection/exploreGrid.webp";
+import internet from "../../assets/icons/internetIcon.png";
+import twitter from "../../assets/icons/twitterTC.svg";
+import discord from "../../assets/icons/discordTC.svg";
+import glasses from "../../assets/icons/glasses.svg";
+
 const PixacioBanner = ({ name, image }: any) => {
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center ">
+      <img className=" grid absolute  top-[-400px] right-0 -z-10" src={grid} alt="" />
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
@@ -52,14 +61,14 @@ const PixacioBanner = ({ name, image }: any) => {
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg p-2 flex-center"
                 >
-                  <img src="/src/assets/icons/internetIcon.png" alt="" />
+                 <img src={internet} alt="" />
                 </div>
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4"
                 >
-                  <img src="/src/assets/icons/twitterTC.svg" alt="" />
+              <img src={twitter} alt="" />
                   <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center">
                     <p
                       style={{ opacity: "1" }}
@@ -74,16 +83,16 @@ const PixacioBanner = ({ name, image }: any) => {
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg p-2 flex-center"
                 >
-                  <img src="/src/assets/icons/discordTC.svg" alt="" />
+                  <img src={discord} alt="" />
                 </div>
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4"
                 >
-                  <img
+                 <img
                     className="w-full h-full object-cover"
-                    src="/src/assets/icons/glasses.svg"
+                    src={glasses}
                     alt=""
                   />
                   <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center">
