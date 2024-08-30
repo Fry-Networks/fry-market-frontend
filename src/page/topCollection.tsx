@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import artistImage from "../../src/assets/topCollection/bannerLeftImg.png";
+import artistImage from "../../src/assets/topCollection/leftImg.webp";
 import ReadyForNext from "../components/home/readyForNext";
 import PixacioBanner from "../components/topCollection/pixacioBanner";
 import PixoNft from "../components/topCollection/pixoNft";

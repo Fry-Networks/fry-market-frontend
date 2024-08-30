@@ -54,7 +54,7 @@ const MultipleCollect = () => {
                 <img
                   src={image}
                   alt={`nft-${index}`}
-                  className="opacity-1 w-full h-full object-cover"
+                  className="opacity-1 w-full h-full object-cover max-w-[288px] max-h-[265px]"
                 />
                 {/* <Button
                 className="absolute ex-small w-24 font-semibold btn-primary btn-primaryBorder translate-x-[90px] opacity-0 group-hover:opacity-100 group-hover:translate-y-[-60px] group-hover:block transition-all duration-1000 ease-in-out"

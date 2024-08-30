@@ -43,14 +43,14 @@ const Banner = () => {
   return (
     <>
       <div className="bannerWrapper mb-44 relative">
-        <img className="absolute top-[-200px] -z-30" src={banerGlow} alt="" />
+        <img className="absolute top-[-250px] -z-30" src={banerGlow} alt="" />
         <div className="container">
           <div className="inner">
             <h2 className="font-normal font-Apex uppercase darkBlack text-center mt-20">
               Create your own <span className="primary">masterpiece</span>
             </h2>
             <img
-              className="mt-10 w-full"
+              className="mt-10 w-full h-full max-w-[1320px] object-cover"
               src={bannerImg}
               alt=""
             />

@@ -32,7 +32,7 @@ const CollectionBanner = () => {
   </div>
 
   <div className="bottomArea">
-  <img className="w-full h-full object-cover" src={seller} alt="" />
+  <img className="max-w-[1320px]  w-full h-full object-cover" src={seller} alt="" />
   </div>
 </div>
   </div>

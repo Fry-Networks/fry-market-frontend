@@ -48,6 +48,7 @@
                   border-radius: 8px !important;
                   background-color: transparent !important;
                   box-shadow: none;
+                  border: 2px solid white;
                   .ant-collapse-item {
                     margin-bottom: 20px;
                     border-radius: 8px !important;
@@ -102,7 +103,7 @@
       }
 }
 
-@media screen and (max-width:1440px) {
+@media screen and (max-width:1300px) {
 
     .pixoNftContainer{
         margin-top: 70px;

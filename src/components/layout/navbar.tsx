@@ -1,15 +1,15 @@
 // import React, { useState } from "react";
-import { Drawer } from "antd";
-import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import logo from "../../assets/icons/newLogo.svg";
-import mobileLogo from "../../assets/icons/logo.svg";
+import { Icon } from "@iconify/react";
 import { useWallet } from "@txnlab/use-wallet";
+import { Drawer } from "antd";
 import { useState } from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import mobileLogo from "../../assets/icons/logo.svg";
 import menu from "../../assets/icons/menu.png";
+import logo from "../../assets/icons/newLogo.svg";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import Button from "../shared/button";
-import { Icon } from "@iconify/react";
 
 interface Toggle {
   open: boolean,
@@ -29,7 +29,10 @@ const Navbar = (props: Toggle) => {
     location.pathname === "/createnft-collect" ||
     location.pathname === "/create-nft-page" ||
     location.pathname === "/select-nft" ||
-    location.pathname === "/sell-method";
+    location.pathname === "/sell-method" ||
+    location.pathname === "/artist-profile-art" ||
+    location.pathname === "/artist-profile"
+
 
 
   console.log(location.pathname);
@@ -127,23 +130,23 @@ const Navbar = (props: Toggle) => {
         >
           <div className="navbar-logo mb-4 flex justify-between">
             <img className="logo" src={mobileLogo} alt="" />
-            <Icon className="mt-3" icon="basil:cross-solid" width="30" height="30"  style={{color: "black"}} onClick={onClose} />
+            <Icon className="mt-3" icon="basil:cross-solid" width="30" height="30" style={{ color: "black" }} onClick={onClose} />
           </div>
           <div className="navbarList">
             <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
-            <NavLink className="navlink" to="/">
-                  <li>Home</li>
-                </NavLink>
-                <NavLink className=" cursor-default" to="#">
-                  <li>Marketplace</li>
-                </NavLink>
-                <NavLink className="navlink" to="/create-nft-page">
-                  <li>AI Nft Generation</li>
-                </NavLink>
+              <NavLink className="navlink" to="/">
+                <li>Home</li>
+              </NavLink>
+              <NavLink className=" cursor-default" to="#">
+                <li>Marketplace</li>
+              </NavLink>
+              <NavLink className="navlink" to="/create-nft-page">
+                <li>AI Nft Generation</li>
+              </NavLink>
 
-                <NavLink className="navlink" to="/createnft-collect">
-                  <li>Create NFt Collection</li>
-                </NavLink>
+              <NavLink className="navlink" to="/createnft-collect">
+                <li>Create NFt Collection</li>
+              </NavLink>
             </ul>
           </div>
           <div className="navbar-btns flex flex-col gap-4 mt-5">

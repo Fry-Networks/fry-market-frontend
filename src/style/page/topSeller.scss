@@ -126,7 +126,7 @@
                     h2{
                         font-size: 60px;
                         span{
-    font-size: 90px;
+    font-size: 80px;
                         }
                     }
                 }
@@ -158,7 +158,7 @@
             .collectionTable{
                 overflow-x: scroll;
                 .ant-table-wrapper{
-                overflow-x: scroll !important;
+                overflow-x: auto;
 
                 }
             }
@@ -169,13 +169,18 @@
     .topSell{
         .container{
             .bannerWrapper{
+                justify-content: center;
                 flex-direction: column;
+                align-items: center;
+                height: auto;
+                margin-bottom: 50px;
                 .headingDiv{
 
                     width: 100%;
                     display: flex;
                     align-items: center;
                     justify-content: center;
+                    width: 100%;
 
                     h2{
                         font-size: 50px;
@@ -187,10 +192,13 @@
                 .sellerImages{
 
                     width: 100%;
-                    height: 800px;
+                
+                    // height: 800px;
                     .tsImage{
-                //    width: 300px;
-                //    height: 300px;
+                   width: 300px;
+                   height: 300px;
+                margin-bottom: 80px;
+     
                   
                           }
                 }
