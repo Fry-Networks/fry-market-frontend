@@ -10,12 +10,12 @@ import glasses from "../../assets/icons/glasses.svg";
 const PixacioBanner = ({ name, image }: any) => {
   return (
     <>
-      <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center ">
+      <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center mb-24 ">
       <img className=" grid absolute  top-[-400px] right-0 -z-10" src={grid} alt="" />
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
-              <img className="w-full h-full" src={image} alt="" />
+              <img className="max-w-[482px] max-h-[461px] object-cover w-full h-full rounded-3xl border-solid border-[15px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={image} alt="" />
             </div>
             <div className="rightArea w-3/5 flex flex-col gap-8 ">
               <h2 className="font-bold font-Apex uppercase text-left tracking-wide darkBlack">

@@ -103,13 +103,13 @@ const CollectionCard = ({ isArtistProfile }: any) => {
         <div className="grid grid-cols-3 gap-9 mb-[200px] cardContainer">
           {cards.map((card) => (
             <Link to="/top-collection" key={card.id}>
-              <div className="card flex flex-col items-start gap-1">
+              <div className="max-w-[417px] max-h-[285px] w-full h-full card flex flex-col items-start gap-1">
                 <p className="font-Roboto font-bold darkBlack">{card.title}</p>
                 <p className="small font-Roboto grayOpacity font-normal">
                   {card.items}
                   <span className="ml-2 darkBlack font-bold">{card.value}</span>
                 </p>
-                <img src={card.img} alt={card.title} className="mt-3 w-full " />
+                <img src={card.img} alt={card.title} className="mt-3 w-full max-w-[387px] max-h-[191px] h-full " />
               </div>
             </Link>
           ))}

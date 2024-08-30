@@ -1,4 +1,4 @@
-import artistImage from "../../assets/artistsProfile/leftImg.png";
+import artistImage from "../../assets/artistsProfile/leftImg.webp";
 import PixacioBanner from '../topCollection/pixacioBanner';
 import ProfileBanner from './profileBanner';
 import ProfileNft from './profileNft';
