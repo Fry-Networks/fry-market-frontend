@@ -108,6 +108,27 @@
   padding: 0px !important;
   border: 2px solid transparent !important;
 }
+
+@media screen and (max-width:1400px) {
+  .topListedSection{
+    margin-top: 100px;
+    .collapseDiv{
+top: 70px;
+    }
+    .container{
+      .topListedInner{
+        h2{
+
+        }
+        .auctionCarContainer{
+          margin-top: 160px;
+        }
+      }
+
+    }
+  }
+}
+
 @media screen and (max-width:1300px) {
   .topListedSection{
     margin-top: 100px;

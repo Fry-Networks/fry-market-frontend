@@ -4,14 +4,14 @@ import readyDropIcon from "../../assets/home/images/homeImages/readyDropBtn.webp
 
 const ReadyForNext = () => {
   const placeholderStyle = {
-    color: "red" /* Set your desired placeholder color */,
+    color: "red"
   };
   return (
     <>
       <div className="nextNftWrapper">
         <div className="container">
           <h2 className="font-bold font-Oxanium capitalize darkBlack mb-10 text-center">
-            Ready for Next NFT Drop?
+            Ready For Next NFT Drop?
           </h2>
 
           <div

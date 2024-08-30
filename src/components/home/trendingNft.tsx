@@ -24,7 +24,7 @@ const TrendingNft = () => {
             Trending NFT'S
           </h2>
           <Button
-            className="button btn-secondary font-normal medium uppercase relative flex items-center justify-center gap-1 bg-transparent"
+            className="button border-2 border-solid border-[red] text-[red] font-normal medium uppercase relative flex items-center justify-center gap-1 bg-[transparent]"
             minWidth={220}
             height={52}
             text="Last 30 minutes"

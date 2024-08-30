@@ -65,7 +65,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           >
             <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40 rounded-xl"></div>
             <Button
-              className="relative z-10 button ex-small font-semibold font-Apex text-white bg-[linear-gradient(318deg,#FD0000_26.88%,#BB5151_105.85%)]"
+              className="relative z-10 button ex-small font-semibold rounded-lg outline-[3px] outline-solid outline-[rgba(253,253,253,0.15)] font-Apex text-white bg-[linear-gradient(318deg,_#FD0000_26.88%,_#BB5151_105.85%,_#FDFDFD_15%)]"
               minWidth={96}
               minHeight={37}
               text="Sold"
