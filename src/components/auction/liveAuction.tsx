@@ -8,11 +8,17 @@ import trendingNft7 from "../../assets/home/images/auction/auctionImg7.png";
 import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import AuctionCard from '../cards/auctionCard';
+import leftGlow from "../../assets/auction/leftGlow.png";
+import featureTopGrid from "../../assets/auction/listGrid.webp";
+
 
 const LiveAuction = () => {
   return (
     <>
-      <div className="liveAuctionWrapper mb-52">
+      <div className="liveAuctionWrapper mb-52 relative">
+      <img className='absolute left-0 top-28' src={leftGlow} alt="" />
+      <img className="absolute top-[-260px] left-0 -z-50" src={featureTopGrid} alt="" />
+
         <div className="container">
           <div className="innerLiveAuction">
             <h2 className="font-normal font-Apex uppercase mb-10">

@@ -113,15 +113,18 @@
   .topListedSection{
     margin-top: 100px;
     .collapseDiv{
-top: 70px;
+top: 100px;
+left: 30px;
     }
     .container{
       .topListedInner{
+        margin-bottom: 170px;
+
         h2{
 
         }
         .auctionCarContainer{
-          margin-top: 160px;
+          margin-top: 150px;
         }
       }
 
@@ -129,7 +132,7 @@ top: 70px;
   }
 }
 
-@media screen and (max-width:1300px) {
+@media screen and (max-width:1320px) {
   .topListedSection{
     margin-top: 100px;
     position: relative;
@@ -145,14 +148,18 @@ top: 70px;
     }
     .container{
       .topListedInner{
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
         h2{
-          margin-bottom: 200px;
+     
         }
-        .auctionCarContainer{
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          place-items: center;
-        }
+      
+      }
+      .auctionCarContainer{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) !important;
+        place-items: center;
       }
     }
   }
@@ -175,14 +182,16 @@ top: 70px;
     }
     .container{
       .topListedInner{
+        margin-bottom: 140px;
         h2{
-margin-bottom: 150px;
+
         }
-        .auctionCarContainer{
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          place-items: center;
-        }
+   
+      }
+      .auctionCarContainer{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        place-items: center;
       }
     }
   }
@@ -192,6 +201,7 @@ margin-bottom: 150px;
 @media screen and (max-width:800px) {
 
   .topListedSection{
+    margin-top: 100px !important;
    margin-bottom: 50px !important;
   
     .collapseDiv{
@@ -202,16 +212,23 @@ margin-bottom: 150px;
     }
     .container{
       .topListedInner{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 20px;
+        gap: 10px;
         h2{
-          margin-bottom: 0px;
+     
 text-align: center;
         }
-        .auctionCarContainer{
-         margin-top: 40px;
-          grid-template-columns: repeat(1, 1fr);
-     
-        }
+      
       }
+      
+      .auctionCarContainer{
+        margin-top: 40px;
+         grid-template-columns: repeat(1, 1fr) !important;
+    
+       }
     }
   }
 }

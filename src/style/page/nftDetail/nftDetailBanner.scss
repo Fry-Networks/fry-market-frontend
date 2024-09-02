@@ -227,6 +227,8 @@
   .nftDetailBannerWrapper {
     .topSection {
       .leftArea {
+        height: 100%;
+        max-height: 100%;
       }
       .rightArea {
         .pixacioDiv {
@@ -263,7 +265,10 @@
       .leftArea {
         width: 100%;
         .pixicoImg{
-          width: 300px;
+          width: 300px !important;
+          // height: 300px !important;
+          // max-width: 100% !important;
+          // max-height: 100% !important;
           margin: 0 auto;
         }
 

@@ -23,7 +23,7 @@ const Auction = () => {
   };
   return (
     <>
-      <div className="auctionWrapper mb-52 relative md:mb-20">
+      <div className="auctionWrapper mb-52 relative">
         {/* <img className=' auctionBack absolute left-[300px] -z-20' src={auctionBack} alt="" /> */}
         <div className="container">
           <h2 className="font-normal font-Apex uppercase mb-10">

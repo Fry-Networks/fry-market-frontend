@@ -30,7 +30,7 @@ const TopCollections = () => {
 
   return (
     <>
-      <div className="topCollectionWrapper mb-52 relative">
+      <div className="topCollectionWrapper my-52 relative">
         <img
           className="colectionBack absolute top-[-400px] -z-10"
           src={colectionBack}

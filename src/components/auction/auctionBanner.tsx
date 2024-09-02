@@ -10,7 +10,7 @@ import auctionTopGrid from "../../assets/auction/auctionTopGrid.webp";
 const AuctionBanner = () => {
   return (
  <>
- <div className="auctionBannerWrapper h-screen relative">
+ <div className="auctionBannerWrapper h-[90vh] relative">
  <img className='bannergrid absolute right-[0px] bottom-[-300px] -z-10' src={bannerGrid} alt="" />
  <img className='bannergrid absolute left-[0px] top-[-100px] -z-10' src={auctionTopGrid} alt="" />
 
