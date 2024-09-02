@@ -84,8 +84,8 @@ export default function App() {
 
     location.pathname === "/top-seller" ||
     location.pathname === "/seller-collection" ||
-    location.pathname === "/create-nft-page"||
-    location.pathname==="/createnft-collect";
+    location.pathname === "/create-nft-page";
+
 
 
   const toggleWalletModal = () => {

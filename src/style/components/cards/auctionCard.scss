@@ -79,3 +79,24 @@ transition: 0.7s ease-in-out;
   }
 
 }
+
+@media screen and (max-width:1440px){
+    .auctionCard{
+        &:hover{
+            .cardBody{
+                .placeBidBtn{
+                  opacity: 1;
+                  transform: translateY(-170px);
+               }
+           }
+        }
+        .cardBody{
+             .placeBidBtn{
+               opacity: 0;
+               left: 83px;
+            }
+        }
+      
+    }
+    
+}
