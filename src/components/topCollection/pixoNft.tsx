@@ -417,9 +417,9 @@ const PixoNft = () => {
         ]}
       />
     </div>
-    <img src={rightGlow} className="absolute right-0 top-[200px] -z-10" alt="" />
-    <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-10" alt="" />
-    <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-10' alt="" />
+    <img src={rightGlow} className="absolute right-0 top-[200px] -z-50" alt="" />
+    <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-50" alt="" />
+    <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-50' alt="" />
 
         <div className="container">
           <div className="inner">

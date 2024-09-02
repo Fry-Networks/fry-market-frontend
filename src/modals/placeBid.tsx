@@ -22,7 +22,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
         width={415}
         footer={null}
       >
-        <div className="connectModal">
+        <div style={{zIndex:"9999"}} className="connectModal z-[9999]">
           <div className="w-full">
             <p className="fw-bold ex-large font-Apex font-normal darkBlack text-center">
               Place your bid

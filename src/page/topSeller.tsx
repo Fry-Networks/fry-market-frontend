@@ -201,21 +201,20 @@ const TopSeller = () => {
       title: "Collections",
       dataIndex: "image",
       key: "image",
-      width:"350",
-
-      render: (record: any) => (
-        <>
-          <img src={record?.image} alt="" />
-        </>
-
+      width: "330px",
+      render: (_: any, record: DataType, index: number) => (
+        <div className="flex items-center">
+          <span className="mr-4">{String(index + 1).padStart(2, '0')}</span>
+          <img src={record.image} alt={record.collection} className="mr-4" />
+          <span>{record.collection}</span>
+        </div>
       ),
-
     },
     {
       title: "Volume",
       dataIndex: "volume",
       key: "volume",
-      width:"156",
+      width:"156px",
       
       render: (text: any) => (
         <div className="flex items-center">
@@ -228,19 +227,19 @@ const TopSeller = () => {
       title: "Followers",
       dataIndex: "follower",
       key: "follower",
-      width:"172",
+      width:"172px",
     },
     {
       title: "24%",
       dataIndex: "percentage",
       key: "percentage",
-      width:"172",
+      width:"172px",
     },
     {
       title: "Floor Price",
       dataIndex: "price",
       key: "price",
-      width:"156",
+      width:"156px",
       render: (text: any) => (
         <div className="flex items-center">
           <img src={logo} alt="icon" className="mr-2" />
@@ -252,7 +251,7 @@ const TopSeller = () => {
       title: "Items",
       dataIndex: "items",
       key: "items",
-      width:"100",
+      width:"100px",
     },
   ];
 
@@ -324,7 +323,7 @@ const TopSeller = () => {
               ]}
             />
           </div>
-          <Button className="btn-white" text="Last 30 days" />
+          <Button className="btn-white small font-semibold" text="Last 30 days" />
         </div>
 
         <div className="collectionTable relative">

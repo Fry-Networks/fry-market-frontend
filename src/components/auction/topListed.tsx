@@ -1,4 +1,4 @@
-import { DownOutlined, FilterOutlined } from '@ant-design/icons';
+import { DownOutlined, FilterOutlined,  ReloadOutlined } from '@ant-design/icons';
 import { TreeSelect } from 'antd';
 import { useRef, useState } from 'react';
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
@@ -18,6 +18,7 @@ import { Collapse } from "antd";
 import filter from "../../assets/icons/filter.svg";
 import Button from "../shared/button";
 import search from "../../assets/icons/search.svg";
+import refresh from "../../assets/icons/refresh.svg";
 
 
 
@@ -32,6 +33,11 @@ const TopListed = () => {
 `;
   const onChange = (newValue: any) => {
     setValue(newValue);
+  };
+  const handleRefresh = () => {
+
+    console.log("Refresh button clicked!");
+
   };
   const itemsNest = [
     {
@@ -56,9 +62,9 @@ const TopListed = () => {
   };
   return (
     <>
-      <div className="topListedSection relative mb-52">
+      <div className="topListedSection relative mb-52 mt-14">
       <img className="absolute right-0 top-32 -z-20" src={rightGlow} alt="" />
-        <div className="absolute top-0 left-0 w-[200px] z-50 collapseDiv">
+        <div className="absolute top-0 left-0 w-[200px] z-30 collapseDiv">
       
 
           <Collapse
@@ -433,14 +439,17 @@ const TopListed = () => {
           />
         </div>
         <div className="container">
-          <div className="topListedInner">
-            <h2 className="font-normal font-Apex uppercase mb-10">TOP LISTED</h2>
-            <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">
-              {auctionData.map((data) => (
-                <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
-              ))}
-            </div>
-          </div>
+        <div className="topListedInner flex justify-between items-center mb-10">
+    <h2 className="font-normal font-Apex uppercase ">TOP LISTED</h2>
+    <button className="flex items-center font-normal ex-small lightGray font-Roboto">
+      <img onClick={handleRefresh}  src={refresh} className="mr-4"/> Refreshed A While Ago
+    </button>
+  </div>
+  <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">
+    {auctionData.map((data) => (
+      <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
+    ))}
+  </div>
         </div>
       </div>
     </>

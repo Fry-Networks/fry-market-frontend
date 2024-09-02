@@ -141,19 +141,22 @@ const Navbar = (props: Toggle) => {
           </div>
           <div className="navbarList">
             <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
-              <NavLink className="navlink" to="/">
-                <li>Home</li>
-              </NavLink>
-              <NavLink className=" cursor-default" to="#">
-                <li>Marketplace</li>
-              </NavLink>
-              <NavLink className="navlink" to="/create-nft-page">
-                <li>AI Nft Generation</li>
-              </NavLink>
-
-              <NavLink className="navlink" to="/createnft-collect">
-                <li>Create NFt Collection</li>
-              </NavLink>
+            <NavLink
+                  className={`navlink ${isHomeActive ? "active" : ""}`}
+                  to="/"
+                >
+                  <li>Home</li>
+                </NavLink>
+                {/* <NavLink className="cursor-default" to="#">
+                  <li>Marketplace</li>
+                </NavLink> */}
+                <NavLink  className={`navlink ${isNftActive ? "active" : ""}`} to="/create-nft-page">
+                  <li>AI Nft Generation</li>
+                </NavLink>
+{/* 
+                <NavLink className="navlink" to="/createnft-collect">
+                  <li>Create NFt Collection</li>
+                </NavLink> */}
             </ul>
           </div>
           <div className="navbar-btns flex flex-col gap-4 mt-5">
