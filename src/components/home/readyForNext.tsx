@@ -32,7 +32,7 @@ const ReadyForNext = () => {
             />
           
               <img
-              className="absolute top-[17px] right-8 object-cover cursor-pointer"
+              className="absolute top-[17px] right-8 object-cover cursor-pointer emailBtn"
                 style={{ width: "88px", height: "76px" }}
                 src={readyDropIcon}
                 alt=""

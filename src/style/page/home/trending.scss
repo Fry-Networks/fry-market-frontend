@@ -9,7 +9,7 @@
 @media screen and (max-width:1320px){
     .trendingNftWrapper{
         margin-bottom: 80px;
-        margin-top: 30px;
+        margin-top: 30px !important;
         .container{
             .inner{
                 // display: flex;
@@ -49,6 +49,7 @@
 
 @media screen and (max-width:750px) {
     .trendingNftWrapper{
+        margin-bottom: 100px !important;
         .container{
             .inner{
                 

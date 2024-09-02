@@ -55,9 +55,9 @@ const Featured = () => {
       prevEl: '.swiper-button-prev-custom',
     }}
     breakpoints={{
-      200: {
-        slidesPerView: 1,
-      },
+      // 200: {
+      //   slidesPerView: 1,
+      // },
       800: {
         slidesPerView: 2,
       },
