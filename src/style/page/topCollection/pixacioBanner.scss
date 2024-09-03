@@ -21,9 +21,11 @@
     .container {
       .inner {
         margin-top: 50px;
+        gap: 40px;
         .leftArea {
         }
         .rightArea {
+          width: 100%;
           h2 {
             text-align: center;
           }

@@ -34,11 +34,32 @@ const TopListed = () => {
   const onChange = (newValue: any) => {
     setValue(newValue);
   };
-  const handleRefresh = () => {
+  // const MyComponent= ()=> {
 
-    console.log("Refresh button clicked!");
+  //   const [refreshValue, setRefreshValue] = useState();
+  
 
-  };
+    // const refresha = ()=>{
+    //     // re-renders the component
+    //     setRefreshValue({});
+    // }
+
+
+    
+
+  
+    // const handleRefresh = () => {
+    //   console.log("Refresh button clicked!");
+     
+    //   const shuffled = [...auctionList].sort(() => Math.random() - 0.5);
+    //   setAuctionList(shuffled);
+  
+    //   // If you have an API to fetch new data, you can call it here
+    //   // fetchAuctionData();
+    // };
+    // const handleRefresh = () => {
+    //   console.log("Refresh button clicked!");
+    // };
   const itemsNest = [
     {
       key: "1",
@@ -442,7 +463,7 @@ const TopListed = () => {
         <div className="topListedInner flex justify-between items-center mb-10">
     <h2 className="font-normal font-Apex uppercase ">TOP LISTED</h2>
     <button className="flex items-center font-normal ex-small lightGray font-Roboto">
-      <img onClick={handleRefresh}  src={refresh} className="mr-4"/> Refreshed A While Ago
+      <img onClick={() => window.location.reload()} src={refresh} className="mr-4"/> Refreshed A While Ago
     </button>
   </div>
   <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">

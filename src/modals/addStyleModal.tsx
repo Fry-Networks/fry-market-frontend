@@ -19,6 +19,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
     setisstylemodal(false);
     console.log("Modal should close now");
   };
+
+  
   return (
     <>
       <Modal
@@ -40,11 +42,11 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
             <img src={redline} alt="" />
             <div className="w-full selectAvatar flex gap-3">
               <div className="w-1/2">
-                <img className="h-[247px]" src={noneImg} alt="" />
+                <img className="max-h-[238px] max-w-[211px] w-full h-full " src={noneImg} alt="" />
               </div>
-              <label htmlFor="helloworld" className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl" >
+              <label htmlFor="helloworld" className="w-1/2 part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl" >
                 <input className="hidden" type="checkbox" id="helloworld" />
-                <img src={cartoonImg} alt="" />
+                <img className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl" src={cartoonImg} alt="" />
                 <Button
                   className="button btn-whiteClr medium font-Roboto font-medium"
                   width={211}
@@ -56,8 +58,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
 
             </div>
             <div className="w-full selectAvatar flex gap-3">
-              <div className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl">
-                <img src={modlarImg} alt="" />
+              <div className="w-1/2 part1 bg-[#E7E7E7]  p-1.5 flex-col gap-1.5 flex rounded-xl">
+                <img className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl" src={modlarImg} alt="" />
                 <Button
                   className="button btn-whiteClr medium font-Roboto font-medium"
                   width={211}
@@ -65,8 +67,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
                   text="3D Modal"
                 ></Button>
               </div>
-              <div className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl">
-                <img src={animeImg} alt="" />
+              <div className=" part2 w-1/2 bg-[#E7E7E7]  p-1.5 flex-col gap-1.5 flex rounded-xl">
+                <img className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl" src={animeImg} alt="" />
                 <Button
                   className="button btn-whiteClr medium font-Roboto font-medium"
                   width={211}
@@ -78,8 +80,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
 
             </div>
             <div className="w-full selectAvatar flex gap-3">
-              <div className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl">
-                <img src={fantasyImg} alt="" />
+              <div className="w-1/2 part1 bg-[#E7E7E7]  p-1.5 flex-col gap-1.5 flex rounded-xl">
+                <img className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl" src={fantasyImg} alt="" />
                 <Button
                   className="button btn-whiteClr medium font-Roboto font-medium"
                   width={211}
@@ -87,7 +89,7 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
                   text="Fantasy Art"
                 ></Button>
               </div>
-              <div className="w-1/2 bg-[#E7E7E7] hover:bg-[red] p-1.5 flex-col gap-1.5 flex rounded-xl">
+              <div className="w-1/2 part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl">
                 <img src={realisticImg} alt="" />
                 <Button
                   className="button btn-whiteClr medium font-Roboto font-medium"

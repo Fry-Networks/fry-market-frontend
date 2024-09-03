@@ -12,20 +12,23 @@
 
 @media screen and (max-width: 1440px) {
   .nftBanner {
-    height: auto !important;
+    margin-top: 0px !important;
     overflow: hidden;
-    margin-top: 50px;
-
+    
+.leftGlow{
+  display: none;
+}
     .rightGrid {
       width: 600px;
       top: 100px;
     }
-    .leftGlow {
-    }
+    // .topGrid  {
+    //   top: -600px !important;
+    // }
     .container {
       .inner {
         .leftArea {
-          width: 50%;
+          width: 40%;
           justify-content: center;
           align-items: center;
           // h2{
@@ -52,11 +55,14 @@
         }
 
         .rightArea {
-          width: 50%;
+          width: 50% !important;
+          max-width: 100% !important;
           height: auto;
-          justify-content: flex-start;
-          align-items: flex-start;
+          justify-content: center;
+          align-items: center;
+          display: flex;
           img {
+   width: 500px;
           }
         }
       }
@@ -64,10 +70,10 @@
   }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
   .nftBanner {
-    height: auto;
     margin-top: 0px;
+    margin-bottom: 0px !important;
     height: auto;
 
     .container {
@@ -81,10 +87,10 @@
           align-items: center;
           height: auto;
           .nft {
-            font-size: 70px;
+            font-size: 60px;
           }
           .collection {
-            font-size: 50px;
+            font-size: 40px;
           }
           h2 {
             text-align: center;
@@ -93,8 +99,9 @@
 
         .rightArea {
           width: 100%;
-          justify-content: flex-start;
-          align-items: flex-start;
+          max-width: 100%;
+          justify-content: center;
+          align-items: center;
           padding-bottom: 30px;
           img {
             max-width: 300px;

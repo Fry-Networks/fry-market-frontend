@@ -6,7 +6,7 @@ import Button from "../../components/shared/button";
 const ProfileBanner = () => {
   return (
     <>
-      <div className="profileBanner relative">
+      <div className="profileBanner mb-14 relative">
 
         <img style={{ zIndex: "-9999" }} className="absolute top-[-260px]" src={glow} alt="" />
         <div className="container">

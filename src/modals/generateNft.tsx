@@ -32,8 +32,8 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal }: any) => {
 
             <img src={redline} alt="" />
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mt-3">
-              <p className="darkBlack font-Roboto medium font-normal">Type</p>
-              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="text" />
+              <p className="darkBlack font-Roboto medium  font-normal">Type</p>
+              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" />
             </div>
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Prompt</p>

@@ -33,7 +33,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
             <img src={redline} alt="" />
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Enter bid amount</p>
-              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="text" />
+              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" />
             </div>
             <div className="serviceDiv w-full flex justify-between items-center">
               <p className="darkBlack font-Roboto medium font-normal">Service fee</p>

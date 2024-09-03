@@ -10,6 +10,7 @@ import card7 from "../../assets/artistsProfile/artistPic7.png";
 import card8 from "../../assets/artistsProfile/artistPic8.png";
 import Button from "../shared/button";
 import sellerCollectGlow  from '../../assets/images/topSellers/collectionGlow.png';
+import bannerGlow from "../../assets/artistsProfile/settingBanerGlow.png";
 
 const CollectionCard = ({ isArtistProfile }: any) => {
   const cards = [
@@ -74,8 +75,9 @@ const CollectionCard = ({ isArtistProfile }: any) => {
 
   return (
     <>
-    <div className="relative sellerColectCard">
-      <img className="absolute top-[-50px] -z-50" src={sellerCollectGlow} alt="" />
+    <div className="relative sellerColectCard mt-24">
+      <img src={bannerGlow} className="absolute right-0 top-[-50px] -z-50" alt="" />
+      {/* <img className="absolute top-[-50px] -z-50" src={sellerCollectGlow} alt="" /> */}
     <div className="container">
         <div className="condition">
           {isArtistProfile ? (

@@ -2,6 +2,7 @@ import Button from "../shared/button";
 import Input from "../shared/input";
 import settingBanerGlow from "../../assets/artistsProfile/settingBanerGlow.png";
 import midGlow from "../../assets/artistsProfile/midGlow.png";
+import uploadImgBanner from "../../assets/artistsProfile/uploadImgBanner.png";
 
 const ProfileSettingPage = () => {
   return (
@@ -18,7 +19,7 @@ const ProfileSettingPage = () => {
               </button>
               <img
                 className="mt-7"
-                src="/src/assets/artistsProfile/uploadImgBanner.png"
+                src={uploadImgBanner}
                 alt=""
               />
               <button className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">
@@ -134,7 +135,7 @@ const ProfileSettingPage = () => {
                     height={58}
                     type="text"
                     className="m-auto"
-                    label="x(Twitter)"
+                    label="X(Twitter)"
                     labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
