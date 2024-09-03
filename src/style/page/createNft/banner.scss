@@ -2,6 +2,21 @@
   .container {
     .inner {
       .earnMoneyDiv {
+        .part2{
+.earnInput{
+  .input-box{
+    .input-wrapper{
+      border: 3px solid #E7E7E7;
+      box-shadow: none;
+      input{
+        &::placeholder{
+          color: #808080;
+        }
+      }
+    }
+  }
+}
+        }
         .part3 {
             display: flex;
             align-items: center;

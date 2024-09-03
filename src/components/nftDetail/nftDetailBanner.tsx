@@ -2,6 +2,8 @@ import { Collapse, Table } from "antd";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
+import leftGlow from "../../assets/nftCollection/redGloww.webp";
+import rightGlow from "../../assets/topCollection/rightGlow.webp";
 
 const NftDetailBanner = () => {
   const onChange = (key: any) => {
@@ -237,7 +239,9 @@ const NftDetailBanner = () => {
   ];
   return (
     <>
-      <div className="nftDetailBannerWrapper mb-52">
+      <div className="nftDetailBannerWrapper mb-52 relative">
+      <img src={leftGlow} className="leftGlow absolute top-[-400px] left-0 -z-10" alt="" />
+      <img src={rightGlow} className=" rightGlow absolute top-[-200px] right-0 -z-10" alt="" />
         <div className="container">
           <div className="topSection flex items-start gap-6 mt-10">
             <div className="leftArea w-[546px] max-h-[610px]  flex flex-col gap-7 ">

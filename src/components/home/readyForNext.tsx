@@ -11,7 +11,7 @@ const ReadyForNext = () => {
       <div className="nextNftWrapper">
         <div className="container">
           <h2 className="font-bold font-Oxanium capitalize darkBlack mb-10 text-center">
-          Ready<span className="lowercase"> for</span> Next NFT Drop?
+          Ready<span className="lowercase"> for  the</span> Next NFT Drop?
           </h2>
 
           <div

@@ -1,0 +1,63 @@
+.ant-modal-content{
+    .ant-modal-body{
+        .connectModal{
+         .innerContent{
+            .selectAvatar {
+.part1 , .part2{
+    transition: 0.7s ease-in-out;
+    &:hover{
+        background-image: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
+        transition: 0.7s ease-in-out;
+ 
+
+
+
+    }
+}
+            }
+         }   
+        }
+    }
+}
+
+@media screen and (max-width:500px){
+    .ant-modal-content{
+        .ant-modal-body{
+            .connectModal{
+             .innerContent{
+                .selectAvatar {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    .part1{
+width: 230px;
+img{
+    width: 100%;
+    object-fit:contain;
+    border-radius: 20px;
+    max-width: 100%;
+}
+button{
+    width: 100% !important;
+}
+    }
+    .part2{
+        width: 230px;
+        img{
+            width: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        button{
+            width: 100% !important;
+        }
+    }
+                }
+             }   
+            }
+        }
+    }
+    
+    
+}

@@ -4,7 +4,7 @@ const PromptCard = ({ data }: any) => {
     <>
       <div
         style={{ border: "3px solid #E7E7E7" }}
-        className="max-w-[577px] max-h-[262px] w-full h-full promptCard  rounded-3xl p-4 outline outline-[#E7E7E7] flex-center gap-11 relative "
+        className="max-w-[577px] max-h-[262px] w-full h-full promptCard bg-white  rounded-3xl p-4 outline outline-[#E7E7E7] flex-center gap-11 relative "
       >
         <img
           className="copy absolute top-[40%] left-[44%]"

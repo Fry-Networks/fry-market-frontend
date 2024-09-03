@@ -57,7 +57,7 @@ const Banner = () => {
             <div>
               <div className="earnMoneyDiv flex flex-col justify-center items-center gap-5">
                 <div className="part1">
-                  <p className="lightGray text-[16px] font-normal font-Roboto">
+                  <p className="lightGray text-[16px] font-normal font-Roboto capitalize">
                     get onboard and earn money like a pro
                   </p>
                 </div>
@@ -67,7 +67,7 @@ const Banner = () => {
                     className="relative earnInput"
                   >
                     <Input
-                      wrapperClass="flex items-center justify-center mx-auto z-10 "
+                      wrapperClass="flex items-center justify-center mx-auto z-10"
                       placeholder="Fantasy Creature holding a sword..."
                       inputClass="medium font-normal font-Roboto lightGray mx-auto flex items-center justify-center"
                       width={1002}
@@ -75,7 +75,7 @@ const Banner = () => {
                       type="text"
                       className="m-auto"
                     />
-                    <button onClick={showGenerateNftModal} className="absolute top-[14px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
+                    <button onClick={showGenerateNftModal} className="absolute top-[16px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
                       Generate
                       <img src={generateIcon} alt="" />
                     </button>
@@ -90,6 +90,7 @@ const Banner = () => {
                       optionFilterProp="label"
                       onChange={onChange}
                       onSearch={onSearch}
+               
                       options={[
                         {
                           value: "single",
@@ -109,6 +110,7 @@ const Banner = () => {
                       max={99999999999}
                       defaultValue={3}
                       onChange={onSupply}
+               
                     />
                   </div>
                   <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>

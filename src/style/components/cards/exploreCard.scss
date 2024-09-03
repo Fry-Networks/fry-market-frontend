@@ -1,4 +1,32 @@
 .exploreCard {
+  position: relative;
+  background-color: white;
+  &:before{
+content: "";
+top: -3px;
+right: -3px;
+left: -3px;
+bottom: -3px;
+position: absolute;
+background-image: radial-gradient(circle at 100% 100%, transparent 11px, #d50000 11px, #d50000 15px, transparent 15px), linear-gradient(to right, #d50000, #304ffe), radial-gradient(circle at 0% 100%, transparent 11px, #304ffe 11px, #304ffe 15px, transparent 15px), linear-gradient(to bottom, #304ffe, #00bfa5), radial-gradient(circle at 0% 0%, transparent 11px, #00bfa5 11px, #00bfa5 15px, transparent 15px), linear-gradient(to left, #00bfa5, #ffd600), radial-gradient(circle at 100% 0%, transparent 11px, #ffd600 11px, #ffd600 15px, transparent 15px), linear-gradient(to top, #ffd600, #d50000);
+background-size: 15px 15px, calc(100% - 30px) 4px, 15px 15px, 4px calc(100% - 30px);
+background-position: top left,top center,top right,center right, bottom right,bottom center,bottom left,center left;
+background-repeat: no-repeat;
+z-index: -1;
+border-radius: 4px;
+transition:all 0.7s ease-in-out;
+opacity: 0;
+
+  }
+  &:hover{
+    outline: none;
+
+    
+    &::before{
+      opacity: 1;
+      transition: all 0.7s ease-in-out;
+    }
+  }
   .inner {
     .bodyArea {
       .exploreBodyImg {

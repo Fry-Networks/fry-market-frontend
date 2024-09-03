@@ -108,6 +108,28 @@
   padding: 0px !important;
   border: 2px solid transparent !important;
 }
+@media screen and (max-width:1879px) {
+  .topListedSection{
+    margin-top: 100px;
+    .collapseDiv{
+top: 100px;
+left: 30px;
+    }
+    .container{
+      .topListedInner{
+        margin-bottom: 170px;
+
+        h2{
+
+        }
+        .auctionCarContainer{
+          margin-top: 150px;
+        }
+      }
+
+    }
+  }
+}
 
 @media screen and (max-width:1400px) {
   .topListedSection{
@@ -214,7 +236,7 @@ left: 30px;
       .topListedInner{
         flex-direction: column;
         justify-content: flex-start;
-        align-items: flex-start;
+        align-items: center;
         margin-bottom: 20px;
         gap: 10px;
         h2{
