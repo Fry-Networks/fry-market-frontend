@@ -270,3 +270,79 @@ export const getAllCollectionNft = async (sender: string) => {
     const collection = createdNft.length > 0 ? createdNft.filter((item: any) => item.params.decimals === 0 && item.params.total === 1) : []
     return collection
 }
+
+export const getAllCollectionWListed = async (sender: string) => {
+    const indexer = await getIndexerClient()
+    const nfts: any = await algokit.lookupAccountByAddress(sender, indexer);
+    const createdNft: any = nfts["created-assets"]
+    const collection = createdNft.length > 0 ? createdNft.filter((item: any) => item.params.decimals === 0 && item.params.total === 1) : []
+    const algod = await getAlgodClient()
+    const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
+    for (let listBox of boxes) {
+        for (let i = 0; i < collection.length; i++) {
+            const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
+            if (decoded === collection[i].index) {
+                let box = await algokit.getAppBoxValue(FRY_MARKET_ID, listBox.nameRaw, algod)
+                const nftData = await algod.getAssetByID(decoded).do();
+                const sellerId = algosdk.encodeAddress(box.slice(0, 32))
+                const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
+                const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
+                const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
+                const listed = algosdk.decodeUint64(box.slice(-1), "safe")
+
+                let listingData: Listing = {
+                    assetId: decoded,
+                    seller: sellerId,
+                    price: listedPrice,
+                    list_count: listedCount,
+                    listTime: listTime,
+                    listed: listed == 1 ? true : false,
+                    name: nftData?.params?.name,
+                    imgUrl: nftData?.params?.url
+                }
+                console.log(listingData)
+                collection[i] = {
+                    ...collection[i],
+                    params: {
+                        ...collection[i].params,
+                        ...listingData
+                    }
+                }
+            }
+        }
+    }
+    return collection
+}
+
+export const getAllListedByUser = async (user: string): Promise<Listing[]> => {
+    const algod = await getAlgodClient()
+    const listings: Listing[] = [];
+    const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
+    await Promise.all(boxes.map(async (bx) => {
+        const decoded = algosdk.decodeUint64(bx.nameRaw, "safe")
+        let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
+        const nftData = await algod.getAssetByID(decoded).do();
+        const sellerId = algosdk.encodeAddress(box.slice(0, 32))
+        const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
+        const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
+        const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
+        const listed = algosdk.decodeUint64(box.slice(-1), "safe")
+
+        let listingData: Listing = {
+            assetId: decoded,
+            seller: sellerId,
+            price: listedPrice,
+            list_count: listedCount,
+            listTime: listTime,
+            listed: listed == 1 ? true : false,
+            name: nftData?.params?.name,
+            imgUrl: nftData?.params?.url
+        }
+        if (listingData.seller === user && listingData.listed === true) {
+            listings.push(listingData)
+        }
+
+
+    }))
+    return listings
+}
