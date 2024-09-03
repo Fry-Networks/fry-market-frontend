@@ -59,7 +59,9 @@ const BOX_PRICE = 2500 + 400 * 81
 export const listNft = async (
     sender: string,
     assetId: bigint,
-    signer: TransactionSigner
+    signer: TransactionSigner,
+    price: number,
+
 ) => {
     try {
         const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
@@ -104,11 +106,13 @@ export const listNft = async (
             signer
         })
 
-        const listNft = await marketClient.listAsset({ boxPay: boxPay, xfer: assetTransferTx, price: BigInt(1000000), listTime: BigInt(Math.floor(Date.now() / 1000)) })
+        const listNft = await marketClient.listAsset({ boxPay: boxPay, xfer: assetTransferTx, price: BigInt(price), listTime: BigInt(Math.floor(Date.now() / 1000)) })
 
         console.log("list nft", listNft)
     } catch (e) {
         console.log(e)
+        throw e
+
     }
     // }
 }

@@ -1,14 +1,18 @@
+import { useWallet } from "@txnlab/use-wallet";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import nftImg1 from "../../assets/home/images/cardImg1.png";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
+import { listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
 
-const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage }: any) => {
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
   useEffect(() => {
     if (showLayer) {
@@ -41,6 +45,43 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
   const showBoostModal = () => {
     setisboostmodal(true);
   };
+
+  const handleListNft = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+          if (activeAccount?.address) {
+
+            const response = await listNft(activeAccount?.address, data.index, signer, 1000000);
+
+
+            console.log("response", response);
+            resolve(true)
+
+
+          }
+        }
+        catch (e) {
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+
+
+    }
+
+
+
+
+  }
 
   return (
     <>
@@ -100,7 +141,18 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   className="button btn-primary font-medium ex-small"
                   minWidth={56}
                   minHeight={36}
-                  text="Buy"
+                  text={label ? label : "List"}
+                  onClick={() => {
+                    toast.promise(
+                      handleListNft(),
+                      {
+                        pending: "NFT is lisitng",
+                        error: "There was an error Listing NFT",
+                        success: "NFT listed successfully"
+
+                      }
+                    )
+                  }}
                 />
               )
             )}
@@ -114,7 +166,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               </div>
             </button>
           </div>
-          <img className="rounded-lg" src={data?.params?.url ? data?.params?.url : data.nftImg} alt="" />
+          <img className="rounded-lg" src={data?.params?.url ? data?.params?.url : data?.imgUrl ? data?.imgUrl : data.nftImg} alt="" />
         </div>
       </div>
 

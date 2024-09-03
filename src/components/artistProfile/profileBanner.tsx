@@ -1,32 +1,32 @@
-import Button  from "../../components/shared/button";
 import bannerImg from "../../assets/artistsProfile/bannerImg.png";
 import glow from "../../assets/artistsProfile/createGlow.png";
 import foldedRed from "../../assets/icons/foldedRed.svg";
+import Button from "../../components/shared/button";
 
 const ProfileBanner = () => {
   return (
     <>
       <div className="profileBanner relative">
 
-        <img className="absolute top-[-200px] -z-80" src={glow} alt="" />
+        <img className="absolute top-[-200px] -z-10" src={glow} alt="" />
         <div className="container">
           <div className="inner relative ">
-           
 
-           
-                <img
+
+
+            <img
               className="mt-10 w-full z-90"
               src={bannerImg}
               alt=""
             />
-  <Button
+            <Button
               className="button btn-primary medium font-semibold font-Roboto absolute top-3 right-3"
               width={103}
               minHeight={53}
               text="Follow"
             >
             </Button>
-          
+
 
             <div className="profileContent flex flex-col gap-5 justify-center items-center">
               <h3 className="darkBlack font-Apex font-normal tracking-[1.6px] ">

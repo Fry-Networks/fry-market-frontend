@@ -4,12 +4,13 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/websiteLogo.svg";
 //@ts-ignore
 import { useWallet } from "@txnlab/use-wallet";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import menu from "../../assets/icons/menu.png";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import Button from "../shared/button";
-
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 interface Toggle {
   open: boolean,
   setOpen: (value: boolean) => void
@@ -35,6 +36,33 @@ const Navbar = (props: Toggle) => {
 
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<string>("left");
+  const { activeAccount } = useWallet()
+
+  const getAuthToken = async () => {
+
+    try {
+      const tokenResponse = await axios.post(`${baseUrl}/get-token`, {
+        wallet_address: activeAccount?.address
+      });
+      console.log("Response fom auth API", tokenResponse.data);
+
+    }
+    catch (e) {
+
+    }
+
+  }
+
+  useEffect(() => {
+
+    if (activeAccount?.address) {
+      console.log("Get auth token");
+      getAuthToken();
+
+    }
+
+  }, [activeAccount])
+
   const showDrawer = () => {
     setOpen(true);
   };
