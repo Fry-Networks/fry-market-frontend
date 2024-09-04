@@ -9,8 +9,10 @@
       border: 3px solid #E7E7E7;
       box-shadow: none;
       input{
+        font-size: 18px;
         &::placeholder{
           color: #808080;
+          font-size: 18px !important;
         }
       }
     }
@@ -77,6 +79,25 @@ padding: 19px 30px;
     }
   }
 }
+@media screen and (max-width:1440px){
+  .bannerWrapper{
+    .container{
+      .inner{
+        h2{
+          span{
+            .topVector{
+            top: -30%;
+            }
+            .btmVector{
+             bottom: -30%;
+            }
+          }
+        }
+      
+      }
+    }
+  }
+} 
 @media screen and (max-width:1200px) {
   .bannerWrapper{
     .container{

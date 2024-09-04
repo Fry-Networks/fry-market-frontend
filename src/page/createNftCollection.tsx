@@ -34,7 +34,7 @@ const CreateNftCollection = () => {
                   }
                 />
 
-                <div className="selectedNft p-[20px] bg-white flex justify-center rounded-[20px] box-shadow ">
+                <div className="selectedNft p-[20px] bg-white flex justify-center rounded-[20px] box-shadow mt-3 ">
                   <img src={nft1} alt="profile image" />
                 </div>
                 <Button

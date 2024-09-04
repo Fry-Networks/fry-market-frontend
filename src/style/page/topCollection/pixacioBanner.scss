@@ -23,14 +23,21 @@
         margin-top: 50px;
         gap: 40px;
         .leftArea {
+          width: 50%;
         }
         .rightArea {
-          width: 100%;
+          width: 50%;
+
+      
           h2 {
             text-align: center;
           }
           .itemDiv {
             justify-content: center;
+            width: 100%;
+            div{
+              width: 100%;
+            }
           }
         }
       }

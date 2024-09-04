@@ -260,6 +260,7 @@
 
 @media screen and (max-width: 1000px) {
   .nftDetailBannerWrapper {
+    margin-bottom: 120px !important;
     .topSection {
       flex-direction: column;
       .leftArea {
@@ -307,6 +308,7 @@
 
 @media screen and (max-width: 800px) {
   .nftDetailBannerWrapper {
+    margin-bottom: 50px !important;
   .leftGlow{
     display: none;
   }

@@ -12,7 +12,7 @@ const TopCollection = () => {
     <>
 
 
-      <PixacioBanner name="Pixico" image={artistImage} />
+      <PixacioBanner name="Pixacio" image={artistImage} />
       <PixoNft />
       <ReadyForNext />
 
