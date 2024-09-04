@@ -8,7 +8,7 @@ const ProfileBanner = () => {
     <>
       <div className="profileBanner mb-14 relative">
 
-        <img style={{ zIndex: "-9999" }} className="absolute top-[-260px]" src={glow} alt="" />
+        <img style={{ zIndex: "-9999" }} className="absolute top-[-270px]" src={glow} alt="" />
         <div className="container">
           <div className="inner relative ">
 

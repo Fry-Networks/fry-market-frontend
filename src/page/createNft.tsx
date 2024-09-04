@@ -21,7 +21,7 @@ const CreateNft = () => {
           <div className="singlenft flex items-center justify-between gap-4 ">
             <Button
               text="Single NFT"
-              className="py-4 px-8 lightGray font-medium font-Roboto border"
+              className="py-4 px-8 lightGray font-normal font-Roboto border"
             />
             <p className="large lightGray font-normal font-Roboto">
               4/4 Generated
@@ -36,7 +36,7 @@ const CreateNft = () => {
 
 
           <Button
-            className="button btn-primary text-[12px] font-medium"
+            className="button btn-primary text-[12px] font-semibold"
             width={96}
             minHeight={37}
             text="Mint NFT"

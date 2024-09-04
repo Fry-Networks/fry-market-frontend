@@ -20,7 +20,7 @@ const PixacioBanner = ({ name, image }: any) => {
               <img className="max-w-[482px] max-h-[461px] object-cover w-full h-full rounded-3xl border-solid border-[15px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={image} alt="" />
             </div>
             <div className="rightArea w-3/5 flex flex-col gap-8 ">
-              <h2 className="font-bold font-Apex uppercase text-left tracking-wide darkBlack">
+              <h2 className="font-normal font-Apex uppercase text-left tracking-wide darkBlack">
                 {name}
               </h2>
               <div className="itemDiv flex flex-wrap gap-4 gap-y-8">

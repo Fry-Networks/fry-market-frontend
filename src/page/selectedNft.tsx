@@ -8,6 +8,7 @@ import collect1 from "../assets/createNft/collect1.webp";
 import collect2 from "../assets/createNft/collect2.webp";
 import collect3 from "../assets/createNft/collect3.webp";
 import collect4 from "../assets/createNft/collect4.webp";
+import selectNftGlow from "../assets/createNft/selectedNftGlow.png";
 import plus from "../assets/icons/plus.svg";
 import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
@@ -15,9 +16,17 @@ import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
 import AddTraits from "../modals/addTraits";
 import MintNft from "../modals/mintNft";
-import selectNftGlow from "../assets/createNft/selectedNftGlow.png";
 
 const SelectedNft = () => {
+  const [isSelected, setIsSelected] = useState(false);
+  const [selectedArtworkId, setSelectedArtworkId] = useState(null);
+  const handleClicked = (id:any) => {
+    setSelectedArtworkId(id);
+  };
+
+  const handleClick = () => {
+    setIsSelected(!isSelected);
+  };
   const [showOriginalContent, setShowOriginalContent] = useState(true);
   const onSwitch = (checked: any) => {
     console.log(`switch to ${checked}`);
@@ -59,18 +68,26 @@ const SelectedNft = () => {
   const showMintModal = () => {
     setismintmodal(true);
   };
+
+  const artworks = [
+    { id: 1, imgSrc: collect1, title: "Wonderful Artwork", items: "1.5k" },
+    { id: 2, imgSrc: collect2, title: "Wonderful Artwork", items: "1.5k" },
+    { id: 3, imgSrc: collect3, title: "Wonderful Artwork", items: "1.5k" },
+    { id: 4, imgSrc: collect4, title: "Wonderful Artwork", items: "1.5k" },
+  ];
   return (
     <>
       <div>
-        <div className="nftCollection mt-[107px] h-[110vh] relative">
-          <img className="nftGlow absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
+        <div className="nftCollection mt-[107px]  pb-16">
+          <img className="nftGlow absolute top-0 left-0 -z-10 object-cover" src={selectNftGlow} alt="" />
           <div className="container">
             <div className="inner flex gap-8">
               <div className="backBtnContainer flex flex-col  items-start">
                 <Button
-                  className="btn-white !text-[20px] flex items-center gap-4 !px-5 mb-9"
+                  className="btn-white !font-normal flex items-center gap-4 !px-5 mb-9 !text-[20px]"
                   text="Back"
                   onClick={handleBackClick}
+
                   icon={
                     <Icon
                       icon="material-symbols:door-back-outline"
@@ -78,7 +95,10 @@ const SelectedNft = () => {
                       height="24px"
                       style={{ color: "#2b2b2b" }}
                     />
+
                   }
+
+
                 />
 
                 {showOriginalContent && (
@@ -113,7 +133,7 @@ const SelectedNft = () => {
                             label="Item Name*"
                             placeholder="Name your NFT"
                             className="w-full input-nft medium"
-                          labelClass="darkBlack font-Roboto font-bold medium"
+                            labelClass="darkBlack font-Roboto font-bold medium"
                           />
                         </div>
                         <div>
@@ -234,7 +254,7 @@ const SelectedNft = () => {
                           onClick={showAddTraitModal}
                           className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl"
                         >
-                          <p className="lightGray font-normal medium font-Roboto">
+                          <p className="lightGray font-normal medium font-Roboto cursor-pointer">
                             Add Traits
                           </p>
                           <img src="/src/assets/icons/plus.svg" alt="" />
@@ -264,7 +284,7 @@ const SelectedNft = () => {
                     style={{
                       boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
                     }}
-                    className="choseCollectionBox py-4 px-[89px] w-[11] bg-white box-shadow rounded-[20px] mt-[59px] "
+                    className="choseCollectionBox py-4 px-[89px] w-[11] bg-white box-shadow rounded-[20px] mt-[59px]  "
                   >
                     <div className="chooseCollection my-3">
                       <div className="w-full flex justify-center items-center">
@@ -273,123 +293,52 @@ const SelectedNft = () => {
                         </h2>
                       </div>
                       <div className="artWorkContainer lightGray text-[16px] font-Roboto font-normal mt-2 flex flex-col gap-6">
-                        <div className="artWork w-[626px] mx-auto p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex justify-between items-center ">
-                          <div className="leftSide flex gap-3">
-                            <div className="part1">
-                              <img src={collect1} alt="" />
-                            </div>
-                            <div className="part2 flex flex-col gap-3">
-                              <p className="darkBlack font-Roboto medium font-mrdium">
-                                Wonderful Artwork
-                              </p>
-                              <p className="lightGray small font-normal font-Roboto">
-                                Items{" "}
-                                <span className="darkBlack font-medium">
-                                  1.5k
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                          <div className="rightSide">
-                            <Button
-                              className="button btn-grayDark medium font-medium darkBlack"
-                              minWidth={115}
-                              minHeight={51}
-                              text="Select"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="artWork p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex  w-[626px] mx-auto justify-between items-center ">
-                          <div className="leftSide flex gap-3">
-                            <div className="part1">
-                              <img src={collect2} alt="" />
-                            </div>
-                            <div className="part2 flex flex-col gap-3">
-                              <p className="darkBlack font-Roboto medium font-mrdium">
-                                Wonderful Artwork
-                              </p>
-                              <p className="lightGray small font-normal font-Roboto">
-                                Items{" "}
-                                <span className="darkBlack font-medium">
-                                  1.5k
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                          <div className="rightSide">
-                            <Button
-                              className="button btn-grayDark medium font-medium darkBlack"
-                              minWidth={115}
-                              minHeight={51}
-                              text="Select"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="artWork p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex  w-[626px] mx-auto justify-between items-center ">
-                          <div className="leftSide flex gap-3">
-                            <div className="part1">
-                              <img src={collect3} alt="" />
-                            </div>
-                            <div className="part2 flex flex-col gap-3">
-                              <p className="darkBlack font-Roboto medium font-mrdium">
-                                Wonderful Artwork
-                              </p>
-                              <p className="lightGray small font-normal font-Roboto">
-                                Items{" "}
-                                <span className="darkBlack font-medium">
-                                  1.5k
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                          <div className="rightSide">
-                            <Button
-                              className="button btn-grayDark medium font-medium darkBlack"
-                              minWidth={115}
-                              minHeight={51}
-                              text="Select"
-                            />
-                          </div>
-                        </div>
-
-                        <div className="artWork p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex  w-[626px] mx-auto justify-between items-center ">
-                          <div className="leftSide flex gap-3">
-                            <div className="part1">
-                              <img src={collect4} alt="" />
-                            </div>
-                            <div className="part2 flex flex-col gap-3">
-                              <p className="darkBlack font-Roboto medium font-mrdium">
-                                Wonderful Artwork
-                              </p>
-                              <p className="lightGray small font-normal font-Roboto">
-                                Items{" "}
-                                <span className="darkBlack font-medium">
-                                  1.5k
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                          <div className="rightSide">
-                            <Button
-                              className="button btn-grayDark medium font-medium darkBlack"
-                              minWidth={115}
-                              minHeight={51}
-                              text="Select"
-                            />
-                          </div>
-                        </div>
-                        <div className="w-full flex justify-end">
-                          <Button
-                            className="button btn-primary medium font-Roboto font-medium mt-4"
-                            minWidth={102}
-                            minHeight={53}
-                            text="Next"
-
-                          />
-                        </div>
-                      </div>
+                      {artworks.map((artwork) => (
+  <div
+    key={artwork.id}
+    className="artWork w-[626px] mx-auto p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex justify-between items-center"
+  >
+    <div className="leftSide flex gap-3">
+      <div className="part1">
+        <img src={artwork.imgSrc} alt={artwork.title} />
+      </div>
+      <div className="part2 flex flex-col gap-3">
+        <p className="darkBlack font-Roboto medium font-medium">
+          {artwork.title}
+        </p>
+        <p className="lightGray small font-normal font-Roboto">
+          Items{" "}
+          <span className="darkBlack font-medium">
+            {artwork.items}
+          </span>
+        </p>
+      </div>
+    </div>
+    <div className="rightSide">
+      <Button
+        className={`button medium font-medium ${
+          selectedArtworkId === artwork.id
+            ? '!text-white bg-gradient-to-tl from-[#FD0000] to-[#FF9292] !border-none'
+            : 'text-black border-solid border-2 border-[#E7E7E7] bg-[#F4F4F4]'
+        }`}
+        onClick={() => handleClicked(artwork.id)}
+        minWidth={115}
+        minHeight={51}
+        text="Select"
+      />
+    </div>
+  </div>
+))}
+      <div className="w-full flex justify-end">
+        <Button
+          className="button btn-primary medium font-Roboto font-medium mt-4"
+          minWidth={102}
+          minHeight={53}
+          text="Next"
+          onClick={handleBackClick}
+        />
+      </div>
+    </div>
                       {/* Add your existing collections display logic here */}
                     </div>
                   </div>

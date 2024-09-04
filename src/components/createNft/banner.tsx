@@ -6,6 +6,9 @@ import GenerateNft from "../../modals/generateNft";
 import Input from "../shared/input";
 import bannerImg from "../../assets/createNft/bannerImg.png";
 import banerGlow from "../../assets/images/topSellers/bannerGlow.png";
+import vectorTop from "../../assets/icons/topVector.png";
+import vectorBtm from "../../assets/icons/bottomVector.png";
+
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
   const showAddStyleModal = () => {
@@ -44,10 +47,15 @@ const Banner = () => {
     <>
       <div className="bannerWrapper mb-44 relative">
         <img className="absolute top-[-250px] -z-30" src={banerGlow} alt="" />
-        <div className="container">
+        <div className="container ">
           <div className="inner">
+        
+
             <h2 className="font-normal font-Apex uppercase darkBlack text-center mt-20">
-              Create your own <span className="primary">masterpiece</span>
+              Create your own <span className="primary  relative"> masterpiece
+              <img className="topVector absolute top-[-25%] left-[-2%] -z-50" src={vectorTop} alt="" />
+              <img className="btmVector absolute bottom-[-16%] right-[-3%] -z-50" src={vectorBtm} alt="" />
+              </span>
             </h2>
             <img
               className="mt-10 w-full h-full max-w-[1320px] object-cover"
