@@ -105,7 +105,7 @@ export default function App() {
           <Route path="/top-seller" element={<TopSeller />} />
           <Route path="/seller-collection" element={<SellerCollection />} />
           <Route path="/create-nft" element={<CreateNft />} />
-          <Route path="/createnft-collect" element={<CreateNftCollection />} />
+          <Route path="/create-nft-collection" element={<CreateNftCollection />} />
           <Route path="/select-nft" element={<SelectedNft />} />
           <Route path="/multiple-collect" element={<MultipleCollect />} />
           <Route path="/nft-detail" element={<NftDetail />} />

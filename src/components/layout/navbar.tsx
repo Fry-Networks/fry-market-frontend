@@ -26,7 +26,7 @@ const Navbar = (props: Toggle) => {
 
   const isCreateNftPage =
     location.pathname === "/create-nft" ||
-    location.pathname === "/createnft-collect" ||
+    location.pathname === "/create-nft-collection" ||
     location.pathname === "/create-nft-page" ||
     location.pathname === "/select-nft" ||
     location.pathname === "/sell-method" ||

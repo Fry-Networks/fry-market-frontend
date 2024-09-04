@@ -4,7 +4,8 @@ import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
-import nftColGlow from "../assets/artistsProfile/createGlow.png";
+import nftColGlow from "../assets/createNft/topGrid.png";
+import btmLeftGlow from "../assets/createNft/bottomLeftGlow.png";
 
 const CreateNftCollection = () => {
   const navigate = useNavigate();
@@ -16,7 +17,9 @@ const CreateNftCollection = () => {
 
       <div>
         <div className="nftCollection mt-[107px] h-[110vh] relative">
-          <img className=" nftGlow absolute top-[-200px] -z-40" src={nftColGlow} alt="" />
+          <img className="  absolute top-[-200px] !right-0 -z-40" src={nftColGlow} alt="" />
+          <img className="  absolute !bottom-0 left-0 -z-40" src={btmLeftGlow} alt="" />
+
           <div className="container">
             <div className="inner flex gap-8">
               <div className="backBtnContainer flex flex-col  items-start">
@@ -66,14 +69,14 @@ const CreateNftCollection = () => {
                         type="text"
                         label="Collection Name*"
                         placeholder="Name your Collection"
-                        className="w-full input-nft"
+                        className="w-full input-nft medium"
                       />
                     </div>
                     <div>
                       <Input
                         type="text"
                         label="Token Symbol*"
-                        placeholder="$ CGPT, for example"
+                        placeholder=" CGPT, for example"
                         className="w-full input-nft"
                       />
                     </div>
@@ -87,7 +90,7 @@ const CreateNftCollection = () => {
                           <>
                             <div className="flex flex-col gap-2 mt-9">
                               <span>Description</span>
-                              <span className="medium mb-3">
+                              <span className="medium mb-3 font-normal">
                                 The description will be included on the item's
                                 detail page underneath its image.
                               </span>
