@@ -16,7 +16,7 @@ const MultipleCollect = () => {
   const images = [nft1, nft2, nft3, nft4, nft5, nft6, nft7, nft8, nft9 , nft10];
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/createnft-collect");
+    navigate("/create-nft-collection");
   };
   return (
     <>

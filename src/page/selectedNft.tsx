@@ -102,7 +102,7 @@ const SelectedNft = () => {
                 />
 
                 {showOriginalContent && (
-                  <div className=" selectedNft p-[20px] bg-white flex justify-center rounded-[20px] box-shadow">
+                  <div className=" selectedNft p-[20px] bg-white flex justify-center rounded-[20px] box-shadow mt-3">
                     <div className="relative overlay">
                       <img src={nft1} alt="profile image" />
                       <p className="font-normal font-Apex text-[20px] white absolute top-[50%] left-[30%]">
@@ -153,7 +153,7 @@ const SelectedNft = () => {
                                   <span className="mb-1 font-medium">
                                     Description
                                   </span>
-                                  <span className="medium ">
+                                  <span className="medium font-normal">
                                     The description will be included on the
                                     item's detail page underneath its image.
                                   </span>
@@ -273,7 +273,7 @@ const SelectedNft = () => {
                           <Button
                             className="btn-primary px-8 py-4 mb-5"
                             text="Mint NFT"
-                            onClick={showMintModal}
+                            // onClick={showMintModal}
                           />
                         </div>
                       </form>
