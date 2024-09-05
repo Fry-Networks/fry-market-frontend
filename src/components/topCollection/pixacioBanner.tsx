@@ -11,7 +11,7 @@ import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
 const PixacioBanner = ({ name, image }: any) => {
   return (
     <>
-      <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center mb-24 ">
+      <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
         <img src={topLeftGrid} className="top-0 left-0 absolute" alt="" />
       <img className=" grid absolute  top-[-400px] right-0 -z-50" src={grid} alt="" />
         <div className="container">

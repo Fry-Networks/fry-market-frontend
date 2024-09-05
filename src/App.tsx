@@ -27,6 +27,7 @@ import TopSeller from "./page/topSeller"
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 import ManualCreateNft from './page/manualCreateNft'
 import MultipleCollect from './page/multipleCollect'
+import NotFound from './page/notFound'
 
 let providersArray: ProvidersArray
 if (import.meta.env.VITE_ALGOD_NETWORK === '') {
@@ -79,9 +80,6 @@ export default function App() {
     location.pathname === "/nft-collection" ||
     location.pathname === "/top-collection" ||
     location.pathname === "/nft-detail" ||
-
-
-
     location.pathname === "/top-seller" ||
     location.pathname === "/seller-collection" ||
     location.pathname === "/create-nft-page";
@@ -101,7 +99,6 @@ export default function App() {
           <Route path="/auction" element={<Auction />} />
           <Route path="/nft-collection" element={<NftCollection />} />
           <Route path="/top-collection" element={<TopCollection />} />
-
           <Route path="/top-seller" element={<TopSeller />} />
           <Route path="/seller-collection" element={<SellerCollection />} />
           <Route path="/create-nft" element={<CreateNft />} />
@@ -114,6 +111,8 @@ export default function App() {
           <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
           <Route path="/sell-method" element={<SellMethod />} />
           <Route path="/manual-create-nft" element={<ManualCreateNft />} />
+          <Route path="*" element={<NotFound />} />
+
 
         </Routes>
         {isNavbar ? <Footer /> : ""}

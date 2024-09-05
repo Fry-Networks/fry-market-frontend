@@ -110,7 +110,7 @@ const SellMethod = () => {
                     FRY</div>
                   <input
                     placeholder="Enter price for one item"
-                    type="text"
+                    type="number"
                     className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2"
                   />
                 </div>
@@ -180,7 +180,7 @@ const SellMethod = () => {
      
       <input
         placeholder="1 month"
-        type="text"
+        type="number"
         className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
       />
     

@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import nft1 from "../assets/images/createNft/nftimage1.webp";
 import nft2 from "../assets/images/createNft/nftimage2.webp";
 import nft3 from "../assets/images/createNft/nftimage3.webp";
@@ -12,19 +13,32 @@ import Navbar from "../components/layout/navbar";
 import Button from "../components/shared/button";
 import { useNavigate } from "react-router-dom";
 import bgGlow from "../assets/images/createNft/bgGlow.png";
-const MultipleCollect = () => {
-  const images = [nft1, nft2, nft3, nft4, nft5, nft6, nft7, nft8, nft9 , nft10];
+import { Icon } from "@iconify/react";
+
+const MultipleCollect: React.FC = () => {
+  const images: string[] = [nft1, nft2, nft3, nft4, nft5, nft6, nft7, nft8, nft9, nft10];
+  const [selectedImages, setSelectedImages] = useState<number[]>([]);
   const navigate = useNavigate();
+
   const handleClick = () => {
     navigate("/create-nft-collection");
   };
+
+  const toggleImageSelection = (index: number) => {
+    if (selectedImages.includes(index)) {
+      setSelectedImages(selectedImages.filter((i) => i !== index));
+    } else {
+      setSelectedImages([...selectedImages, index]);
+    }
+  };
+
   return (
     <>
       <div className="createNft mt-16 relative">
-        <img  className="absolute top-[-200px] -z-10" src={bgGlow} alt="" />
+        <img className="absolute top-[-200px] -z-10" src={bgGlow} alt="" />
         <div className="container ">
-          <div className=" nftBtnContainer flex items-center justify-between mb-[75px]">
-            <div className="singlenft flex items-center justify-between gap-4 ">
+          <div className="nftBtnContainer flex items-center justify-between mb-[75px]">
+            <div className="singlenft flex items-center justify-between gap-4">
               <Button
                 text="Collection"
                 className="py-4 px-8 lightGray font-medium font-Roboto border"
@@ -45,22 +59,31 @@ const MultipleCollect = () => {
                 minHeight={37}
                 text="Mint NFT"
                 onClick={handleClick}
-              ></Button>
+              />
             </div>
           </div>
           <div className="multipleCARD grid grid-cols-4 gap-x-16 gap-y-10">
-            {images.map((image, index) => (
-              <div key={index} className="relative group overflow-hidden">
+            {images.map((image: string, index: number) => (
+              <div
+                key={index}
+                className="relative group overflow-hidden cursor-pointer"
+                onClick={() => toggleImageSelection(index)}
+              >
                 <img
                   src={image}
                   alt={`nft-${index}`}
-                  className="opacity-1 w-full h-full object-cover max-w-[288px] max-h-[265px]"
+                  className={`w-full h-full object-cover max-w-[288px] max-h-[265px] ${
+                    selectedImages.includes(index) ? "opacity-70" : "opacity-1"
+                  }`}
                 />
-                {/* <Button
-                className="absolute ex-small w-24 font-semibold btn-primary btn-primaryBorder translate-x-[90px] opacity-0 group-hover:opacity-100 group-hover:translate-y-[-60px] group-hover:block transition-all duration-1000 ease-in-out"
-                text="Mini NFT"
-                onClick={handleClick}
-              /> */}
+                {selectedImages.includes(index) && (
+                  <>
+                    <div className="absolute rounded-2xl inset-0 bg-black opacity-80"></div>
+                    <div className="absolute top-2 right-2 w-6 h-6 bg-transparent rounded-full flex items-center justify-center">
+                    <Icon icon="teenyicons:tick-circle-outline" width="18" height="18"  style={{color: "white"}} />
+                    </div>
+                  </>
+                )}
               </div>
             ))}
           </div>
@@ -71,4 +94,3 @@ const MultipleCollect = () => {
 };
 
 export default MultipleCollect;
-
