@@ -244,7 +244,7 @@ const NftDetailBanner = () => {
       <img src={rightGlow} className=" rightGlow absolute top-[-200px] right-0 -z-10" alt="" />
         <div className="container">
           <div className="topSection flex items-start gap-6 mt-10">
-            <div className="leftArea w-[546px] max-h-[610px]  flex flex-col gap-7 ">
+            <div className="leftArea w-[546px]  flex flex-col gap-7 ">
               <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={rightSecPic} alt="" />
               <div className="descriptionAccordion">
                 <Collapse

@@ -51,7 +51,7 @@ const UploadImage = ({ isuploadmodal, setisuploadmodal }: any) => {
           </div>
           <div className="innerContent flex flex-col items-center gap-5 mt-4 ">
             <img src={redline} alt="" />
-            <div className="w-full h-[285px]">
+            <div className="w-full max-h-[285px] h-full">
               <Dragger {...props}>
                 <p className="ant-upload-drag-icon">
                   <img className="mx-auto" src={upoadIcon} alt="" />

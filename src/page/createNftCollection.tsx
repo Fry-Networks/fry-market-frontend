@@ -16,9 +16,9 @@ const CreateNftCollection = () => {
     <>
 
       <div>
-        <div className="nftCollection mt-[107px] h-[110vh] relative">
-          <img className="  absolute top-[-200px] !right-0 -z-40" src={nftColGlow} alt="" />
-          <img className="  absolute !bottom-0 left-0 -z-40" src={btmLeftGlow} alt="" />
+        <div className="nftCollection mt-[107px] h-[100vh] relative">
+          <img className=" topRightGrid absolute top-[-200px] !right-0 -z-40" src={nftColGlow} alt="" />
+          <img className="btmLeftGlow  absolute bottom-[-400px] left-0 -z-40" src={btmLeftGlow} alt="" />
 
           <div className="container">
             <div className="inner flex gap-8">
@@ -43,7 +43,9 @@ const CreateNftCollection = () => {
                 <Button
                   className="btn-gray w-32 darkGray mt-7"
                   text="Choose File"
-                  onClick={handleClick}
+                  onClick={(()=>(
+                    navigate("/multiple-collect")
+                  ))}
                 />
               </div>
 
@@ -76,7 +78,7 @@ const CreateNftCollection = () => {
                       <Input
                         type="text"
                         label="Token Symbol*"
-                        placeholder=" CGPT, for example"
+                        placeholder="$ CGPT, for example"
                         className="w-full input-nft"
                       />
                     </div>
@@ -84,11 +86,11 @@ const CreateNftCollection = () => {
 
 
 
-                      <Textarea
+                      <Textarea className="medium textArea"
                         // label="Description "
                         label={
                           <>
-                            <div className="flex flex-col gap-2 mt-9">
+                            <div className="flex flex-col medium gap-2 mt-9">
                               <span>Description</span>
                               <span className="medium mb-3 font-normal">
                                 The description will be included on the item's
@@ -105,7 +107,7 @@ const CreateNftCollection = () => {
                       <Button
                         className="btn-primary px-8 py-4 mb-5"
                         text="Continue"
-                        onClick={(e: any) => { e.preventDefault(); console.log("hello"); navigate("/select-nft") }}
+                        onClick={(e: any) => { e.preventDefault(); console.log("hello"); navigate("/artist-profile-art") }}
                       />
                     </div>
                   </form>
