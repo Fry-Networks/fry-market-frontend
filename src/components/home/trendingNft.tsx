@@ -40,10 +40,17 @@ const TrendingNft = () => {
     className="border-2 border-solid rounded-lg text-rose-600 border-[red] primary relative flex items-center justify-center gap-1 bg-[transparent]"
     style={{ minWidth: 220, height: 52, fontSize:"18px", color:"red" }}
     suffixIcon={<img src={arrowDown} alt="dropdown icon" className="order-1" />} // Custom dropdown icon
+ 
   >
-    <Option value="Last 30 minutes">Last 30 minutes</Option>
-    <Option value="Last 1 hour">Last 1 hour</Option>
-    <Option value="Last 24 hours">Last 24 hours</Option>
+  <Option value="Last 30 minutes" style={{ color: "#cb371b", }}>
+    Last 30 minutes
+  </Option>
+  <Option value="Last 1 hour"  style={{ color: "#cb371b" }}>
+    Last 1 hour
+  </Option>
+  <Option value="Last 24 hours"  style={{ color: "#cb371b" }}>
+    Last 24 hours
+  </Option>
   </Select>
         </div>
 
