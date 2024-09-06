@@ -83,14 +83,14 @@ const CollectionCard = ({ isArtistProfile }: any) => {
           {isArtistProfile ? (
             <div className=" colectbtns mt-12 my-6 w-full flex justify-between  ">
               <Button
-                className="button btn-secondary medium font-normal font-Roboto"
+                className="button btn-secondary medium font-normal font-Roboto bodyBg"
                 minWidth={140}
                 minHeight={50}
                 text="Collections"
              
               />
               <Button
-                className="button btn-secondary medium font-normal font-Roboto relative flex items-center justify-center gap-1"
+                className="button btn-secondary medium font-normal font-Roboto relative flex items-center justify-center gap-1 bodyBg"
                 minWidth={140}
                 minHeight={50}
                 text="Newest"

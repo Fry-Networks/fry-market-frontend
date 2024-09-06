@@ -112,17 +112,22 @@
         // width: 28px;
         // height: 28px;
     }
+    .table-row-margin {
+        margin-bottom: 16px; /* Adjust the value as per your design */
+      }
     
 }
 
 @media screen and (max-width:1440px) {
 
     .topSell{
-        margin-top: 100px;
+     margin-top: 0px;
         .container{
             .bannerWrapper {
+                gap: 60px;
                 .headingDiv{
                     width: 50%;
+                    
                     display: flex;
                    justify-content: center;
                    align-items: center;

@@ -122,6 +122,7 @@
     display: none;
   }
 
+
   .mobile-navbar {
     width: 100%;
     height: auto;
@@ -198,4 +199,10 @@
       }
     }
   }
+
+  .ant-drawer .ant-drawer-body .navbar-logo .logo {
+    width: 90px;
+   height: auto;
+   object-fit: cover;
+}
 }
