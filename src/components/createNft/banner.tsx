@@ -9,6 +9,7 @@ import banerGlow from "../../assets/images/topSellers/bannerGlow.png";
 import vectorTop from "../../assets/icons/topVector.png";
 import vectorBtm from "../../assets/icons/bottomVector.png";
 import downArrow from "../../assets/icons/nft-down-arrow.svg";
+import plus from "../../assets/icons/plus.svg";
 
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
@@ -125,7 +126,7 @@ const Banner = () => {
                   </div>
                   <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
                     <p className="lightGray font-normal medium font-Roboto">Add Styles</p>
-                    <img src="/src/assets/icons/plus.svg" alt="" />
+                    <img src={plus} alt="" />
                   </div>
 
 
