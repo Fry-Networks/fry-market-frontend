@@ -248,6 +248,7 @@ const NftDetailBanner = () => {
               <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={rightSecPic} alt="" />
               <div className="descriptionAccordion">
                 <Collapse
+                defaultActiveKey={"1"}
                   expandIconPosition="end"
                   items={[
                     {
@@ -287,6 +288,7 @@ const NftDetailBanner = () => {
 
               <div className="descriptionAccordion">
                 <Collapse
+                    defaultActiveKey={"1"}
                   expandIconPosition="end"
                   items={[
                     {
@@ -356,6 +358,7 @@ const NftDetailBanner = () => {
 
               <div className="listingAccordion">
                 <Collapse
+                    defaultActiveKey={"1"}
                   expandIconPosition="end"
                   items={[
                     {
@@ -388,6 +391,7 @@ const NftDetailBanner = () => {
 
               <div className="listingAccordion">
                 <Collapse
+                    defaultActiveKey={"1"}
                   expandIconPosition="end"
                   items={[
                     {
@@ -423,6 +427,7 @@ const NftDetailBanner = () => {
 
               <div className="detailsAccordion">
                 <Collapse
+                    defaultActiveKey={"1"}
                   expandIconPosition="end"
                   items={[
                     {
@@ -484,6 +489,7 @@ const NftDetailBanner = () => {
 
             <div className="itemActivityAccordion">
               <Collapse
+                  defaultActiveKey={"1"}
                 expandIconPosition="end"
                 items={[
                   {

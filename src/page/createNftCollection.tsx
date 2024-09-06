@@ -16,9 +16,9 @@ const CreateNftCollection = () => {
     <>
 
       <div>
-        <div className="nftCollection mt-[107px] h-[100vh] relative">
+        <div className="nftCollection mt-[107px] relative mb-10">
           <img className=" topRightGrid absolute top-[-200px] !right-0 -z-40" src={nftColGlow} alt="" />
-          <img className="btmLeftGlow  absolute bottom-[-400px] left-0 -z-40" src={btmLeftGlow} alt="" />
+          {/* <img className="btmLeftGlow  absolute bottom-[-400px] left-0 -z-40" src={btmLeftGlow} alt="" /> */}
 
           <div className="container">
             <div className="inner flex gap-8">

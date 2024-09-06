@@ -1,9 +1,12 @@
-import { Modal } from "antd";
+import { Modal, Select, Space } from "antd";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
 
 const GenerateNft = ({ isgeneratemodal, setisgeneratemodal }: any) => {
 
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
   const handleOk = () => {
     setisgeneratemodal(false);
   };
@@ -33,7 +36,20 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal }: any) => {
             <img src={redline} alt="" />
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mt-3">
               <p className="darkBlack font-Roboto medium  font-normal">Type</p>
-              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" />
+              {/* <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" /> */}
+
+              <Select
+              className="border-solid border-2 border-[red] rounded-lg"
+              
+      defaultValue="single"
+      style={{ width: 370, height:"55px" }}
+      onChange={handleChange}
+      options={[
+        { value: 'single', label: 'Single NFT' },
+        { value: 'multiple', label: 'Multiple NFT' },
+     
+      ]}
+    />
             </div>
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Prompt</p>

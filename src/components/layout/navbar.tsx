@@ -4,8 +4,9 @@ import { useWallet } from "@txnlab/use-wallet";
 import { Drawer } from "antd";
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
-import mobileLogo from "../../assets/icons/navbarLogo.svg";
+import navTopLogo from "../../assets/home/images/homeImages/navTopLogo.png";
 import menu from "../../assets/icons/menu.png";
+import mobileLogo from "../../assets/icons/navbarLogo.svg";
 import logo from "../../assets/icons/newLogo.svg";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
@@ -34,12 +35,12 @@ const Navbar = (props: Toggle) => {
     location.pathname === "/artist-profile"
 
 
-    const isHomeActive = location.pathname === "/" || location.pathname === "/auction"  || location.pathname === "/nft-collection" || location.pathname === "/top-collection" || location.pathname === "/nft-detail" || location.pathname === "/top-seller" || location.pathname === "/seller-collection";
+  const isHomeActive = location.pathname === "/" || location.pathname === "/auction" || location.pathname === "/nft-collection" || location.pathname === "/top-collection" || location.pathname === "/nft-detail" || location.pathname === "/top-seller" || location.pathname === "/seller-collection";
   console.log(location.pathname);
 
 
 
-  const isNftActive = location.pathname === "/create-nft-page" || location.pathname === "/create-nft"  || location.pathname === "/multiple-collect" || location.pathname === "/select-nft" || location.pathname === "/createnft-collect" || location.pathname === "/artist-profile-art" || location.pathname === "/artist-profile" || location.pathname === "/sell-method";
+  const isNftActive = location.pathname === "/create-nft-page" || location.pathname === "/create-nft" || location.pathname === "/multiple-collect" || location.pathname === "/select-nft" || location.pathname === "/createnft-collect" || location.pathname === "/artist-profile-art" || location.pathname === "/artist-profile" || location.pathname === "/sell-method";
   console.log(location.pathname);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<string>("left");
@@ -72,22 +73,21 @@ const Navbar = (props: Toggle) => {
             </div>
             <div className="nav-items ">
               <ul className="flex justify-center items-center gap-x-8 font-normal medium darkBlack font-Apex uppercase cursor-pointer">
-              <NavLink
+                <NavLink
                   className={`navlink ${isHomeActive ? "active" : ""}`}
                   to="/"
+              
                 >
                   <li>Home</li>
                 </NavLink>
-                {/* <NavLink className="cursor-default" to="#">
-                  <li>Marketplace</li>
-                </NavLink> */}
-                <NavLink  className={`navlink ${isNftActive ? "active" : ""}`} to="/create-nft-page">
+
+                <NavLink 
+                className={`navlink ${isNftActive ? "active" : ""}`}
+                 to="/create-nft-page"
+            >
                   <li>AI Nft Generation</li>
                 </NavLink>
-{/* 
-                <NavLink className="navlink" to="/createnft-collect">
-                  <li>Create NFt Collection</li>
-                </NavLink> */}
+
               </ul>
             </div>
             {isCreateNftPage ? (
@@ -136,24 +136,27 @@ const Navbar = (props: Toggle) => {
           key={placement}
         >
           <div className="navbar-logo mb-4 flex justify-between">
-            <img className="logo" src={mobileLogo} alt="" />
+            <img className="logo" src={navTopLogo} alt="" />
             <Icon className="mt-3" icon="basil:cross-solid" width="30" height="30" style={{ color: "black" }} onClick={onClose} />
           </div>
           <div className="navbarList">
             <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
-            <NavLink
-                  className={`navlink ${isHomeActive ? "active" : ""}`}
-                  to="/"
-                >
-                  <li>Home</li>
-                </NavLink>
-                {/* <NavLink className="cursor-default" to="#">
+              <NavLink
+                className={`navlink ${isHomeActive ? "active" : ""}`}
+                to="/"
+                onClick={onClose} 
+              >
+                <li>Home</li>
+              </NavLink>
+              {/* <NavLink className="cursor-default" to="#">
                   <li>Marketplace</li>
                 </NavLink> */}
-                <NavLink  className={`navlink ${isNftActive ? "active" : ""}`} to="/create-nft-page">
-                  <li>AI Nft Generation</li>
-                </NavLink>
-{/* 
+              <NavLink
+               className={`navlink ${isNftActive ? "active" : ""}`} to="/create-nft-page"    
+                onClick={onClose} >
+                <li>AI Nft Generation</li>
+              </NavLink>
+              {/* 
                 <NavLink className="navlink" to="/createnft-collect">
                   <li>Create NFt Collection</li>
                 </NavLink> */}

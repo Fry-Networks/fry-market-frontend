@@ -61,17 +61,17 @@ const PixacioBanner = ({ name, image }: any) => {
               <div className="socialIcons flex gap-1.5">
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                  className=" rounded-lg p-2 flex-center"
+                  className=" rounded-lg p-2 flex-center cursor-pointer"
                 >
                  <img src={internet} alt="" />
                 </div>
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                  className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4"
+                  className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4 cursor-pointer"
                 >
               <img src={twitter} alt="" />
-                  <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center">
+                  <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center cursor-pointer">
                     <p
                       style={{ opacity: "1" }}
                       className="text-[#000] font-bold text-[7.5px]"
@@ -83,14 +83,14 @@ const PixacioBanner = ({ name, image }: any) => {
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                  className=" rounded-lg p-2 flex-center"
+                  className=" rounded-lg p-2 flex-center cursor-pointer"
                 >
                   <img src={discord} alt="" />
                 </div>
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                  className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4"
+                  className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4 cursor-pointer"
                 >
                  <img
                     className="w-full h-full object-cover"

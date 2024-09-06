@@ -5,7 +5,11 @@
         }
     }
 }
-
+@media screen and (max-width:1440px) {
+    .topsellerWrapper{
+        margin-bottom: 160px !important;
+    }
+}
 @media screen and (max-width:1200px) {
     .topsellerWrapper{
         .container{

@@ -32,10 +32,16 @@
                 display: flex;
                 border: 3px solid #E7E7E7;
                 border-radius: 15px;
+                color: #808080;
                 height: 58px;
                 font-weight: 400;
                 background: #FFF;
-             
+             .ant-select-selection{
+
+              &::placeholder{
+                color: #808080 !important;
+              }
+             }
                 input {
                   border-bottom: 0px !important;
                 }
@@ -47,8 +53,14 @@
                 margin-top: -5px;
               }
             }
+            .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder{
+              color: #808080;
+            }
             .ant-select-single{
             height: 58px;
+            }
+            .custom-select .ant-select-selection-placeholder {
+              color: #808080;
             }
           }
 
@@ -63,6 +75,9 @@
                align-items: center;
                justify-content: center;
                 background: #FFF;
+            }
+            .gray-input .ant-input-number-input {
+              color: #808080;
             }
 
           }

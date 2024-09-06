@@ -8,6 +8,7 @@ import bannerImg from "../../assets/createNft/bannerImg.png";
 import banerGlow from "../../assets/images/topSellers/bannerGlow.png";
 import vectorTop from "../../assets/icons/topVector.png";
 import vectorBtm from "../../assets/icons/bottomVector.png";
+import downArrow from "../../assets/icons/nft-down-arrow.svg";
 
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
@@ -83,7 +84,7 @@ const Banner = () => {
                       type="text"
                       className="m-auto"
                     />
-                    <button onClick={showGenerateNftModal} className="absolute top-[16px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
+                    <button onClick={showGenerateNftModal} className="absolute top-[18px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
                       Generate
                       <img src={generateIcon} alt="" />
                     </button>
@@ -94,11 +95,11 @@ const Banner = () => {
                   <div className="slectDiv">
                     <Select
                       showSearch
-                      placeholder="Collection"
+                      placeholder="Single NFT"
                       optionFilterProp="label"
                       onChange={onChange}
                       onSearch={onSearch}
-               
+                      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
                       options={[
                         {
                           value: "single",
@@ -118,6 +119,7 @@ const Banner = () => {
                       max={99999999999}
                       defaultValue={3}
                       onChange={onSupply}
+              className="gray-input"
                
                     />
                   </div>

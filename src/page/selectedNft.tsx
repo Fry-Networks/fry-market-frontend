@@ -79,7 +79,7 @@ const SelectedNft = () => {
     <>
       <div>
         <div className="nftCollection mt-[107px] mb-16">
-          <img className="nftGlow absolute top-0 left-0 h-full w-full -z-10 object-cover" src={selectNftGlow} alt="" />
+         {/* <img className="nftGlow absolute top-0 left-0 h-full w-full -z-10 object-cover" src={selectNftGlow} alt="" /> */}
           <div className="container">
             <div className="inner flex gap-8">
               <div className="backBtnContainer flex flex-col  items-start">
