@@ -3,7 +3,7 @@ import { message, Switch, Upload } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import { useState } from 'react';
 import newCollect from '../assets/artistsProfile/newCollect.png';
-import selectNftGlow from '../assets/createNft/selectedNftGlow.png';
+import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
 import plus from '../assets/icons/plus.svg';
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";

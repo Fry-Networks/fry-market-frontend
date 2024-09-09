@@ -9,8 +9,8 @@ import card6 from "../../assets/artistsProfile/artistPic6.png";
 import card7 from "../../assets/artistsProfile/artistPic7.png";
 import card8 from "../../assets/artistsProfile/artistPic8.png";
 import Button from "../shared/button";
-import sellerCollectGlow  from '../../assets/images/topSellers/collectionGlow.png';
-import bannerGlow from "../../assets/artistsProfile/settingBanerGlow.png";
+// import sellerCollectGlow  from '../../assets/images/topSellers/collectionGlow.png';
+import bannerGlow from "../../assets/artistsProfile/settingBanerGlow.webp";
 
 const CollectionCard = ({ isArtistProfile }: any) => {
   const cards = [

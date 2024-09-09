@@ -2,14 +2,12 @@ import { Tabs } from "antd";
 import React from 'react';
 import bodyImg from "../../assets/nftCollection/popularBodyImg.png";
 import headerImg from "../../assets/nftCollection/popularHeaderImg.png";
-
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import nftImg1 from "../../assets/home/images/cardImg1.png";
 import nftImg2 from "../../assets/home/images/cardImg2.png";
 import nftImg3 from "../../assets/home/images/cardImg3.png";
 import nftImg4 from "../../assets/home/images/cardImg4.png";
 import CollectionsCard from '../cards/collectionsCard';
-
 import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";

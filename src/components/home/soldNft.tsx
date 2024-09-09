@@ -11,7 +11,7 @@ import soldNft6 from "../../assets/home/images/soldNft/soldNftImg6.png";
 import soldNft7 from "../../assets/home/images/soldNft/soldNftImg7.png";
 import soldNft8 from "../../assets/home/images/soldNft/soldNftImg8.png";
 import glow from "../../assets/home/images/heroGlow.png";
-import soldGlow from "../../assets/home/images/soldNft/soldGlow.webp";
+import soldGlow from "../../assets/home/images/soldNft/soldGloww.webp";
 
 
 

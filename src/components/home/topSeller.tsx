@@ -8,7 +8,7 @@ import sellerImg5 from "../../assets/home/images/topSeller/topsellerImg5.png";
 import sellerImg6 from "../../assets/home/images/topSeller/topsellerImg6.png";
 import sellerImg7 from "../../assets/home/images/topSeller/topsellerImg7.png";
 import sellerImg8 from "../../assets/home/images/topSeller/topsellerImg8.png";
-import sellerBack from "../../assets/home/images/topSeller/topsellerBack.png";
+import sellerBack from "../../assets/home/images/topSeller/topsellerBack.webp";
 import { useNavigate } from 'react-router-dom';
 
 

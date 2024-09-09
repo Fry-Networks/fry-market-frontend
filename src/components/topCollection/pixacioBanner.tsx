@@ -1,6 +1,6 @@
 
 import React from "react";
-import leftImg from "../../assets/topCollection/bannerLeftImg.png";
+// import leftImg from "../../assets/topCollection/bannerLeftImg.png";
 import grid from "../../assets/nftCollection/exploreGrid.webp";
 import internet from "../../assets/icons/internetIcon.png";
 import twitter from "../../assets/icons/twitterTC.svg";

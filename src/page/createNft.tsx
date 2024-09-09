@@ -5,7 +5,7 @@ import nft2 from "../assets/images/createNft/nftimage2.webp";
 import nft3 from "../assets/images/createNft/nftimage3.webp";
 import nft4 from "../assets/images/createNft/nftimage4.webp";
 import Button from "../components/shared/button";
-import bgGlow from "../assets/images/createNft/bgGlow.png";
+import bgGlow from "../assets/images/createNft/bgGlow.webp";
 import { Icon } from "@iconify/react";
 
 const CreateNft: React.FC = () => {

@@ -1,4 +1,4 @@
-import digitalassetBack from "../../assets/home/images/topSeller/digitalAssetBack.png";
+import digitalassetBack from "../../assets/home/images/topSeller/digitalAssetBack.webp";
 import digittalGrid from "../../assets/home/images/topSeller/digitalGrid.png";
 import generateIcon from "../../assets/icons/generateIcon.svg";
 import Input from "../shared/input";

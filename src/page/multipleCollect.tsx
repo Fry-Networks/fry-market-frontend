@@ -12,7 +12,7 @@ import nft10 from "../assets/images/createNft/nftimage2.webp";
 import Navbar from "../components/layout/navbar";
 import Button from "../components/shared/button";
 import { useNavigate } from "react-router-dom";
-import bgGlow from "../assets/images/createNft/bgGlow.png";
+import bgGlow from "../assets/images/createNft/bgGlow.webp";
 import { Icon } from "@iconify/react";
 
 const MultipleCollect: React.FC = () => {

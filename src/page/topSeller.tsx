@@ -3,22 +3,22 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/icons/topSeller/logo.svg";
 import table1 from "../assets/icons/topSeller/ts1.svg";
-import table10 from "../assets/icons/topSeller/ts10.svg";
+import table10 from "../assets/icons/topSeller/ts10.webp";
 import table11 from "../assets/icons/topSeller/ts11.svg";
 import table2 from "../assets/icons/topSeller/ts2.svg";
 import table3 from "../assets/icons/topSeller/ts3.svg";
-import table4 from "../assets/icons/topSeller/ts4.svg";
+import table4 from "../assets/icons/topSeller/ts4.webp";
 import table5 from "../assets/icons/topSeller/ts5.svg";
-import table6 from "../assets/icons/topSeller/ts6.svg";
-import table7 from "../assets/icons/topSeller/ts7.svg";
+import table6 from "../assets/icons/topSeller/ts6.webp";
+import table7 from "../assets/icons/topSeller/ts7.webp";
 import table8 from "../assets/icons/topSeller/ts8.svg";
 import table9 from "../assets/icons/topSeller/ts9.svg";
 import ts2 from "../assets/images/topSellers/ts2.jpg";
 import ts3 from "../assets/images/topSellers/ts3.jpg";
-import ts1 from "../assets/images/topSellers/tss1.png";
+import ts1 from "../assets/images/topSellers/tss1.webp";
 import ReadyForNext from "../components/home/readyForNext";
 import Button from "../components/shared/button";
-import bannerback from "../assets/home/images/topSeller/bannerBack.png";
+import bannerback from "../assets/home/images/topSeller/bannerBack.webp";
 import leftGlow from "../assets/nftCollection/redGlow.webp";
 
 

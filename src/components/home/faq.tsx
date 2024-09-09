@@ -2,7 +2,7 @@ import { Collapse, theme } from "antd";
 import minus from "/src/assets/icons/minus.svg";
 import plus from "/src/assets/icons/plus.svg";
 import leftGlow from "../../assets/home/images/leftGlow.png";
-import rightGlow from "../../assets/home/images/homeImages/faqRight.webp";
+import rightGlow from "../../assets/home/images/homeImages/faqRightt.webp";
 
 
 const text1 = `

@@ -1,5 +1,5 @@
 import { Modal, Select } from "antd";
-import pixico from "../assets/createNft/pixico.svg";
+import pixico from "../assets/createNft/pixico.webp";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
 

@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import auctionBack from "../../assets/home/images/auction/auctionBack.png";
+import auctionBack from "../../assets/home/images/auction/auctionBack.webp";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
 import trendingNft2 from "../../assets/home/images/auction/auctionImg2.png";
 import trendingNft3 from "../../assets/home/images/auction/auctionImg3.png";

@@ -7,7 +7,7 @@ import door from "../assets/icons/door.svg";
 import plus from "../assets/icons/plus.svg";
 import tick from "../assets/icons/priceTick.svg"; // Import tick icon
 import Button from "../components/shared/button";
-import bgBack from "../assets/sellMethod/bgGlow.png";
+import bgBack from "../assets/sellMethod/bgGlow.webp";
 import { useNavigate } from "react-router-dom";
 import fryIcon from "../assets/icons/fryIcon.svg";
 import { Select } from 'antd';
