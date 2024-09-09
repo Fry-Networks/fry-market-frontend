@@ -2,7 +2,7 @@
   min-height: 100vh;
   height: 100%;
   margin-bottom: 140px;
-
+overflow-x: auto;
   .leftHand {
     animation: customAni 5s linear 1s normal forwards;
   }
@@ -69,7 +69,7 @@
 @media screen and (max-width: 1440px) {
   .heroWrapper {
     height: auto;
-    margin-bottom: 140px;
+    margin-bottom: 140px !important;
     &:after {
       display: none;
     }
@@ -82,6 +82,7 @@
 
     .container {
       .inner {
+        padding-bottom: 0px;
         h1 {
           line-height: 100%;
           width: 100%;

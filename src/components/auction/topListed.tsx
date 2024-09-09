@@ -13,7 +13,7 @@ import userImg1 from "../../assets/home/images/card-userImg.png";
 import '../../style/page/auction/topListed.scss';
 import AuctionCard from '../cards/auctionCard';
 import "../../style/page/auction/topListed.scss";
-import rightGlow from "../../assets/auction/rightGlow.png";
+import rightGlow from "../../assets/auction/rightGlow.webp";
 import { Collapse } from "antd";
 import filter from "../../assets/icons/filter.svg";
 import Button from "../shared/button";

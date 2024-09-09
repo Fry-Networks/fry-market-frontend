@@ -1,7 +1,7 @@
 import boosterIcon from "../../assets/icons/boosterIvon.svg";
 import Button from "../shared/button";
 import leftGlow from "../../assets/home/images/leftGlow.png";
-import monkey from "../../assets/home/images/monkey2.png";
+import monkey from "../../assets/home/images/monkey2.webp";
 
 const BoostNft = () => {
   return (

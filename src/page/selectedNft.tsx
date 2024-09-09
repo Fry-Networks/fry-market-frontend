@@ -8,7 +8,7 @@ import collect1 from "../assets/createNft/collect1.webp";
 import collect2 from "../assets/createNft/collect2.webp";
 import collect3 from "../assets/createNft/collect3.webp";
 import collect4 from "../assets/createNft/collect4.webp";
-import selectNftGlow from "../assets/createNft/selectedNftGlow.png";
+import selectNftGlow from "../assets/createNft/selectedNftGlow.webp";
 import plus from "../assets/icons/plus.svg";
 import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";

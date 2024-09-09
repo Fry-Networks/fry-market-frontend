@@ -1,6 +1,6 @@
 import React from "react";
-import seller from "../../assets/images/sellerCollection/sellerHeader.png";
-import banerGlow from "../../assets/images/topSellers/bannerGlow.png";
+import seller from "../../assets/images/sellerCollection/sellerHeader.webp";
+import banerGlow from "../../assets/images/topSellers/bannerGlow.webp";
 
 const CollectionBanner = () => {
   return (

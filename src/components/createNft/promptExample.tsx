@@ -2,15 +2,13 @@ import React from 'react'
 import PromptCard from './promptCard';
 import promptImg from "../../assets/createNft/pExample1.png";
 import promptImg2 from "../../assets/createNft/examp2.png";
-
 import promptImg3 from "../../assets/createNft/examp3.png";
-
 import promptImg4 from "../../assets/createNft/examp4.png";
 import promptImg5 from "../../assets/createNft/examp5.png";
 import promptImg6 from "../../assets/createNft/examp6.png";
 import promptImg7 from "../../assets/createNft/examp7.png";
 import promptImg8 from "../../assets/createNft/examp8.png";
-import promptBack from "../../assets/createNft/bannerBack.png";
+import promptBack from "../../assets/createNft/bannerBack.webp";
 
 
 

@@ -14,12 +14,7 @@ import rightImg2 from "../../assets/home/images/homeImages/rightImg2.webp";
 import leftImg1 from "../../assets/home/images/homeImages/leftImg1.webp";
 import leftImg2 from "../../assets/home/images/homeImages/leftImg2.webp";
 import nftVideo from "../../assets/video/heroVideo.mp4";
-
-
-
-
-
-import glow from "../../assets/home/images/heroGlow.png";
+import glow from "../../assets/home/images/heroGlow.webp";
 const Hero = () => {
   return (
   <>
@@ -30,7 +25,7 @@ const Hero = () => {
 
     {/* <img className='absolute bottom-[-290px]' src={hands} alt="" /> */}
     <div className="container">
-    <div className="inner  h-auto flex-col flex justify-center items-center gap-y-5">
+    <div style={{overflowY:"hidden"}} className="inner pb-28 h-full flex-col flex justify-center items-center gap-y-5">
     <h1 className='font-normal darkBlack text-center uppercase font-Apex'>discover, create & sell artworks.</h1>
     <p className='lightGray font-light medium text-center font-Roboto'>Discover and trade unique digital art pieces on our NFT website, where creativity meets blockchain technology.</p>
     <div className='heroCards relative' >

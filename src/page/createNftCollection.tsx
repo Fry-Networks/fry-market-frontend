@@ -5,7 +5,7 @@ import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
 import nftColGlow from "../assets/createNft/topGrid.png";
-import btmLeftGlow from "../assets/createNft/bottomLeftGlow.png";
+import btmLeftGlow from "../assets/createNft/bottomLeftGlow.webp";
 
 const CreateNftCollection = () => {
   const navigate = useNavigate();

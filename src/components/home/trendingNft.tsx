@@ -11,7 +11,7 @@ import trendingNft5 from "../../assets/home/images/trendingNft5.png";
 import trendingNft6 from "../../assets/home/images/trendingNft6.png";
 import trendingNft7 from "../../assets/home/images/trendingNft7.png";
 import trendingNft8 from "../../assets/home/images/trendingNft8.png";
-import colectionBack from "../../assets/home/images/topCollections/topCollectionBack.png";
+import colectionBack from "../../assets/home/images/topCollections/topCollectionBackk.webp";
 import { Select } from 'antd';
 
 

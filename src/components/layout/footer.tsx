@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import footerBg from "../../assets/home/images/footer.png";
+import footerBg from "../../assets/home/images/footer.webp";
 import footerLogo from "/src/assets/home/images/footerLogo2.png";
 import discord from "/src/assets/icons/discord.svg";
 import facebook from "/src/assets/icons/facebook.svg";
