@@ -34,9 +34,9 @@ const MultipleCollect: React.FC = () => {
 
   return (
     <>
-      <div className="createNft mt-16 relative">
+      <div className="createNft my-16 relative">
         <img className="absolute top-[-200px] -z-10" src={bgGlow} alt="" />
-        <div className="container ">
+        <div className="container">
           <div className="nftBtnContainer flex items-center justify-between mb-[75px]">
             <div className="singlenft flex items-center justify-between gap-4">
               <Button

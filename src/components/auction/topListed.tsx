@@ -120,7 +120,51 @@ const TopListed = () => {
                         ),
                         children: (
                           <>
-                            {/* <p>{text}</p> */}
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
                            
                           </>
                         ),
@@ -131,10 +175,10 @@ const TopListed = () => {
                         children: (
                           <>
                           <div className="w-full flex items-center justify-center gap-2 mt-3">
-                            <input type="number"  placeholder='Min' className="bg-black border-solid border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
+                            <input type="number"  placeholder='Min' className="bg-black border-solid border-[3px]  rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
                            
                             <p>to</p>
-                            <input type="number"  placeholder='Max' className="bg-black border-solid border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
+                            <input type="number"  placeholder='Max' className="bg-black border-solid border-[3px] rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
 
                           </div>
                          <div className="mt-5 w-full flex-center">
@@ -393,7 +437,7 @@ const TopListed = () => {
                       },
 
                       {
-                        key: "1-6",
+                        key: "1-7",
                         label: (
                           <div className="flex items-center justify-between">
                             <span>Head</span>

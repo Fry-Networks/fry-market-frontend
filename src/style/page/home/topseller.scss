@@ -23,7 +23,7 @@
 
 @media screen and (max-width:1000px) {
     .topsellerWrapper{
-        margin-bottom: 20px !important;
+        margin-bottom: 80px !important;
         .container{
          
             .headWrappr{
@@ -41,7 +41,7 @@
 
 @media screen and (max-width:800px) {
     .topsellerWrapper{
-        margin-bottom: 20px;
+        margin-bottom: 70px !important;
         .container{
             .sellerCardDiv{
                 grid-template-columns: repeat(2, 1fr);
