@@ -48,7 +48,7 @@ const Banner = () => {
   return (
     <>
       <div className="bannerWrapper mb-44 relative">
-        <img className="absolute top-[-250px] -z-30" src={banerGlow} alt="" />
+        <img className="absolute top-[-250px] right-0 -z-30" src={banerGlow} alt="" />
         <div className="container ">
           <div className="inner">
         

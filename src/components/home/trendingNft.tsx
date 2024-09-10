@@ -19,7 +19,7 @@ const TrendingNft = () => {
   const { Option } = Select;
   return (
     <div className="trendingNftWrapper my-52 md:my-24 relative">
-      <img className="absolute top-[-400px] -z-50" src={colectionBack} alt="" />
+      <img className="absolute top-[-400px] right-0 left-0 -z-50" src={colectionBack} alt="" />
       <div className="container">
         <div className='flex inner items-center justify-between'>
           <h2 className="font-normal font-Apex uppercase">

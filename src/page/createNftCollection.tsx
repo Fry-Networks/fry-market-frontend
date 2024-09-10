@@ -82,7 +82,8 @@ const CreateNftCollection = () => {
                         className="w-full input-nft"
                       />
                     </div>
-                    <div>createNftCollection.tsx:99 hello
+                    <div>
+                      
 
 
 
@@ -90,7 +91,7 @@ const CreateNftCollection = () => {
                         // label="Description "
                         label={
                           <>
-                            <div className="flex flex-col medium gap-2 mt-9">
+                            <div className="flex flex-col medium gap-2">
                               <span>Description</span>
                               <span className="medium mb-3 font-normal">
                                 The description will be included on the item's

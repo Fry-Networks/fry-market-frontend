@@ -17,8 +17,8 @@ const ProfileSettingPage = () => {
   return (
     <>
       <div className="profileSetting relative mb-20">
-        <img className="absolute top-[-180px] -z-50" src={settingBanerGlow} alt="" />
-        <img className="absolute bottom-[-100px] -z-30" src={midGlow} alt="" />
+        <img className="absolute top-[-180px] w-full -z-50 " src={settingBanerGlow} alt="" />
+        <img className="absolute bottom-[-100px] right-0 w-full -z-30" src={midGlow} alt="" />
 
         <div className="container">
           <div className="inner">
@@ -40,7 +40,7 @@ const ProfileSettingPage = () => {
               </button>
             </div>
 
-            <div className="formData w-[817px] h-auto mx-auto flex flex-col gap-12">
+            <div className="formData mt-12 w-[817px] h-auto mx-auto flex flex-col gap-12">
               <div className="nftUserInfo mb-11">
                 <div
                   // style={{
@@ -149,7 +149,7 @@ const ProfileSettingPage = () => {
                     type="text"
                     className="m-auto"
                     label="X(Twitter)"
-                    labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
+                    labelClass="mb-1 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
                   <button
@@ -157,7 +157,7 @@ const ProfileSettingPage = () => {
                       background:
                         "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
                     }}
-                    className="absolute top-[50px] right-2  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
+                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
                   >
                     Connect
                   </button>
@@ -183,7 +183,7 @@ const ProfileSettingPage = () => {
                     type="text"
                     className="m-auto"
                     label="Discord"
-                    labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
+                    labelClass="mb-1 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
                   <button
@@ -191,7 +191,7 @@ const ProfileSettingPage = () => {
                       background:
                         "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
                     }}
-                    className="absolute top-[50px] right-2  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
+                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
                   >
                     Connect
                   </button>
@@ -220,7 +220,7 @@ const ProfileSettingPage = () => {
                     type="text"
                     className="m-auto"
                     label="Instagram"
-                    labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
+                    labelClass="mb-1 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
                   <button
@@ -228,7 +228,7 @@ const ProfileSettingPage = () => {
                       background:
                         "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
                     }}
-                    className="absolute top-[50px] right-2  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
+                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
                   >
                     Connect
                   </button>

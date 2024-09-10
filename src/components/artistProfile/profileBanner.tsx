@@ -1,5 +1,5 @@
 import bannerImg from "../../assets/artistsProfile/bannerImg.webp";
-import glow from "../../assets/artistsProfile/createGlow.webp";
+import glow from "../../assets/artistsProfile/mainGlow.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 import Button from "../../components/shared/button";
 
@@ -8,7 +8,7 @@ const ProfileBanner = () => {
     <>
       <div className="profileBanner mb-14 relative">
 
-        <img style={{ zIndex: "-9999" }} className="absolute top-[-270px]" src={glow} alt="" />
+        {/* <img style={{ zIndex: "-9999" }} className="absolute top-[-270px] right-0" src={glow} alt="" /> */}
         <div className="container">
           <div className="inner relative ">
 
