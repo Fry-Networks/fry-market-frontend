@@ -7,6 +7,7 @@ import twitter from "../../assets/icons/twitterTC.svg";
 import discord from "../../assets/icons/discordTC.svg";
 import glasses from "../../assets/icons/glasses.svg";
 import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
+import { Icon } from "@iconify/react";
 
 const PixacioBanner = ({ name, image }: any) => {
   return (
@@ -68,13 +69,13 @@ const PixacioBanner = ({ name, image }: any) => {
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                  className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4 cursor-pointer"
+                  className=" rounded-lg py-1.5 px-2.5 flex items-center justify-between gap-4 cursor-pointer"
                 >
-              <img src={twitter} alt="" />
+             <Icon icon="fa6-brands:x-twitter" width="22" height="22"  style={{color: "black"}} />
                   <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center cursor-pointer">
                     <p
                       style={{ opacity: "1" }}
-                      className="text-[#000] font-bold text-[7.5px]"
+                      className="text-[#000] font-bold ex-small"
                     >
                       12.3k
                     </p>
@@ -100,7 +101,7 @@ const PixacioBanner = ({ name, image }: any) => {
                   <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center">
                     <p
                       style={{ opacity: "1" }}
-                      className="text-[#000] font-bold text-[7.5px]"
+                      className="text-[#000] font-bold ex-small"
                     >
                       12.3k
                     </p>
