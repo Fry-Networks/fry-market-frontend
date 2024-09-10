@@ -174,7 +174,7 @@ const TopListed = () => {
                         label: "price",
                         children: (
                           <>
-                          <div className="w-full flex items-center justify-center gap-2 mt-3">
+                          <div className="w-full flex items-center justify-center gap-3 mt-3">
                             <input type="number"  placeholder='Min' className="bg-black border-solid border-[3px]  rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
                            
                             <p>to</p>
