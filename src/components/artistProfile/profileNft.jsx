@@ -110,7 +110,7 @@ const ProfileNft = () => {
   return (
  <>
  <div className="profileNft mt-24 relative">
-  <img className='absolute top-[-900px] -z-30' src={pageGlow} alt="" />
+  <img className='absolute top-[-900px] w-full -z-30' src={pageGlow} alt="" />
 <div className="container">
     <div className="nftContainer">
     <Tabs

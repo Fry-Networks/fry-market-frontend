@@ -12,8 +12,8 @@ const PixacioBanner = ({ name, image }: any) => {
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
-        <img src={topLeftGrid} className="top-0 left-0 absolute" alt="" />
-      <img className=" grid absolute  top-[-400px] right-0 -z-50" src={grid} alt="" />
+        <img src={topLeftGrid} className="top-0  left-0 absolute" alt="" />
+      <img className=" grid absolute top-[-400px] right-0 -z-50" src={grid} alt="" />
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">

@@ -40,7 +40,7 @@ const Navbar = (props: Toggle) => {
 
 
 
-  const isNftActive = location.pathname === "/create-nft-page" || location.pathname === "/create-nft" || location.pathname === "/multiple-collect" || location.pathname === "/select-nft" || location.pathname === "/createnft-collect" || location.pathname === "/artist-profile-art" || location.pathname === "/artist-profile" || location.pathname === "/sell-method";
+  const isNftActive = location.pathname === "/create-nft-page" || location.pathname === "/create-nft" || location.pathname === "/multiple-collect" || location.pathname === "/select-nft" || location.pathname === "/create-nft-collection" || location.pathname === "/artist-profile-art" || location.pathname === "/artist-profile" || location.pathname === "/sell-method";
   console.log(location.pathname);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<string>("left");

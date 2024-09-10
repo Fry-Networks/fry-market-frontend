@@ -2,38 +2,34 @@
   min-height: 100vh;
   height: 100%;
   margin-bottom: 140px;
-overflow-x: auto;
-  .leftHand {
-    animation: customAni 5s linear 1s normal forwards;
+  overflow-x: hidden; 
+.leftHand {
+  animation: customAni 7s linear 1s normal forwards;
+}
+
+@keyframes customAni {
+  0% {
+    left: -100%; // Start from off-screen
   }
 
-  // @keyframes customAni {
-  //     0% {
+  100% {
+    left: 0; // End at the edge of the screen
+  }
+}
 
-  //       left: -350px;
-  //     }
+.rightHand {
+  animation: customAnim 7s linear 1s normal forwards;
+}
 
-  //     100% {
-
-  //       left: -120px;
-  //     }
-  //   }
-
-  .rightHand {
-    animation: customAnim 5s linear 1s normal forwards;
+@keyframes customAnim {
+  0% {
+    right: -100%; // Start from off-screen
   }
 
-  // @keyframes customAnim {
-  //     0% {
-
-  //       right: -350px;
-  //     }
-
-  //     100% {
-
-  //       right: -120px;
-  //     }
-  //   }
+  100% {
+    right: 0; // End at the edge of the screen
+  }
+}
   // &::after {
   //   width: 100%;
   //   height: 100%;

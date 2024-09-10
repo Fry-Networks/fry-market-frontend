@@ -56,6 +56,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
                 width={166}
                 minHeight={53}
                 text="Cancel"
+                onClick={handleCancel}
               ></Button>
 
               <Button
@@ -63,6 +64,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
                 width={166}
                 minHeight={53}
                 text="Place bid"
+                onClick={handleOk} 
               ></Button>
             </div>
           </div>

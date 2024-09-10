@@ -78,7 +78,7 @@ const PromptExample = () => {
   return (
  <>
  <div className="promptWrapper mb-52 relative">
-    <img src={promptBack} className='absolute top-0 left-0 -z-50' alt="" />
+    <img src={promptBack} className='absolute top-0 right-0 left-0 w-full -z-50' alt="" />
     <div className="container">
     <h2 className="font-bold font-Apex uppercase tracking-wide darkBlack mb-10">
     Prompt examples

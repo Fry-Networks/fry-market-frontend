@@ -23,6 +23,7 @@ import Button from "../shared/button";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
 import leftGlow from "../../assets/nftCollection/redGlow.webp";
 import pixoGrid from "../../assets/topCollection/topColectGrid.webp";
+import { useState } from "react";
 
 
 
@@ -30,15 +31,26 @@ import pixoGrid from "../../assets/topCollection/topColectGrid.webp";
 
 const PixoNft = () => {
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate("/nft-detail"); // Redirect to nft-detail page
+    navigate("/nft-detail"); 
   };
 
   const onTopList = (key: any) => {
     console.log(key);
   };
+
+  const [searchTerm, setSearchTerm] = useState(''); // State for search input
+
+  const handleSearchChange = (event:any) => {
+    setSearchTerm(event.target.value);
+  };
+
+
+  const filteredCards = trendingCard.filter(card =>
+    card.userName.toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <>
       <div className="pixoNftContainer mb-52 relative">
@@ -468,7 +480,7 @@ const PixoNft = () => {
         <div className="container">
           <div className="inner">
             <div className="searchDiv w-auto flex justify-end items-center mb-14">
-              <Input
+            <Input
                 wrapperClass="flex items-center justify-center border-2 border-solid border[#243c5a] bg-trasparent"
                 icon={search}
                 placeholder="Search by name"
@@ -477,17 +489,18 @@ const PixoNft = () => {
                 height={55}
                 type="text"
                 className="lightGray  border-2  border[#243c5a] bg-transparent"
-
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
             </div>
 
             <div className="cardsWrap grid grid-cols-4 gap-6">
-            {trendingCard.map((data) => (
-              <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
-                <CollectionsCard data={data} />
-              </div>
-            ))}
-          </div>
+              {filteredCards.map((data) => (
+                <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
+                  <CollectionsCard data={data} />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -509,104 +522,104 @@ const trendingCard = [
   {
     id: 2,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "ALICE JOHNSON",
+    userEmail: "@Alice Johnson",
     nftImg: trendNft2,
     price: "142.02",
   },
   {
     id: 3,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "BOB SMITH",
+    userEmail: "@Bob Smith",
     nftImg: trendNft3,
     price: "142.02",
   },
   {
     id: 4,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "CHARLIE BROWN",
+    userEmail: "@Charlie Brown",
     nftImg: trendNft4,
     price: "142.02",
   },
   {
     id: 5,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "MASON CLARK",
+    userEmail: "@Mason Clark ",
     nftImg: trendNft5,
     price: "142.02",
   },
   {
     id: 6,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "JOE SMITH",
+    userEmail: "@Joe Smith",
     nftImg: trendNft6,
     price: "142.02",
   },
   {
     id: 7,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "ALLISON REED",
+    userEmail: "@Allison Reed",
     nftImg: trendNft7,
     price: "142.02",
   },
   {
     id: 8,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "TOM WILLIAMS",
+    userEmail: "@Tom Williams",
     nftImg: trendNft8,
     price: "142.02",
   },
   {
     id: 9,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "HOPPER MARTIN",
+    userEmail: "@Hopper Martin",
     nftImg: trendNft9,
     price: "142.02",
   },
   {
     id: 10,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "GEORGE TAYLOR",
+    userEmail: "@George Taylor",
     nftImg: trendNft10,
     price: "142.02",
   },
   {
     id: 11,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "ISSAC LEWIS",
+    userEmail: "@Issac Lewis",
     nftImg: trendNft11,
     price: "142.02",
   },
   {
     id: 12,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "JESSICA HALL",
+    userEmail: "@Jessica Hall",
     nftImg: trendNft12,
     price: "142.02",
   },
   {
     id: 13,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "LUCAS YOUNG",
+    userEmail: "@Lucas Young",
     nftImg: trendNft13,
     price: "142.02",
   },
   {
     id: 14,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "NATHAN KING",
+    userEmail: "@Nathan King",
     nftImg: trendNft14,
     price: "142.02",
   },

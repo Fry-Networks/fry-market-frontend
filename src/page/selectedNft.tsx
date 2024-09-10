@@ -16,6 +16,7 @@ import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
 import AddTraits from "../modals/addTraits";
 import MintNft from "../modals/mintNft";
+import rightGlow from "../assets/nftCollection/rightGlow.webp"
 
 const SelectedNft = () => {
   const [isSelected, setIsSelected] = useState(false);
@@ -80,6 +81,7 @@ const SelectedNft = () => {
       <div>
         <div className="nftCollection mt-[107px] mb-16">
          {/* <img className="nftGlow absolute top-0 left-0 h-full w-full -z-10 object-cover" src={selectNftGlow} alt="" /> */}
+         <img src={rightGlow} className="absolute top-[-200px] right-0 -z-20" alt="" />
           <div className="container">
             <div className="inner flex gap-8">
               <div className="backBtnContainer flex flex-col  items-start">
@@ -252,12 +254,12 @@ const SelectedNft = () => {
 
                         <div
                           onClick={showAddTraitModal}
-                          className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl"
+                          className="flex cursor-pointer w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl"
                         >
                           <p className="lightGray font-normal medium font-Roboto cursor-pointer">
                             Add Traits
                           </p>
-                          <img src="/src/assets/icons/plus.svg" alt="" />
+                          <img src={plus} alt="" />
                         </div>
                         <div className="royality flex flex-col gap-5">
                           <p className="darkBlack font-Roboto large font-medium">
