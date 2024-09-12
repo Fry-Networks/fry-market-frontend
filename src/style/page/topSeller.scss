@@ -154,6 +154,7 @@
 @media screen and (max-width:1100px) {
 
     .topSell{
+        margin-bottom: 50px ;
         .bannerBack{
             display: none;
         }
@@ -166,7 +167,8 @@
             .collectionTable{
                 overflow: scroll;
                 .ant-table-wrapper{
-                overflow: scroll !important;
+            
+                margin-bottom: 0px !important;
 
                 }
             }

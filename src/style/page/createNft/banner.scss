@@ -8,6 +8,8 @@
     .input-wrapper{
       border: 3px solid #E7E7E7;
       box-shadow: none;
+      padding-right: 130px;
+
       input{
         font-size: 18px;
         &::placeholder{
@@ -149,12 +151,17 @@ input{
 
 @media screen and (max-width:800px) {
   .bannerWrapper{
+    margin-bottom: 50px !important;
     .container{
       .inner{
+        h2{
+          margin-top: 0px !important;
+        }
         .earnMoneyDiv{
           width: 100% !important;
         
           .part3{
+        
 flex-wrap: wrap;
 gap: 20px;
           }

@@ -21,7 +21,7 @@ const ProfileData = () => {
     <>
       <div className="profileDataWrapper">
         <div className="container">
-          <div className="mt-12 relative z-90 tabSection w-[236px] h-[50px] p-2 rounded-[10px] border border-3 border-solid border-[#E7E7E7]">
+          <div className="mt-12sm:mt:2 relative z-90 tabSection w-[236px] h-[50px] p-2 rounded-[10px] border border-3 border-solid border-[#E7E7E7]">
             <button
               className={`small font-medium font-Roboto w-[90px] h-[34px] ${
                 activePage === "profile" ? "bg-red-500 text-white" : "darkBlack"
