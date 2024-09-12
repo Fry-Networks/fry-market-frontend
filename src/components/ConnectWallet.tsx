@@ -3,6 +3,8 @@ import { Modal } from 'antd';
 import logo from "../assets/icons/websiteLogo.svg";
 import redline from "../assets/modals/redLine.png";
 import Account from './Account';
+import mobileLogo from "../assets/icons/newLogo.svg";
+import navTopLogo from "../assets/home/images/homeImages/navTopLogo.png";
 
 interface ConnectWalletInterface {
   openModal: boolean
@@ -27,7 +29,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
       <form method="dialog" className="relative modal-box bg-white max-w-md">
         <div className="w-full flex flex-col items-center justify-center gap-6">
           <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2]">Connect Your Wallet</h3>
-          <img className='w-24' src={logo} alt="fry-logo" />
+          <img className='max-w-[106px] max-h-[80px] w-full h-full object-cover' src={navTopLogo} alt="fry-logo" />
           <img src={redline} alt="redline" />
           <div className="grid mb-2 w-full">
             {activeAddress && (

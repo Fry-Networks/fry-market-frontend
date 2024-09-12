@@ -23,7 +23,7 @@ const CollectionBanner = () => {
       </div>
     </div> */}
   <div className="collectionBanner relative mb-12">
-  <img className="absolute top-[-190px] left-0" src={banerGlow} alt="" />
+  <img className="absolute top-[-190px] -z-40 left-0" src={banerGlow} alt="" />
   <div className="container">
 <div className="inner flex flex-col mt-14">
   <div className="topArea flex flex-col items-center -mb-20">

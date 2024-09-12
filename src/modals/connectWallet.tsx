@@ -5,7 +5,7 @@ import daffi from "../assets/icons/daffi.svg";
 import walletBlue from "../assets/icons/walletBlue.svg";
 import logo from "../assets/icons/websiteLogo.svg";
 import redline from "../assets/modals/redLine.png";
-import mobileLogo from "../assets/icons/navbarLogo.svg";
+import mobileLogo from "../assets/icons/newLogo.svg";
 
 
 const ConnectWallet = ({ isconnectmodal, setisconnectmodal }: any) => {
@@ -34,8 +34,8 @@ const ConnectWallet = ({ isconnectmodal, setisconnectmodal }: any) => {
               Connect your wallet
             </p>
           </div>
-          <div className="innerContent flex flex-col items-center gap-4 mt-4 ">
-            {/* <img src={mobileLogo} alt="" /> */}
+          <div className="innerContent flex flex-col items-center gap-4 mt-4 !border-2 !border-solid !border-[blue] ">
+            <img src={mobileLogo} alt="" />
             {/* <img src={redline} alt="" /> */}
             <button className="wltbtn py-3.5 px-6 lightGray font-Roboto ex-small font-normal w-full flex justify-start items-center gap-5 border-solid border-2 border-[red]">
               <img src={blackFlower} alt="" />

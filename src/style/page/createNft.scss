@@ -128,6 +128,7 @@
 
 @media screen and (max-width:1000px) {
     .createNft{
+        margin-top: 10px !important;
         .container{
             .nftBtnContainer{
 
@@ -145,7 +146,8 @@
         .container{
             .nftBtnContainer{
 justify-content: center;
-align-items: center;
+align-items: flex-start;
+gap: 20px;
 flex-direction: column;
                 .singlenft{
 
