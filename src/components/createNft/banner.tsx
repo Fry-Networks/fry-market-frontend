@@ -94,8 +94,9 @@ const Banner = () => {
 
                 <div className="part3 my-6 flex-center gap-16">
                   <div className="slectDiv">
-                    <Select
+                    {/* <Select
                       showSearch
+                      style={{ width: 370, height:"55px" }}
                       placeholder="Single NFT"
                       optionFilterProp="label"
                       onChange={onChange}
@@ -111,7 +112,23 @@ const Banner = () => {
                           label: "Multi-NFT Collection",
                         },
                       ]}
-                    />
+                    /> */}
+
+
+<Select
+              className=""
+              
+      defaultValue="Single NFT"
+         placeholder="Single NFT"
+         style={{ width: 270, height:"55px", color:"black" }}
+      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
+      onChange={handleChange}
+      options={[
+        { value: 'single', label: "Single NFT Image" },
+        { value: 'multiple', label: "Multi-NFT Collection"},
+     
+      ]}
+    />
                   </div>
                   <div className="supplyDiv flex-center gap-4">
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>
