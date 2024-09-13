@@ -10,6 +10,7 @@ import ConnectWallet from './components/ConnectWallet'
 import Footer from "./components/layout/footer"
 import Navbar from "./components/layout/navbar"
 import Transact from './components/Transact'
+import ContractHome from "./Home"
 import ArtistProfileArt from "./page/artistProfileArt"
 import ArtistsProfile from "./page/artistsProfile"
 import Auction from "./page/auction"
@@ -109,6 +110,7 @@ export default function App() {
           <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
           <Route path="/sell-method" element={<SellMethod />} />
           <Route path="/manual-create-nft" element={<ManualCreateNft />} />
+          <Route path="/contract" element={<ContractHome />} />
 
         </Routes>
         {isNavbar ? <Footer /> : ""}

@@ -5,7 +5,7 @@ import logo from "../../assets/icons/websiteLogo.svg";
 //@ts-ignore
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import menu from "../../assets/icons/menu.png";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
@@ -53,15 +53,15 @@ const Navbar = (props: Toggle) => {
 
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (activeAccount?.address) {
-      console.log("Get auth token");
-      getAuthToken();
+  //   if (activeAccount?.address) {
+  //     console.log("Get auth token");
+  //     getAuthToken();
 
-    }
+  //   }
 
-  }, [activeAccount])
+  // }, [activeAccount])
 
   const showDrawer = () => {
     setOpen(true);
