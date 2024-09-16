@@ -506,7 +506,7 @@ const PixoNft = () => {
               ) : (
                 // Show "NFT not found" when no search results
                 <div className="text-center mt-10">
-                  <p className="text-red-500 font-bold text-xl">NFT not found</p>
+                  <p className="text-red-500 font-bold text-xl">No Results Found</p>
                 </div>
               )}
             </div>
