@@ -27,8 +27,8 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
       width={415}
       footer={null}>
       <form method="dialog" className="relative modal-box bg-white max-w-md">
-        <div className="w-full flex flex-col items-center justify-center gap-6">
-          <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2]">Connect Your Wallet</h3>
+        <div className="w-full flex flex-col items-center justify-center gap-6 mt-5">
+          <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2] walletText">Connect Your Wallet</h3>
           <img className='max-w-[106px] max-h-[80px] w-full h-full object-cover' src={navTopLogo} alt="fry-logo" />
           <img src={redline} alt="redline" />
           <div className="grid mb-2 w-full">

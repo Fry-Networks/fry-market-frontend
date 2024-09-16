@@ -131,6 +131,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 20px;
+    padding-top: 0px !important;
     .navbar-logo {
       width: 160px;
     }
@@ -159,9 +160,10 @@
 
   .ant-drawer {
     .ant-drawer-body {
+      padding-top: 15px;
       .navbar-logo {
         .logo {
-          width: 70px;
+          width: 100px !important;
           height: auto;
         }
       }
@@ -204,5 +206,8 @@
     width: 90px;
    height: auto;
    object-fit: cover;
+}
+.ant-drawer-content-wrapper{
+  width: 80% !important;
 }
 }
