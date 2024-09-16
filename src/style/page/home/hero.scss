@@ -4,7 +4,7 @@
   margin-bottom: 140px;
   overflow-x: hidden; 
 .leftHand {
-  animation: customAni 7s linear 1s normal forwards;
+  animation: customAni 7s linear  normal forwards;
 }
 
 @keyframes customAni {
@@ -18,7 +18,7 @@
 }
 
 .rightHand {
-  animation: customAnim 7s linear 1s normal forwards;
+  animation: customAnim 7s linear normal forwards;
 }
 
 @keyframes customAnim {

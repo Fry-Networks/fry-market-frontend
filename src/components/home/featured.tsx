@@ -58,9 +58,11 @@ const Featured = () => {
       // 200: {
       //   slidesPerView: 1,
       // },
-      800: {
-        slidesPerView: 2,
+      850: {
+        slidesPerView: 1,
+        centeredSlides: true, // Ensure the card is centered for 850px or below
       },
+ 
       900: {
         slidesPerView: 2,
       },
