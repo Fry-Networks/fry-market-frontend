@@ -1,15 +1,15 @@
 import { InputNumber, Select } from "antd";
 import { useState } from "react";
+import bannerImg from "../../assets/createNft/bannerImg.webp";
+import vectorBtm from "../../assets/icons/bottomVector.png";
 import generateIcon from "../../assets/icons/generateIcon.svg";
+import downArrow from "../../assets/icons/nft-down-arrow.svg";
+import plus from "../../assets/icons/plus.svg";
+import vectorTop from "../../assets/icons/topVector.png";
+import banerGlow from "../../assets/images/topSellers/bannerGlow.webp";
 import AddStyleModal from "../../modals/addStyleModal";
 import GenerateNft from "../../modals/generateNft";
 import Input from "../shared/input";
-import bannerImg from "../../assets/createNft/bannerImg.webp";
-import banerGlow from "../../assets/images/topSellers/bannerGlow.webp";
-import vectorTop from "../../assets/icons/topVector.png";
-import vectorBtm from "../../assets/icons/bottomVector.png";
-import downArrow from "../../assets/icons/nft-down-arrow.svg";
-import plus from "../../assets/icons/plus.svg";
 
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
@@ -51,12 +51,12 @@ const Banner = () => {
         <img className="absolute top-[-250px] right-0 -z-30" src={banerGlow} alt="" />
         <div className="container ">
           <div className="inner">
-        
+
 
             <h2 className="font-normal font-Apex uppercase darkBlack text-center mt-20">
               Create your own <span className="primary  relative"> masterpiece
-              <img className="topVector absolute top-[-25%] left-[-2%] -z-50" src={vectorTop} alt="" />
-              <img className="btmVector absolute bottom-[-16%] right-[-3%] -z-50" src={vectorBtm} alt="" />
+                <img className="topVector absolute top-[-25%] left-[-2%] -z-50" src={vectorTop} alt="" />
+                <img className="btmVector absolute bottom-[-16%] right-[-3%] -z-50" src={vectorBtm} alt="" />
               </span>
             </h2>
             <img
@@ -116,20 +116,17 @@ const Banner = () => {
 
 
 <Select
-              className=""
-              
-      defaultValue="Single NFT"
-         placeholder="Single NFT"
-         style={{ width: 270, height:"55px", color:"black" }}
-      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
-      onChange={handleChange}
-      options={[
-        { value: 'single', label: "Single NFT Image" },
-        { value: 'multiple', label: "Multi-NFT Collection"},
-     
-      ]}
-    />
-                  </div>
+  className=""
+  defaultValue="Single NFT"
+  placeholder="Single NFT"
+  style={{ width: 270, height: "55px", color: "black" }}
+  suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
+  onChange={onChange}  // Make sure this is not preventing default behavior
+  options={[
+    { value: 'single', label: "Single NFT Image" },
+    { value: 'multiple', label: "Multi-NFT Collection" },
+  ]}
+/>                </div>
                   <div className="supplyDiv flex-center gap-4">
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>
                     <InputNumber
@@ -137,8 +134,8 @@ const Banner = () => {
                       max={99999999999}
                       defaultValue={3}
                       onChange={onSupply}
-              className="gray-input"
-               
+                      className="gray-input"
+
                     />
                   </div>
                   <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
@@ -160,15 +157,15 @@ const Banner = () => {
       </div>
 
       <AddStyleModal
-           isstylemodal={isstylemodal}
-            setisstylemodal={setisstylemodal}
-            />
+        isstylemodal={isstylemodal}
+        setisstylemodal={setisstylemodal}
+      />
 
 
-<GenerateNft
-           isgeneratemodal={ isgeneratemodal}
-           setisgeneratemodal={ setisgeneratemodal}
-            />
+      <GenerateNft
+        isgeneratemodal={isgeneratemodal}
+        setisgeneratemodal={setisgeneratemodal}
+      />
     </>
   );
 };

@@ -49,7 +49,7 @@ const PixoNft = () => {
 
 
   const filteredCards = trendingCard.filter(card =>
-    card.userName.toLowerCase().includes(searchTerm.toLowerCase())
+    card.userName.toLowerCase().startsWith(searchTerm.toLowerCase())
   );
   return (
     <>
@@ -494,16 +494,25 @@ const PixoNft = () => {
               />
             </div>
 
-            <div className="cardsWrap grid grid-cols-4 gap-6">
-              {filteredCards.map((data) => (
-                <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
-                  <CollectionsCard data={data} />
+
+            {filteredCards.length > 0 ? (
+                <div className="cardsWrap grid grid-cols-4 gap-6">
+                  {filteredCards.map((data) => (
+                    <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
+                      <CollectionsCard data={data} />
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                // Show "NFT not found" when no search results
+                <div className="text-center mt-10">
+                  <p className="text-red-500 font-bold text-xl">No Results Found</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
-      </div>
+    
     </>
   );
 };
