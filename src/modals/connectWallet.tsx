@@ -29,8 +29,8 @@ const ConnectWallet = ({ isconnectmodal, setisconnectmodal }: any) => {
 
       >
         <div className="connectModal h-auto">
-          <div className="w-full">
-            <p className="fw-bold ex-large font-Apex font-normal darkBlack text-center">
+          <div className="w-full newWallet">
+            <p className="fw-bold lg:pt-10 ex-large font-Apex font-normal darkBlack text-center walletText">
               Connect your wallet
             </p>
           </div>

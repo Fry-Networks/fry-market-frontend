@@ -52,7 +52,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
 
             <div className="btnWrapper w-full flex justify-between mt-3">
               <Button
-                className="button btn-whiteClr medium font-Roboto font-medium"
+                className="button btn-whiteClr medium font-Roboto font-medium bidCancel"
                 width={166}
                 minHeight={53}
                 text="Cancel"
@@ -60,7 +60,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
               ></Button>
 
               <Button
-                className="button btn-primary medium font-Roboto font-medium"
+                className="button btn-primary medium font-Roboto font-medium bidPlace"
                 width={166}
                 minHeight={53}
                 text="Place bid"

@@ -124,7 +124,9 @@ const Navbar = (props: Toggle) => {
           <img className="mobileLogo" src={logo} alt="" />
         </NavLink>
         <button onClick={handleShow} className="menu-btn">
-          <img src={menu} alt="Menu" />
+          {/* <img src={menu} alt="Menu" /> */}
+          <Icon icon="iconamoon:menu-burger-horizontal-fill" width="36" height="36"  style={{color: "black"}} />
+          
         </button>
 
         <Drawer
@@ -137,9 +139,9 @@ const Navbar = (props: Toggle) => {
         >
           <div className="navbar-logo mb-4 flex justify-between">
             <img className="logo" src={navTopLogo} alt="" />
-            <Icon className="mt-3" icon="basil:cross-solid" width="30" height="30" style={{ color: "black" }} onClick={onClose} />
+            <Icon className="mt-3" icon="basil:cross-solid" width="45" height="45" style={{ color: "black" }} onClick={onClose} />
           </div>
-          <div className="navbarList">
+          <div className="navbarList mt-8">
             <ul className="flex flex-col gap-y-5 darkGray font-normal medium darkBlack font-Apex uppercase cursor-pointer">
               <NavLink
                 className={`navlink ${isHomeActive ? "active" : ""}`}
