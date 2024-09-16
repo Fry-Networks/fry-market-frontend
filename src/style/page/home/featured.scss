@@ -16,6 +16,9 @@
         .swiper{
             .swiper-wrapper{
                 padding-bottom: 30px;
+                .swiper-slide{
+
+                }
                 .featureCardContainer{
 
                 }
@@ -81,7 +84,7 @@
     
 }
 
-@media screen and (max-width:850px){
+@media screen and (max-width:900px){
     .featureWrapper{
     //  margin-top: 0px !important;
     padding-top: 40px !important;
@@ -91,11 +94,16 @@
          
         
             .featureSwiper{
+                // width: 100%;
+                // max-width: 850px; /* Ensure the swiper has enough space */
+                // margin: 0 auto; 
                 .swiper{
                     .swiper-wrapper{
                   
-                        .swiper-slide,.swipperSlide{
-               width: 390px !important;
+                        .swiper-slide{
+            //    width: 350px !important;
+               display: flex;
+               justify-content: center; 
                             
                         }
                         .featureCardContainer{
