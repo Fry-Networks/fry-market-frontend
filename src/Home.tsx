@@ -4,7 +4,7 @@ import { useWallet } from '@txnlab/use-wallet'
 import algosdk, { Transaction } from 'algosdk'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
-import { cancelAuction, cancelBid, claimNft, createBid, deployAuction, getAllAuctions, getAllBids, listNftAuction } from './auctionMethod'
+import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllAuctions, getAllBids, listNftAuction } from './auctionMethod'
 import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
@@ -182,7 +182,7 @@ const Home: React.FC<HomeProps> = () => {
   }
 
   const claimAuctionNft = async () => {
-    const claim = await claimNft(activeAddress!, signer, selected.nftAddress, selected.bidContract, selected.highestBidAmount, selected.sellerId, signTransactions, sendTransactions)
+    const claim = await claimNftRoyalty(activeAddress!, signer, selected.nftAddress, selected.bidContract, selected.highestBidAmount, selected.sellerId)
   }
 
 
