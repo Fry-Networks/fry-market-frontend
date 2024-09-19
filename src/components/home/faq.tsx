@@ -1,6 +1,9 @@
 import { Collapse, theme } from "antd";
 import minus from "/src/assets/icons/minus.svg";
 import plus from "/src/assets/icons/plus.svg";
+import leftGlow from "../../assets/home/images/leftGlow.png";
+import rightGlow from "../../assets/home/images/homeImages/faqRightt.webp";
+
 
 const text1 = `
 An NFT (Non-Fungible Token) is a unique digital asset that represents ownership or proof of authenticity of a specific item or piece of content, often associated with digital art, collectibles, or virtual goods, and is stored on a blockchain.
@@ -44,7 +47,10 @@ const Faq = () => {
   };
 
   return (
-    <div className="faqWrapper mb-52 md:mb-20">
+    <div className="faqWrapper my-52 relative">
+          <img className="absolute bottom-[-800px] left-0 -z-10" src={leftGlow} alt="" />
+          <img className="absolute top-[-500px] right-0 -z-10" src={rightGlow} alt="" />
+
       <div className="container">
         <h2 className="font-bold font-Apex uppercase text-center tracking-wide darkBlack mb-10">
           Frequently Asked Questions

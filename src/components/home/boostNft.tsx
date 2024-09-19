@@ -1,14 +1,16 @@
 import boosterIcon from "../../assets/icons/boosterIvon.svg";
 import Button from "../shared/button";
+import leftGlow from "../../assets/home/images/leftGlow.png";
+import monkey from "../../assets/home/images/monkey2.webp";
 
 const BoostNft = () => {
   return (
     <>
       <div className="boostNftWrapper mb-52 relative md:mb-20">
-        <img className="absolute bottom-[-500px] left-0 -z-10" src="/src/assets/home/images/leftGlow.png" alt="" />
+        <img className="absolute bottom-[-500px] left-0 -z-10" src={leftGlow} alt="" />
         <div className="container">
           <div className="inner flex-center">
-            <div className="leftArea flex flex-col justify-start gap-20 w-3/5 border-2 border-slate-950">
+            <div className="leftArea flex flex-col justify-start gap-20 w-3/5 mt-24 border-2 border-slate-950">
               <div className="flex flex-col gap-2">
                 <h2 className="font-normal font-Apex uppercase text-left tracking-wide darkBlack">
                   Boost Your NFTs: Enhance Visibility and Value
@@ -25,7 +27,7 @@ const BoostNft = () => {
               ></Button>
             </div>
             <div className="rightArea w-2/5">
-              <img className="w-full h-full object-cover" src="/src/assets/home/images/monkey2.png" alt="" /></div>
+              <img className="w-full h-full object-cover max-w-[554px] max-h-[611px]" src={monkey} alt="" /></div>
           </div>
         </div>
       </div>

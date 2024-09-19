@@ -30,14 +30,122 @@
       }
       .socialLinks {
         .nftUserInfo {
+          .displayDiv{
+            .input-box{
+              label{
+
+              }
+              .input-wrapper{
+
+              }
+            }
+          }
           .input-box {
             .input-wrapper {
               box-shadow: none;
               input {
                 border: 3px solid #e7e7e7;
                 padding: 19px 30px 18px 30px;
+                padding-right: 140px;
               }
             }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:1100px) {
+  .profileSetting{
+    .container{
+      .inner{
+        width: 100%;
+        .uploadDiv{
+          button{
+            left: 42%;
+            top: 30%;
+          }
+        }
+
+        .formData {
+          width: 100%;
+          .nftUserInfo {
+            .displayDiv{
+              width: 100%;
+              .input-box{
+              width: 100% !important;
+                label{
+  
+                }
+                .input-wrapper{
+                  
+                }
+              }
+            }
+            .emailInput{
+              width: 100% !important;
+              .input-box {
+                width: 100% !important;
+                .input-wrapper {
+             width: 100%;
+                  input {
+                width: 100%;
+                 
+                  }
+                }
+              }
+            }
+          
+            .bio {
+              width: 100%;
+  
+              .textArea {
+                width: 100%;
+                
+              }
+            }
+          }
+        }
+
+        .socialLinks{
+          width: 100%;
+          .nftUserInfo{
+            width: 100%;
+            .emailInput{
+              width: 100% !important;
+              .input-box {
+                width: 100% !important;
+                .input-wrapper {
+             width: 100%;
+                  input {
+                width: 100%;
+                 
+                  }
+                }
+              }
+            }
+          }
+          .saveBtn {
+            width: 140px !important;
+            
+          }
+        }
+      }
+    }
+  }
+  
+}
+
+
+@media screen and (max-width:600px){
+  .profileSetting{
+    .container{
+      .inner{
+        width: 100%;
+        .uploadDiv{
+          button{
+            left: 36%;
+            top: 25%;
           }
         }
       }

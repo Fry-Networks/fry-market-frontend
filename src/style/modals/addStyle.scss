@@ -1,0 +1,132 @@
+.ant-modal-content {
+    .ant-modal-body {
+      .connectModal {
+        .newWallet{
+          .walletText{
+            padding-top: 70px !important;
+           }
+        }
+     
+        .innerContent {
+          .selectAvatar {
+            .part1,
+            .part2 {
+              position: relative;
+              transition: 0.7s ease-in-out;
+              &:hover {
+                background-image: linear-gradient(318deg, #fd0000 26.88%, #ff9292 105.85%);
+                transition: 0.7s ease-in-out;
+              }
+  
+              &.selected {
+                background-image: linear-gradient(318deg, #fd0000 26.88%, #ff9292 105.85%);
+              }
+  
+              .overlay {
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 95%;
+                height: 75%;
+                font-weight: 600;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.5);
+                color: #fff;
+                font-size: 25px;
+                padding: 5px 10px;
+                border-radius: 10px;
+                text-align: center;
+              }
+            }
+            .noneDiv{
+
+            }
+          }
+
+          .btnWrapper{
+            .bidCancel{
+
+            }
+
+            .bidPlace{
+
+            }
+          }
+        }
+      }
+    }
+  }
+  
+
+@media screen and (max-width:500px){
+    .ant-modal-content{
+        .ant-modal-body{
+            .connectModal{
+              .newWallet{
+                margin-top: 40px !important;
+                .walletText{
+                  
+                 }
+              }
+             .innerContent{
+                .selectAvatar {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+.noneDiv{
+    width: 230px;
+    img{
+        max-width: 227px ;
+    }
+}
+    .part1{
+width: 230px;
+
+img{
+    width: 100%;
+    object-fit:contain;
+    border-radius: 20px;
+    max-width: 100%;
+}
+button{
+    width: 100% !important;
+}
+    }
+    .part2{
+        width: 230px;
+        img{
+            width: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+        button{
+            width: 100% !important;
+        }
+    }
+                }
+
+                .btnWrapper{
+                  display: flex;
+                  justify-content: center;
+                  gap: 20px;
+                  .bidCancel{
+      width: 120px !important;
+      min-height: 45px !important;
+                  }
+      
+                  .bidPlace{
+                    width: 120px !important;
+                    min-height: 45px !important;
+                    
+                  }
+                }
+             }   
+            }
+        }
+    }
+    
+    
+}

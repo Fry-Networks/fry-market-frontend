@@ -9,19 +9,28 @@
 
 @media screen and (max-width:1000px) {
     .promptCard {
-        flex-direction: column;
-        width: 400px;
+        // flex-direction: column;
+        border: 3px solid red;
+      height: auto !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
         padding: 20px;
         .copy{
-            top: 50%;
+            // top: 110px;
+            // left: 320px;
+            left: 40%;
+            top: 40%;
         }
         
         .leftSide {
             width: 100%;
-            img{
-                width: 300px;
-                margin: 0 auto;
-            }
+            display: flex;
+            justify-content: center;
+            // img{
+            //     width: 300px;
+            //     margin: 0 auto;
+            // }
     
         }
         .rightSide{
@@ -33,14 +42,20 @@
 @media screen and (max-width:700px) {
     .promptCard {
         flex-direction: column;
-        width: 300px;
+        // width: 300px;
         padding: 20px;
         .copy{
-            top: 50%;
+             top: 220px;
+             left: 45%;
         }
         
         .leftSide {
             width: 100%;
+            img{
+                width: 100%;
+                max-width: 100%;
+                object-fit: cover;
+            }
          
     
         }

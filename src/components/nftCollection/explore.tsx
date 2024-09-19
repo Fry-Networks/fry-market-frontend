@@ -16,7 +16,9 @@ import headerImg3 from "../../assets/nftCollection/headerImg3.png";
 import headerImg4 from "../../assets/nftCollection/headerImg4.png";
 import headerImg5 from "../../assets/nftCollection/headerImg5.png";
 import headerImg6 from "../../assets/nftCollection/headerImg6.png";
-
+import leftGlow from "../../assets/nftCollection/redGloww.webp";
+import rightGlow from "../../assets/nftCollection/rightGlow.webp";
+import exploreGrid from "../../assets/nftCollection/exploreGrid.webp";
 
 const Explore = () => {
   const [activeKey, setActiveKey] = React.useState("1");
@@ -107,7 +109,10 @@ const Explore = () => {
   ]
   return (
     <>
-      <div className="exploreWrapper mt-10 mb-52">
+      <div className="exploreWrapper mt-10 mb-52 relative">
+      <img src={rightGlow} className="absolute right-0 top-[-100px]" alt="" />
+        <img src={leftGlow} className="absolute bottom-[-500px] left-0" alt="" />
+        <img src={exploreGrid} className=" exploreGrid absolute bottom-[-500px] right-0" alt="" />
         <div className="container">
           <h2 className="font-normal font-Apex uppercase mb-10">
             EXPLORE COLLECTIONS

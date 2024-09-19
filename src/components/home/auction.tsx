@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import auctionBack from "../../assets/home/images/auction/auctionBack.png";
+import auctionBack from "../../assets/home/images/auction/auctionBack.webp";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
 import trendingNft2 from "../../assets/home/images/auction/auctionImg2.png";
 import trendingNft3 from "../../assets/home/images/auction/auctionImg3.png";
@@ -12,6 +12,7 @@ import userImg1 from "../../assets/home/images/card-userImg.png";
 import moreUp from "../../assets/icons/moreUpArrow.svg";
 import CollectionsCard from '../cards/collectionsCard';
 import Button from "../shared/button";
+import AuctionCard from '../cards/auctionCard';
 
 const Auction = () => {
   const navigate = useNavigate();
@@ -22,16 +23,16 @@ const Auction = () => {
   };
   return (
     <>
-      <div className="auctionWrapper mb-52 relative md:mb-20">
+      <div className="auctionWrapper mb-52 relative">
         {/* <img className=' auctionBack absolute left-[300px] -z-20' src={auctionBack} alt="" /> */}
         <div className="container">
           <h2 className="font-normal font-Apex uppercase mb-10">
             AUCTION
           </h2>
 
-          <div className="nftWrapper mt-10 grid grid-cols-4 gap-x-10 gap-y-7 relative z-20">
+          <div className="nftWrapper mt-10 grid grid-cols-4 gap-x-10 gap-y-9 relative z-20">
             {auctionCard.map((data, index) => (
-              <CollectionsCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
+           <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))}
           </div>
 

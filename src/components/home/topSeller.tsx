@@ -8,7 +8,7 @@ import sellerImg5 from "../../assets/home/images/topSeller/topsellerImg5.png";
 import sellerImg6 from "../../assets/home/images/topSeller/topsellerImg6.png";
 import sellerImg7 from "../../assets/home/images/topSeller/topsellerImg7.png";
 import sellerImg8 from "../../assets/home/images/topSeller/topsellerImg8.png";
-import sellerBack from "../../assets/home/images/topSeller/topsellerBack.png";
+import sellerBack from "../../assets/home/images/topSeller/topsellerBack.webp";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -17,8 +17,8 @@ const TopSeller = () => {
     const navigate= useNavigate();
   return (
 <>
-<div className="topsellerWrapper mb-52 relative lg:mb-20">
-    <img className='absolute top-[-500px] -z-10' src={sellerBack} alt="" />
+<div className="topsellerWrapper my-40 relative lg:mb-24">
+    <img className='absolute top-[-500px] right-0 w-full left-0 -z-10' src={sellerBack} alt="" />
 <div className="container">
     <div className='flex justify-between items-center headWrappr'>
     <h2 className="font-normal font-Apex uppercase mb-10">

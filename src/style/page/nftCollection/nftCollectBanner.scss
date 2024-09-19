@@ -1,99 +1,116 @@
-.nftBanner{
-   
-    .container{
-        .inner{
-            .leftArea{
+.nftBanner {
+  .container {
+    .inner {
+      .leftArea {
+      }
 
-            }
-
-            .rightArea{
-
-            }
-        }
+      .rightArea {
+      }
     }
+  }
 }
 
-@media screen and (max-width:1440px) {
-    .nftBanner{
-        height: auto;
-        overflow: hidden;
-        margin-top: 50px;
-     
-        .rightGrid {
-            width:600px;
-            top: 100px;
-     
-        }
-        .leftGlow{
-         
-        }
-        .container{
-            .inner{
-        
-                .leftArea{
-                    width: 50%;
-                    justify-content: center;
-                    align-items: center;
-                    h2{
-                        text-align: center;
-                    }
-                    .nft{
-                        font-size: 130px;
-                    }
-                    .collection{
-                        font-size: 60px;
-                    }
+@media screen and (max-width: 1440px) {
+  .nftBanner {
+    margin-top: 0px !important;
+    overflow: hidden;
     
-                }
-    
-                .rightArea{
-                    width: 50%;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-    img{
-
+.leftGlow{
+  display: none;
+}
+    .rightGrid {
+      width: 600px;
+      top: 100px;
     }
-                }
+    // .topGrid  {
+    //   top: -600px !important;
+    // }
+    .container {
+      .inner {
+        .leftArea {
+          width: 40%;
+          justify-content: center;
+          align-items: center;
+          // h2{
+          //     text-align: center;
+
+          // }
+        //   .nft {
+        //     font-size: 150px;
+        //     text-align: center;
+        //     .collection {
+        //       font-size: 50px;
+        //     }
+        //   }
+
+        .nft{
+            text-align: center;
+            display: flex;
+            font-size: 140px;
+            justify-content: center;
+            .collection{
+
             }
         }
+        }
+
+        .rightArea {
+          width: 50% !important;
+          max-width: 100% !important;
+          height: auto;
+          justify-content: center;
+          align-items: center;
+          display: flex;
+          img {
+   width: 500px;
+          }
+        }
+      }
     }
+  }
 }
 
-@media screen and (max-width:900px) {
-    .nftBanner{
-        height: auto;
-        margin-top: 0px;
-     
-        .container{
-            .inner{
+@media screen and (max-width: 1000px) {
+  .nftBanner {
+    margin-top: 0px;
+    margin-bottom: 0px !important;
+    height: auto;
+
+    .container {
+      .inner {
         flex-direction: column;
-        gap: 100px;
-                .leftArea{
-                    width: 100%;
-                    justify-content: center;
-                    align-items: center;
-                    .nft{
-                        font-size: 70px;
-                    }
-                    .collection{
-                        font-size: 50px;
-                    }
-                    h2{
-                        text-align: center;
-                    }
-    
-                }
-    
-                .rightArea{
-                    width: 100%;
-                    justify-content: flex-start;
-                    align-items: flex-start;
-    img{
-
-    }
-                }
-            }
+        gap: 30px;
+        height: auto;
+        .leftArea {
+          width: 100%;
+          justify-content:flex-start;
+          align-items: center;
+          height: auto;
+          .nft {
+            font-size: 60px;
+          }
+          .collection {
+            font-size: 40px;
+          }
+          h2 {
+            text-align: center;
+          }
         }
+
+        .rightArea {
+          width: 100%;
+          max-width: 100%;
+          justify-content: center;
+          align-items: center;
+          padding-bottom: 30px;
+          img {
+            max-width: 300px;
+            max-height: 330px;
+            margin: 0 auto;
+            object-fit: cover;
+          }
+        }
+      }
     }
-    
+  }
 }

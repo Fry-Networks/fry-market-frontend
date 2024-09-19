@@ -16,6 +16,7 @@ const Button = ({
   loading = false,
   maxWidth,
   padding,
+  isSelected
 }: any) => {
   const buttonStyle = {
     minHeight: minHeight,
@@ -32,16 +33,18 @@ const Button = ({
   if (loading) {
     disabled = true;
   }
+  // Applying the dynamic color 
+  const textColorClass = isSelected ? 'text-white' : 'text-black';
   return (
     <button
-      className={className}
+      className={` ${className} ${textColorClass} `}
       style={buttonStyle}
       onClick={onClick}
       disabled={disabled}
     >
       {loading ? (
         <>
-          <span className="flex justify-center  items-center gap-2">
+          <span className={`flex justify-center items-center gap-2 ${textColorClass}`}>
             {text}
             <img src={loader} alt="" className="w-5 rotate-360 invert" />
           </span>

@@ -2,15 +2,13 @@ import React from 'react'
 import PromptCard from './promptCard';
 import promptImg from "../../assets/createNft/pExample1.png";
 import promptImg2 from "../../assets/createNft/examp2.png";
-
 import promptImg3 from "../../assets/createNft/examp3.png";
-
 import promptImg4 from "../../assets/createNft/examp4.png";
 import promptImg5 from "../../assets/createNft/examp5.png";
 import promptImg6 from "../../assets/createNft/examp6.png";
 import promptImg7 from "../../assets/createNft/examp7.png";
 import promptImg8 from "../../assets/createNft/examp8.png";
-import promptBack from "../../assets/createNft/bannerBack.png";
+import promptBack from "../../assets/createNft/bannerBack.webp";
 
 
 
@@ -80,7 +78,7 @@ const PromptExample = () => {
   return (
  <>
  <div className="promptWrapper mb-52 relative">
-    <img src={promptBack} className='absolute top-0 left-0 -z-50' alt="" />
+    <img src={promptBack} className='absolute top-0 right-0 left-0 w-full -z-50' alt="" />
     <div className="container">
     <h2 className="font-bold font-Apex uppercase tracking-wide darkBlack mb-10">
     Prompt examples

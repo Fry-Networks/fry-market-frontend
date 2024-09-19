@@ -40,7 +40,7 @@ const UploadImage = ({ isuploadmodal, setisuploadmodal }: any) => {
         onOk={handleOk}
         onCancel={handleCancel}
         centered={true}
-        width={618}
+        width={511}
         footer={null}
       >
         <div className="connectModal">
@@ -51,7 +51,7 @@ const UploadImage = ({ isuploadmodal, setisuploadmodal }: any) => {
           </div>
           <div className="innerContent flex flex-col items-center gap-5 mt-4 ">
             <img src={redline} alt="" />
-            <div className="w-full">
+            <div className="w-full max-h-[285px] h-full">
               <Dragger {...props}>
                 <p className="ant-upload-drag-icon">
                   <img className="mx-auto" src={upoadIcon} alt="" />
@@ -60,7 +60,7 @@ const UploadImage = ({ isuploadmodal, setisuploadmodal }: any) => {
                   Drag and Drop here, or
                 </p>
                 <Button
-                  className="button btn-gray small font-normal font-Roboto mt-4"
+                  className="button btn-gray small font-normal font-Roboto mt-4 rounded "
                   minWidth={127}
                   minHeight={34}
                   text="Upload Profile"

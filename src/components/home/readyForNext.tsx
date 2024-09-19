@@ -1,20 +1,21 @@
 import sendIcon from "../../assets/icons/sendIcon.svg";
 import Input from "../shared/input";
+import readyDropIcon from "../../assets/home/images/homeImages/readyDropBtn.webp";
 
 const ReadyForNext = () => {
   const placeholderStyle = {
-    color: "red" /* Set your desired placeholder color */,
+    color: "red"
   };
   return (
     <>
       <div className="nextNftWrapper">
         <div className="container">
           <h2 className="font-bold font-Oxanium capitalize darkBlack mb-10 text-center">
-            Ready for Next NFT Drop?
+          Ready<span className="lowercase"> for  the</span> Next NFT Drop?
           </h2>
 
           <div
-            style={{ width: "680px", margin: "0 auto" }}
+            style={{ width: "680px", height:"96px", margin: "0 auto" }}
             className="relative nftDropInput"
           >
             <Input
@@ -23,18 +24,20 @@ const ReadyForNext = () => {
               inputClass="ex-large font-normal font-Roboto primary mx-auto  flex items-center justify-center custom-placeholder border-2 border-red-500"
               width={680}
               height={96}
+              minHeight={96}
               type="text"
               className="m-auto nftdropInput"
 
 
             />
-            <button className="absolute top-[14px] right-5  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2 rounded-lg">
+          
               <img
-                style={{ width: "32px", height: "32px" }}
-                src={sendIcon}
+              className="absolute top-[17px] right-8 object-cover cursor-pointer emailBtn"
+                style={{ width: "88px", height: "76px" }}
+                src={readyDropIcon}
                 alt=""
               />
-            </button>
+        
           </div>
         </div>
       </div>

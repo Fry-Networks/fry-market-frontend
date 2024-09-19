@@ -1,4 +1,4 @@
-import { DownOutlined, FilterOutlined } from '@ant-design/icons';
+import { DownOutlined, FilterOutlined,  ReloadOutlined } from '@ant-design/icons';
 import { TreeSelect } from 'antd';
 import { useRef, useState } from 'react';
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
@@ -13,11 +13,12 @@ import userImg1 from "../../assets/home/images/card-userImg.png";
 import '../../style/page/auction/topListed.scss';
 import AuctionCard from '../cards/auctionCard';
 import "../../style/page/auction/topListed.scss";
-import rightGlow from "../../assets/auction/rightGlow.png";
+import rightGlow from "../../assets/auction/rightGlow.webp";
 import { Collapse } from "antd";
 import filter from "../../assets/icons/filter.svg";
 import Button from "../shared/button";
 import search from "../../assets/icons/search.svg";
+import refresh from "../../assets/icons/refresh.svg";
 
 
 
@@ -33,6 +34,32 @@ const TopListed = () => {
   const onChange = (newValue: any) => {
     setValue(newValue);
   };
+  // const MyComponent= ()=> {
+
+  //   const [refreshValue, setRefreshValue] = useState();
+  
+
+    // const refresha = ()=>{
+    //     // re-renders the component
+    //     setRefreshValue({});
+    // }
+
+
+    
+
+  
+    // const handleRefresh = () => {
+    //   console.log("Refresh button clicked!");
+     
+    //   const shuffled = [...auctionList].sort(() => Math.random() - 0.5);
+    //   setAuctionList(shuffled);
+  
+    //   // If you have an API to fetch new data, you can call it here
+    //   // fetchAuctionData();
+    // };
+    // const handleRefresh = () => {
+    //   console.log("Refresh button clicked!");
+    // };
   const itemsNest = [
     {
       key: "1",
@@ -56,9 +83,9 @@ const TopListed = () => {
   };
   return (
     <>
-      <div className="topListedSection relative mb-52">
+      <div className="topListedSection relative mb-52 mt-14">
       <img className="absolute right-0 top-32 -z-20" src={rightGlow} alt="" />
-        <div className="absolute top-0 left-0 w-[200px] collapseDiv">
+        <div className="absolute top-0 left-0 w-[200px] z-30 collapseDiv">
       
 
           <Collapse
@@ -93,7 +120,51 @@ const TopListed = () => {
                         ),
                         children: (
                           <>
-                            {/* <p>{text}</p> */}
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
                            
                           </>
                         ),
@@ -103,10 +174,11 @@ const TopListed = () => {
                         label: "price",
                         children: (
                           <>
-                          <div className="w-full flex items-center justify-center gap-2 mt-3">
-                            <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
+                          <div className="w-full flex items-center justify-center gap-3 mt-3">
+                            <input type="number"  placeholder='Min' className="bg-black border-solid border-[3px]  rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
+                           
                             <p>to</p>
-                            <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
+                            <input type="number"  placeholder='Max' className="bg-black border-solid border-[3px] rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
 
                           </div>
                          <div className="mt-5 w-full flex-center">
@@ -154,7 +226,7 @@ const TopListed = () => {
 
                           <div className="whiteClr flex justify-between items-center">
                             <div className="leftPart flex items-center gap-2">
-                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
                               <p className="darkBlack medium font-Roboto font-normal">Red</p>
                             </div>
                             <div className="rightPart">
@@ -168,7 +240,7 @@ const TopListed = () => {
 
                           <div className="whiteClr flex justify-between items-center">
                             <div className="leftPart flex items-center gap-2">
-                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
                               <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
                             </div>
                             <div className="rightPart">
@@ -193,7 +265,51 @@ const TopListed = () => {
                         ),
                         children: (
                           <>
-                            {/* <p>{text}</p> */}
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
                            
                           </>
                         ),
@@ -210,7 +326,51 @@ const TopListed = () => {
                         ),
                         children: (
                           <>
-                            {/* <p>{text}</p> */}
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
                            
                           </>
                         ),
@@ -226,14 +386,58 @@ const TopListed = () => {
                         ),
                         children: (
                           <>
-                            {/* <p>{text}</p> */}
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
                            
                           </>
                         ),
                       },
 
                       {
-                        key: "1-6",
+                        key: "1-7",
                         label: (
                           <div className="flex items-center justify-between">
                             <span>Head</span>
@@ -242,7 +446,51 @@ const TopListed = () => {
                         ),
                         children: (
                           <>
-                            {/* <p>{text}</p> */}
+                        <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                        <img src={search} alt="" />
+                          <input 
+                           type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                       
+                        </div>
+
+                        <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">White</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                            </div>
+
+                          </div>
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                            </div>
+
+                          </div>
+
+
+
+
+                          <div className="whiteClr flex justify-between items-center">
+                            <div className="leftPart flex items-center gap-2">
+                              <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                              <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                            </div>
+                            <div className="rightPart">
+                              <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                            </div>
+
+                          </div>
+                        </div>
                            
                           </>
                         ),
@@ -251,28 +499,22 @@ const TopListed = () => {
                   />
                 ),
               },
-              // {
-              //   key: "2",
-              //   label: "This is panel header 2",
-              //   children: <p>{text}</p>,
-              // },
-              // {
-              //   key: "3",
-              //   label: "This is panel header 3",
-              //   children: <p>{text}</p>,
-              // },
+             
             ]}
           />
         </div>
         <div className="container">
-          <div className="topListedInner">
-            <h2 className="font-normal font-Apex uppercase mb-10">TOP LISTED</h2>
-            <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">
-              {auctionData.map((data) => (
-                <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
-              ))}
-            </div>
-          </div>
+        <div className="topListedInner flex justify-between items-center mb-10">
+    <h2 className="font-normal font-Apex uppercase ">TOP LISTED</h2>
+    <button className="flex items-center font-normal ex-small lightGray font-Roboto">
+      <img onClick={() => window.location.reload()} src={refresh} className="mr-4"/> Refreshed A While Ago
+    </button>
+  </div>
+  <div className="auctionCarContainer mt-10 grid grid-cols-4 grid-rows-3 gap-x-10 gap-y-7 relative z-20">
+    {auctionData.map((data) => (
+      <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
+    ))}
+  </div>
         </div>
       </div>
     </>

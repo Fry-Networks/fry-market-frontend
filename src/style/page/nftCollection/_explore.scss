@@ -78,7 +78,7 @@
 
 
 
-@media screen and (max-width: 1380px) {
+@media screen and (max-width: 1300px) {
   .exploreWrapper {
     overflow: hidden;
     margin-bottom: 50px;
@@ -111,32 +111,19 @@
                   }
                 }
               }
-              .ant-tabs-content-holder {
-                .ant-tabs-content-holder {
-                  .ant-tabs-tabpane {
-                    .popularcardContainer {
-                      display: grid;
-                      grid-template-columns: repeat(2, 1fr) !important;
-                    }
-                  }
-                }
-              
-            }
+           
           }
         }
      
       }
     }
   }
-  .popularcardContainer{
-    grid-template-columns: repeat(2,1fr);
-    place-items: center;
-    column-gap: 20px;
-  }
+
 }
 
-@media screen and (max-width:1200px) {
+@media screen and (max-width:1170px) {
   .exploreWrapper {
+    margin-bottom: 70px !important;
     .container {
       h2{
         
@@ -177,15 +164,22 @@
     }
   }
   .popularcardContainer{
-
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important;
+    place-items: center;
+    column-gap: 20px;
   }
 }
 
 @media screen and (max-width:950px) {
   .exploreWrapper {
    // border: 2px solid green;
+   margin-bottom: 40px !important;
     overflow-x: hidden;
     .container {
+      h2{
+        text-align: center;
+      }
       .tabSection {
 
           .ant-tabs {

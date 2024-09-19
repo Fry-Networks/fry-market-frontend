@@ -22,7 +22,7 @@ import card3BodyImg4 from "../../assets/home/images/topCollections/card3BodyImg4
 import card3BodyImg5 from "../../assets/home/images/topCollections/card3BodyImg5.png";
 import card3BodyImg6 from "../../assets/home/images/topCollections/card3BodyImg6.png";
 import card3BtmImg from "../../assets/home/images/topCollections/card3BtmImg.png";
-import colectionBack from "../../assets/home/images/topCollections/topCollectionBack.png";
+import colectionBack from "../../assets/home/images/topCollections/topCollectionBackk.webp";
 import { useNavigate } from "react-router-dom";
 
 const TopCollections = () => {
@@ -30,7 +30,7 @@ const TopCollections = () => {
 
   return (
     <>
-      <div className="topCollectionWrapper mb-52 relative">
+      <div className="topCollectionWrapper my-52 relative">
         <img
           className="colectionBack absolute top-[-400px] -z-10"
           src={colectionBack}

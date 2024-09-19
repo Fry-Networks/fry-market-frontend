@@ -11,14 +11,14 @@ import nftImg4 from "../../assets/home/images/cardImg4.png";
 import CollectionsCard from '../cards/collectionsCard';
 
 import { useWallet } from "@txnlab/use-wallet";
-import pageGlow from "../../assets/artistsProfile/artistGlow.png";
+
+import pageGlow from "../../assets/artistsProfile/artistGlow.webp";
 import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
 import { getAllCollectionNft } from "../../fryMarketMethods";
 import Loader from "../Loader";
-
 const ProfileNft = () => {
 
     const [activeKey, setActiveKey] = React.useState("1");
@@ -140,7 +140,7 @@ const ProfileNft = () => {
   return (
  <>
  <div className="profileNft mt-24 relative">
-  <img className='absolute top-[-900px]' src={pageGlow} alt="" />
+  <img className='absolute top-[-900px] w-full -z-30' src={pageGlow} alt="" />
 <div className="container">
     <div className="nftContainer">
     <Tabs
