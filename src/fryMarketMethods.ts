@@ -1,11 +1,14 @@
 import * as algokit from '@algorandfoundation/algokit-utils';
+import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account';
+import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client';
 import algosdk, { Transaction, TransactionSigner } from 'algosdk';
 import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
-const FRY_MARKET_ID: bigint = 717737375n;
+// const FRY_MARKET_ID: bigint = 717737375n;  // previous working market
+const FRY_MARKET_ID: bigint = 722259757n;
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
-const FEE_PERCENT: number = 5000;  // 100 represent 1% & 10000 represent 100%
+const FEE_PERCENT: number = 3000;  // 100 represent 1% & 10000 represent 100%
 const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ";
 const FRY_TOKEN_ID: bigint = 717187263n;
 
@@ -31,7 +34,7 @@ const getIndexerClient = async (): Promise<algosdk.Indexer> => {
     return indexer
 }
 
-const createFryMarketClient = async (signer: TransactionSigner, activeAddress: string) => {
+const createFryMarketClient = async (signer: TransactionSigner, activeAddress: string, appId?: number) => {
     algokit.Config.configure({ populateAppCallResources: true });
 
     const algodConfig = getAlgodConfigFromViteEnvironment()
@@ -46,7 +49,7 @@ const createFryMarketClient = async (signer: TransactionSigner, activeAddress: s
 
     const marketClient = new FryMarketClient({
         resolveBy: 'id',
-        id: FRY_MARKET_ID,
+        id: appId ?? FRY_MARKET_ID,
         sender: { addr: activeAddress!, signer },
     }, algorandClient.client.algod
     )
@@ -54,8 +57,61 @@ const createFryMarketClient = async (signer: TransactionSigner, activeAddress: s
     return { marketClient, algorandClient, algodClient }
 }
 
+
+export const deployMarketplace = async (sender: string, signer: TransactionSigner, royaltyBasis: number, feePercent: number) => {
+    try {
+        const indexer = await getIndexerClient();
+
+        const algodClient = await getAlgodClient()
+        const appDetails = {
+            resolveBy: 'creatorAndName',
+            sender: { signer, addr: sender } as TransactionSignerAccount,
+            creatorAddress: sender,
+            findExistingUsing: indexer,
+        } as AppDetails
+
+        const marketplace = new FryMarketClient(appDetails, algodClient)
+
+        const market = await marketplace.create.initMarket({ fryId: FRY_TOKEN_ID, feePercent: BigInt(feePercent), admin: FEE_WALLET, royaltyBasis: BigInt(royaltyBasis) }).then((res) => {
+            console.log(res)
+            return res
+        }).catch((e) => {
+            console.log(e)
+            return e
+        })
+
+        console.log(market.appId)
+
+        const { marketClient, algorandClient } = await createFryMarketClient(signer, sender, market.appId)
+
+
+        await algorandClient.send.payment({
+            sender,
+            receiver: algosdk.getApplicationAddress(market.appId),
+            amount: algokit.algos(0.1 + 0.1),
+            extraFee: algokit.algos(0.001)
+        })
+        if (market.appId) {
+            const mbrPay = await algorandClient.transactions.payment({
+                sender,
+                receiver: algosdk.getApplicationAddress(market?.appId),
+                amount: algokit.algos(0.1),
+                extraFee: algokit.algos(0.002),
+                signer
+            })
+            const optInAsset = await marketClient.optInAsset({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
+                console.log(res)
+            })
+        }
+
+        console.log("market", market)
+        return market
+
+    } catch (e) { console.log(e) }
+}
+
 //!Marketplace functions
-const BOX_PRICE = 2500 + 400 * 81
+const BOX_PRICE = 2500 + 400 * 88
 export const listNft = async (
     sender: string,
     assetId: bigint,
@@ -121,10 +177,10 @@ export const updateNftListPrice = async (
     sender: string,
     assetId: bigint,
     signer: TransactionSigner,
-    newPrice: bigint
+    newPrice: number
 ) => {
     const { marketClient } = await createFryMarketClient(signer, sender)
-    const buyTxn = await marketClient.updatePrice({ asset: assetId, price: newPrice });
+    const buyTxn = await marketClient.updatePrice({ asset: assetId, price: BigInt(newPrice) });
     console.log(buyTxn.transaction)
 }
 
@@ -178,7 +234,43 @@ export const buyNft = async (
         signer
     })
 
-    const buyNft = await marketClient.buyNft({ asset: assetId, xfer, xferFee: xfer_fee }, { sendParams: { fee: algokit.algos(0.002) } });
+    const buyNftTx = await marketClient.buyNft({ asset: assetId, xfer, xferFee: xfer_fee }, { sendParams: { fee: algokit.algos(0.002) } });
+    console.log(buyNftTx.transaction)
+}
+
+export const buyNftWithRoyalty = async (
+    sender: string,
+    assetId: bigint,
+    signer: TransactionSigner,
+    seller: string,
+    price: number
+) => {
+    const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
+
+    const fee = (price * FEE_PERCENT) / 10000
+
+    const accountInfo = await algodClient.accountInformation(sender).do();
+    const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === parseInt(assetId.toString()));
+
+    if (!hasOptedIn) {
+        await algorandClient.send.assetTransfer({
+            sender,
+            receiver: sender,
+            assetId: assetId,
+            amount: BigInt(0)
+        })
+    }
+
+
+    const xfer = await algorandClient.transactions.assetTransfer({
+        sender,
+        assetId: FRY_TOKEN_ID,
+        receiver: FRY_MARKET_ADDRESS,
+        amount: BigInt(price + fee),
+        signer
+    })
+
+    const buyNft = await marketClient.buyNftRoyalty({ asset: assetId, admin: FEE_WALLET, seller: seller, fryId: FRY_TOKEN_ID, xfer }, { sendParams: { fee: algokit.algos(0.005) } });
     console.log(buyNft.transaction)
 }
 
@@ -188,9 +280,11 @@ export interface Listing {
     price: number,
     list_count: number,
     listTime: number,
-    listed: boolean,
     imgUrl: string,
-    name: string
+    name: string,
+    isListed: boolean,
+    isSold: boolean,
+    isCancelled: boolean
 }
 
 export const getAllListed = async (): Promise<Listing[]> => {
@@ -205,7 +299,9 @@ export const getAllListed = async (): Promise<Listing[]> => {
         const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
         const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
         const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-        const listed = algosdk.decodeUint64(box.slice(-1), "safe")
+        const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+        const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
+        const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
 
         let listingData: Listing = {
             assetId: decoded,
@@ -213,7 +309,9 @@ export const getAllListed = async (): Promise<Listing[]> => {
             price: listedPrice,
             list_count: listedCount,
             listTime: listTime,
-            listed: listed == 1 ? true : false,
+            isListed: listed == 1 ? true : false,
+            isSold: sold == 1 ? true : false,
+            isCancelled: canceled == 1 ? true : false,
             name: nftData?.params?.name,
             imgUrl: nftData?.params?.url
         }
@@ -288,7 +386,9 @@ export const getAllCollectionWListed = async (sender: string) => {
                 const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
                 const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
                 const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-                const listed = algosdk.decodeUint64(box.slice(-1), "safe")
+                const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+                const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
+                const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
 
                 let listingData: Listing = {
                     assetId: decoded,
@@ -296,7 +396,9 @@ export const getAllCollectionWListed = async (sender: string) => {
                     price: listedPrice,
                     list_count: listedCount,
                     listTime: listTime,
-                    listed: listed == 1 ? true : false,
+                    isListed: listed == 1 ? true : false,
+                    isSold: sold == 1 ? true : false,
+                    isCancelled: canceled == 1 ? true : false,
                     name: nftData?.params?.name,
                     imgUrl: nftData?.params?.url
                 }
@@ -326,7 +428,9 @@ export const getAllListedByUser = async (user: string): Promise<Listing[]> => {
         const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
         const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
         const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-        const listed = algosdk.decodeUint64(box.slice(-1), "safe")
+        const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+        const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
+        const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
 
         let listingData: Listing = {
             assetId: decoded,
@@ -334,15 +438,56 @@ export const getAllListedByUser = async (user: string): Promise<Listing[]> => {
             price: listedPrice,
             list_count: listedCount,
             listTime: listTime,
-            listed: listed == 1 ? true : false,
+            isListed: listed == 1 ? true : false,
+            isSold: sold == 1 ? true : false,
+            isCancelled: canceled == 1 ? true : false,
             name: nftData?.params?.name,
             imgUrl: nftData?.params?.url
         }
-        if (listingData.seller === user && listingData.listed === true) {
+        if (listingData.seller === user && listingData.isListed === true) {
             listings.push(listingData)
         }
 
 
     }))
+    return listings
+}
+
+
+export const getMarkeGlobalState = async (): Promise<Listing[]> => {
+    const algod = await getAlgodClient()
+    const listings: Listing[] = [];
+    const boxes = await algokit.getAppGlobalState(FRY_MARKET_ID, algod);
+    console.log(boxes)
+    // await Promise.all(boxes.map(async (bx) => {
+    //     const decoded = algosdk.decodeUint64(bx.nameRaw, "safe")
+    //     let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
+    //     const nftData = await algod.getAssetByID(decoded).do();
+    //     const sellerId = algosdk.encodeAddress(box.slice(0, 32))
+    //     const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
+    //     const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
+    //     const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
+    //     const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+    //     const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
+    //     const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+
+    //     let listingData: Listing = {
+    //         assetId: decoded,
+    //         seller: sellerId,
+    //         price: listedPrice,
+    //         list_count: listedCount,
+    //         listTime: listTime,
+    //         isListed: listed == 1 ? true : false,
+    //         isSold: sold == 1 ? true : false,
+    //         isCancelled: canceled == 1 ? true : false,
+    //         name: nftData?.params?.name,
+    //         imgUrl: nftData?.params?.url
+    //     }
+    //     if (listingData.seller === user && listingData.isListed === true) {
+    //         listings.push(listingData)
+    //     }
+
+
+    // }))
     return listings
 }
