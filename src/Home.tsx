@@ -26,6 +26,8 @@ const Home: React.FC<HomeProps> = () => {
   const [selected, setSelected] = useState<any>()
   const [bidAmount, setBidAmount] = useState<number>(0)
   const [minBidAmount, setMinBidAmount] = useState<number>(0)
+  const [bidEndTime, setBidEndTime] = useState<any>()
+
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
@@ -152,7 +154,7 @@ const Home: React.FC<HomeProps> = () => {
 
   const listNftToAuction = async () => {
     try {
-      const init = await listNftAuction(activeAddress!, signer, parseInt(assetId.toString()), bidAmount * 1000000, minBidAmount * 1000000, Math.floor(Date.now() / 1000), (Math.floor(Date.now() / 1000)) + 86400)
+      const init = await listNftAuction(activeAddress!, signer, parseInt(assetId.toString()), bidAmount * 1000000, minBidAmount * 1000000, Math.floor(Date.now() / 1000), bidEndTime)
       console.log("init", init)
       enqueueSnackbar(`listed`, {
         autoHideDuration: 3000,
@@ -259,7 +261,7 @@ const Home: React.FC<HomeProps> = () => {
     })();
   }, [selected])
 
-  console.log("selected", selected)
+  console.log(bidEndTime)
   return (
     <div className="hero min-h-screen bg-teal-400 flex flex-col items-center justify-center">
 
@@ -486,6 +488,8 @@ const Home: React.FC<HomeProps> = () => {
             <input type="number" value={bidAmount} className='border-2 border-black rounded p-2' onChange={(e) => { setBidAmount(parseFloat(e.target.value < '0' ? '0' : e.target.value)) }} />
             <label htmlFor="">Min Bid Amount</label>
             <input type="number" value={minBidAmount} className='border-2 border-black rounded p-2' onChange={(e) => { setMinBidAmount(parseFloat(e.target.value < '0' ? '0' : e.target.value)) }} />
+            <label htmlFor="">Bid End Time</label>
+            <input type="date" className='border-2 border-black rounded p-2 w-full' onChange={(e) => { setBidEndTime(Math.floor(new Date(e.target.value).getTime() / 1000)) }} />
             <button className="button btn-primary p-2 block w-full" onClick={auctionInit}>Init Auction</button>
             <button className="button btn-primary p-2 block w-full" onClick={listNftToAuction}>List Nft on Auction</button>
             <button className="button btn-primary p-2 block w-full" onClick={bid}>Bid</button>
