@@ -1,4 +1,3 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from "react-router-dom"
 import { ToastContainer } from 'react-toastify'
@@ -11,12 +10,13 @@ import './styles/main.css'
 
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <ErrorBoundary>
-        <ToastContainer />
-        <App />
-      </ErrorBoundary>
-    </BrowserRouter>
-  </React.StrictMode>,
+  // <React.StrictMode>
+  <BrowserRouter>
+    <ErrorBoundary>
+      <ToastContainer />
+      <App />
+    </ErrorBoundary>
+  </BrowserRouter>
+  // </React.StrictMode>
+
 )

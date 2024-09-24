@@ -58,7 +58,7 @@ if (import.meta.env.VITE_ALGOD_NETWORK === '') {
     // refer to https://github.com/TxnLab/use-wallet for detailed integration instructions
   ]
 }
-export const TokenContext = createContext();
+export const TokenContext = createContext<any>(null);
 
 export default function App() {
   const [openWalletModal, setOpenWalletModal] = useState<boolean>(false);

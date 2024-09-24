@@ -1,20 +1,39 @@
-import { Modal, Select, Space } from "antd";
+import { Modal, Select } from "antd";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
 
-const GenerateNft = ({ isgeneratemodal, setisgeneratemodal }: any) => {
+const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType, supply, selectedStyle }: any) => {
+
+  const navigate = useNavigate();
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
+  const handleConfirmButtonClick = () => {
+    setisgeneratemodal(false);
+    navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle } })
+  };
   const handleOk = () => {
     setisgeneratemodal(false);
+    navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle } })
   };
 
   const handleCancel = () => {
     setisgeneratemodal(false);
     console.log("Modal should close now");
   };
+
+  useEffect(() => {
+    console.log(inputValue);
+    console.log(nftType);
+    console.log(supply);
+    console.log(selectedStyle);
+
+
+  })
+
   return (
     <>
       <Modal
@@ -39,21 +58,23 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal }: any) => {
               {/* <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" /> */}
 
               <Select
-              className="border-solid border-2 border-[red] rounded-lg"
-              
-      defaultValue="single"
-      style={{ width: 370, height:"55px" }}
-      onChange={handleChange}
-      options={[
-        { value: 'single', label: 'Single NFT' },
-        { value: 'multiple', label: 'Multiple NFT' },
-     
-      ]}
-    />
+                className="border-solid border-2 border-[red] rounded-lg"
+
+                defaultValue={nftType}
+                value={nftType}
+                style={{ width: 370, height: "55px" }}
+                onChange={handleChange}
+                options={[
+                  { value: 'single', label: 'Single NFT' },
+                  { value: 'multiple', label: 'Multiple NFT' },
+
+                ]}
+                disabled={true}
+              />
             </div>
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Prompt</p>
-              <textarea className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red] h-[150px]" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus ornare ante, a mattis eros blandit non. " />
+              <textarea className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red] h-[150px]" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus ornare ante, a mattis eros blandit non. " value={inputValue} disabled={true} />
             </div>
 
             {/* <div className="serviceDiv w-full flex justify-between items-center mb-7 mt-3">
@@ -79,7 +100,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal }: any) => {
                 width={144}
                 minHeight={53}
                 text="CONFIRM"
-                onClick={handleCancel}
+                onClick={handleConfirmButtonClick}
               ></Button>
             </div>
           </div>

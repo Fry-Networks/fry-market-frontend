@@ -142,15 +142,25 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   minHeight={36}
                   text={label ? label : "List"}
                   onClick={() => {
-                    toast.promise(
-                      handleListNft(),
-                      {
-                        pending: "NFT is lisitng",
-                        error: "There was an error Listing NFT",
-                        success: "NFT listed successfully"
 
-                      }
-                    )
+
+                    if (label == "Buy") {
+                      toast.success("NFT Bought successfully")
+                    }
+                    else {
+
+                      toast.promise(
+                        handleListNft(),
+                        {
+                          pending: "NFT is lisitng",
+                          error: "There was an error Listing NFT",
+                          success: "NFT listed successfully"
+
+                        }
+                      )
+
+                    }
+
                   }}
                 />
               )

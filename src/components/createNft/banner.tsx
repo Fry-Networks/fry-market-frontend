@@ -1,5 +1,7 @@
 import { InputNumber, Select } from "antd";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import bannerImg from "../../assets/createNft/bannerImg.webp";
 import vectorBtm from "../../assets/icons/bottomVector.png";
 import generateIcon from "../../assets/icons/generateIcon.svg";
@@ -13,22 +15,35 @@ import Input from "../shared/input";
 
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
+  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+  const navigation = useNavigate();
   const showAddStyleModal = () => {
     setisstylemodal(true);
   };
 
   const [isgeneratemodal, setisgeneratemodal] = useState(false);
 
-  const showGenerateNftModal = () => {
-    setisgeneratemodal(true);
-  };
+
   const [inputValue, setInputValue] = useState("")
   const [supply, setSupply] = useState(1)
+  const [nftType, setNftType] = useState("single")
+  const showGenerateNftModal = () => {
+    if (inputValue && supply && nftType && selectedStyle) {
+      setisgeneratemodal(true);
+      // navigation("create-nft")
+    }
+    else {
+      toast.error("Please provide all details")
+    }
+
+  };
   const onChange = (value: any) => {
     console.log(`selected ${value}`);
+    setNftType(value);
   };
   const onSearch = (value: any) => {
     console.log("search:", value);
+    setNftType(value);
   };
 
   const onSupply = (value: any) => {
@@ -84,6 +99,7 @@ const Banner = () => {
                       height={70}
                       type="text"
                       className="m-auto"
+                      onChange={handleChange}
                     />
                     <button onClick={showGenerateNftModal} className="absolute top-[18px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
                       Generate
@@ -115,18 +131,18 @@ const Banner = () => {
                     /> */}
 
 
-<Select
-  className=""
-  defaultValue="Single NFT"
-  placeholder="Single NFT"
-  style={{ width: 270, height: "55px", color: "black" }}
-  suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
-  onChange={onChange}  // Make sure this is not preventing default behavior
-  options={[
-    { value: 'single', label: "Single NFT Image" },
-    { value: 'multiple', label: "Multi-NFT Collection" },
-  ]}
-/>                </div>
+                    <Select
+                      className=""
+                      defaultValue="Single NFT"
+                      placeholder="Single NFT"
+                      style={{ width: 270, height: "55px", color: "black" }}
+                      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
+                      onChange={onChange}  // Make sure this is not preventing default behavior
+                      options={[
+                        { value: 'single', label: "Single NFT Image" },
+                        { value: 'multiple', label: "Multi-NFT Collection" },
+                      ]}
+                    />                </div>
                   <div className="supplyDiv flex-center gap-4">
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>
                     <InputNumber
@@ -139,7 +155,7 @@ const Banner = () => {
                     />
                   </div>
                   <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
-                    <p className="lightGray font-normal medium font-Roboto">Add Styles</p>
+                    <p className="lightGray font-normal medium font-Roboto">{!selectedStyle ? "Add Styles" : selectedStyle}</p>
                     <img src={plus} alt="" />
                   </div>
 
@@ -159,12 +175,19 @@ const Banner = () => {
       <AddStyleModal
         isstylemodal={isstylemodal}
         setisstylemodal={setisstylemodal}
+        selectedStyle={selectedStyle}
+        setSelectedStyle={setSelectedStyle}
       />
 
 
       <GenerateNft
         isgeneratemodal={isgeneratemodal}
         setisgeneratemodal={setisgeneratemodal}
+        inputValue={inputValue}
+        nftType={nftType}
+        supply={supply}
+        selectedStyle={selectedStyle}
+
       />
     </>
   );
