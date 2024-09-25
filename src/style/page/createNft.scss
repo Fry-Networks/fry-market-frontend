@@ -35,7 +35,7 @@
     }
 
     .group:hover::before {
-        border-color: #FE0101;
+       // border-color: #FE0101;
     }
 }
 
@@ -46,6 +46,11 @@
 }
 
 .nftCollection {
+    form{
+        .textArea{
+            font-size: 18px !important;
+        }
+    }
     label {
         color: #2B2B2B;
         font-family: Roboto;
@@ -68,7 +73,7 @@
             padding: 19px 30px;
             color: #000;
             font-family: Roboto;
-            font-size: 16px;
+            font-size: 18px;
             font-style: normal;
             font-weight: 400;
             line-height: normal;
@@ -101,7 +106,7 @@
     }
 }
 
-@media screen and (max-width:1400px) {
+@media screen and (max-width:1300px) {
     .createNft{
         .container{
             .nftBtnContainer{
@@ -123,6 +128,7 @@
 
 @media screen and (max-width:1000px) {
     .createNft{
+        margin-top: 10px !important;
         .container{
             .nftBtnContainer{
 
@@ -140,7 +146,8 @@
         .container{
             .nftBtnContainer{
 justify-content: center;
-align-items: center;
+align-items: flex-start;
+gap: 20px;
 flex-direction: column;
                 .singlenft{
 

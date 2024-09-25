@@ -1,15 +1,38 @@
 .trendingNftWrapper{
-    .container{
-        .inner{
-
+    .container {
+        .inner {
+          .ant-select {
+            .ant-select-selector {
+                .ant-select-selection-search{
+                  .ant-select-selection-search-input{
+                    color: red;
+                  }
+                }
+              .ant-select-selection-item {
+                font-size: 18px !important;
+                color: var(--primary) !important;
+                font-weight: 400;
+                font-family: Roboto;
+                padding-left: 10px;
+              }
+            }
+          }
         }
+      }
+      .custom-dropdown .ant-select-item-option-content {
+        color: red !important; /* Change the text color of the options to red */
+      }
+}
+@media screen and (max-width:1440px){
+    .trendingNftWrapper{
+        margin-top: 0px !important;
+        margin-bottom: 140px !important;
     }
 }
-
 @media screen and (max-width:1320px){
     .trendingNftWrapper{
-        margin-bottom: 30px;
-        margin-top: 30px;
+        margin-bottom: 80px;
+        margin-top: 30px !important;
         .container{
             .inner{
                 // display: flex;
@@ -49,6 +72,7 @@
 
 @media screen and (max-width:750px) {
     .trendingNftWrapper{
+        margin-bottom: 90px !important;
         .container{
             .inner{
                 

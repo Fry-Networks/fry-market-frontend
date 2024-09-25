@@ -1,7 +1,6 @@
 import { useWallet } from "@txnlab/use-wallet";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import nftImg1 from "../../assets/home/images/cardImg1.png";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import { listNft } from "../../fryMarketMethods";
@@ -85,10 +84,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
   return (
     <>
       <div className="collectionCard flex flex-col gap-2 relative">
-        <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
+        <img className=" max-w-[388px] max-h-[411px] w-full h-full whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
-          <div className="t-left-part w-1/5 ">
-            <img src={nftImg1} alt="" />
+          <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
+            <img className="w-full h-full object-cover rounded-full" src={data.userImg} alt="" />
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
@@ -104,12 +103,13 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             className={` ${isSoldbtn ? " " : "hidden"
               } absolute w-full h-full top-0 left-0 flex items-center justify-center z-30`}
           >
-            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40"></div>
+            <div className="absolute w-full h-full top-0 left-0 bg-black opacity-40 rounded-xl"></div>
             <Button
-              className="relative z-10 button btn-primary ex-small font-semibold font-Apex"
+              className="relative z-10 button ex-small font-semibold rounded-lg outline-[3px] outline-solid outline-[rgba(253,253,253,0.15)] font-Apex text-white bg-[linear-gradient(318deg,_#FD0000_26.88%,_#BB5151_105.85%,_#FDFDFD_15%)]"
               minWidth={96}
               minHeight={37}
               text="Sold"
+
             />
           </div>
           <div
@@ -142,15 +142,25 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   minHeight={36}
                   text={label ? label : "List"}
                   onClick={() => {
-                    toast.promise(
-                      handleListNft(),
-                      {
-                        pending: "NFT is lisitng",
-                        error: "There was an error Listing NFT",
-                        success: "NFT listed successfully"
 
-                      }
-                    )
+
+                    if (label == "Buy") {
+                      toast.success("NFT Bought successfully")
+                    }
+                    else {
+
+                      toast.promise(
+                        handleListNft(),
+                        {
+                          pending: "NFT is lisitng",
+                          error: "There was an error Listing NFT",
+                          success: "NFT listed successfully"
+
+                        }
+                      )
+
+                    }
+
                   }}
                 />
               )
@@ -165,7 +175,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               </div>
             </button>
           </div>
-          <img className="rounded-lg" src={data?.params?.url ? data?.params?.url : data?.imgUrl ? data?.imgUrl : data.nftImg} alt="" />
+          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? data?.params?.url : data?.imgUrl ? data?.imgUrl : data.nftImg} alt="" />
         </div>
       </div>
 

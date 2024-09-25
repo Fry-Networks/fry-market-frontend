@@ -7,7 +7,7 @@
   --graybg: #E7E7E7;
   --white: #fff;
   --black: #000;
-
+--bodyBg:#FFF9F9;
 }
 
 .primary {
@@ -44,6 +44,9 @@
 
 .grayOpacity {
   color: var(--grayOpacity);
+}
+.bodyBg {
+  color: var(--bodyBg);
 }
 
 // Light Mode Style

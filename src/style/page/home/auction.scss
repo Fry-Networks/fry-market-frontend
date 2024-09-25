@@ -8,6 +8,7 @@
 
 @media screen and (max-width:1300px) {
     .auctionWrapper{
+        margin-bottom: 90px !important;
        // overflow-x: hidden;
         .auctionBack{
             display: none !important;
@@ -25,13 +26,13 @@
 @media screen and (max-width:1024px) {
     .auctionWrapper{
        // overflow-x: hidden;
-       margin-bottom: 50px;
+      margin-bottom: 80px !important;
        margin-top: 40px;
       
         .container{
             h2{
                 text-align: center;
-                margin-bottom: 0px;
+                margin-bottom: 40px;
             }
             .nftWrapper{
                 margin-top: 0px;
@@ -48,8 +49,9 @@
 @media screen and (max-width:800px) {
     .auctionWrapper{
        // overflow-x: hidden;
-      
+      margin-bottom: 90px !important;
         .container{
+            
             .nftWrapper{
                 display: grid;
                 grid-template-columns: repeat(1,1fr);

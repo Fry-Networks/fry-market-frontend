@@ -2,48 +2,45 @@
   min-height: 100vh;
   height: 100%;
   margin-bottom: 140px;
+  overflow-x: hidden; 
+.leftHand {
+  animation: customAni 7s linear  normal forwards;
+}
 
-  .leftHand {
-    animation: customAni 4s linear 1s normal forwards;
+@keyframes customAni {
+  0% {
+    left: -100%; // Start from off-screen
   }
 
-  // @keyframes customAni {
-  //     0% {
+  100% {
+    left: 0; // End at the edge of the screen
+  }
+}
 
-  //       left: -350px;
-  //     }
+.rightHand {
+  animation: customAnim 7s linear normal forwards;
+}
 
-  //     100% {
-
-  //       left: -120px;
-  //     }
-  //   }
-
-  .rightHand {
-    animation: customAnim 4s linear 1s normal forwards;
+@keyframes customAnim {
+  0% {
+    right: -100%; // Start from off-screen
   }
 
-  // @keyframes customAnim {
-  //     0% {
-
-  //       right: -350px;
-  //     }
-
-  //     100% {
-
-  //       right: -120px;
-  //     }
-  //   }
-  &::after {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    content: "";
-    top: 0px;
-    left: 0px;
-    background-color: transparent;
-    z-index: 1;
+  100% {
+    right: 0; // End at the edge of the screen
   }
+}
+  // &::after {
+  //   width: 100%;
+  //   height: 100%;
+  //   position: absolute;
+  //   content: "";
+  //   top: 0px;
+  //   left: 0px;
+  //   background-color: transparent;
+  //   z-index: 1;
+  // }
+
 
   h1 {
     line-height: 102px; /* 106.25% */
@@ -57,11 +54,18 @@
     margin: 0 auto;
     letter-spacing: 0.54px;
   }
+
+  .ant-select-single.ant-select-open .ant-select-selection-item {
+    font-size: 18px !important;
+    color: var(--primary) !important;
+    font-weight: 600;
+    font-family: Roboto;
+  }
 }
 @media screen and (max-width: 1440px) {
   .heroWrapper {
     height: auto;
-    margin-bottom: 80px;
+    margin-bottom: 140px !important;
     &:after {
       display: none;
     }
@@ -74,6 +78,7 @@
 
     .container {
       .inner {
+        padding-bottom: 0px;
         h1 {
           line-height: 100%;
           width: 100%;
@@ -85,13 +90,14 @@
 
 @media screen and (max-width: 1200px) {
   .heroWrapper {
+    margin-bottom: 30px !important;
     .container {
       .inner {
-        p{
+        p {
           width: 100%;
         }
         .heroCards {
-          .heroCardsw {
+          .heroCardContainer {
             display: none;
           }
           .nft-singleItem {
@@ -105,4 +111,16 @@
       }
     }
   }
+}
+
+@media screen and (max-width:800px) {
+  .heroWrapper{
+    margin-top: 20px !important;
+    .container{
+      .inner{
+
+      }
+    }
+  }
+  
 }

@@ -21,8 +21,9 @@
       .innerData {
         padding: 40px;
         flex-direction: column;
-        background-image: none !important;
-        background-color: red;
+        background-size: 100% 100%;
+        // background-image: none !important;
+        // background-color: red;
         height: auto;
         gap: 20px;
         align-items: center;
@@ -54,6 +55,27 @@
         .dataArea3 {
           text-align: center;
         }
+      }
+    }
+  }
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+  .footerWrapper {
+    height: auto;
+    .container {
+      .innerData {
+        padding: 40px;
+        flex-direction: column;
+  
+        background-image: none !important;
+        background-color: red;
+        border-radius: 20px;
+    
+    
       }
     }
   }

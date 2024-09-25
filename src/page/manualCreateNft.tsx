@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import selectNftGlow from '../assets/createNft/selectedNftGlow.png';
+import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
 import plus from '../assets/icons/plus.svg';
 import nft1 from "../assets/images/createNft/profilepic.png";
 import Loader from '../components/Loader';
@@ -245,10 +245,10 @@ const ManualCreateNft = () => {
         <>
             <div>
                 <div className="nftCollection mt-[107px] h-[110vh] relative">
-                    <img className="absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
+                    <img className="glow absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
                     <div className="container">
-                        <div className="flex gap-8 leftArea">
-                            <div className="leftContent flex flex-col items-start">
+                        <div className="contentWrapper flex gap-8 leftArea">
+                            <div className="leftContent  flex flex-col items-start">
                                 <div className='uploadDiv w-[300px]'>
                                     {/* <Upload
                                         name="avatar"
@@ -286,10 +286,10 @@ const ManualCreateNft = () => {
                                 </div>
                             </div>
 
-                            <div className="w-[992px]">
+                            <div className="w-[992px]  rightContent">
                                 {showOriginalContent ? (
-                                    <div>
-                                        <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px]">
+                                    <div className='rightText'>
+                                        <div className="manualDiv py-4 px-[89px] bg-white box-shadow rounded-[20px]">
                                             <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
                                                 MANUAL CREATE NFT
                                             </h2>
@@ -340,7 +340,7 @@ const ManualCreateNft = () => {
                                                 </div>
 
                                                 <div className="chooseCollection my-3">
-                                                    <div className="w-full flex justify-between items-center">
+                                                    <div className=" chooseContent w-full flex justify-between items-center">
                                                         <p className="darkBlack large font-medium font-Roboto">
                                                             Choose Collection
                                                         </p>
@@ -352,7 +352,7 @@ const ManualCreateNft = () => {
                                                         </p> */}
                                                     </div>
 
-                                                    <p className="lightGray text-[16px] font-Roboto font-normal mt-2">
+                                                    <p className="itemAppear lightGray text-[16px] font-Roboto font-normal mt-2">
                                                         (this is the collection where your item will appear)
                                                     </p>
                                                     <div className="newCollectionDiv flex gap-4 mt-4">

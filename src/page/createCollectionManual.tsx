@@ -1,9 +1,10 @@
 // @ts-ignore
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
+import { TokenContext } from "../App";
 import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
@@ -14,6 +15,8 @@ const CreateNftCollectionManual = () => {
   const [prevImage, setPrevImage] = useState("")
   const navigate = useNavigate();
   const { activeAccount } = useWallet()
+  // @ts-ignore
+  const { token }: any = useContext(TokenContext)
 
   const [formData, setFormData] = useState({
     collection_name: '',
@@ -34,6 +37,8 @@ const CreateNftCollectionManual = () => {
   };
 
   const validation = () => {
+    console.log("Dd", activeAccount?.address);
+
     if (formData.collection_name && formData.description && activeAccount?.address && prevImage) {
       return true
     }
@@ -46,6 +51,10 @@ const CreateNftCollectionManual = () => {
 
     try {
       return new Promise(async (resolve, reject) => {
+        // if (!token) {
+
+        //   reject(false);
+        // }
         try {
           const formDataForImage = new FormData;
           formDataForImage.append("images", prevImage);
@@ -90,7 +99,11 @@ const CreateNftCollectionManual = () => {
   const handleContinue = async (imageUrl: any) => {
     try {
 
-      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address });
+      const config = {
+        headers: { Authorization: `Bearer ${token}` }
+      };
+
+      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address }, config);
       console.log("Hehe", response.data);
       return true;
 

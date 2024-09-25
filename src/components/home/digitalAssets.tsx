@@ -1,12 +1,14 @@
-import digitalassetBack from "../../assets/home/images/topSeller/digitalAssetBack.png";
+import digitalassetBack from "../../assets/home/images/topSeller/digitalAssetBack.webp";
 import digittalGrid from "../../assets/home/images/topSeller/digitalGrid.png";
 import generateIcon from "../../assets/icons/generateIcon.svg";
 import Input from "../shared/input";
+import leftLines from "../../assets/home/images/homeImages/digitalGrid.webp";
 
 const DigitalAssets = () => {
   return (
     <>
-      <div className="digitalAssetWrapper mb-52 flex-col flex-center relative">
+      <div className="digitalAssetWrapper my-52 flex-col flex-center relative">
+        <img className="leftLines absolute top-[-400px] left-0 -z-60" src={leftLines} alt="" />
         <img className=" digitalGrid absolute bottom-[-400px] right-0" src={digittalGrid} alt="" />
         <img className="absolute top-40" src={digitalassetBack} alt="" />
         <div className="container">
@@ -25,7 +27,7 @@ const DigitalAssets = () => {
               className="m-auto my-72"
 
             />
-            <button className="absolute top-4 right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">Generate
+            <button className="absolute top-[13.5px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">Generate
               <img src={generateIcon} alt="" />
             </button>
           </div>

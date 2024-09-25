@@ -1,5 +1,4 @@
 import CollectionsCard from '../cards/collectionsCard';
-
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import collectNft1 from "../../assets/nftDetail/collectPic1.png";
 import collectNft3 from "../../assets/nftDetail/collectPic3.png";

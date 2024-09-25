@@ -1,41 +1,55 @@
 import Button from "../shared/button";
 import Input from "../shared/input";
-import settingBanerGlow from "../../assets/artistsProfile/settingBanerGlow.png";
-import midGlow from "../../assets/artistsProfile/midGlow.png";
+import settingBanerGlow from "../../assets/artistsProfile/settingBanerGlow.webp";
+import midGlow from "../../assets/artistsProfile/midGlow.webp";
+import uploadImgBanner from "../../assets/artistsProfile/uploadImgBanner.png";
+import UploadImage from "../../modals/uploadImage";
+import uploadBanner from "../../assets/artistsProfile/uploadImgBanner.png";
+import plusIcon from "../../assets/artistsProfile/plusIcon.png";
+import { useState } from "react";
 
 const ProfileSettingPage = () => {
+  const [isuploadmodal, setisuploadmodal] = useState(false);
+
+  const showImageModal = () => {
+    setisuploadmodal(true);
+  };
   return (
     <>
       <div className="profileSetting relative mb-20">
-        <img className="absolute top-[-180px] -z-30" src={settingBanerGlow} alt="" />
-        <img className="absolute bottom-[-100px] -z-30" src={midGlow} alt="" />
+        <img className="absolute top-[-180px] w-full -z-50 " src={settingBanerGlow} alt="" />
+        <img className="absolute bottom-[-100px] right-0 w-full -z-30" src={midGlow} alt="" />
 
         <div className="container">
           <div className="inner">
-            <div className="uploadDiv relative">
-              <button className="absolute top-[125px] left-[550px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg">
+          <div className="uploadDiv relative">
+              <button
+                onClick={showImageModal}
+                className="absolute top-[125px] left-[570px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
+              >
                 Upload Banner
               </button>
+              <img className="absolute bottom-[40px] left-[590px] cursor-pointer" src={plusIcon} alt=""   onClick={showImageModal} />
               <img
-                className="mt-7"
-                src="/src/assets/artistsProfile/uploadImgBanner.png"
+                className="my-7 mb-16"
+                src={uploadBanner}
                 alt=""
               />
-              <button className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">
+              <button   onClick={showImageModal} className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">
                 Upload Profile
               </button>
             </div>
 
-            <div className="formData w-[817px] h-auto mx-auto flex flex-col gap-12">
+            <div className="formData mt-12 w-[817px] h-auto mx-auto flex flex-col gap-12">
               <div className="nftUserInfo mb-11">
                 <div
-                  style={{
-                    width: "817px",
-                    height: "58px",
-                    margin: "0 auto",
-                    overflow: "visible",
-                  }}
-                  className="relative"
+                  // style={{
+                  //   width: "817px",
+                  //   height: "58px",
+                  //   margin: "0 auto",
+                  //   overflow: "visible",
+                  // }}
+                  className="relative displayDiv "
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -70,7 +84,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -100,7 +114,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -124,7 +138,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -134,8 +148,8 @@ const ProfileSettingPage = () => {
                     height={58}
                     type="text"
                     className="m-auto"
-                    label="x(Twitter)"
-                    labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
+                    label="X(Twitter)"
+                    labelClass="mb-1 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
                   <button
@@ -143,7 +157,7 @@ const ProfileSettingPage = () => {
                       background:
                         "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
                     }}
-                    className="absolute top-[50px] right-2  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
+                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
                   >
                     Connect
                   </button>
@@ -158,7 +172,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -169,7 +183,7 @@ const ProfileSettingPage = () => {
                     type="text"
                     className="m-auto"
                     label="Discord"
-                    labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
+                    labelClass="mb-1 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
                   <button
@@ -177,7 +191,7 @@ const ProfileSettingPage = () => {
                       background:
                         "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
                     }}
-                    className="absolute top-[50px] right-2  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
+                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
                   >
                     Connect
                   </button>
@@ -195,7 +209,7 @@ const ProfileSettingPage = () => {
                     margin: "0 auto",
                     overflow: "visible",
                   }}
-                  className="relative"
+                  className="relative emailInput"
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
@@ -206,7 +220,7 @@ const ProfileSettingPage = () => {
                     type="text"
                     className="m-auto"
                     label="Instagram"
-                    labelClass="mb-2 text-[20px] font-normal darkBlack font-Roboto"
+                    labelClass="mb-1 text-[20px] font-normal darkBlack font-Roboto"
                   />
 
                   <button
@@ -214,7 +228,7 @@ const ProfileSettingPage = () => {
                       background:
                         "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
                     }}
-                    className="absolute top-[50px] right-2  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
+                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
                   >
                     Connect
                   </button>
@@ -222,7 +236,7 @@ const ProfileSettingPage = () => {
               </div>
 
               <Button
-                className="button btn-primary medium font-Roboto font-medium flex justify-center items-center"
+                className=" saveBtn button btn-primary medium font-Roboto font-medium flex justify-center items-center"
                 width={179}
                 minHeight={53}
                 text="Save changes"
@@ -231,6 +245,10 @@ const ProfileSettingPage = () => {
           </div>
         </div>
       </div>
+      <UploadImage
+        isuploadmodal={isuploadmodal}
+        setisuploadmodal={setisuploadmodal}
+      />
     </>
   );
 };

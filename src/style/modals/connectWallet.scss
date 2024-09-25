@@ -1,35 +1,25 @@
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 25px !important;
 
-    .ant-modal{
-   
-        .ant-modal-content{
-            border-radius: 25px !important;
-       .ant-modal-body{
-        .connectModal{
-.innerContent{
-    .wltbtn{
-        position: relative;
-        background: white;
-        background-color: white;
-   
-    
-        // &::after{
-        //     background-image: url("../../assets/modals/gradientBorder.png");
-        //     bottom: -5px;
-        //     content: "";
-        //     left: -5px;
-        //     position: absolute;
-        //     right: -5px;
-        //     top: -5px;
-        //     z-index:-1;
-
-
-        // }
+    .ant-modal-body {
+      .connectModal {
+        .innerContent {
+          .wltbtn {
+            position: relative;
+            background: white;
+            background-color: rgb(190, 76, 76);
+          }
+          .enterAmount {
+            .ant-select {
+              width: 100% !important;
+              .ant-select-selector {
+                border: transparent;
+              }
+            }
+          }
+        }
+      }
     }
+  }
 }
-        }
-       }
-        }
-    }
-
-    
-   

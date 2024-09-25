@@ -3,21 +3,23 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../assets/icons/topSeller/logo.svg";
 import table1 from "../assets/icons/topSeller/ts1.svg";
-import table10 from "../assets/icons/topSeller/ts10.svg";
+import table10 from "../assets/icons/topSeller/tss10.webp";
 import table11 from "../assets/icons/topSeller/ts11.svg";
 import table2 from "../assets/icons/topSeller/ts2.svg";
 import table3 from "../assets/icons/topSeller/ts3.svg";
-import table4 from "../assets/icons/topSeller/ts4.svg";
+import table4 from "../assets/icons/topSeller/tss4.webp";
 import table5 from "../assets/icons/topSeller/ts5.svg";
-import table6 from "../assets/icons/topSeller/ts6.svg";
-import table7 from "../assets/icons/topSeller/ts7.svg";
+import table6 from "../assets/icons/topSeller/tss6.webp";
+import table7 from "../assets/icons/topSeller/tss7.webp";
 import table8 from "../assets/icons/topSeller/ts8.svg";
 import table9 from "../assets/icons/topSeller/ts9.svg";
 import ts2 from "../assets/images/topSellers/ts2.jpg";
 import ts3 from "../assets/images/topSellers/ts3.jpg";
-import ts1 from "../assets/images/topSellers/tss1.png";
+import ts1 from "../assets/images/topSellers/tss1.webp";
 import ReadyForNext from "../components/home/readyForNext";
 import Button from "../components/shared/button";
+import bannerback from "../assets/home/images/topSeller/bannerBack.webp";
+import leftGlow from "../assets/nftCollection/redGlow.webp";
 
 
 const TopSeller = () => {
@@ -199,19 +201,21 @@ const TopSeller = () => {
       title: "Collections",
       dataIndex: "image",
       key: "image",
-
-      render: (record: any) => (
-        <>
-          <img src={record?.image} alt="" />
-        </>
-
+      width: "330px",
+      render: (_: any, record: DataType, index: number) => (
+        <div className="flex items-center">
+          <span className="mr-4">{String(index + 1).padStart(2, '0')}</span>
+          <img src={record.image} alt={record.collection} className="mr-4" />
+          <span>{record.collection}</span>
+        </div>
       ),
-
     },
     {
       title: "Volume",
       dataIndex: "volume",
       key: "volume",
+      width:"156px",
+      
       render: (text: any) => (
         <div className="flex items-center">
           <img src={logo} alt="icon" className="mr-2" />
@@ -223,16 +227,19 @@ const TopSeller = () => {
       title: "Followers",
       dataIndex: "follower",
       key: "follower",
+      width:"172px",
     },
     {
       title: "24%",
       dataIndex: "percentage",
       key: "percentage",
+      width:"172px",
     },
     {
       title: "Floor Price",
       dataIndex: "price",
       key: "price",
+      width:"156px",
       render: (text: any) => (
         <div className="flex items-center">
           <img src={logo} alt="icon" className="mr-2" />
@@ -244,6 +251,7 @@ const TopSeller = () => {
       title: "Items",
       dataIndex: "items",
       key: "items",
+      width:"100px",
     },
   ];
 
@@ -258,30 +266,32 @@ const TopSeller = () => {
 
   return (
     <>
-
-      <div className="container">
-        <div className="flex  gap-[146px] items-center h-[80vh]">
-          <div>
+    <div className="topSell relative">
+<img className=" bannerBack absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
+<img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
+<div className="container">
+        <div className="flex bannerWrapper  gap-[146px] items-center h-[80vh]">
+          <div className="headingDiv w-1/2">
             <h2 className="font-bold font-Apex darkBlack">
               TOP <br />
               <span className="primary text-[128px]"> SELLERS</span>
             </h2>
           </div>
-          <div className="relative sellerImages">
+          <div className="relative sellerImages w-1/2">
             <img
               src={ts1}
               alt="image"
-              className="w-[362px] h-[397px] rounded-3xl z-30 relative"
+              className=" tsImage max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl z-30 relative"
             />
             <img
               src={ts3}
               alt="image"
-              className="w-[362px] h-[397px] rounded-3xl absolute left-24 top-0 rotate-[20deg]"
+              className="tsImage  max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl absolute left-24 top-0 rotate-[20deg]"
             />
             <img
               src={ts2}
               alt="image"
-              className="w-[362px] h-[397px] rounded-3xl absolute left-11 top-0 rotate-[10deg]"
+              className="tsImage max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl absolute left-11 top-0 rotate-[10deg]"
             />
           </div>
         </div>
@@ -293,10 +303,10 @@ const TopSeller = () => {
               defaultValue="Catagory"
               style={{
                 width: 138,
-                height: 48,
-                boxShadow: "4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
-                borderRadius: 8,
-
+                height:48,
+                boxShadow:"4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
+                borderRadius:8,
+              
               }}
               // className="btn-white"
               onChange={handleChange}
@@ -313,15 +323,16 @@ const TopSeller = () => {
               ]}
             />
           </div>
-          <Button className="btn-white" text="Last 30 days" />
+          <Button className="btn-white small font-semibold" text="Last 30 days" />
         </div>
 
-        <div>
+        <div className="collectionTable relative">
+
           <Table
             columns={columns}
             dataSource={data}
             pagination={false}
-
+         
             rowClassName="cursor-pointer"
             onRow={(record) => ({
               onClick: () => handleRowClick(record),
@@ -330,8 +341,10 @@ const TopSeller = () => {
           />
         </div>
       </div>
+    </div>
+   
       <ReadyForNext />
-
+      
     </>
   );
 };

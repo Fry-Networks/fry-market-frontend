@@ -11,7 +11,7 @@
             padding: 0px !important;
             border: none !important;
             .ant-collapse-header {
-              border-radius: 20px;
+              border-radius: 10px;
               padding: 23px 20px;
               //border-bottom: 2.8px solid #E7E7E7;
               background: #fff;
@@ -227,6 +227,8 @@
   .nftDetailBannerWrapper {
     .topSection {
       .leftArea {
+        height: 100%;
+        max-height: 100%;
       }
       .rightArea {
         .pixacioDiv {
@@ -258,12 +260,16 @@
 
 @media screen and (max-width: 1000px) {
   .nftDetailBannerWrapper {
+    margin-bottom: 120px !important;
     .topSection {
       flex-direction: column;
       .leftArea {
         width: 100%;
         .pixicoImg{
-          width: 300px;
+          width: 300px !important;
+          // height: 300px !important;
+          // max-width: 100% !important;
+          // max-height: 100% !important;
           margin: 0 auto;
         }
 
@@ -302,6 +308,7 @@
 
 @media screen and (max-width: 800px) {
   .nftDetailBannerWrapper {
+    margin-bottom: 50px !important;
   .leftGlow{
     display: none;
   }

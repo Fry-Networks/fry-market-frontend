@@ -1,18 +1,38 @@
 .digitalAssetWrapper{
+   // border: 2px solid fuchsia;
     .digitalGrid{
 
     }
     .container{
         .digitalInput{
-
+.input-box{
+    .input-wrapper{
+        padding-right: 130px;
+    }
+}
         }
     }
 }
 
-@media screen and (max-width:1300px) {
+@media screen and (max-width:1440px) {
     .digitalAssetWrapper{
+        // margin-top: 100px !important;
+        // margin-bottom: 100px !important;
         .digitalGrid{
             display: none;
+        }
+        .container{
+            .digitalInput{
+              
+              
+                height: auto;
+                .input-box{
+                 
+                }
+                button{
+                    top: 15px;
+                }
+            }
         }
      
     }
@@ -22,8 +42,12 @@
 
 @media screen and (max-width:1000px) {
     .digitalAssetWrapper{
- 
+ margin-bottom: 300px !important;
+ margin-top: 50px !important;
         .digitalGrid{
+            display: none;
+        }
+        .leftLines{
             display: none;
         }
         .container{
@@ -51,9 +75,9 @@
     
 }
 
-@media screen and (max-width:700px) {
+@media screen and (max-width:800px) {
     .digitalAssetWrapper{
-        margin-bottom: 30px;
+        margin-bottom: 75px !important;
     }
     
 }

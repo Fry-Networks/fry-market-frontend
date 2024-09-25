@@ -25,7 +25,7 @@ export default {
         xs: "100%",
         lg: "840px",
         lg10: "1024px",
-        xl: "1150px",
+        xl: "1150px", 
         "2xl": "1320px"  // Corrected to include 'px'
       },
     },

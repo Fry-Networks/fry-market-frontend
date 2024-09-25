@@ -1,26 +1,25 @@
-import bannerImg from "../../assets/artistsProfile/bannerImg.png";
-import glow from "../../assets/artistsProfile/createGlow.png";
+import bannerImg from "../../assets/artistsProfile/bannerImg.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 import Button from "../../components/shared/button";
 
 const ProfileBanner = () => {
   return (
     <>
-      <div className="profileBanner relative">
+      <div className="profileBanner mb-14 relative">
 
-        <img className="absolute top-[-200px] -z-10" src={glow} alt="" />
+        {/* <img style={{ zIndex: "-9999" }} className="absolute top-[-270px] right-0" src={glow} alt="" /> */}
         <div className="container">
           <div className="inner relative ">
 
 
 
             <img
-              className="mt-10 w-full z-90"
+              className="profilebanner mt-10 w-full z-90"
               src={bannerImg}
               alt=""
             />
             <Button
-              className="button btn-primary medium font-semibold font-Roboto absolute top-3 right-3"
+              className="btnFollow button btn-primary medium font-semibold font-Roboto absolute top-3 right-3"
               width={103}
               minHeight={53}
               text="Follow"

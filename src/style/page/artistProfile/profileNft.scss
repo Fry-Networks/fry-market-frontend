@@ -1,0 +1,119 @@
+.profileNft{
+
+    .container{
+        .nftContainer{
+.ant-tabs{
+    .ant-tabs-nav{
+        .ant-tabs-nav-wrap{
+            .ant-tabs-nav-list{
+            
+                .ant-tabs-tab {
+                 
+                    .ant-tabs-tab-btn{
+                    
+                    }
+                 
+                }
+            }
+        }
+    }
+
+    .ant-tabs-content-holder{
+        .ant-tabs-content{
+            .ant-tabs-tabpane{
+                .popularcardContainer{
+
+                }
+            }
+        }
+    }
+}
+        }
+    }
+}
+
+// .ant-tabs .ant-tabs-tab:hover {
+//     color: yellow !important;
+// }
+
+
+@media screen and (max-width:1320px) {
+    .profileNft{
+     
+        .container{
+            .nftContainer{
+    .ant-tabs{
+        .ant-tabs-nav{
+            .ant-tabs-nav-wrap{
+                .ant-tabs-nav-list{
+                    gap: 20px;
+                    .ant-tabs-tab {
+                        margin: 0px;
+                        .ant-tabs-tab-btn{
+                            padding: 10px 19px;
+                        }
+                     
+                    }
+                }
+            }
+        }
+
+        .ant-tabs-content-holder{
+            .ant-tabs-content{
+                .ant-tabs-tabpane{
+                    .popularcardContainer{
+                        grid-template-columns: repeat(3, 1fr);
+                        place-items: center;
+                    }
+                }
+            }
+        }
+    }
+            }
+        }
+    }
+    
+    
+}
+
+
+
+@media screen and (max-width:1170px) {
+    .profileNft{
+    
+        .container{
+            .nftContainer{
+    .ant-tabs{
+       
+        .ant-tabs-nav{
+            .ant-tabs-nav-wrap{
+                .ant-tabs-nav-list{
+            
+                    .ant-tabs-tab {
+                    
+                        .ant-tabs-tab-btn{
+                            font-size: 15px;
+                            padding: 10px 15px;
+                        }
+                     
+                    }
+                }
+            }
+        }
+        .ant-tabs-content-holder{
+            .ant-tabs-content{
+                .ant-tabs-tabpane{
+                    .popularcardContainer{
+                        grid-template-columns: repeat(2, 1fr);
+                        place-items: center;
+                    }
+                }
+            }
+        }
+    }
+            }
+        }
+    }
+    
+    
+}

@@ -1,10 +1,117 @@
 .featureWrapper {
+.container{
+    .top{
+        .topLeft{
 
+        }
+
+        .topRight{
+.swiper-button-prev{
+    opacity: 0;
 }
-@media screen and (max-width:1000px) {
+        }
+    }
+
+    .featureSwiper{
+        .swiper{
+            .swiper-wrapper{
+                padding-bottom: 30px;
+                .swiper-slide{
+
+                }
+                .featureCardContainer{
+
+                }
+            }
+        }
+    }
+}
+}
+@media screen and (max-width:1200px){
+    .featureWrapper {
+        .container{
+            .top{
+                flex-direction: column;
+                gap: 30px;
+                .topLeft{
+        
+                }
+        
+                .topRight{
+      
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width:1440px) {
     .featureWrapper{
-        margin-top: 30px !important;
-        margin-bottom: 30px;
+        margin-top: 0px !important;
+        margin-bottom: 140px !important;
+
+        .container{
+            .top{
+                .topLeft{
+        
+                }
+        
+                .topRight{
+       
+                }
+            }
+        
+            .featureSwiper{
+                .swiper{
+                    .swiper-wrapper{
+                        // display: grid;
+                        // grid-template-columns: repeat(3, 1fr);
+                        // place-items: center;
+                        .swiper-slide{
+                        //     display: grid;
+                        //        grid-template-columns: repeat(3, 1fr);
+                        // place-items: center;
+                        // width: 100%;
+                            
+                        }
+                        .featureCardContainer{
+                       
+                        }
+                    }
+                }
+            }
+        }
     }
     
+}
+
+@media screen and (max-width:900px){
+    .featureWrapper{
+    //  margin-top: 0px !important;
+    padding-top: 40px !important;
+       margin-bottom: 70px !important;
+
+        .container{
+         
+        
+            .featureSwiper{
+                // width: 100%;
+                // max-width: 850px; /* Ensure the swiper has enough space */
+                // margin: 0 auto; 
+                .swiper{
+                    .swiper-wrapper{
+                  
+                        .swiper-slide{
+            //    width: 350px !important;
+               display: flex;
+               justify-content: center; 
+                            
+                        }
+                        .featureCardContainer{
+                       
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

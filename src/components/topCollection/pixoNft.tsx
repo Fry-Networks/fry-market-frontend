@@ -23,6 +23,7 @@ import Button from "../shared/button";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
 import leftGlow from "../../assets/nftCollection/redGlow.webp";
 import pixoGrid from "../../assets/topCollection/topColectGrid.webp";
+import { useState } from "react";
 
 
 
@@ -30,24 +31,35 @@ import pixoGrid from "../../assets/topCollection/topColectGrid.webp";
 
 const PixoNft = () => {
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate("/nft-detail"); // Redirect to nft-detail page
+    navigate("/nft-detail"); 
   };
 
   const onTopList = (key: any) => {
     console.log(key);
   };
+
+  const [searchTerm, setSearchTerm] = useState(''); // State for search input
+
+  const handleSearchChange = (event:any) => {
+    setSearchTerm(event.target.value);
+  };
+
+
+  const filteredCards = trendingCard.filter(card =>
+    card.userName.toLowerCase().startsWith(searchTerm.toLowerCase())
+  );
   return (
     <>
       <div className="pixoNftContainer mb-52 relative">
 
-      <div className="absolute top-0 left-0 w-[200px] collapseDiv">
+      <div className="absolute top-0 left-0 w-[200px] z-50 collapseDiv">
       
 
       <Collapse
-      defaultActiveKey={['1']}
+       defaultActiveKey={['1']}
         onChange={onTopList}
         items={[
           {
@@ -65,7 +77,8 @@ const PixoNft = () => {
             ),
             children: (
               <Collapse
-                defaultActiveKey="1"
+             
+            
                 items={[
                   {
                     key: "1-1",
@@ -77,7 +90,51 @@ const PixoNft = () => {
                     ),
                     children: (
                       <>
-                        {/* <p>{text}</p> */}
+                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                    <img src={search} alt="" />
+                      <input 
+                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                   
+                    </div>
+
+                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">White</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                        </div>
+
+                      </div>
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                        </div>
+
+                      </div>
+                    </div>
                        
                       </>
                     ),
@@ -87,10 +144,11 @@ const PixoNft = () => {
                     label: "price",
                     children: (
                       <>
-                      <div className="w-full flex items-center justify-center gap-2 mt-3">
-                        <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
+                      <div className="w-full flex items-center justify-center  gap-3 mt-3">
+                        <input type="number"  placeholder='Min' className="bg-black  border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
+                       
                         <p>to</p>
-                        <button className="bg-black border-solid border-1 border-[red] text-white flex-center w-[76px] h-[44px] ">Min</button>
+                        <input type="number"  placeholder='Max' className="bg-black border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
 
                       </div>
                      <div className="mt-5 w-full flex-center">
@@ -138,7 +196,7 @@ const PixoNft = () => {
 
                       <div className="whiteClr flex justify-between items-center">
                         <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
                           <p className="darkBlack medium font-Roboto font-normal">Red</p>
                         </div>
                         <div className="rightPart">
@@ -152,7 +210,7 @@ const PixoNft = () => {
 
                       <div className="whiteClr flex justify-between items-center">
                         <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
                           <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
                         </div>
                         <div className="rightPart">
@@ -177,7 +235,51 @@ const PixoNft = () => {
                     ),
                     children: (
                       <>
-                        {/* <p>{text}</p> */}
+                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                    <img src={search} alt="" />
+                      <input 
+                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                   
+                    </div>
+
+                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">White</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                        </div>
+
+                      </div>
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                        </div>
+
+                      </div>
+                    </div>
                        
                       </>
                     ),
@@ -194,7 +296,51 @@ const PixoNft = () => {
                     ),
                     children: (
                       <>
-                        {/* <p>{text}</p> */}
+                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                    <img src={search} alt="" />
+                      <input 
+                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                   
+                    </div>
+
+                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">White</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                        </div>
+
+                      </div>
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                        </div>
+
+                      </div>
+                    </div>
                        
                       </>
                     ),
@@ -210,14 +356,58 @@ const PixoNft = () => {
                     ),
                     children: (
                       <>
-                        {/* <p>{text}</p> */}
+                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                    <img src={search} alt="" />
+                      <input 
+                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                   
+                    </div>
+
+                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">White</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                        </div>
+
+                      </div>
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                        </div>
+
+                      </div>
+                    </div>
                        
                       </>
                     ),
                   },
 
                   {
-                    key: "1-6",
+                    key: "1-7",
                     label: (
                       <div className="flex items-center justify-between">
                         <span>Head</span>
@@ -226,7 +416,51 @@ const PixoNft = () => {
                     ),
                     children: (
                       <>
-                        {/* <p>{text}</p> */}
+                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                    <img src={search} alt="" />
+                      <input 
+                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+                   
+                    </div>
+
+                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">White</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                        </div>
+
+                      </div>
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                        </div>
+
+                      </div>
+
+
+
+
+                      <div className="whiteClr flex justify-between items-center">
+                        <div className="leftPart flex items-center gap-2">
+                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                        </div>
+                        <div className="rightPart">
+                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                        </div>
+
+                      </div>
+                    </div>
                        
                       </>
                     ),
@@ -235,27 +469,18 @@ const PixoNft = () => {
               />
             ),
           },
-          // {
-          //   key: "2",
-          //   label: "This is panel header 2",
-          //   children: <p>{text}</p>,
-          // },
-          // {
-          //   key: "3",
-          //   label: "This is panel header 3",
-          //   children: <p>{text}</p>,
-          // },
+         
         ]}
       />
     </div>
-    <img src={rightGlow} className="absolute right-0 top-[200px] -z-10" alt="" />
-    <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-10" alt="" />
-    <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-10' alt="" />
+    <img src={rightGlow} className="absolute right-0 top-[200px] -z-50" alt="" />
+    <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-50" alt="" />
+    <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-50' alt="" />
 
         <div className="container">
           <div className="inner">
             <div className="searchDiv w-auto flex justify-end items-center mb-14">
-              <Input
+            <Input
                 wrapperClass="flex items-center justify-center border-2 border-solid border[#243c5a] bg-trasparent"
                 icon={search}
                 placeholder="Search by name"
@@ -264,20 +489,30 @@ const PixoNft = () => {
                 height={55}
                 type="text"
                 className="lightGray  border-2  border[#243c5a] bg-transparent"
-
+                value={searchTerm}
+                onChange={handleSearchChange}
               />
             </div>
 
-            <div className="cardsWrap grid grid-cols-4 gap-6">
-            {trendingCard.map((data) => (
-              <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
-                <CollectionsCard data={data} />
-              </div>
-            ))}
-          </div>
+
+            {filteredCards.length > 0 ? (
+                <div className="cardsWrap grid grid-cols-4 gap-6">
+                  {filteredCards.map((data) => (
+                    <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
+                      <CollectionsCard data={data} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                // Show "NFT not found" when no search results
+                <div className="text-center mt-10">
+                  <p className="text-red-500 font-bold text-xl">No Results Found</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+    
     </>
   );
 };
@@ -296,104 +531,104 @@ const trendingCard = [
   {
     id: 2,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "ALICE JOHNSON",
+    userEmail: "@Alice Johnson",
     nftImg: trendNft2,
     price: "142.02",
   },
   {
     id: 3,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "BOB SMITH",
+    userEmail: "@Bob Smith",
     nftImg: trendNft3,
     price: "142.02",
   },
   {
     id: 4,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "CHARLIE BROWN",
+    userEmail: "@Charlie Brown",
     nftImg: trendNft4,
     price: "142.02",
   },
   {
     id: 5,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "MASON CLARK",
+    userEmail: "@Mason Clark ",
     nftImg: trendNft5,
     price: "142.02",
   },
   {
     id: 6,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "JOE SMITH",
+    userEmail: "@Joe Smith",
     nftImg: trendNft6,
     price: "142.02",
   },
   {
     id: 7,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "ALLISON REED",
+    userEmail: "@Allison Reed",
     nftImg: trendNft7,
     price: "142.02",
   },
   {
     id: 8,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "TOM WILLIAMS",
+    userEmail: "@Tom Williams",
     nftImg: trendNft8,
     price: "142.02",
   },
   {
     id: 9,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "HOPPER MARTIN",
+    userEmail: "@Hopper Martin",
     nftImg: trendNft9,
     price: "142.02",
   },
   {
     id: 10,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "GEORGE TAYLOR",
+    userEmail: "@George Taylor",
     nftImg: trendNft10,
     price: "142.02",
   },
   {
     id: 11,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "ISSAC LEWIS",
+    userEmail: "@Issac Lewis",
     nftImg: trendNft11,
     price: "142.02",
   },
   {
     id: 12,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "JESSICA HALL",
+    userEmail: "@Jessica Hall",
     nftImg: trendNft12,
     price: "142.02",
   },
   {
     id: 13,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "LUCAS YOUNG",
+    userEmail: "@Lucas Young",
     nftImg: trendNft13,
     price: "142.02",
   },
   {
     id: 14,
     userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
+    userName: "NATHAN KING",
+    userEmail: "@Nathan King",
     nftImg: trendNft14,
     price: "142.02",
   },

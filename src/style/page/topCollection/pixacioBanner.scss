@@ -11,9 +11,10 @@
   }
 }
 
-@media screen and (max-width: 1440px) {
+@media screen and (max-width: 1300px) {
   .topCollectionBanner {
     height: auto;
+    margin-top: 0px !important;
     .grid {
       bottom: 0px;
       top: 30px;
@@ -21,14 +22,23 @@
     .container {
       .inner {
         margin-top: 50px;
+        gap: 40px;
         .leftArea {
+          width: 50%;
         }
         .rightArea {
+          width: 50%;
+
+      
           h2 {
             text-align: center;
           }
           .itemDiv {
             justify-content: center;
+            width: 100%;
+            div{
+              width: 100%;
+            }
           }
         }
       }

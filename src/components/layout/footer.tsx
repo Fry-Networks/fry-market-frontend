@@ -1,17 +1,19 @@
 import { Link } from "react-router-dom";
-import footerBg from "../../assets/home/images/footer.png";
-import footerLogo from "/src/assets/home/images/footerLogo.svg";
+import footerBg from "../../assets/home/images/footer.webp";
+import footerLogo from "/src/assets/home/images/footerLogo2.png";
 import discord from "/src/assets/icons/discord.svg";
 import facebook from "/src/assets/icons/facebook.svg";
 import insta from "/src/assets/icons/instagram.svg";
 import linkedIn from "/src/assets/icons/linkedin.svg";
 import telegram from "/src/assets/icons/telegram.svg";
 import tiktok from "/src/assets/icons/tiktok.svg";
+import footerGrid from "../../assets/home/images/homeImages/footerGrid.png";
 
 const Footer = () => {
   return (
     <>
-      <div className="footerWrapper my-10">
+      <div className="footerWrapper my-10 relative">
+      <img src={footerGrid} className="absolute top-0 left-0 -z-20" alt="" />
         <div className="container">
           <div
             style={{ backgroundImage: `url(${footerBg})` }}

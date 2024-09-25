@@ -22,7 +22,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
         width={415}
         footer={null}
       >
-        <div className="connectModal">
+        <div style={{zIndex:"9999"}} className="connectModal z-[9999]">
           <div className="w-full">
             <p className="fw-bold ex-large font-Apex font-normal darkBlack text-center">
               Place your bid
@@ -33,7 +33,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
             <img src={redline} alt="" />
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Enter bid amount</p>
-              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="text" />
+              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" />
             </div>
             <div className="serviceDiv w-full flex justify-between items-center">
               <p className="darkBlack font-Roboto medium font-normal">Service fee</p>
@@ -52,17 +52,19 @@ const PlaceBid = ({ isbidmodal, setisbidmodal }: any) => {
 
             <div className="btnWrapper w-full flex justify-between mt-3">
               <Button
-                className="button btn-whiteClr medium font-Roboto font-medium"
+                className="button btn-whiteClr medium font-Roboto font-medium bidCancel"
                 width={166}
                 minHeight={53}
                 text="Cancel"
+                onClick={handleCancel}
               ></Button>
 
               <Button
-                className="button btn-primary medium font-Roboto font-medium"
+                className="button btn-primary medium font-Roboto font-medium bidPlace"
                 width={166}
                 minHeight={53}
                 text="Place bid"
+                onClick={handleOk} 
               ></Button>
             </div>
           </div>

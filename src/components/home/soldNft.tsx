@@ -11,6 +11,7 @@ import soldNft6 from "../../assets/home/images/soldNft/soldNftImg6.png";
 import soldNft7 from "../../assets/home/images/soldNft/soldNftImg7.png";
 import soldNft8 from "../../assets/home/images/soldNft/soldNftImg8.png";
 import glow from "../../assets/home/images/heroGlow.png";
+import soldGlow from "../../assets/home/images/soldNft/soldGloww.webp";
 
 
 
@@ -20,10 +21,10 @@ const SoldNft = () => {
   return (
    <>
    <div className="soldNftWrapper mb-52 relative md:mb-20">
-    <img className='absolute bottom-[0px] right-[0px] w-full -z-40' src={glow} alt="" />
+    <img className='absolute bottom-[-500px] right-[0px] -z-40' src={soldGlow} alt="" />
     <div className="container">
     <h2 className="font-normal font-Apex uppercase mb-10">
-    SOLD NFT'S
+    RECENTLY SOLD
           </h2>
           <div className="soldCardContainer mt-10 grid grid-cols-4  gap-x-10 gap-y-7 relative z-50">
             {
