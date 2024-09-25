@@ -508,6 +508,15 @@ export const getAllUserNfts = async (user: string) => {
     return allNfts
 }
 
+//! get user balance
+
+export const userFryBalance = async (user: string): Promise<number> => {
+    const indexer = await getIndexerClient()
+    const nfts: any = await algokit.lookupAccountByAddress(user, indexer);
+    const asset: Asset = nfts.assets.filter((nft: Asset) => nft["asset-id"] === parseInt(FRY_TOKEN_ID.toString()))[0]
+    return asset.amount
+}
+
 
 interface Asset {
     "amount": number,
