@@ -4,12 +4,12 @@ import { useWallet } from '@txnlab/use-wallet'
 import algosdk, { Transaction } from 'algosdk'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
-import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllAuctions, getAllBids, listNftAuction } from './auctionMethod'
+import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllAuctions, getAllBids, getAllUserClaimable, listNftAuction } from './auctionMethod'
 import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
 import { CreateCollectionClient } from './contracts/CreateCollection'
-import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getMarkeGlobalState, listNft, updateNftListPrice } from './fryMarketMethods'
+import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getMarkeGlobalState, listNft, updateNftListPrice } from './fryMarketMethods'
 import { getGlobalState, testingTxn } from './methods'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -231,6 +231,17 @@ const Home: React.FC<HomeProps> = () => {
     })
   }
 
+
+  const getUserNfts = async () => {
+    const nfts = await getAllUserNfts(activeAddress!)
+    console.log("nfts", nfts)
+  }
+
+
+  const getUserClaimableNfts = async () => {
+    const nfts = await getAllUserClaimable(activeAddress!, signer)
+    // console.log("nfts", nfts)
+  }
 
 
   const getMarketListedData = async () => {
@@ -496,6 +507,7 @@ const Home: React.FC<HomeProps> = () => {
             <button className="button btn-primary p-2 block w-full" onClick={cancelBidding}>Cancel Bid</button>
             <button className="button btn-primary p-2 block w-full" onClick={auctionCancel}>Cancel Auction</button>
             <button className="button btn-primary p-2 block w-full" onClick={claimAuctionNft}>Claim Nft</button>
+            <button className="button btn-primary p-2 block w-full" onClick={getUserClaimableNfts}>Get User Claimable nFts</button>
           </div>
         </div>
         <div className="hero-content text-center rounded-lg p-6 max-w-md bg-white mx-auto">
@@ -519,6 +531,7 @@ const Home: React.FC<HomeProps> = () => {
             <button className="button btn-primary p-2 block w-full" onClick={updateMyNftPrice}>Update Price</button>
             <button className="button btn-primary p-2 block w-full" onClick={buyMyNft}>Buy</button>
             <button className="button btn-primary p-2 block w-full" onClick={getMarketListedData}>Get All Listed</button>
+            <button className="button btn-primary p-2 block w-full" onClick={getUserNfts}>Get All User Nfts</button>
           </div>
         </div>
       </div>
