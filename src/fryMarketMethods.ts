@@ -549,3 +549,25 @@ export const getMarkeGlobalState = async (): Promise<Listing[]> => {
     // }))
     return listings
 }
+
+
+
+//! Get all nfts in wallet
+export const getAllUserNfts = async (user: string) => {
+    const indexer = await getIndexerClient()
+    const nfts: any = await algokit.lookupAccountByAddress(user, indexer);
+    const assets: Asset[] = nfts.assets.filter((nft: Asset) => !nft["is-frozen"] && nft.amount === 1)
+    const allNfts: Record<string, any>[] = [];
+    await Promise.all(assets.map(async (asset: Asset) => {
+        const nftData: Record<string, any> = await indexer.lookupAssetByID(asset["asset-id"]).do()
+        allNfts.push({ nftAddress: nftData.index, ...nftData.params })
+    }))
+    return allNfts
+}
+
+
+interface Asset {
+    "amount": number,
+    "asset-id": number,
+    "is-frozen": boolean,
+}

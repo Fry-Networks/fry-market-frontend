@@ -508,6 +508,18 @@ export const getAllBids = async (
 }
 
 
+//! ger user claimable nfts from auction
+export const getAllUserClaimable = async (user: string, signer: TransactionSigner) => {
+    try {
+        const auctions = await getAllAuctions(user, signer);
+        const claimable = auctions.filter((item) => item.highestBidder === user && item.biddingEndTime < Math.floor(Date.now() / 1000))
+        return claimable
+    } catch (error) {
+        return error
+    }
+}
+
+
 const getMethodByName = (name: string, contract: ABIContract): algosdk.ABIMethod => {
     const m = contract.methods.find((mt: algosdk.ABIMethod) => { return mt.name == name })
     if (m === undefined)
