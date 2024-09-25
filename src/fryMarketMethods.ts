@@ -245,6 +245,13 @@ export const buyNftWithRoyalty = async (
     seller: string,
     price: number
 ) => {
+
+    console.log(sender);
+    console.log(assetId);
+    console.log(signer);
+    console.log(seller);
+    console.log(price);
+
     const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
 
     const fee = (price * FEE_PERCENT) / 10000
@@ -253,6 +260,8 @@ export const buyNftWithRoyalty = async (
     const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === parseInt(assetId.toString()));
 
     if (!hasOptedIn) {
+        console.log("HIHI");
+
         await algorandClient.send.assetTransfer({
             sender,
             receiver: sender,
@@ -322,7 +331,7 @@ export const getAllListed = async (): Promise<Listing[]> => {
 }
 
 
-export const mintMultipleNft = async (metaUris: any, sender: string, signer: TransactionSigner, name: string, signTransactions: any, sendTransactions: any): Promise<Uint8Array[]> => {
+export const mintMultipleNft = async (metaUris: any, sender: string, signer: TransactionSigner, signTransactions: any, sendTransactions: any): Promise<Uint8Array[]> => {
     try {
         const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
         console.log("merta URIs", metaUris);
@@ -330,8 +339,8 @@ export const mintMultipleNft = async (metaUris: any, sender: string, signer: Tra
         let txnArray: Transaction[] = []
         for (let i = 0; i < metaUris.length; i++) {
             const mintTx = await algorandClient.transactions.assetCreate({
-                assetName: `${name} #` + i.toString(),
-                unitName: name,
+                assetName: `${metaUris[i].name} #` + i.toString(),
+                // unitName: metaUris[i].name,
                 url: metaUris[i].image,
                 decimals: 0,
                 total: BigInt(1),
@@ -370,6 +379,54 @@ export const getAllCollectionNft = async (sender: string) => {
     return collection
 }
 
+export const getAllNfts = async (sender: string) => {
+    const indexer = await getIndexerClient()
+    const nfts: any = await algokit.lookupAccountByAddress(sender, indexer);
+    console.log("well", nfts);
+
+    const createdNft: any = nfts["assets"]
+    const collection = createdNft.length > 0 ? createdNft.filter((item: any) => item.params.decimals === 0 && item.params.total === 1) : []
+    const algod = await getAlgodClient()
+    const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
+    for (let listBox of boxes) {
+        for (let i = 0; i < collection.length; i++) {
+            const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
+            if (decoded === collection[i].index) {
+                let box = await algokit.getAppBoxValue(FRY_MARKET_ID, listBox.nameRaw, algod)
+                const nftData = await algod.getAssetByID(decoded).do();
+                const sellerId = algosdk.encodeAddress(box.slice(0, 32))
+                const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
+                const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
+                const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
+                const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+                const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
+                const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+
+                let listingData: Listing = {
+                    assetId: decoded,
+                    seller: sellerId,
+                    price: listedPrice,
+                    list_count: listedCount,
+                    listTime: listTime,
+                    isListed: listed == 1 ? true : false,
+                    isSold: sold == 1 ? true : false,
+                    isCancelled: canceled == 1 ? true : false,
+                    name: nftData?.params?.name,
+                    imgUrl: nftData?.params?.url
+                }
+                console.log(listingData)
+                collection[i] = {
+                    ...collection[i],
+                    params: {
+                        ...collection[i].params,
+                        ...listingData
+                    }
+                }
+            }
+        }
+    }
+    return collection
+}
 export const getAllCollectionWListed = async (sender: string) => {
     const indexer = await getIndexerClient()
     const nfts: any = await algokit.lookupAccountByAddress(sender, indexer);

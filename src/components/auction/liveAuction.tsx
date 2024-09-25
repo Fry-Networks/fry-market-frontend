@@ -1,3 +1,5 @@
+import leftGlow from "../../assets/auction/leftGlow.webp";
+import featureTopGrid from "../../assets/auction/listGrid.webp";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
 import trendingNft2 from "../../assets/home/images/auction/auctionImg2.png";
 import trendingNft3 from "../../assets/home/images/auction/auctionImg3.png";
@@ -8,16 +10,14 @@ import trendingNft7 from "../../assets/home/images/auction/auctionImg7.png";
 import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import AuctionCard from '../cards/auctionCard';
-import leftGlow from "../../assets/auction/leftGlow.webp";
-import featureTopGrid from "../../assets/auction/listGrid.webp";
 
 
-const LiveAuction = () => {
+const LiveAuction = ({ auctionedNfts, getAuctionedNft }) => {
   return (
     <>
       <div className="liveAuctionWrapper mb-52 relative">
-      <img className='absolute left-0 top-28' src={leftGlow} alt="" />
-      <img className="absolute top-[-260px] left-0 -z-50" src={featureTopGrid} alt="" />
+        <img className='absolute left-0 top-28' src={leftGlow} alt="" />
+        <img className="absolute top-[-260px] left-0 -z-50" src={featureTopGrid} alt="" />
 
         <div className="container">
           <div className="innerLiveAuction">
@@ -26,10 +26,15 @@ const LiveAuction = () => {
             </h2>
 
             <div className="auctionCarContainer  mt-10 grid grid-cols-4 gap-x-10 gap-y-7 relative z-20">
-              {auctionCard.map((data, index) => (
+              {/* {auctionCard.map((data, index) => (
                 <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
 
+              ))} */}
+
+              {auctionedNfts.map((data: any, index: any) => (
+                <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} />
               ))}
+
             </div>
           </div>
         </div>

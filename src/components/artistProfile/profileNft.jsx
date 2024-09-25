@@ -17,12 +17,13 @@ import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
-import { getAllCollectionNft } from "../../fryMarketMethods";
+import { getAllCollectionNft, getAllNfts } from "../../fryMarketMethods";
 import Loader from "../Loader";
 const ProfileNft = () => {
 
     const [activeKey, setActiveKey] = React.useState("1");
     const [mintedNft, setMintedNft] = useState([])
+    const [allNft, setAllNft] = useState([])
     const [loading, setLoading] = useState(false);
     const { activeAccount } = useWallet()
     const onChange = (key) => {
@@ -127,12 +128,28 @@ const ProfileNft = () => {
           setLoading(false);
         }
       }
+      const getAllNft = async () => {
+        try{
+
+          if (activeAccount?.address) {
+            setLoading(true);
+            const response = await getAllNfts(activeAccount?.address);
+            console.log("NftAll", response);
+            setAllNft(response);
+            setLoading(false)
+          }
+        }
+        catch(e){
+          setLoading(false);
+        }
+      }
     
       useEffect(() => {
         console.log("heeh");
     
         if (activeAccount?.address) {
           getMintedNft();
+          getAllNft();
         }
     
       }, [activeAccount])
@@ -206,7 +223,7 @@ loading ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {mintedNft.map((data, index) => (
-              <CollectionsCard data={data} />
+              <CollectionsCard data={data} label="List" />
              
             ))}
             </div>

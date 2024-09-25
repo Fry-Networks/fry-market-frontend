@@ -48,6 +48,7 @@
     "daisyui": "^4.12.10",
     "notistack": "^3.0.1",
     "react": "^18.2.0",
+    "react-countdown": "^2.3.6",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.26.1",
     "react-toastify": "^10.0.5",
@@ -59,11 +60,7 @@
   "scripts": {
     "generate:app-clients": "algokit project link --all",
     "dev": "vite",
-<<<<<<< HEAD
     "build": "npm run generate:app-clients && tsc && vite build",
-=======
-    "build": "tsc && vite build",
->>>>>>> c8d3814894e02e78fef6e188ecad332e10d10e8c
     "test": "jest --coverage --passWithNoTests",
     "playwright:test": "playwright test",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",

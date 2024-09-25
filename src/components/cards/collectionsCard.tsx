@@ -1,9 +1,10 @@
 import { useWallet } from "@txnlab/use-wallet";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
-import { listNft } from "../../fryMarketMethods";
+import { buyNftWithRoyalty, listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
@@ -12,7 +13,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
-
+  const navigate = useNavigate();
   useEffect(() => {
     if (showLayer) {
       setIsSoldBtn(true);
@@ -54,6 +55,46 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           if (activeAccount?.address) {
 
             const response = await listNft(activeAccount?.address, data.index, signer, 1000000);
+
+
+            console.log("response", response);
+            resolve(true)
+
+
+          }
+        }
+        catch (e) {
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+
+    }
+
+
+
+
+  }
+  const handleBuyNft = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+          if (activeAccount?.address) {
+
+            const response = await buyNftWithRoyalty(
+              activeAccount?.address,
+              data.assetId,
+              signer,
+              data.seller,
+              data.price);
 
 
             console.log("response", response);
@@ -145,19 +186,29 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
                     if (label == "Buy") {
-                      toast.success("NFT Bought successfully")
-                    }
-                    else {
-
                       toast.promise(
-                        handleListNft(),
+                        handleBuyNft(),
                         {
-                          pending: "NFT is lisitng",
-                          error: "There was an error Listing NFT",
-                          success: "NFT listed successfully"
+                          pending: "NFT buying in progress ",
+                          error: "There was an error Buying NFT",
+                          success: "NFT bought successfully"
 
                         }
                       )
+                    }
+                    else if (label == "List") {
+
+                      navigate("/sell-method", { state: { nftData: data } })
+
+                      // toast.promise(
+                      //   handleListNft(),
+                      //   {
+                      //     pending: "NFT is lisitng",
+                      //     error: "There was an error Listing NFT",
+                      //     success: "NFT listed successfully"
+
+                      //   }
+                      // )
 
                     }
 
