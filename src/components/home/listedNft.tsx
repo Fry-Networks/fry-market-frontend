@@ -66,7 +66,7 @@ const ListedNft = () => {
                     />
                 </div>
 
-                <div className="nftWrapper mt-10 grid  grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
+                <div className="nftWrapper mt-10 grid grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
                     {listedNfts.map((data: any, index: any) => (
                         <CollectionsCard key={data.assetId} data={data} label={"Buy"} />
                     ))}

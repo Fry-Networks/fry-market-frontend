@@ -1,6 +1,7 @@
 import { useWallet } from "@txnlab/use-wallet";
 import { InputNumber, Select } from "antd";
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import bannerImg from "../../assets/createNft/bannerImg.webp";
@@ -13,6 +14,7 @@ import banerGlow from "../../assets/images/topSellers/bannerGlow.webp";
 import AddStyleModal from "../../modals/addStyleModal";
 import GenerateNft from "../../modals/generateNft";
 import Input from "../shared/input";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
@@ -28,9 +30,14 @@ const Banner = () => {
   const [inputValue, setInputValue] = useState("")
   const [supply, setSupply] = useState(1)
   const [nftType, setNftType] = useState("single")
+  const [collectionData, setCollectionData] = useState<any>("")
+
   const showGenerateNftModal = () => {
     if (activeAccount?.address) {
-
+      if (!collectionData) {
+        toast.error("Create Collection first")
+        return;
+      }
       if (inputValue && supply && nftType && selectedStyle) {
         setisgeneratemodal(true);
         // navigation("create-nft")
@@ -66,6 +73,32 @@ const Banner = () => {
     console.log("inputValue", inputValue)
     console.log("Supply", supply)
   }
+
+  const getCollectionData = async () => {
+    if (activeAccount?.address) {
+      try {
+
+        // const config = {
+        //   headers: { Authorization: `Bearer ${token}` }
+        // };
+
+        const response = await axios.get(`${baseUrl}/get-collection/12`);
+        console.log("Collection Data", response.data);
+        setCollectionData(response.data)
+
+      }
+      catch (e) {
+        console.log("Error Getting Collection", e);
+        // toast.error("Error Creating Collection");
+        setCollectionData("")
+
+      }
+    }
+  }
+
+  useEffect(() => {
+    getCollectionData();
+  }, [])
 
   return (
     <>
