@@ -10,7 +10,7 @@ const Auction = () => {
   const [loading, setLoading] = useState<any>();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
-  const getAuctionedNft = async () => {
+  const getAuctionedNft: any = async () => {
     if (activeAccount?.address) {
 
 

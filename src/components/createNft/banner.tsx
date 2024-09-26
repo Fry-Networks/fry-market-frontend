@@ -1,3 +1,4 @@
+import { useWallet } from "@txnlab/use-wallet";
 import { InputNumber, Select } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -22,18 +23,24 @@ const Banner = () => {
   };
 
   const [isgeneratemodal, setisgeneratemodal] = useState(false);
-
+  const { activeAccount } = useWallet();
 
   const [inputValue, setInputValue] = useState("")
   const [supply, setSupply] = useState(1)
   const [nftType, setNftType] = useState("single")
   const showGenerateNftModal = () => {
-    if (inputValue && supply && nftType && selectedStyle) {
-      setisgeneratemodal(true);
-      // navigation("create-nft")
+    if (activeAccount?.address) {
+
+      if (inputValue && supply && nftType && selectedStyle) {
+        setisgeneratemodal(true);
+        // navigation("create-nft")
+      }
+      else {
+        toast.error("Please provide all details")
+      }
     }
     else {
-      toast.error("Please provide all details")
+      toast.error("Please connect wallet first")
     }
 
   };
