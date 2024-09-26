@@ -40,9 +40,9 @@ const ListedNft = () => {
     useEffect(() => {
         console.log("heeh");
 
-        if (activeAccount?.address) {
-            getListedNft();
-        }
+
+        getListedNft();
+
 
     }, [activeAccount])
 
