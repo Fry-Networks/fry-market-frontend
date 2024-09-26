@@ -519,6 +519,17 @@ export const getAllUserClaimable = async (user: string, signer: TransactionSigne
     }
 }
 
+export const getAllUserAuctions = async (user: string, signer: TransactionSigner) => {
+    try {
+        const allAuctions = await getAllAuctions(user, signer);
+        const userAuctions = allAuctions.filter((item) => item.sellerId === user)
+        return userAuctions
+    } catch (error) {
+        return error
+    }
+}
+
+
 
 const getMethodByName = (name: string, contract: ABIContract): algosdk.ABIMethod => {
     const m = contract.methods.find((mt: algosdk.ABIMethod) => { return mt.name == name })

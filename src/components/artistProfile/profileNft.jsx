@@ -17,7 +17,7 @@ import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
-import { getAllCollectionNft, getAllNfts } from "../../fryMarketMethods";
+import { getAllCollectionNft, getAllUserNfts } from "../../fryMarketMethods";
 import Loader from "../Loader";
 const ProfileNft = () => {
 
@@ -133,7 +133,7 @@ const ProfileNft = () => {
 
           if (activeAccount?.address) {
             setLoading(true);
-            const response = await getAllNfts(activeAccount?.address);
+            const response = await getAllUserNfts(activeAccount?.address);
             console.log("NftAll", response);
             setAllNft(response);
             setLoading(false)

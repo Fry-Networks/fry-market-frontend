@@ -99,19 +99,25 @@ const CreateNft: React.FC = () => {
       console.log(location.state);
       console.log("u called");
 
-      generateImages(inputValue, selectedStyle, supply);
+      // generateImages(inputValue, selectedStyle, supply);
     }
   }, [])
 
   const toggleImageSelection = (nftObject: any, index: number) => {
-    const found = selectedImages.some((nftObj: any) => nftObj.image == nftObject.image);
-    if (found) {
-      setSelectedImages((prev: any) => {
-        const filteredArray = prev.filter((nftObj: any) => nftObj.image != nftObject.image);
-        return filteredArray;
-      });
-    } else {
-      setSelectedImages((prev: any) => ([...prev, nftObject]));
+    if (locationParams.nftType == "single") {
+      setSelectedImages([nftObject])
+    }
+    else {
+
+      const found = selectedImages.some((nftObj: any) => nftObj.image == nftObject.image);
+      if (found) {
+        setSelectedImages((prev: any) => {
+          const filteredArray = prev.filter((nftObj: any) => nftObj.image != nftObject.image);
+          return filteredArray;
+        });
+      } else {
+        setSelectedImages((prev: any) => ([...prev, nftObject]));
+      }
     }
   };
 
@@ -219,8 +225,9 @@ const CreateNft: React.FC = () => {
                 <img
                   src={nftObject.image}
                   alt={`nft-${index}`}
-                  className={`w-full h-full max-w-[288px] max-h-[265px] object-cover ${selectedImages.includes(index) ? "opacity-70" : "opacity-1"
+                  className={`w-full h-full max-w-[288px] max-h-[265px] object-cover  ${selectedImages.includes(index) ? "opacity-70" : "opacity-1"
                     }`}
+                  style={{ borderRadius: "20px" }}
                 />
                 {selectedImages.some((nftObj: any) => nftObj.image == nftObject.image) && (
                   <>
