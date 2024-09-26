@@ -1,43 +1,185 @@
-import { useState } from 'react';
+import { useWallet } from '@txnlab/use-wallet';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from "react-router-dom";
+import { toast } from 'react-toastify';
 import auctionPrice from "../assets/artistsProfile/auction.png";
 import fixedPrice from "../assets/artistsProfile/fixedPrice.png";
-import newCollect from "../assets/artistsProfile/newCollect.png";
 import sellImg from "../assets/artistsProfile/sellImg.png";
 import door from "../assets/icons/door.svg";
-import plus from "../assets/icons/plus.svg";
-import tick from "../assets/icons/priceTick.svg"; // Import tick icon
-import Button from "../components/shared/button";
-import bgBack from "../assets/sellMethod/bgGlow.webp";
-import { useNavigate } from "react-router-dom";
 import fryIcon from "../assets/icons/fryIcon.svg";
-import { Select } from 'antd';
+import tick from "../assets/icons/priceTick.svg"; // Import tick icon
+import bgBack from "../assets/sellMethod/bgGlow.webp";
+import { listNftAuction } from '../auctionMethod';
+import Button from "../components/shared/button";
+import { listNft } from '../fryMarketMethods';
+
 
 const SellMethod = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState("fixed");
+  const [price, setPrice] = useState(0);
+  const [minimumBidAmount, setMinimumBidAmount] = useState(0);
+  const [nftData, setData] = useState<any>({})
+  const [biddingDuration, setBiddingDuration] = useState<any>("")
+  const [biddingDurationValue, setBiddingDurationValue] = useState<any>({});
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
+  const location = useLocation();
   const handleMethodSelect = (method: any) => {
     setSelectedMethod(method);
   };
   const handleChange = (value: any) => {
     console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
+
+  const onDateChange = (e: any) => {
+    const currentDate = new Date();
+    console.log(currentDate.getTime());
+    const selectedDate = new Date(e?.target?.value)
+    console.log("ff", selectedDate.getTime());
+
+
+
+    setBiddingDuration((prev: any) => ({ ...prev, [e.target.name]: Math.floor(selectedDate?.getTime() / 1000) }))
+    setBiddingDurationValue((prev: any) => ({ ...prev, [e.target.name]: selectedDate.toISOString().slice(0, 16) }))
+
+
+
+  }
+
+  const handleListNft = async () => {
+
+
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (activeAccount?.address) {
+
+          const response = await listNft(activeAccount?.address, nftData.index, signer, price * 1000000);
+
+
+          console.log("response", response);
+          resolve(true)
+          navigate("/artist-profile")
+
+        }
+      }
+      catch (e) {
+        reject(false);
+      }
+
+    })
+  }
+  const handleAuctionNft = async () => {
+
+
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (activeAccount?.address) {
+
+          const response = await listNftAuction(activeAccount?.address, signer, nftData.index, price * 1000000, minimumBidAmount * 1000000, biddingDuration.biddingStartTime, biddingDuration.biddingEndTime);
+
+
+          console.log("response", response);
+          resolve(true)
+          // navigate("/artist-profile")
+
+        }
+      }
+      catch (e) {
+        reject(false);
+      }
+
+    })
+  }
+
+
+  const handleSubmit = () => {
+    if (price) {
+      if (selectedMethod == "fixed") {
+        toast.promise(
+          handleListNft(),
+          {
+            pending: "NFT is lisitng",
+            error: "There was an error Listing NFT",
+            success: "NFT listed successfully"
+
+          }
+        )
+      }
+      else {
+        const currentDate = new Date();
+
+        if (biddingDuration.biddingStartTime && biddingDuration.biddingEndTime && minimumBidAmount) {
+          if (biddingDuration.biddingStartTime > Math.floor(currentDate.getTime() / 1000)) {
+
+            if (biddingDuration.biddingEndTime > biddingDuration.biddingStartTime) {
+              toast.promise(
+                handleAuctionNft(),
+                {
+                  pending: "NFT is lisitng on aunction",
+                  error: "There was an error Listing NFT on auction",
+                  success: "NFT listed on auction successfully"
+
+                }
+              )
+            }
+            else {
+              toast.error("Bidding end date should be mroe than bidding start date")
+
+            }
+
+          }
+          else {
+            toast.error("You can only select future dates")
+
+          }
+
+
+
+        }
+        else {
+          toast.error("Please fill all fields")
+        }
+      }
+    }
+    else {
+      toast.error("Please fill all fields")
+
+    }
+  }
+
+  useEffect(() => {
+    console.log("gg", biddingDuration);
+
+  }, [biddingDuration])
+
+  useEffect(() => {
+    if (location.state) {
+      console.log("Nft Data in sell method", location.state.nftData);
+      setData(location.state?.nftData)
+
+    }
+  }, [])
+
   return (
     <>
       <div className="sellMethodContainer relative">
         <img className='absolute top-0 -z-30' src={bgBack} alt="" />
         <div className="container">
-        <div className="inner my-20 flex h-full">
+          <div className="inner my-20 flex h-full">
             <div className="leftArea w-1/4 flex flex-col justify-start gap-5">
               <button
                 onClick={() => navigate("/artist-profile")}
                 style={{ boxShadow: "4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                 className=" doorBtn flex-center gap-3 w-[126px] h-[64px] rounded-2xl bg-white large darkBlack font-normal"
+
               >
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg' src={sellImg} alt="" />
+              <img className='sellImg' src={nftData?.params?.url ? nftData?.params?.url : sellImg} alt="" />
               <p className="ex-large darkBlack font-medium font-Roboto">
                 Preview your item
               </p>
@@ -47,7 +189,7 @@ const SellMethod = () => {
               className="rightArea w-3/4 rounded-2xl py-9 px-24 bg-white flex flex-col justify-start gap-5 mt-24"
             >
               <h3 className="w-full text-center font-Apex font-normal">
-                Royal Samurai
+                {nftData?.params?.name ? nftData?.params?.name : " Royal Samurai"}
               </h3>
               <div className="mt-6">
                 <h5 className="text-[26px] darkBlack font-semibold font-Roboto">
@@ -56,9 +198,8 @@ const SellMethod = () => {
                 <div className="selectMethodContainer flex gap-7 mt-6">
                   <div
                     onClick={() => handleMethodSelect("fixed")}
-                    className={`rounded-xl w-[207px] h-[217px] relative flex flex-col gap-3 justify-center items-center ${
-                      selectedMethod === "fixed" ? "bg-gray-200" : ""
-                    }`}
+                    className={`rounded-xl w-[207px] h-[217px] relative flex flex-col gap-3 justify-center items-center ${selectedMethod === "fixed" ? "bg-gray-200" : ""
+                      }`}
                     style={{
                       boxShadow:
                         "2.809px 2.809px 10.534px 0px rgba(0, 0, 0, 0.20)",
@@ -78,9 +219,8 @@ const SellMethod = () => {
                   </div>
                   <div
                     onClick={() => handleMethodSelect("auction")}
-                    className={`rounded-xl w-[207px] h-[217px] flex relative flex-col gap-3 justify-center items-center ${
-                      selectedMethod === "auction" ? "bg-gray-200" : ""
-                    }`}
+                    className={`rounded-xl w-[207px] h-[217px] flex relative flex-col gap-3 justify-center items-center ${selectedMethod === "auction" ? "bg-gray-200" : ""
+                      }`}
                     style={{
                       boxShadow:
                         "2.809px 2.809px 10.534px 0px rgba(0, 0, 0, 0.20)",
@@ -102,7 +242,7 @@ const SellMethod = () => {
               </div>
               <div className="flex flex-col gap-1 mt-3 priceBox">
                 <label className="darkBlack large font-medium font-Roboto">
-                  Price
+                  {selectedMethod == "fixed" ? "Price" : "Start Amount"}
                 </label>
                 <div className="flex justify-start items-center gap-3 enterPrice">
                   <div className="py-[8px] px-[20px]  border-2 border-solid border-[#E7E7E7] rounded-lg flex gap-2  fryText">
@@ -112,81 +252,127 @@ const SellMethod = () => {
                     placeholder="Enter price for one item"
                     type="number"
                     className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2"
+                    value={price}
+                    onChange={(e) => { setPrice(Number(e.target.value)) }}
                   />
                 </div>
               </div>
 
-{
-  selectedMethod==="auction" && (
+              {
+                selectedMethod === "auction" && (
+                  <>
+                    <div className="flex flex-col gap-1 mt-3 priceBox">
+                      <label className="darkBlack large font-medium font-Roboto">
+                        Minimum Bid Amount
+                      </label>
+                      <div className="flex justify-start items-center gap-3 enterPrice">
+                        <div className="py-[8px] px-[20px]  border-2 border-solid border-[#E7E7E7] rounded-lg flex gap-2  fryText">
+                          <img src={fryIcon} alt="" />
+                          FRY</div>
+                        <input
+                          placeholder="Enter price for one item"
+                          type="number"
+                          className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2"
+                          value={minimumBidAmount}
+                          onChange={(e) => { setMinimumBidAmount(Number(e.target.value)) }}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-3 flex flex-col gap-2 duration">
+                      <label className="darkBlack large font-medium font-Roboto">
+                        Bidding Start Time
+                      </label>
 
-    <div className="mt-3 flex flex-col gap-2 duration">
-    <label className="darkBlack large font-medium font-Roboto">
-   Duration
-    </label>
-   
-     
-      {/* <input
-        placeholder="1 month"
-        type="text"
-        className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
-      /> */}
-<div className="w-full selectDiv">
-<Select
-    labelInValue
-    defaultValue={{
-      value: 'lucy',
-      label: 'Select time',
-    }}
-    style={{
-      width: 770,
-      fontSize:18,
-      color:"#808080"
-    }}
-    onChange={handleChange}
-    options={[
-      {
-        value: 'day1',
-        label: '1 Day',
-      },
-      {
-        value: 'week1',
-        label: '1 Week',
-      },
 
-      {
-        value: 'month1',
-        label: '1 Month',
-      },
-      {
-        value: 'custom',
-        label: 'Custom',
-      },
-    ]}
-  />
-</div>
+                      <input
+                        placeholder="1 month"
+                        type="datetime-local"
+                        className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
+                        name='biddingStartTime'
+                        // value={biddingDuration.biddingStartTime}
+                        min={new Date().toISOString().slice(0, 16)}
+                        onChange={onDateChange}
+                      />
+                      {/* <div className="w-full selectDiv">
+                      <Select
+                        labelInValue
+                        defaultValue={{
+                          value: 'lucy',
+                          label: 'Select time',
+                        }}
+                        style={{
+                          width: 770,
+                          fontSize: 18,
+                          color: "#808080"
+                        }}
+                        onChange={handleChange}
+                        options={[
+                          {
+                            value: 'day1',
+                            label: '1 Day',
+                          },
+                          {
+                            value: 'week1',
+                            label: '1 Week',
+                          },
 
-    
-  </div>
-  )
-}
+                          {
+                            value: 'month1',
+                            label: '1 Month',
+                          },
+                          {
+                            value: 'custom',
+                            label: 'Custom',
+                          },
+                        ]}
+                      />
+                    </div> */}
 
-{
-  selectedMethod==="fixed" && (
-<div className="mt-3">
-    <label className="darkBlack large font-medium font-Roboto">
-    Schedule Listing
-    </label>
-   
-     
-      <input
-        placeholder="1 month"
-        type="number"
-        className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
-      />
-    
-  </div>
-  )
-}
+
+                    </div>
+
+                    <div className="mt-3 flex flex-col gap-2 duration">
+                      <label className="darkBlack large font-medium font-Roboto">
+                        Bidding End Time
+                      </label>
+
+
+                      <input
+                        placeholder="1 month"
+                        type="datetime-local"
+                        className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
+                        name='biddingEndTime'
+                        // value={biddingDuration.biddingEndTime}
+                        min={new Date().toISOString().slice(0, 16)}
+                        onChange={onDateChange}
+                      />
+
+
+
+                    </div>
+
+
+                  </>
+                )
+              }
+
+              {/* {
+                selectedMethod === "fixed" && (
+                  <div className="mt-3">
+                    <label className="darkBlack large font-medium font-Roboto">
+                      Schedule Listing
+                    </label>
+
+
+                    <input
+                      placeholder="1 month"
+                      type="number"
+                      className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2 mt-3"
+                    />
+
+                  </div>
+                )
+              } */}
 
 
               {/* {selectedMethod === "auction" && (
@@ -244,7 +430,7 @@ const SellMethod = () => {
                   minWidth={139}
                   minHeight={53}
                   text="Submit"
-                  onClick={() => navigate("/artist-profile")}
+                  onClick={handleSubmit}
                 />
               </div>
             </div>

@@ -1,3 +1,5 @@
+import { useWallet } from '@txnlab/use-wallet';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import auctionBack from "../../assets/home/images/auction/auctionBack.webp";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
@@ -10,9 +12,9 @@ import trendingNft7 from "../../assets/home/images/auction/auctionImg7.png";
 import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import moreUp from "../../assets/icons/moreUpArrow.svg";
-import CollectionsCard from '../cards/collectionsCard';
-import Button from "../shared/button";
+import { getAllAuctions } from '../../auctionMethod';
 import AuctionCard from '../cards/auctionCard';
+import Button from "../shared/button";
 
 const Auction = () => {
   const navigate = useNavigate();
@@ -21,6 +23,39 @@ const Auction = () => {
 
     navigate('/auction');
   };
+
+  const [auctionedNfts, setAuctionedNfts] = useState<any>([]);
+  const [loading, setLoading] = useState<any>();
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+
+  const getAuctionedNft = async () => {
+    if (activeAccount?.address) {
+
+
+      try {
+
+
+        setLoading(true);
+        const response = await getAllAuctions(activeAccount?.address, signer);
+        console.log("NftAuctioned", response);
+        setAuctionedNfts(response);
+        setLoading(false)
+
+      }
+      catch (e) {
+        setLoading(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    console.log("heeh");
+
+    if (activeAccount?.address) {
+      getAuctionedNft();
+    }
+
+  }, [activeAccount])
   return (
     <>
       <div className="auctionWrapper mb-52 relative">
@@ -31,8 +66,11 @@ const Auction = () => {
           </h2>
 
           <div className="nftWrapper mt-10 grid grid-cols-4 gap-x-10 gap-y-9 relative z-20">
-            {auctionCard.map((data, index) => (
-           <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
+            {/* {auctionCard.map((data, index) => (
+              <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
+            ))} */}
+            {auctionedNfts.map((data: any, index: any) => (
+              <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} />
             ))}
           </div>
 

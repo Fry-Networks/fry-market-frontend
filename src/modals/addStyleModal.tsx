@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Modal } from "antd";
 import noneImg from "../assets/modals/addStylePic1.png";
 import cartoonImg from "../assets/modals/addStylePic2.webp";
@@ -9,8 +8,7 @@ import realisticImg from "../assets/modals/addStylePic6.webp";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
 
-const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
-  const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelectedStyle }: any) => {
 
   const handleOk = () => {
     setisstylemodal(false);
@@ -56,9 +54,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
               </div>
               <label
                 htmlFor="cartoon"
-                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${
-                  selectedStyle === "cartoon" ? "selected" : ""
-                }`}
+                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "cartoon" ? "selected" : ""
+                  }`}
                 onClick={() => handleSelect("cartoon")}
               >
                 <input className="hidden" type="checkbox" id="cartoon" />
@@ -82,10 +79,9 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
             </div>
             <div className="w-full selectAvatar flex gap-3">
               <div
-                className={`w-1/2 cursor-pointer part1 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${
-                  selectedStyle === "modlar" ? "selected" : ""
-                }`}
-                onClick={() => handleSelect("modlar")}
+                className={`w-1/2 cursor-pointer part1 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "modlar" ? "selected" : ""
+                  }`}
+                onClick={() => handleSelect("3D Model")}
               >
                 <img
                   className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl"
@@ -96,18 +92,17 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
                   className="button btn-whiteClr medium font-Roboto font-medium"
                   width={211}
                   minHeight={44}
-                  text="3D Modal"
+                  text="3D Model"
                 ></Button>
-                {selectedStyle === "modlar" && (
+                {selectedStyle === "3D Model" && (
                   <div className="overlay">
                     <span>Selected</span>
                   </div>
                 )}
               </div>
               <div
-                className={`part2 cursor-pointer w-1/2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${
-                  selectedStyle === "anime" ? "selected" : ""
-                }`}
+                className={`part2 cursor-pointer w-1/2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "anime" ? "selected" : ""
+                  }`}
                 onClick={() => handleSelect("anime")}
               >
                 <img
@@ -130,9 +125,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
             </div>
             <div className="w-full selectAvatar flex gap-3">
               <div
-                className={`w-1/2 cursor-pointer part1 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${
-                  selectedStyle === "fantasy" ? "selected" : ""
-                }`}
+                className={`w-1/2 cursor-pointer part1 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "fantasy" ? "selected" : ""
+                  }`}
                 onClick={() => handleSelect("fantasy")}
               >
                 <img
@@ -153,9 +147,8 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal }: any) => {
                 )}
               </div>
               <div
-                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${
-                  selectedStyle === "realistic" ? "selected" : ""
-                }`}
+                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "realistic" ? "selected" : ""
+                  }`}
                 onClick={() => handleSelect("realistic")}
               >
                 <img src={realisticImg} alt="" />

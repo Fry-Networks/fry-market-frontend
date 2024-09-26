@@ -1,15 +1,24 @@
 import { CloseOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { message, Switch, Upload } from 'antd';
+import { useWallet } from '@txnlab/use-wallet';
+import { message, Switch } from 'antd';
 import { RcFile } from 'antd/es/upload';
-import { useState } from 'react';
-import newCollect from '../assets/artistsProfile/newCollect.png';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
 import plus from '../assets/icons/plus.svg';
+import nft1 from "../assets/images/createNft/profilepic.png";
+import Loader from '../components/Loader';
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from '../components/shared/textarea';
+import { getAllCollectionNft, mintMultipleNft } from '../fryMarketMethods';
 import AddTraits from '../modals/addTraits';
 import MintNft from '../modals/mintNft';
+
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
     const reader = new FileReader();
@@ -40,19 +49,37 @@ const ManualCreateNft = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [istraitmodal, setistraitmodal] = useState(false);
     const [ismintmodal, setismintmodal] = useState(false);
+    const [prevImage, setPrevImage] = useState("")
+    const [collectionData, setCollectionData] = useState<any>(false);
+    const [formData, setFormData] = useState<any>({})
+    const [collectionSelected, setCollectionSelected] = useState(false)
+    const navigate = useNavigate();
+    const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+    // const handleChange = (info: any) => {
+    //     if (info.file.status === 'uploading') {
+    //         setLoading(true);
+    //         return;
+    //     }
+    //     if (info.file.status === 'done') {
+    //         getBase64(info.file.originFileObj, (url) => {
+    //             setLoading(false);
+    //             setImageUrl(url);
+    //         });
+    //     }
+    // };
 
-    const handleChange = (info: any) => {
-        if (info.file.status === 'uploading') {
-            setLoading(true);
-            return;
-        }
-        if (info.file.status === 'done') {
-            getBase64(info.file.originFileObj, (url) => {
-                setLoading(false);
-                setImageUrl(url);
-            });
-        }
+    const handleChange = (event: any) => {
+        const { name, value } = event.target;
+        setFormData((prevData: any) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
+
+    const handleInput = (e: any) => {
+        console.log(e.target.files[0])
+        setPrevImage(e.target.files[0])
+    }
 
     const uploadButton = (
         <div
@@ -102,6 +129,118 @@ const ManualCreateNft = () => {
         setismintmodal(true);
     };
 
+    const getNftCollection = async () => {
+        try {
+            setLoading(true)
+            console.log("dd", activeAccount);
+
+            const response: any = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
+            if (response.data) {
+                setCollectionData(response.data);
+
+
+            }
+            // console.log("hehe", response.data);
+            setLoading(false)
+
+        } catch (error) {
+            setLoading(false)
+        }
+    }
+    const validation = () => {
+        if (formData.itemName && formData.itemSymbol && formData.itemDescription && prevImage && collectionSelected) {
+            return true
+        }
+        else {
+            return false
+        }
+    }
+    const uploadImage = async () => {
+
+        try {
+            return new Promise(async (resolve, reject) => {
+                try {
+                    const formDataForImage = new FormData;
+                    formDataForImage.append("images", prevImage);
+                    const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
+                    console.log("Response in upload Image", response.data);
+                    setFormData((prev: any) => ({ ...prev, image_url: response.data?.image_urls[0] }))
+                    if (response.data?.image_urls[0]) {
+
+                        if (await minNft(response.data?.image_urls[0])) {
+                            resolve(true);
+                        }
+                        else {
+                            reject(false)
+                        }
+                    }
+                    else {
+                        console.log("Some Error Occured while uploading image. Please try again.");
+                        reject(false)
+
+                    }
+                }
+                catch (e) {
+                    reject(false);
+                }
+
+            })
+
+
+
+        }
+        catch (e) {
+            console.log("Error Uploading Image", e);
+
+
+        }
+
+
+    }
+
+    const minNft = async (imageUrl: any) => {
+        try {
+            const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, formData.itemName, signTransactions, sendTransactions)
+            console.log("response after minting", response);
+            // toast.success("Mint Successful")
+            return true
+
+        }
+        catch (e) {
+            console.log("Error Creating Collection");
+            // toast.error("Error Creating Collection");
+            return false
+
+        }
+    }
+
+
+
+    useEffect(() => {
+        if (activeAccount?.address) {
+
+            getNftCollection()
+        }
+    }, [activeAccount])
+
+    useEffect(() => {
+        getNfts();
+    }, [activeAccount])
+    const getNfts = async () => {
+        try {
+            console.log("hehehe");
+
+            if (activeAccount?.address) {
+
+                const response = await getAllCollectionNft(activeAccount?.address);
+                console.log("got NFTS", response);
+
+            }
+
+        } catch (error) {
+
+        }
+    }
     return (
         <>
             <div>
@@ -111,7 +250,7 @@ const ManualCreateNft = () => {
                         <div className="contentWrapper flex gap-8 leftArea">
                             <div className="leftContent  flex flex-col items-start">
                                 <div className='uploadDiv w-[300px]'>
-                                    <Upload
+                                    {/* <Upload
                                         name="avatar"
                                         listType="picture-card"
                                         className="avatar-uploader"
@@ -133,7 +272,17 @@ const ManualCreateNft = () => {
                                         ) : (
                                             uploadButton
                                         )}
-                                    </Upload>
+                                    </Upload> */}
+
+                                    <label htmlFor="collectionImage" className="block">
+                                        <img src={
+                                            // @ts-ignore
+                                            prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
+                                        <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
+                                        <span
+                                            className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
+                                    </label>
+
                                 </div>
                             </div>
 
@@ -144,13 +293,16 @@ const ManualCreateNft = () => {
                                             <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
                                                 MANUAL CREATE NFT
                                             </h2>
-                                            <form action="" className="flex flex-col gap-7">
+                                            <div className="flex flex-col gap-7">
                                                 <div>
                                                     <Input
                                                         type="text"
                                                         label="Item Name*"
                                                         placeholder="Name your NFT"
                                                         className="w-full input-nft"
+                                                        name="itemName"
+                                                        value={formData.itemName}
+                                                        onChange={handleChange}
                                                     />
                                                 </div>
                                                 <div>
@@ -159,6 +311,9 @@ const ManualCreateNft = () => {
                                                         label="Token Symbol*"
                                                         placeholder="$ CGPT, for example"
                                                         className="w-full input-nft"
+                                                        name="itemSymbol"
+                                                        value={formData.itemSymbol}
+                                                        onChange={handleChange}
                                                     />
                                                 </div>
                                                 <div>
@@ -178,58 +333,89 @@ const ManualCreateNft = () => {
                                                         }
                                                         rows={6}
                                                         placeholder="Provide a detailed description of your item"
+                                                        name="itemDescription"
+                                                        value={formData.itemDescription}
+                                                        onChange={handleChange}
                                                     />
                                                 </div>
 
-                                               
-                        <div className="chooseCollection my-3">
-                          <div className=" chooseContent w-full flex justify-between items-center">
-                            <p className="darkBlack large font-medium font-Roboto">
-                              Choose Collection
-                            </p>
-                            <p
-                              className="underline lightGray medium font-normal cursor-pointer"
-                              onClick={handleChooseFromExistedClick}
-                            >
-                              Choose From Existed
-                            </p>
-                          </div>
+                                                <div className="chooseCollection my-3">
+                                                    <div className=" chooseContent w-full flex justify-between items-center">
+                                                        <p className="darkBlack large font-medium font-Roboto">
+                                                            Choose Collection
+                                                        </p>
+                                                        {/* <p
+                                                            className="underline lightGray medium font-normal cursor-pointer"
+                                                            onClick={handleChooseFromExistedClick}
+                                                        >
+                                                            Choose From Existed
+                                                        </p> */}
+                                                    </div>
 
-                          <p className="itemAppear lightGray text-[16px] font-Roboto font-normal mt-2">
-                            (this is the collection where your item will appear)
-                          </p>
-                          <div className="newCollectionDiv flex gap-4 mt-4">
-                            <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
-                              <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
-                                <img src={plus} alt="" />
-                              </div>
-                              <div className="rightContnt flex flex-col justify-center">
-                                <p className="darkBlack medium font-medium font-Roboto">
-                                  Create new collection
-                                </p>
-                                <p className="lightGray small font-Roboto font-normal mt-2">
-                                  Type to create
-                                </p>
-                              </div>
-                            </div>
-                            <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
-                              <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
-                                <img src={newCollect} alt="" />
-                              </div>
-                              <div className="rightContnt flex flex-col justify-center">
-                                <p className="darkBlack medium font-medium font-Roboto">
-                                  Wonderful Artwork
-                                </p>
-                                <p className="lightGray small font-Roboto font-normal mt-2">
-                                  Items{" "}
-                                  <span className="font-medium darkBlack">
-                                    1.5k
-                                  </span>
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                                                    <p className="itemAppear lightGray text-[16px] font-Roboto font-normal mt-2">
+                                                        (this is the collection where your item will appear)
+                                                    </p>
+                                                    <div className="newCollectionDiv flex gap-4 mt-4">
+                                                        <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2" onClick={() => navigate("/create-collection")} style={{ cursor: "pointer" }}>
+                                                            <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
+                                                                <img src={plus} alt="" />
+                                                            </div>
+                                                            <div className="rightContnt flex flex-col justify-center">
+                                                                <p className="darkBlack medium font-medium font-Roboto">
+                                                                    Create new collection
+                                                                </p>
+                                                                <p className="lightGray small font-Roboto font-normal mt-2">
+                                                                    Type to create
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                        {
+                                                            loading ? <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", margin: "0 auto" }}>
+                                                                <Loader></Loader>
+                                                                <p>Loading Exiting Collections</p>
+                                                            </div>
+                                                                :
+                                                                collectionData ?
+                                                                    <div className={`createNewCollection rounded-xl border-solid border-[${collectionSelected ? "red" : "#E7E7E7"}] border-2 p-[15px] flex justify-start gap-3 w-1/2`} onClick={() => { setCollectionSelected(prev => !prev) }}>
+
+                                                                        <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
+                                                                            <img src={collectionData.image_url} alt="" style={{ width: "61px", objectFit: "cover" }} />
+                                                                        </div>
+                                                                        <div className="rightContnt flex flex-col justify-center">
+                                                                            <p className="darkBlack medium font-medium font-Roboto">
+                                                                                {collectionData.collection_name}
+                                                                            </p>
+                                                                            <p className="lightGray small font-Roboto font-normal mt-2">
+                                                                                Items{" "}
+                                                                                <span className="font-medium darkBlack">
+                                                                                    {collectionData.listed_nfts.length}
+                                                                                </span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    :
+                                                                    ""
+                                                        }
+                                                        {/* <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
+
+
+                                                            <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
+                                                                <img src={newCollect} alt="" />
+                                                            </div>
+                                                            <div className="rightContnt flex flex-col justify-center">
+                                                                <p className="darkBlack medium font-medium font-Roboto">
+                                                                    Wonderful Artwork
+                                                                </p>
+                                                                <p className="lightGray small font-Roboto font-normal mt-2">
+                                                                    Items{" "}
+                                                                    <span className="font-medium darkBlack">
+                                                                        1.5k
+                                                                    </span>
+                                                                </p>
+                                                            </div>
+                                                        </div> */}
+                                                    </div>
+                                                </div>
 
                                                 <div className="addTraits flex flex-col gap-3">
                                                     <p className="darkBlack large font-medium font-Roboto">
@@ -272,7 +458,15 @@ const ManualCreateNft = () => {
                                                     />
                                                 </div>
 
-                
+                                                {/* <div className="create flex justify-center mt-5">
+                                                    <Button
+                                                        type="primary"
+                                                        text="Create"
+                                                        className="text-white rounded-xl mt-2"
+                                                        onClick={showMintModal}
+                                                    />
+                                                </div> */}
+
 
                                                 <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
                                                     <p className="lightGray font-normal medium font-Roboto">
@@ -291,14 +485,41 @@ const ManualCreateNft = () => {
                                                     />
                                                 </div>
                                                 <div className="flex justify-end">
-                                                    <Button
+                                                    {/* <Button
                                                         className="btn-primary px-8 py-4 mb-5"
                                                         text="Mint NFT"
                                                         onClick={showMintModal}
+                                                    /> */}
+                                                    <Button
+                                                        className="btn-primary px-8 py-4 mb-5"
+                                                        text="Mint NFT"
+                                                        onClick={
+                                                            () => {
+                                                                if (validation()) {
+                                                                    toast.promise(
+                                                                        uploadImage(),
+                                                                        {
+                                                                            pending: "NFT is minting",
+                                                                            error: "There was an error Minting NFT",
+                                                                            success: "NFT minted successfully"
+
+                                                                        }
+                                                                    )
+                                                                }
+                                                                else {
+                                                                    if (!activeAccount?.address) {
+                                                                        toast.error("Please connect wallet first");
+                                                                    }
+                                                                    else {
+                                                                        toast.error("Please provide all information.");
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
                                                     />
                                                 </div>
 
-                                            </form>
+                                            </div>
                                         </div>
                                     </div>
                                 ) : (

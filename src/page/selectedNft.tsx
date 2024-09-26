@@ -1,27 +1,31 @@
+import * as algokit from "@algorandfoundation/algokit-utils";
 import { CloseOutlined, EditOutlined } from "@ant-design/icons";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useWallet } from "@txnlab/use-wallet";
 import { Switch } from "antd";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import newCollect from "../assets/artistsProfile/newCollect.png";
 import collect1 from "../assets/createNft/collect1.webp";
 import collect2 from "../assets/createNft/collect2.webp";
 import collect3 from "../assets/createNft/collect3.webp";
 import collect4 from "../assets/createNft/collect4.webp";
-import selectNftGlow from "../assets/createNft/selectedNftGlow.webp";
 import plus from "../assets/icons/plus.svg";
 import nft1 from "../assets/images/createNft/profilepic.png";
+import rightGlow from "../assets/nftCollection/rightGlow.webp";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
+import { getAllCollectionNft, getAllListed, Listing } from "../fryMarketMethods";
 import AddTraits from "../modals/addTraits";
 import MintNft from "../modals/mintNft";
-import rightGlow from "../assets/nftCollection/rightGlow.webp"
+import { mintMultipleNft } from "../utils/minting/minting";
+import { getAlgodConfigFromViteEnvironment } from "../utils/network/getAlgoClientConfigs";
 
 const SelectedNft = () => {
   const [isSelected, setIsSelected] = useState(false);
   const [selectedArtworkId, setSelectedArtworkId] = useState(null);
-  const handleClicked = (id:any) => {
+  const handleClicked = (id: any) => {
     setSelectedArtworkId(id);
   };
 
@@ -34,6 +38,13 @@ const SelectedNft = () => {
   };
   const [value, setValue] = useState("blue: fox");
   const [isEditing, setIsEditing] = useState(false);
+
+  const { activeAddress, signer, sendTransactions, signTransactions } = useWallet()
+  algokit.Config.configure({ populateAppCallResources: true });
+
+  const algodConfig = getAlgodConfigFromViteEnvironment()
+  const algorandClient: algokit.AlgorandClient = algokit.AlgorandClient.fromConfig({ algodConfig })
+  algorandClient.setDefaultSigner(signer);
 
   const handleEditClick = () => {
     setIsEditing(true);
@@ -76,12 +87,78 @@ const SelectedNft = () => {
     { id: 3, imgSrc: collect3, title: "Wonderful Artwork", items: "1.5k" },
     { id: 4, imgSrc: collect4, title: "Wonderful Artwork", items: "1.5k" },
   ];
+
+  const mintNft = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    try {
+      const uris: string[] = [
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_0.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_1.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_2.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_3.png",
+        "https://fry-foundation.s3.amazonaws.com/nfts/images/characters/v1_txt2img_4.png"
+      ]
+
+      let expandedUris: string[] = [];
+      while (expandedUris.length < 16) {
+        expandedUris = expandedUris.concat(uris);
+      }
+      expandedUris = expandedUris.slice(0, 16);
+
+      console.log(expandedUris.length)
+      const mintingTsx: Uint8Array[] = await mintMultipleNft(algorandClient, expandedUris, activeAddress!, signer)
+
+      const signedTransactions = await signTransactions(mintingTsx)
+      const waitRoundsToConfirm = 4
+      const { id } = await sendTransactions(signedTransactions, waitRoundsToConfirm)
+      console.log(id)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  const lisMyNft = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const assetId = 709435738;
+
+    //! Mint Nft
+    // await mintNft(e)
+
+    //! list Nfts
+    // const nftList = await listNft(activeAddress!, BigInt(assetId), signer)
+    // console.log(nftList)
+
+    //! update Nft Price
+
+    // const updatePrice = await updateNftListPrice(activeAddress!, BigInt(assetId), signer, BigInt(2000000))
+    // console.log(updatePrice)
+
+    //! get listed nfts
+    const listedNfts: Listing[] = await getAllListed()
+    console.log(listedNfts)
+
+    //! cancel list
+    // const cancellist = await cancelList(activeAddress!, BigInt(assetId), signer)
+    // console.log(cancellist)
+
+    //! Buy Nft
+    // const buyListedNft = await buyNft(activeAddress!, BigInt(assetId), signer, "FW5K3IUZ2WQDCFDWPCBBSXAZXQQDONNN54FDVYHFCMOCK7PFDLROPGTTWM", 1000000)
+    // console.log(buyListedNft)
+
+    //!getAllNfts
+    const nfts = await getAllCollectionNft(activeAddress!);
+    console.log(nfts)
+
+
+  }
+
+  console.log(activeAddress)
   return (
     <>
       <div>
         <div className="nftCollection mt-[107px] mb-16">
-         {/* <img className="nftGlow absolute top-0 left-0 h-full w-full -z-10 object-cover" src={selectNftGlow} alt="" /> */}
-         <img src={rightGlow} className="absolute top-[-200px] right-0 -z-20" alt="" />
+          {/* <img className="nftGlow absolute top-0 left-0 h-full w-full -z-10 object-cover" src={selectNftGlow} alt="" /> */}
+          <img src={rightGlow} className="absolute top-[-200px] right-0 -z-20" alt="" />
           <div className="container">
             <div className="inner flex gap-8">
               <div className="backBtnContainer flex flex-col  items-start">
@@ -275,7 +352,7 @@ const SelectedNft = () => {
                           <Button
                             className="btn-primary px-8 py-4 mb-5"
                             text="Mint NFT"
-                            // onClick={showMintModal}
+                            onClick={lisMyNft}
                           />
                         </div>
                       </form>
@@ -295,52 +372,51 @@ const SelectedNft = () => {
                         </h2>
                       </div>
                       <div className="artWorkContainer lightGray text-[16px] font-Roboto font-normal mt-2 flex flex-col gap-6">
-                      {artworks.map((artwork) => (
-  <div
-    key={artwork.id}
-    className="artWork w-[626px] mx-auto p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex justify-between items-center"
-  >
-    <div className="leftSide flex gap-3">
-      <div className="part1">
-        <img src={artwork.imgSrc} alt={artwork.title} />
-      </div>
-      <div className="part2 flex flex-col gap-3">
-        <p className="darkBlack font-Roboto medium font-medium">
-          {artwork.title}
-        </p>
-        <p className="lightGray small font-normal font-Roboto">
-          Items{" "}
-          <span className="darkBlack font-medium">
-            {artwork.items}
-          </span>
-        </p>
-      </div>
-    </div>
-    <div className="rightSide">
-      <Button
-        className={`button medium font-medium ${
-          selectedArtworkId === artwork.id
-            ? '!text-white bg-gradient-to-tl from-[#FD0000] to-[#FF9292] !border-none'
-            : 'text-black border-solid border-2 border-[#E7E7E7] bg-[#F4F4F4]'
-        }`}
-        onClick={() => handleClicked(artwork.id)}
-        minWidth={115}
-        minHeight={51}
-        text="Select"
-      />
-    </div>
-  </div>
-))}
-      <div className="w-full flex justify-end">
-        <Button
-          className="button btn-primary medium font-Roboto font-medium mt-4"
-          minWidth={102}
-          minHeight={53}
-          text="Next"
-          onClick={handleBackClick}
-        />
-      </div>
-    </div>
+                        {artworks.map((artwork) => (
+                          <div
+                            key={artwork.id}
+                            className="artWork w-[626px] mx-auto p-3.5 border-2 border-solid border-[#E7E7E7] rounded-xl flex justify-between items-center"
+                          >
+                            <div className="leftSide flex gap-3">
+                              <div className="part1">
+                                <img src={artwork.imgSrc} alt={artwork.title} />
+                              </div>
+                              <div className="part2 flex flex-col gap-3">
+                                <p className="darkBlack font-Roboto medium font-medium">
+                                  {artwork.title}
+                                </p>
+                                <p className="lightGray small font-normal font-Roboto">
+                                  Items{" "}
+                                  <span className="darkBlack font-medium">
+                                    {artwork.items}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                            <div className="rightSide">
+                              <Button
+                                className={`button medium font-medium ${selectedArtworkId === artwork.id
+                                    ? '!text-white bg-gradient-to-tl from-[#FD0000] to-[#FF9292] !border-none'
+                                    : 'text-black border-solid border-2 border-[#E7E7E7] bg-[#F4F4F4]'
+                                  }`}
+                                onClick={() => handleClicked(artwork.id)}
+                                minWidth={115}
+                                minHeight={51}
+                                text="Select"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                        <div className="w-full flex justify-end">
+                          <Button
+                            className="button btn-primary medium font-Roboto font-medium mt-4"
+                            minWidth={102}
+                            minHeight={53}
+                            text="Next"
+                            onClick={handleBackClick}
+                          />
+                        </div>
+                      </div>
                       {/* Add your existing collections display logic here */}
                     </div>
                   </div>

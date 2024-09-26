@@ -1,5 +1,4 @@
 import bannerImg from "../../assets/artistsProfile/bannerImg.webp";
-import glow from "../../assets/artistsProfile/mainGlow.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 import Button from "../../components/shared/button";
 

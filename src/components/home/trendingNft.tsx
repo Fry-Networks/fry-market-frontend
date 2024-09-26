@@ -1,8 +1,10 @@
-import arrowDown from "../../assets/icons/arrow-down.svg";
 import CollectionsCard from '../cards/collectionsCard';
-import Button from "../shared/button";
 
+import { useWallet } from "@txnlab/use-wallet";
+import { Select } from 'antd';
+import { useEffect, useState } from "react";
 import userImg1 from "../../assets/home/images/card-userImg.png";
+import colectionBack from "../../assets/home/images/topCollections/topCollectionBackk.webp";
 import trendingNft1 from "../../assets/home/images/trendingNft1.png";
 import trendingNft2 from "../../assets/home/images/trendingNft2.png";
 import trendingNft3 from "../../assets/home/images/trendingNft3.png";
@@ -11,12 +13,41 @@ import trendingNft5 from "../../assets/home/images/trendingNft5.png";
 import trendingNft6 from "../../assets/home/images/trendingNft6.png";
 import trendingNft7 from "../../assets/home/images/trendingNft7.png";
 import trendingNft8 from "../../assets/home/images/trendingNft8.png";
-import colectionBack from "../../assets/home/images/topCollections/topCollectionBackk.webp";
-import { Select } from 'antd';
+import { getAllListed } from "../../fryMarketMethods";
 
 
 const TrendingNft = () => {
   const { Option } = Select;
+  const [loading, setLoading] = useState(false);
+
+  const [listedNfts, setListedNfts] = useState<any>([]);
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+
+  const getListedNft = async () => {
+    try {
+
+
+      setLoading(true);
+      const response = await getAllListed();
+      console.log("NftListed", response);
+      setListedNfts(response);
+      setLoading(false)
+
+    }
+    catch (e) {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    console.log("heeh");
+
+    if (activeAccount?.address) {
+      getListedNft();
+    }
+
+  }, [activeAccount])
+
   return (
     <div className="trendingNftWrapper my-52 md:my-24 relative">
       <img className="absolute top-[-400px] right-0 left-0 -z-50" src={colectionBack} alt="" />
@@ -35,7 +66,7 @@ const TrendingNft = () => {
 
           /> */}
 
-<Select
+          {/* <Select
     defaultValue="Last 30 minutes"
     className="border-2 border-solid rounded-lg text-rose-600 border-[red] primary relative flex items-center justify-center gap-1 bg-[transparent]"
     style={{ minWidth: 220, height: 52, fontSize:"18px", color:"red" }}
@@ -51,13 +82,18 @@ const TrendingNft = () => {
   <Option value="Last 24 hours"  style={{ color: "#cb371b" }}>
     Last 24 hours
   </Option>
-  </Select>
+  </Select> */}
         </div>
 
         <div className="nftWrapper mt-10 grid grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
-          {trendingCard.map((data, index) => (
+          {/* {trendingCard.map((data, index) => (
             <CollectionsCard key={data.id} data={data} />
+          ))} */}
+
+          {listedNfts.sort((data1: any, data2: any) => data1.list_count - data2.list_count).map((data: any, index: any) => (
+            <CollectionsCard key={data.assetId} data={data} label={"Buy"} />
           ))}
+
         </div>
       </div>
     </div>

@@ -5,13 +5,14 @@ import { Drawer } from "antd";
 import { useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import navTopLogo from "../../assets/home/images/homeImages/navTopLogo.png";
-import menu from "../../assets/icons/menu.png";
+//@ts-ignore
+import axios from "axios";
 import mobileLogo from "../../assets/icons/navbarLogo.svg";
 import logo from "../../assets/icons/newLogo.svg";
 import logo2 from "../../assets/icons/topSeller/navLogo2.svg";
 import logo1 from "../../assets/icons/topSeller/walletLogo.svg";
 import Button from "../shared/button";
-
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 interface Toggle {
   open: boolean,
   setOpen: (value: boolean) => void
@@ -44,6 +45,33 @@ const Navbar = (props: Toggle) => {
   console.log(location.pathname);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<string>("left");
+  const { activeAccount } = useWallet()
+
+  const getAuthToken = async () => {
+
+    try {
+      const tokenResponse = await axios.post(`${baseUrl}/get-token`, {
+        wallet_address: activeAccount?.address
+      });
+      console.log("Response fom auth API", tokenResponse.data);
+
+    }
+    catch (e) {
+
+    }
+
+  }
+
+  // useEffect(() => {
+
+  //   if (activeAccount?.address) {
+  //     console.log("Get auth token");
+  //     getAuthToken();
+
+  //   }
+
+  // }, [activeAccount])
+
   const showDrawer = () => {
     setOpen(true);
   };
@@ -76,15 +104,15 @@ const Navbar = (props: Toggle) => {
                 <NavLink
                   className={`navlink ${isHomeActive ? "active" : ""}`}
                   to="/"
-              
+
                 >
                   <li>Home</li>
                 </NavLink>
 
-                <NavLink 
-                className={`navlink ${isNftActive ? "active" : ""}`}
-                 to="/create-nft-page"
-            >
+                <NavLink
+                  className={`navlink ${isNftActive ? "active" : ""}`}
+                  to="/create-nft-page"
+                >
                   <li>AI Nft Generation</li>
                 </NavLink>
 
@@ -125,8 +153,8 @@ const Navbar = (props: Toggle) => {
         </NavLink>
         <button onClick={handleShow} className="menu-btn">
           {/* <img src={menu} alt="Menu" /> */}
-          <Icon icon="iconamoon:menu-burger-horizontal-fill" width="36" height="36"  style={{color: "black"}} />
-          
+          <Icon icon="iconamoon:menu-burger-horizontal-fill" width="36" height="36" style={{ color: "black" }} />
+
         </button>
 
         <Drawer
@@ -146,7 +174,7 @@ const Navbar = (props: Toggle) => {
               <NavLink
                 className={`navlink ${isHomeActive ? "active" : ""}`}
                 to="/"
-                onClick={onClose} 
+                onClick={onClose}
               >
                 <li>Home</li>
               </NavLink>
@@ -154,7 +182,7 @@ const Navbar = (props: Toggle) => {
                   <li>Marketplace</li>
                 </NavLink> */}
               <NavLink
-               className={`navlink ${isNftActive ? "active" : ""}`} to="/create-nft-page"    
+                className={`navlink ${isNftActive ? "active" : ""}`} to="/create-nft-page"
                 onClick={onClose} >
                 <li>AI Nft Generation</li>
               </NavLink>
