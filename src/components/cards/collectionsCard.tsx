@@ -74,6 +74,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
     }
     catch (e) {
       console.log("Error Uploading Image", e);
+      return e;
 
     }
 
@@ -114,7 +115,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
     }
     catch (e) {
       console.log("Error Uploading Image", e);
-
+      return e;
     }
 
 
@@ -216,15 +217,22 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                 />
               )
             )}
-            <button className="p-3 bg-white flex gap-2 items-center">
-              <span className="ex-small darkBlack fw-medium">Price:</span>
-              <div className="flex gap-1">
-                <img src={timeIcon} alt="" />
-                <span className="ex-small lightGray font-medium">
-                  {data.price / 1000000}
-                </span>
-              </div>
-            </button>
+            {
+              data.price ?
+                <button className="p-3 bg-white flex gap-2 items-center">
+                  <span className="ex-small darkBlack fw-medium">Price:</span>
+
+                  <div className="flex gap-1">
+                    <img src={timeIcon} alt="" />
+                    <span className="ex-small lightGray font-medium">
+                      {data.price / 1000000}
+                    </span>
+                  </div>
+
+                </button>
+                :
+
+                ""}
           </div>
           <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? data?.params?.url : data?.imgUrl ? data?.imgUrl : data.nftImg} alt="" />
         </div>

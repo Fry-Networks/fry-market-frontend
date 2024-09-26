@@ -89,6 +89,7 @@ const CreateNftCollectionManual = () => {
     }
     catch (e) {
       console.log("Error Uploading Image", e);
+      return e;
 
 
     }

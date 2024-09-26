@@ -12,7 +12,7 @@ import userImg1 from "../../assets/home/images/card-userImg.png";
 import AuctionCard from '../cards/auctionCard';
 
 
-const LiveAuction = ({ auctionedNfts, getAuctionedNft }) => {
+const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
   return (
     <>
       <div className="liveAuctionWrapper mb-52 relative">

@@ -191,7 +191,7 @@ const ManualCreateNft = () => {
         }
         catch (e) {
             console.log("Error Uploading Image", e);
-
+            return e;
 
         }
 
@@ -200,7 +200,7 @@ const ManualCreateNft = () => {
 
     const minNft = async (imageUrl: any) => {
         try {
-            const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, formData.itemName, signTransactions, sendTransactions)
+            const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, signTransactions, sendTransactions)
             console.log("response after minting", response);
             // toast.success("Mint Successful")
             return true

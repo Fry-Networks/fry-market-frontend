@@ -2,7 +2,7 @@ import bannerImg from "../../assets/artistsProfile/bannerImg.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 import Button from "../../components/shared/button";
 
-const ProfileBanner = () => {
+const ProfileBanner = ({ fryBalance }: any) => {
   return (
     <>
       <div className="profileBanner mb-14 relative">
@@ -59,7 +59,7 @@ const ProfileBanner = () => {
               </div>
               <button className="profileBtn darkBlack  font-Roboto medium font-normal mt-3  w-[162px] h-[53px] flex-center gap-3 rounded-[15px] border-3 border-solid border-[#E7E7E7]">
                 <img src={foldedRed} alt="" />
-                10.89 FRY
+                {fryBalance ? fryBalance : 0} FRY
               </button>
             </div>
           </div>
