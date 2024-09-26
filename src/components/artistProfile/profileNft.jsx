@@ -17,14 +17,19 @@ import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
-import { getAllCollectionNft, getAllUserNfts } from "../../fryMarketMethods";
+import { getAllCollectionNft, getAllListedByUser, getAllUserNfts } from "../../fryMarketMethods";
 import Loader from "../Loader";
 const ProfileNft = () => {
 
     const [activeKey, setActiveKey] = React.useState("1");
     const [mintedNft, setMintedNft] = useState([])
-    const [allNft, setAllNft] = useState([])
+    const [boughtNft, setAllBoughtNft] = useState([])
+    const [listedNft, setAllListedNft] = useState([])
+    const [auctionedNft, setAuctionedNft] = useState([])
     const [loading, setLoading] = useState(false);
+    const [loadingAll, setLoadingAll] = useState(false);
+    const [loadingListed, setLoadingListed] = useState(false);
+    const [loadingAuctioned, setLoadingAuctioned] = useState(false);
     const { activeAccount } = useWallet()
     const onChange = (key) => {
       setActiveKey(key);
@@ -128,28 +133,67 @@ const ProfileNft = () => {
           setLoading(false);
         }
       }
+      
       const getAllNft = async () => {
         try{
 
           if (activeAccount?.address) {
-            setLoading(true);
+            setLoadingAll(true);
             const response = await getAllUserNfts(activeAccount?.address);
             console.log("NftAll", response);
-            setAllNft(response);
-            setLoading(false)
+            setAllBoughtNft(response);
+            setLoadingAll(false)
           }
         }
         catch(e){
-          setLoading(false);
+          setLoadingAll(false);
+        }
+      }
+
+      const getListedNft = async () => {
+        try{
+
+          if (activeAccount?.address) {
+            setLoadingListed(true);
+            const response = await getAllListedByUser(activeAccount?.address);
+            console.log("NftListed", response);
+            setAllListedNft(response);
+            setLoadingListed(false);
+          }
+        }
+        catch(e){
+          setLoadingListed(false);
         }
       }
     
+      const getAuctionedNft = async () => {
+        if (activeAccount?.address) {
+    
+    
+          try {
+    
+    
+            setLoadingAuctioned(true);
+            const response = await getAllAuctions(activeAccount?.address, signer);
+            console.log("NftAuctioned", response);
+            setAuctionedNft(response);
+            setLoadingAuctioned(false)
+    
+          }
+          catch (e) {
+            setLoadingAuctioned(false);
+          }
+        }
+      }
+
       useEffect(() => {
         console.log("heeh");
     
         if (activeAccount?.address) {
           getMintedNft();
           getAllNft();
+          getListedNft();
+          getAuctionedNft();
         }
     
       }, [activeAccount])
@@ -167,8 +211,8 @@ const ProfileNft = () => {
               onChange={onChange}
               tabBarStyle={{ padding: 0 }} 
             >
-              <Tabs.TabPane tab="All" key="1">
-             <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+              <Tabs.TabPane tab="Owned" key="1">
+             {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} isProfilePage={true}  />
             ))}
@@ -181,9 +225,34 @@ const ProfileNft = () => {
               <CollectionsCard data={data} isProfilePage={true}  />
             ))}
               
-             </div>
+             </div> */}
+
+{
+loadingAll ? 
+<div style={{display: "flex", justifyContent: 'center'}}>
+<Loader></Loader>
+</div>
+:
+<>
+{boughtNft.length > 0 ? 
+
+<div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+{boughtNft.map((data, index) => (
+              <CollectionsCard data={{index: data.nftAddress, params: data }} label="List" />
+             
+            ))}
+            </div>
+          :
+          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Nft Owned yet.</div>
+          }   
+            </>
+
+}
+
+
+
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Generated" key="2">
+              {/* <Tabs.TabPane tab="Generated" key="2">
               <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
@@ -198,7 +267,7 @@ const ProfileNft = () => {
             ))}
               
              </div>
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
               <Tabs.TabPane tab="Minted" key="3">
             
              {/* {featureCard.map((data, index) => (
@@ -238,7 +307,7 @@ loading ?
 
               </Tabs.TabPane>
               <Tabs.TabPane tab="On Sale" key="4">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+              {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
             ))}
@@ -251,13 +320,36 @@ loading ?
               <CollectionsCard data={data} />
             ))}
               
-             </div>
+             </div> */}
+
+{
+loadingListed ? 
+<div style={{display: "flex", justifyContent: 'center'}}>
+<Loader></Loader>
+</div>
+:
+<>
+{listedNft.length > 0 ? 
+
+<div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+{listedNft.map((data, index) => (
+              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="List" />
+             
+            ))}
+            </div>
+          :
+          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Nfts listed on Sale yet.</div>
+          }   
+            </>
+
+}
+
               </Tabs.TabPane>
 
 
 
               <Tabs.TabPane tab="Auction" key="5">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+              {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
             ))}
@@ -270,7 +362,30 @@ loading ?
               <CollectionsCard data={data} />
             ))}
               
-             </div>
+             </div> */}
+
+{
+loadingAuctioned ? 
+<div style={{display: "flex", justifyContent: 'center'}}>
+<Loader></Loader>
+</div>
+:
+<>
+{auctionedNft.length > 0 ? 
+
+<div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+{auctionedNft.map((data, index) => (
+              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="List" />
+             
+            ))}
+            </div>
+          :
+          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Nfts listed on Auction yet.</div>
+          }   
+            </>
+
+}
+
               </Tabs.TabPane>
              
 
