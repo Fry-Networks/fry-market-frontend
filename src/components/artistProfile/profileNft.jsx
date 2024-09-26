@@ -19,6 +19,9 @@ import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
 import { getAllCollectionNft, getAllListedByUser, getAllUserNfts } from "../../fryMarketMethods";
 import Loader from "../Loader";
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
+
+
 const ProfileNft = () => {
 
     const [activeKey, setActiveKey] = React.useState("1");
@@ -30,6 +33,7 @@ const ProfileNft = () => {
     const [loadingAll, setLoadingAll] = useState(false);
     const [loadingListed, setLoadingListed] = useState(false);
     const [loadingAuctioned, setLoadingAuctioned] = useState(false);
+    const [collectionData, setCollectionData] = useState(false);
     const { activeAccount } = useWallet()
     const onChange = (key) => {
       setActiveKey(key);
@@ -187,6 +191,8 @@ const ProfileNft = () => {
           }
         }
       }
+
+     
 
       useEffect(() => {
         console.log("heeh");
@@ -392,7 +398,7 @@ loadingAuctioned ?
              
 
 
-              <Tabs.TabPane tab="Sold" key="6">
+              {/* <Tabs.TabPane tab="Sold" key="6">
               <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} />
@@ -407,7 +413,7 @@ loadingAuctioned ?
             ))}
               
              </div>
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
             </Tabs>
     </div>
 </div>

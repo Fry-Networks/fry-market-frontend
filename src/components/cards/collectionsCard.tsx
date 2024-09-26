@@ -221,7 +221,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               <div className="flex gap-1">
                 <img src={timeIcon} alt="" />
                 <span className="ex-small lightGray font-medium">
-                  {data.price}
+                  {data.price / 1000000}
                 </span>
               </div>
             </button>

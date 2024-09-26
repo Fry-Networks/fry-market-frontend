@@ -122,7 +122,7 @@ const Navbar = (props: Toggle) => {
               <div className="flex gap-x-3">
                 <img src={logo1} alt="button" className="cursor-pointer" />
                 <img src={logo2} alt="button" className="cursor-pointer" onClick={(() => (
-                  navigate("/artist-profile-art")
+                  navigate("/artist-profile")
                 ))} />
               </div>
             ) : (

@@ -1,20 +1,18 @@
 
-import React from "react";
 // import leftImg from "../../assets/topCollection/bannerLeftImg.png";
-import grid from "../../assets/nftCollection/exploreGrid.webp";
-import internet from "../../assets/icons/internetIcon.png";
-import twitter from "../../assets/icons/twitterTC.svg";
+import { Icon } from "@iconify/react";
 import discord from "../../assets/icons/discordTC.svg";
 import glasses from "../../assets/icons/glasses.svg";
+import internet from "../../assets/icons/internetIcon.png";
+import grid from "../../assets/nftCollection/exploreGrid.webp";
 import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
-import { Icon } from "@iconify/react";
 
-const PixacioBanner = ({ name, image }: any) => {
+const PixacioBanner = ({ name, image, description }: any) => {
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
         <img src={topLeftGrid} className="top-0  left-0 absolute" alt="" />
-      <img className=" grid absolute top-[-400px] right-0 -z-50" src={grid} alt="" />
+        <img className=" grid absolute top-[-400px] right-0 -z-50" src={grid} alt="" />
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
@@ -64,14 +62,14 @@ const PixacioBanner = ({ name, image }: any) => {
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg p-2 flex-center cursor-pointer"
                 >
-                 <img src={internet} alt="" />
+                  <img src={internet} alt="" />
                 </div>
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg py-1.5 px-2.5 flex items-center justify-between gap-4 cursor-pointer"
                 >
-             <Icon icon="fa6-brands:x-twitter" width="22" height="22"  style={{color: "black"}} />
+                  <Icon icon="fa6-brands:x-twitter" width="22" height="22" style={{ color: "black" }} />
                   <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center cursor-pointer">
                     <p
                       style={{ opacity: "1" }}
@@ -93,7 +91,7 @@ const PixacioBanner = ({ name, image }: any) => {
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4 cursor-pointer"
                 >
-                 <img
+                  <img
                     className="w-full h-full object-cover"
                     src={glasses}
                     alt=""
@@ -110,7 +108,10 @@ const PixacioBanner = ({ name, image }: any) => {
               </div>
 
               <p className="text-left small font-normal lightGray ">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                {
+                  description ?
+                    description :
+                    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 euismod vulputate ipsum, non molestie magna facilisis a. Cras
                 tincidunt sem sed lorem dapibus laoreet. Curabitur vel lectus
                 purus. In gravida eros ac aliquam facilisis. Suspendisse at
@@ -118,7 +119,8 @@ const PixacioBanner = ({ name, image }: any) => {
                 sapien justo, interdum sit amet sollicitudin quis, porttitor a
                 metus. In eu accumsan dolor, eu venenatis eros. Aliquam erat
                 volutpat. Etiam suscipit placerat mi. Mauris diam purus,
-                sagittis eu feugiat eu, sodales a quam. Cras elit enim.
+                sagittis eu feugiat eu, sodales a quam. Cras elit enim.`
+                }
               </p>
             </div>
           </div>
