@@ -17,6 +17,7 @@ import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
+import { getAllAuctions, getAllUserClaimable } from "../../auctionMethod";
 import { getAllCollectionNft, getAllListedByUser, getAllUserNfts } from "../../fryMarketMethods";
 import Loader from "../Loader";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -29,12 +30,14 @@ const ProfileNft = () => {
     const [boughtNft, setAllBoughtNft] = useState([])
     const [listedNft, setAllListedNft] = useState([])
     const [auctionedNft, setAuctionedNft] = useState([])
+    const [claimableNft, setClaimableNft] = useState([])
     const [loading, setLoading] = useState(false);
     const [loadingAll, setLoadingAll] = useState(false);
     const [loadingListed, setLoadingListed] = useState(false);
     const [loadingAuctioned, setLoadingAuctioned] = useState(false);
+    const [loadingClaimable, setLoadingClaimable] = useState(false);
     const [collectionData, setCollectionData] = useState(false);
-    const { activeAccount } = useWallet()
+    const { activeAccount, signer } = useWallet()
     const onChange = (key) => {
       setActiveKey(key);
       console.log(key);
@@ -187,7 +190,30 @@ const ProfileNft = () => {
     
           }
           catch (e) {
+            console.log("D", e);
+            
             setLoadingAuctioned(false);
+          }
+        }
+      }
+      const getClaimableNft = async () => {
+        if (activeAccount?.address) {
+    
+    
+          try {
+    
+    
+            setLoadingClaimable(true);
+            const response = await getAllUserClaimable(activeAccount?.address, signer);
+            console.log("NftClaimable", response);
+            setClaimableNft(response);
+            setLoadingClaimable(false)
+    
+          }
+          catch (e) {
+            console.log("dd",e);
+            
+            setLoadingClaimable(false);
           }
         }
       }
@@ -202,6 +228,7 @@ const ProfileNft = () => {
           getAllNft();
           getListedNft();
           getAuctionedNft();
+          getClaimableNft();
         }
     
       }, [activeAccount])
@@ -383,7 +410,7 @@ loadingAuctioned ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {auctionedNft.map((data, index) => (
-              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="List" />
+              <CollectionsCard data={{index: data.assetId, params: data}} label="List" />
              
             ))}
             </div>
@@ -414,6 +441,47 @@ loadingAuctioned ?
               
              </div>
               </Tabs.TabPane> */}
+              
+              <Tabs.TabPane tab="Claimable" key="6">
+              {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+             {featureCard.map((data, index) => (
+              <CollectionsCard data={data} />
+            ))}
+             {
+                soldCardData.map((data,index)=>(
+                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
+                ))
+            }
+              {featureCard.map((data, index) => (
+              <CollectionsCard data={data} />
+            ))}
+              
+             </div> */}
+
+{
+loadingClaimable ? 
+<div style={{display: "flex", justifyContent: 'center'}}>
+<Loader></Loader>
+</div>
+:
+<>
+{claimableNft.length > 0 ? 
+
+<div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+{claimableNft.map((data, index) => (
+              <CollectionsCard data={{index: data.assetId, params: {url: data.url, price: data.highestBidAmount, name: data.name} }} label="List" />
+             
+            ))}
+            </div>
+          :
+          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Nfts listed on Auction yet.</div>
+          }   
+            </>
+
+}
+
+              </Tabs.TabPane>
+
             </Tabs>
     </div>
 </div>
