@@ -2,7 +2,6 @@ import Auction from "../components/home/auction";
 import BoostNft from "../components/home/boostNft";
 import DigitalAssets from "../components/home/digitalAssets";
 import Faq from "../components/home/faq";
-import Featured from "../components/home/featured";
 import Hero from "../components/home/hero";
 import ListedNft from "../components/home/listedNft";
 import ReadyForNext from "../components/home/readyForNext";
@@ -16,7 +15,7 @@ const Home = () => {
     <div>
 
       <Hero />
-      <Featured />
+      {/* <Featured /> */}
       <ListedNft />
       <TrendingNft />
       <TopSeller />
