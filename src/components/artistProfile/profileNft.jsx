@@ -119,6 +119,8 @@ const ProfileNft = () => {
       ];
 
       const getMintedNft = async () => {
+        console.log("f");
+        
         try{
 
           if (activeAccount?.address) {
