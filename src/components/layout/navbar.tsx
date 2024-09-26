@@ -197,7 +197,7 @@ const Navbar = (props: Toggle) => {
               className="button btn-primary small font-medium btnConnect font-Roboto"
               width={150}
               minHeight={39}
-              text="Connect Wallet"
+              text={activeAddress ? activeAddress.slice(0, 6) + "...." + activeAddress.slice(-6) : "Connect Wallet"}
               data-test-id="connect-wallet"
               onClick={toggleWalletModal}
             ></Button>
