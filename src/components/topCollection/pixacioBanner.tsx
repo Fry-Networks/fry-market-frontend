@@ -7,7 +7,7 @@ import internet from "../../assets/icons/internetIcon.png";
 import grid from "../../assets/nftCollection/exploreGrid.webp";
 import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
 
-const PixacioBanner = ({ name, image, description }: any) => {
+const PixacioBanner = ({ name, image, description, length }: any) => {
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
@@ -30,10 +30,10 @@ const PixacioBanner = ({ name, image, description }: any) => {
                   <p className="small font-normal lightGray font-Roboto">
                     Items Listed
                   </p>
-                  <p className="small font-bold lightGray font-Roboto">3,027</p>
+                  <p className="small font-bold lightGray font-Roboto">{length ? length : 0}</p>
                 </div>
 
-                <div
+                {/* <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className="p-4 rounded-lg bg-white shadow-[4px_4px_15px_0_rgba(0, 0, 0, 0.2)] w-[332px] h-[48px] flex justify-between"
                 >
@@ -53,7 +53,7 @@ const PixacioBanner = ({ name, image, description }: any) => {
                   <p className="small font-bold lightGray font-Roboto">
                     18.5 FRY
                   </p>
-                </div>
+                </div> */}
               </div>
               <hr className="w-[95%] h-[2px] bg-[#FE0101]" />
 
