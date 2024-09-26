@@ -17,8 +17,8 @@ import soldNft1 from "../../assets/home/images/soldNft/soldNftImg1.png";
 import soldNft2 from "../../assets/home/images/soldNft/soldNftImg2.png";
 import soldNft3 from "../../assets/home/images/soldNft/soldNftImg3.png";
 import soldNft4 from "../../assets/home/images/soldNft/soldNftImg4.png";
-import { getAllAuctions, getAllUserClaimable } from "../../auctionMethod";
-import { getAllCollectionNft, getAllListedByUser, getAllUserNfts } from "../../fryMarketMethods";
+import { getAllUserAuctions, getAllUserClaimable } from "../../auctionMethod";
+import { getAllCollectionWListed, getAllListedByUser, getAllUserNfts } from "../../fryMarketMethods";
 import Loader from "../Loader";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -132,13 +132,15 @@ const ProfileNft = () => {
 
           if (activeAccount?.address) {
             setLoading(true);
-            const response = await getAllCollectionNft(activeAccount?.address);
+            const response = await getAllCollectionWListed(activeAccount?.address);
             console.log("NftMinted", response);
             setMintedNft(response);
             setLoading(false)
           }
         }
         catch(e){
+          console.log("ee", e);
+          
           setLoading(false);
         }
       }
@@ -183,7 +185,7 @@ const ProfileNft = () => {
     
     
             setLoadingAuctioned(true);
-            const response = await getAllAuctions(activeAccount?.address, signer);
+            const response = await getAllUserAuctions(activeAccount?.address, signer);
             console.log("NftAuctioned", response);
             setAuctionedNft(response);
             setLoadingAuctioned(false)

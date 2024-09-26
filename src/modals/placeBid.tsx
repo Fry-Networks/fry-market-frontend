@@ -49,6 +49,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
     }
     catch (e) {
       console.log("Error Uploading Image", e);
+      return e;
 
     }
 

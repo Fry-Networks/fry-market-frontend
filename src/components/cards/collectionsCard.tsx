@@ -74,6 +74,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
     }
     catch (e) {
       console.log("Error Uploading Image", e);
+      return e;
 
     }
 
@@ -114,7 +115,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
     }
     catch (e) {
       console.log("Error Uploading Image", e);
-
+      return e;
     }
 
 
