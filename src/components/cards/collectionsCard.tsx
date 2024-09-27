@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
+import { claimNftRoyalty } from "../../auctionMethod";
 import { buyNftWithRoyalty, listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
@@ -123,6 +124,50 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
   }
 
+  const handleClaimNft = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+          if (activeAccount?.address) {
+
+            const response = await claimNftRoyalty(activeAccount.address, signer, data.index, data.params.bidContract, data.paramas.price, data.params.sellerId)
+            // (
+            //   activeAccount?.address,
+            //   data.assetId,
+            //   signer,
+            //   data.seller,
+            //   data.price);
+
+
+            console.log("response", response);
+            resolve(true)
+
+
+          }
+        }
+        catch (e) {
+          console.log("Error While Claiming nft");
+
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+      return e;
+    }
+
+
+
+
+  }
+
   return (
     <>
       <div className="collectionCard flex flex-col gap-2 relative">
@@ -210,6 +255,21 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
                       //   }
                       // )
+
+                    }
+                    else if (label == "Claim") {
+
+                      // navigate("/sell-method", { state: { nftData: data } })
+
+                      toast.promise(
+                        handleListNft(),
+                        {
+                          pending: "NFT claiming in progress",
+                          error: "There was an error Claiming NFT",
+                          success: "NFT claimed successfully"
+
+                        }
+                      )
 
                     }
 

@@ -329,7 +329,7 @@ loading ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {mintedNft.map((data, index) => (
-              <CollectionsCard data={data} label="List" />
+              <CollectionsCard data={data} label="Minted" />
              
             ))}
             </div>
@@ -370,7 +370,7 @@ loadingListed ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {listedNft.map((data, index) => (
-              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="List" />
+              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="Listed" />
              
             ))}
             </div>
@@ -412,7 +412,7 @@ loadingAuctioned ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {auctionedNft.map((data, index) => (
-              <CollectionsCard data={{index: data.assetId, params: data}} label="List" />
+              <CollectionsCard data={{index: data.assetId, params: data}} label="Listed" />
              
             ))}
             </div>
@@ -471,12 +471,12 @@ loadingClaimable ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {claimableNft.map((data, index) => (
-              <CollectionsCard data={{index: data.assetId, params: {url: data.url, price: data.highestBidAmount, name: data.name} }} label="List" />
+              <CollectionsCard data={{index: data.nftAddress, params: {url: data.url, price: data.highestBidAmount, name: data.name, bidContract: data.bidContract, sellerId: data.sellerId} }} label="Claim" />
              
             ))}
             </div>
           :
-          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Nfts listed on Auction yet.</div>
+          <div style={{display: "flex", justifyContent: "center", marginTop: '20px'}}>No Claimable Nfts found.</div>
           }   
             </>
 

@@ -14,6 +14,7 @@ const ProfilePage = () => {
   const [collectionData, setCollectionData] = useState<any>({})
   const [allListedNft, setAllListedNft] = useState<any>([])
   const [fryBalance, setFryBalance] = useState<any>(0)
+  const [profileData, setProfileData] = useState<any>({})
 
   const { activeAccount } = useWallet()
 
@@ -66,10 +67,34 @@ const ProfilePage = () => {
     }
   }
 
+  const getProfileData = async () => {
+    if (activeAccount?.address) {
+
+      try {
+
+        // const config = {
+        //   headers: { Authorization: `Bearer ${token}` }
+        // };
+
+        const response: any = await axios.post(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
+        console.log("Hehe", response.data);
+        // return true;
+
+      }
+      catch (e) {
+        console.log("Error Updating Profile Data");
+        // toast.error("Error Getting Profile Data");
+        // return false
+
+      }
+    }
+  }
+
   useEffect(() => {
     getCollectionData();
     getListedNft()
     getFryBalance()
+    getProfileData()
 
   }, [activeAccount])
 

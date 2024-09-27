@@ -1,30 +1,70 @@
-import { message, Modal, Upload } from "antd";
+import { Modal, Upload } from "antd";
 import upoadIcon from "../assets/icons/imgIcon.svg";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
 const { Dragger } = Upload;
-const props = {
-  name: "file",
-  multiple: true,
-  action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-  onChange(info: any) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-      console.error(info.file.error); // Log the error for further investigation
-    }
-  },
-  onDrop(e: any) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
+// const props = {
+//   name: "file",
+//   multiple: true,
+//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+//   onChange(info: any) {
+//     const { status } = info.file;
+//     if (status !== "uploading") {
+//       console.log(info.file, info.fileList);
+//     }
+//     if (status === "done") {
+//       message.success(`${info.file.name} file uploaded successfully.`);
+//     } else if (status === "error") {
+//       message.error(`${info.file.name} file upload failed.`);
+//       console.error(info.file.error); // Log the error for further investigation
+//     }
+//   },
+//   onDrop(e: any) {
+//     console.log("Dropped files", e.dataTransfer.files);
+//   },
+// };
 
-const UploadImage = ({ isuploadmodal, setisuploadmodal }: any) => {
+const UploadImage = ({ isuploadmodal, setisuploadmodal, setProfileImage, setBannerImage, currentImage }: any) => {
+
+  const props = {
+    name: "file",
+    multiple: false,
+    // action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+    onChange(info: any) {
+      // const { status } = info.file;
+      // if (status !== "uploading") {
+      //   console.log(info.file, info.fileList);
+      // }
+      // if (status === "done") {
+      //   message.success(`${info.file.name} file uploaded successfully.`);
+      // } else if (status === "error") {
+      //   message.error(`${info.file.name} file upload failed.`);
+      //   console.error(info.file.error); // Log the error for further investigation
+      // }
+      if (currentImage == "banner") {
+        // console.log("Droppded files", info.file);
+        setBannerImage(info.file.originFileObj)
+
+      }
+      else {
+        setProfileImage(info.file.originFileObj)
+
+      }
+    },
+    onDrop(e: any) {
+      if (currentImage == "banner") {
+        // console.log("Dropped files", e.dataTransfer.files[0]);
+        setBannerImage(e.dataTransfer.files[0])
+
+      }
+      else {
+        setProfileImage(e.dataTransfer.files[0])
+
+      }
+      // console.log("Dropped files", e.dataTransfer.files);
+    },
+  };
+
   const handleOk = () => {
     setisuploadmodal(false);
   };
