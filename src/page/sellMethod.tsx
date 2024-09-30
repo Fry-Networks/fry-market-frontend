@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import auctionPrice from "../assets/artistsProfile/auction.png";
 import fixedPrice from "../assets/artistsProfile/fixedPrice.png";
-import sellImg from "../assets/artistsProfile/sellImg.png";
+import sellImg from "../assets/artistsProfile/sell.webp";
 import door from "../assets/icons/door.svg";
 import fryIcon from "../assets/icons/fryIcon.svg";
 import tick from "../assets/icons/priceTick.svg"; // Import tick icon
@@ -168,7 +168,7 @@ const SellMethod = () => {
       <div className="sellMethodContainer relative">
         <img className='absolute top-0 -z-30' src={bgBack} alt="" />
         <div className="container">
-          <div className="inner my-20 flex h-full">
+          <div className="inner my-20 flex gap-[20px] h-full">
             <div className="leftArea w-1/4 flex flex-col justify-start gap-5">
               <button
                 onClick={() => navigate("/artist-profile")}
@@ -179,7 +179,7 @@ const SellMethod = () => {
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg' src={nftData?.params?.url ? nftData?.params?.url : sellImg} alt="" />
+              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.params?.url ? nftData?.params?.url : sellImg} alt="" />
               <p className="ex-large darkBlack font-medium font-Roboto">
                 Preview your item
               </p>
@@ -240,18 +240,18 @@ const SellMethod = () => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col gap-1 mt-3 priceBox">
+              <div className="flex flex-col gap-1 mt-3 priceBox rounded-xl">
                 <label className="darkBlack large font-medium font-Roboto">
                   {selectedMethod == "fixed" ? "Price" : "Start Amount"}
                 </label>
                 <div className="flex justify-start items-center gap-3 enterPrice">
-                  <div className="py-[8px] px-[20px]  border-2 border-solid border-[#E7E7E7] rounded-lg flex gap-2  fryText">
+                  <div className="py-[10px] px-[20px]  border-2 border-solid border-[#E7E7E7] rounded-2xl flex gap-2  fryText">
                     <img src={fryIcon} alt="" />
                     FRY</div>
                   <input
                     placeholder="Enter price for one item"
                     type="number"
-                    className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2"
+                    className="w-full py-[12px] px-[20px]  rounded-2xl border-solid border-[#E7E7E7] border-2"
                     value={price}
                     onChange={(e) => { setPrice(Number(e.target.value)) }}
                   />
@@ -261,7 +261,7 @@ const SellMethod = () => {
               {
                 selectedMethod === "auction" && (
                   <>
-                    <div className="flex flex-col gap-1 mt-3 priceBox">
+                    <div className="flex flex-col gap-1 mt-3 ">
                       <label className="darkBlack large font-medium font-Roboto">
                         Minimum Bid Amount
                       </label>
@@ -278,7 +278,7 @@ const SellMethod = () => {
                         />
                       </div>
                     </div>
-                    <div className="mt-3 flex flex-col gap-2 duration">
+                    <div className="mt-3 flex flex-col gap-2 duration priceBox rounded-xl">
                       <label className="darkBlack large font-medium font-Roboto">
                         Bidding Start Time
                       </label>

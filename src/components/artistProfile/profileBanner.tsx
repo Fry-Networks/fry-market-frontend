@@ -1,7 +1,7 @@
-import bannerImg from "../../assets/artistsProfile/bannerImg.webp";
+import banner from "../../assets/artistsProfile/banner.webp";
+import bannerProfile from "../../assets/artistsProfile/bannerUserIcon.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 import Button from "../../components/shared/button";
-
 const ProfileBanner = ({ fryBalance }: any) => {
   return (
     <>
@@ -11,23 +11,37 @@ const ProfileBanner = ({ fryBalance }: any) => {
         <div className="container">
           <div className="inner relative ">
 
+            <div className="relative mainn">
+              <img className="absolute bottom-[-50px] left-[45%] bannerProfilePic" src={bannerProfile} alt="" />
+              <img
+                className="profilebanner mt-10 w-full z-90"
+                src={banner}
+                alt=""
+              />
+              <Button
+                className="btnFollow button btn-primary medium font-semibold font-Roboto absolute top-3 right-3"
+                width={103}
+                minHeight={53}
+                text="Follow"
+              >
+              </Button>
+            </div>
 
-
-            <img
+            {/* <img
               className="profilebanner mt-10 w-full z-90"
               src={bannerImg}
               alt=""
-            />
-            <Button
+            /> */}
+            {/* <Button
               className="btnFollow button btn-primary medium font-semibold font-Roboto absolute top-3 right-3"
               width={103}
               minHeight={53}
               text="Follow"
             >
-            </Button>
+            </Button> */}
 
 
-            <div className="profileContent flex flex-col gap-5 justify-center items-center">
+            <div className="profileContent flex flex-col gap-5 justify-center items-center mt-14">
               <h3 className="darkBlack font-Apex font-normal tracking-[1.6px] ">
                 WILLIAM AKARANA
               </h3>
