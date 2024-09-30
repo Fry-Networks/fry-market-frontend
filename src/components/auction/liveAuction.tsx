@@ -1,3 +1,6 @@
+import { useWallet } from "@txnlab/use-wallet";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import leftGlow from "../../assets/auction/leftGlow.webp";
 import featureTopGrid from "../../assets/auction/listGrid.webp";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
@@ -10,9 +13,52 @@ import trendingNft7 from "../../assets/home/images/auction/auctionImg7.png";
 import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
 import userImg1 from "../../assets/home/images/card-userImg.png";
 import AuctionCard from '../cards/auctionCard';
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 
 const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
+
+  const [collectionData, setCollectionData] = useState<any>({})
+  const { activeAccount } = useWallet();
+
+  const getCollectionData = async () => {
+    if (activeAccount?.address) {
+      try {
+
+        // const config = {
+        //   headers: { Authorization: `Bearer ${token}` }
+        // };
+
+        const response = await axios.get(`${baseUrl}/get-all-collections`);
+        console.log("Collection Data", response.data);
+        if (response?.data?.length > 0) {
+          let obj = {};
+          response?.data?.map((collectionData: any) => {
+            if (typeof (collectionData.collection_address) == "string") {
+              obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url } }
+            }
+          }
+          )
+          setCollectionData(obj)
+          console.log("well", obj);
+
+        }
+
+
+      }
+      catch (e) {
+        console.log("Error Getting Collection", e);
+        // toast.error("Error Creating Collection");
+        setCollectionData("")
+
+      }
+    }
+  }
+
+  useEffect(() => {
+    getCollectionData();
+  }, [activeAccount])
+
   return (
     <>
       <div className="liveAuctionWrapper mb-52 relative">
@@ -32,7 +78,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
               ))} */}
 
               {auctionedNfts.map((data: any, index: any) => (
-                <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} />
+                <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData ? collectionData[data.sellerId] : {}} />
               ))}
 
             </div>

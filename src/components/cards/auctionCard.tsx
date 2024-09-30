@@ -5,7 +5,7 @@ import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
 import Button from "../shared/button";
 
-const AuctionCard = ({ data, getAuctionedNft, collectionData }: any) => {
+const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   const [isbidmodal, setisbidmodal] = useState(false);
 
   const showplaceBidModal = () => {
