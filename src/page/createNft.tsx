@@ -99,7 +99,7 @@ const CreateNft: React.FC = () => {
       console.log(location.state);
       console.log("u called");
 
-      // generateImages(inputValue, selectedStyle, supply);
+      generateImages(inputValue, selectedStyle, supply);
     }
   }, [])
 

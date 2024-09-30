@@ -76,7 +76,7 @@ const ProfilePage = () => {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
 
-        const response: any = await axios.post(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
+        const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
         console.log("Hehe", response.data);
         // return true;
 
@@ -102,7 +102,7 @@ const ProfilePage = () => {
     <>
       <ProfileBanner fryBalance={fryBalance} />
       <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : artistImage} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} />
-      <ProfileNft />
+      <ProfileNft collectionData={collectionData} />
     </>
   )
 }

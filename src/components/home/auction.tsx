@@ -16,7 +16,7 @@ import { getAllAuctions } from '../../auctionMethod';
 import AuctionCard from '../cards/auctionCard';
 import Button from "../shared/button";
 
-const Auction = () => {
+const Auction = ({ collectionData = {} }: any) => {
   const navigate = useNavigate();
 
   const goToAuction = () => {
@@ -70,7 +70,7 @@ const Auction = () => {
               <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))} */}
             {auctionedNfts.map((data: any, index: any) => (
-              <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} />
+              <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]} />
             ))}
           </div>
 

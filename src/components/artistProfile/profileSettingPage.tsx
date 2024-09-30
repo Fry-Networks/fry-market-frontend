@@ -146,7 +146,7 @@ const ProfileSettingPage = () => {
               >
                 Upload Banner
               </button>
-              <img className="absolute bottom-[40px] left-[590px] cursor-pointer" src={profileImage ? URL.createObjectURL(profileImage) : plusIcon} alt="" onClick={() => {
+              <img className="absolute bottom-[40px] left-[590px] cursor-pointer w-[118px] h-[118px] rounded-full object-cover" src={profileImage ? URL.createObjectURL(profileImage) : plusIcon} alt="" onClick={() => {
                 setCurrentImage("profileImage")
                 showImageModal()
               }} />

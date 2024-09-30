@@ -16,7 +16,7 @@ import trendingNft8 from "../../assets/home/images/trendingNft8.png";
 import { getAllListed } from "../../fryMarketMethods";
 
 
-const TrendingNft = () => {
+const TrendingNft = ({ collectionData }: any) => {
   const { Option } = Select;
   const [loading, setLoading] = useState(false);
 
@@ -100,7 +100,7 @@ const TrendingNft = () => {
           ))} */}
 
           {listedNfts.sort((data1: any, data2: any) => data1.list_count - data2.list_count).map((data: any, index: any) => (
-            <CollectionsCard key={data.assetId} data={data} label={"Buy"} />
+            <CollectionsCard key={data.assetId} data={data} label={"Buy"} collectionData={collectionData[data.seller]} />
           ))}
 
         </div>

@@ -341,7 +341,7 @@ export const mintMultipleNft = async (metaUris: any, sender: string, signer: Tra
             const mintTx = await algorandClient.transactions.assetCreate({
                 assetName: `${metaUris[i].name} #` + i.toString(),
                 // unitName: metaUris[i].name,
-                url: metaUris[i].image,
+                url: metaUris[i].metadata,
                 decimals: 0,
                 total: BigInt(1),
                 manager: sender,

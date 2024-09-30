@@ -5,7 +5,7 @@ import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
 import Button from "../shared/button";
 
-const AuctionCard = ({ data, getAuctionedNft }: any) => {
+const AuctionCard = ({ data, getAuctionedNft, collectionData }: any) => {
   const [isbidmodal, setisbidmodal] = useState(false);
 
   const showplaceBidModal = () => {
@@ -19,15 +19,15 @@ const AuctionCard = ({ data, getAuctionedNft }: any) => {
       <div className='auctionCard flex flex-col gap-2 relative'>
         <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start gap-2">
-          {/* <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
-            <img className="w-full h-full object-cover" src={data.userImg} alt="" />
-          </div> */}
-          <div className="t-right-part w-4/5">
+          <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
+            <img className="w-full h-full object-cover rounded-full" src={collectionData.image_url ? collectionData.image_url : ""} alt="" />
+          </div>
+          <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
               {data.name}
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
-              {data.userEmail}
+              @{collectionData?.collection_name ? collectionData?.collection_name : "collection"}
             </p>
           </div>
         </div>

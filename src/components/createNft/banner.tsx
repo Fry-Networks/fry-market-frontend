@@ -82,7 +82,7 @@ const Banner = () => {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
 
-        const response = await axios.get(`${baseUrl}/get-collection/12`);
+        const response = await axios.get(`${baseUrl}/get-collection/${activeAccount.address}`);
         console.log("Collection Data", response.data);
         setCollectionData(response.data)
 
@@ -98,7 +98,7 @@ const Banner = () => {
 
   useEffect(() => {
     getCollectionData();
-  }, [])
+  }, [activeAccount])
 
   return (
     <>

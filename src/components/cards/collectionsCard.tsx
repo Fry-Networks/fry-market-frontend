@@ -10,7 +10,7 @@ import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
 
-const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label }: any) => {
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {} }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -132,7 +132,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         try {
           if (activeAccount?.address) {
 
-            const response = await claimNftRoyalty(activeAccount.address, signer, data.index, data.params.bidContract, data.paramas.price, data.params.sellerId)
+            const response = await claimNftRoyalty(activeAccount.address, signer, data.index, data.params.bidContract, data.params.price, data.params.sellerId)
             // (
             //   activeAccount?.address,
             //   data.assetId,
@@ -148,7 +148,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           }
         }
         catch (e) {
-          console.log("Error While Claiming nft");
+          console.log("Error While Claiming nft", e);
 
           reject(false);
         }
@@ -168,20 +168,24 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
   }
 
+  function replaceJsonWithPng(str: any) {
+    return str.includes('.json') ? str.replace('.json', '.png') : str;
+  }
+
   return (
     <>
       <div className="collectionCard flex flex-col gap-2 relative">
         <img className=" max-w-[388px] max-h-[411px] w-full h-full whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
-            <img className="w-full h-full object-cover rounded-full" src={data.userImg} alt="" />
+            <img className="w-full h-full object-cover rounded-full" src={collectionData?.image_url ? collectionData?.image_url : data?.userImg} alt="" />
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
-              Sheraz Alam
+              {data?.name ? data?.name : data?.params?.name ? data?.params?.name : "NFT"}
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
-              @Sheraz
+              @{collectionData?.collection_name ? collectionData?.collection_name : "collection"}
             </p>
           </div>
         </div>
@@ -262,7 +266,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                       // navigate("/sell-method", { state: { nftData: data } })
 
                       toast.promise(
-                        handleListNft(),
+                        handleClaimNft(),
                         {
                           pending: "NFT claiming in progress",
                           error: "There was an error Claiming NFT",
@@ -294,7 +298,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
                 ""}
           </div>
-          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? data?.params?.url : data?.imgUrl ? data?.imgUrl : data.nftImg} alt="" />
+          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg} alt="" />
         </div>
       </div>
 

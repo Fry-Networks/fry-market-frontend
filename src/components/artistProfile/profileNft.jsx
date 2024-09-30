@@ -23,7 +23,7 @@ import Loader from "../Loader";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 
-const ProfileNft = () => {
+const ProfileNft = ({collectionData}) => {
 
     const [activeKey, setActiveKey] = React.useState("1");
     const [mintedNft, setMintedNft] = useState([])
@@ -36,7 +36,6 @@ const ProfileNft = () => {
     const [loadingListed, setLoadingListed] = useState(false);
     const [loadingAuctioned, setLoadingAuctioned] = useState(false);
     const [loadingClaimable, setLoadingClaimable] = useState(false);
-    const [collectionData, setCollectionData] = useState(false);
     const { activeAccount, signer } = useWallet()
     const onChange = (key) => {
       setActiveKey(key);
@@ -275,7 +274,7 @@ loadingAll ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {boughtNft.map((data, index) => (
-              <CollectionsCard data={{index: data.nftAddress, params: data }} label="List" />
+              <CollectionsCard data={{index: data.nftAddress, params: data }} label="List" collectionData={collectionData} />
              
             ))}
             </div>
@@ -329,7 +328,7 @@ loading ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {mintedNft.map((data, index) => (
-              <CollectionsCard data={data} label="Minted" />
+              <CollectionsCard data={data} label="Minted"  collectionData={collectionData} />
              
             ))}
             </div>
@@ -370,7 +369,7 @@ loadingListed ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {listedNft.map((data, index) => (
-              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="Listed" />
+              <CollectionsCard data={{index: data.assetId, params: {url: data.imgUrl, price: data.price, name: data.name} }} label="Listed"  collectionData={collectionData} />
              
             ))}
             </div>
@@ -412,7 +411,7 @@ loadingAuctioned ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {auctionedNft.map((data, index) => (
-              <CollectionsCard data={{index: data.assetId, params: data}} label="Listed" />
+              <CollectionsCard data={{index: data.assetId, params: data}} label="Listed"  collectionData={collectionData}/>
              
             ))}
             </div>
@@ -471,7 +470,7 @@ loadingClaimable ?
 
 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
 {claimableNft.map((data, index) => (
-              <CollectionsCard data={{index: data.nftAddress, params: {url: data.url, price: data.highestBidAmount, name: data.name, bidContract: data.bidContract, sellerId: data.sellerId} }} label="Claim" />
+              <CollectionsCard data={{index: data.nftAddress, params: {url: data.url, price: data.highestBidAmount, name: data.name, bidContract: data.bidContract, sellerId: data.sellerId} }} label="Claim"  collectionData={collectionData}/>
              
             ))}
             </div>
