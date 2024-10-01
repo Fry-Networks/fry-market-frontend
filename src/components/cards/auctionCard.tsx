@@ -12,7 +12,9 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
     setisbidmodal(true);
   };
 
-
+  function replaceJsonWithPng(str: any) {
+    return str.includes('.json') ? str.replace('.json', '.png') : str;
+  }
 
   return (
     <>
@@ -71,7 +73,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               </div>
             </button>
           </div>
-          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data.url} alt="" />
+          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={replaceJsonWithPng(data.url)} alt="" />
         </div>
       </div>
 

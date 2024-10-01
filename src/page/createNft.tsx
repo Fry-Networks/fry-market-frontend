@@ -93,13 +93,15 @@ const CreateNft: React.FC = () => {
   }
 
   useEffect(() => {
-    const { inputValue, selectedStyle, supply } = location.state
-    if (inputValue && selectedStyle && supply && !loading) {
-      setLocationParams(location.state)
-      console.log(location.state);
-      console.log("u called");
+    if (location.state) {
+      const { inputValue, selectedStyle, supply } = location.state
+      if (inputValue && selectedStyle && supply && !loading) {
+        setLocationParams(location.state)
+        console.log(location.state);
+        console.log("u called");
 
-      generateImages(inputValue, selectedStyle, supply);
+        generateImages(inputValue, selectedStyle, supply);
+      }
     }
   }, [])
 
