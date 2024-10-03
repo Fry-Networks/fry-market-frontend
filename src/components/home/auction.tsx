@@ -21,7 +21,7 @@ const Auction = ({ collectionData = {} }: any) => {
 
   const goToAuction = () => {
 
-    navigate('/auction');
+    navigate('/auction', { state: { collectionData: collectionData } });
   };
 
   const [auctionedNfts, setAuctionedNfts] = useState<any>([]);

@@ -5,14 +5,16 @@ import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
 import Button from "../shared/button";
 
-const AuctionCard = ({ data, getAuctionedNft, collectionData }: any) => {
+const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   const [isbidmodal, setisbidmodal] = useState(false);
 
   const showplaceBidModal = () => {
     setisbidmodal(true);
   };
 
-
+  function replaceJsonWithPng(str: any) {
+    return str.includes('.json') ? str.replace('.json', '.png') : str;
+  }
 
   return (
     <>
@@ -71,7 +73,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData }: any) => {
               </div>
             </button>
           </div>
-          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data.url} alt="" />
+          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={replaceJsonWithPng(data.url)} alt="" />
         </div>
       </div>
 
