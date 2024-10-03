@@ -188,7 +188,7 @@ const Banner = () => {
                     <InputNumber
                       min={1}
                       max={99999999999}
-                      defaultValue={3}
+                      defaultValue={1}
                       onChange={onSupply}
                       className="gray-input"
 
