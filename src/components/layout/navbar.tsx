@@ -115,6 +115,12 @@ const Navbar = (props: Toggle) => {
                 >
                   <li>AI Nft Generation</li>
                 </NavLink>
+                <NavLink
+                  className={`navlink ${isNftActive ? "active" : ""}`}
+                  to="/create-collection"
+                >
+                  <li>Create Collection</li>
+                </NavLink>
 
               </ul>
             </div>
