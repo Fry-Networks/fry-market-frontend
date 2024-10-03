@@ -2,34 +2,34 @@
   min-height: 100vh;
   height: 100%;
   margin-bottom: 140px;
-  overflow-x: hidden; 
-.leftHand {
-  animation: customAni 7s linear  normal forwards;
-}
-
-@keyframes customAni {
-  0% {
-    left: -100%; // Start from off-screen
+  overflow-x: hidden;
+  .leftHand {
+    animation: customAni 7s linear normal forwards;
   }
 
-  100% {
-    left: 0; // End at the edge of the screen
-  }
-}
+  @keyframes customAni {
+    0% {
+      left: -100%; // Start from off-screen
+    }
 
-.rightHand {
-  animation: customAnim 7s linear normal forwards;
-}
-
-@keyframes customAnim {
-  0% {
-    right: -100%; // Start from off-screen
+    100% {
+      left: 0; // End at the edge of the screen
+    }
   }
 
-  100% {
-    right: 0; // End at the edge of the screen
+  .rightHand {
+    animation: customAnim 7s linear normal forwards;
   }
-}
+
+  @keyframes customAnim {
+    0% {
+      right: -100%; // Start from off-screen
+    }
+
+    100% {
+      right: 0; // End at the edge of the screen
+    }
+  }
   // &::after {
   //   width: 100%;
   //   height: 100%;
@@ -40,7 +40,6 @@
   //   background-color: transparent;
   //   z-index: 1;
   // }
-
 
   h1 {
     line-height: 102px; /* 106.25% */
@@ -113,14 +112,12 @@
   }
 }
 
-@media screen and (max-width:800px) {
-  .heroWrapper{
+@media screen and (max-width: 800px) {
+  .heroWrapper {
     margin-top: 20px !important;
-    .container{
-      .inner{
-
+    .container {
+      .inner {
       }
     }
   }
-  
 }

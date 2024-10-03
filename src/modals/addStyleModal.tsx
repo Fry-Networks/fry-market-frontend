@@ -53,12 +53,12 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
                 />
               </div>
               <label
-                htmlFor="cartoon"
-                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "cartoon" ? "selected" : ""
+                htmlFor="Cartoon"
+                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "Cartoon" ? "selected" : ""
                   }`}
-                onClick={() => handleSelect("cartoon")}
+                onClick={() => handleSelect("Cartoon")}
               >
-                <input className="hidden" type="checkbox" id="cartoon" />
+                <input className="hidden" type="checkbox" id="Cartoon" />
                 <img
                   className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl"
                   src={cartoonImg}
@@ -70,7 +70,7 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
                   minHeight={44}
                   text="Cartoon"
                 ></Button>
-                {selectedStyle === "cartoon" && (
+                {selectedStyle === "Cartoon" && (
                   <div className="overlay">
                     <span>Selected</span>
                   </div>
@@ -101,9 +101,9 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
                 )}
               </div>
               <div
-                className={`part2 cursor-pointer w-1/2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "anime" ? "selected" : ""
+                className={`part2 cursor-pointer w-1/2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "Anime" ? "selected" : ""
                   }`}
-                onClick={() => handleSelect("anime")}
+                onClick={() => handleSelect("Anime")}
               >
                 <img
                   className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl"
@@ -116,7 +116,7 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
                   minHeight={44}
                   text="Anime Style"
                 ></Button>
-                {selectedStyle === "anime" && (
+                {selectedStyle === "Anime" && (
                   <div className="overlay">
                     <span>Selected</span>
                   </div>
@@ -125,9 +125,9 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
             </div>
             <div className="w-full selectAvatar flex gap-3">
               <div
-                className={`w-1/2 cursor-pointer part1 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "fantasy" ? "selected" : ""
+                className={`w-1/2 cursor-pointer part1 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "Fantasy" ? "selected" : ""
                   }`}
-                onClick={() => handleSelect("fantasy")}
+                onClick={() => handleSelect("Fantasy")}
               >
                 <img
                   className="max-w-[220px] max-h-[188px] w-full h-full object-cover mx-auto rounded-xl"
@@ -140,16 +140,16 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
                   minHeight={44}
                   text="Fantasy Art"
                 ></Button>
-                {selectedStyle === "fantasy" && (
+                {selectedStyle === "Fantasy" && (
                   <div className="overlay">
                     <span>Selected</span>
                   </div>
                 )}
               </div>
               <div
-                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "realistic" ? "selected" : ""
+                className={`w-1/2 cursor-pointer part2 bg-[#E7E7E7] p-1.5 flex-col gap-1.5 flex rounded-xl ${selectedStyle === "Realistic" ? "selected" : ""
                   }`}
-                onClick={() => handleSelect("realistic")}
+                onClick={() => handleSelect("Realistic")}
               >
                 <img src={realisticImg} alt="" />
                 <Button
@@ -158,7 +158,7 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
                   minHeight={44}
                   text="Realistic"
                 ></Button>
-                {selectedStyle === "realistic" && (
+                {selectedStyle === "Realistic" && (
                   <div className="overlay">
                     <span>Selected</span>
                   </div>

@@ -1,15 +1,14 @@
+import { Icon } from "@iconify/react";
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import banner from "../../assets/artistsProfile/banner.webp";
 import midGlow from "../../assets/artistsProfile/midGlow.webp";
-import plusIcon from "../../assets/artistsProfile/plusIcon.png";
 import settingBanerGlow from "../../assets/artistsProfile/settingBanerGlow.webp";
-import uploadBanner from "../../assets/artistsProfile/uploadImgBanner.png";
 import UploadImage from "../../modals/uploadImage";
 import Button from "../shared/button";
 import Input from "../shared/input";
-
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 
@@ -132,37 +131,55 @@ const ProfileSettingPage = () => {
     <>
       <div className="profileSetting relative mb-20">
         <img className="absolute top-[-180px] w-full -z-50 " src={settingBanerGlow} alt="" />
-        <img className="absolute bottom-[-100px] right-0 w-full -z-30" src={midGlow} alt="" />
+        <img className="absolute bottom-[-100px] right-0 w-full -z-50" src={midGlow} alt="" />
 
         <div className="container">
           <div className="inner">
-            <div className="uploadDiv relative">
+            <div className="uploadDiv relative w-full h-[305px] bg-[#D9D9D9]  rounded-2xl mt-5">
+
+              {
+                bannerImage &&
+                <img className="w-full h-full" src={bannerImage ? URL.createObjectURL(bannerImage) : banner} alt="" />
+              }
+
+
+
               <button
                 onClick={() => {
                   setCurrentImage("banner")
                   showImageModal()
                 }}
-                className="absolute top-[125px] left-[570px] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
+                className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
               >
+
                 Upload Banner
               </button>
-              <img className="absolute bottom-[40px] left-[590px] cursor-pointer w-[118px] h-[118px] rounded-full object-cover" src={profileImage ? URL.createObjectURL(profileImage) : plusIcon} alt="" onClick={() => {
-                setCurrentImage("profileImage")
-                showImageModal()
-              }} />
-              <img
-                className="my-7 mb-16"
-                src={bannerImage ? URL.createObjectURL(bannerImage) : uploadBanner}
-                alt=""
-              />
-              <button onClick={() => {
-                setCurrentImage("profileImage")
-                showImageModal()
-              }} className=" border-solid border-2 mx-auto mt-4 border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg">
+
+
+              {/* </div> */}
+
+
+              <div className="absolute w-[100px] h-[100px] rounded-full border-dashed border-[2px] border-[#6B6B6B] bg-[#D9D9D9] bottom-[-60px] left-[47%] cursor-pointer plusIcon flex items-center justify-center" onClick={showImageModal}>
+
+                {
+                  profileImage ?
+                    <img className="w-full h-full object-cover rounded-full" src={URL.createObjectURL(profileImage)} alt="" />
+                    :
+                    <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#6B6B6B" }} />
+                }
+              </div>
+            </div>
+
+            <div className="w-full flex justify-center mt-24">
+              <button className=" ml-7 border-solid border-2  border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg"
+                onClick={() => {
+                  setCurrentImage("profileImage")
+                  showImageModal()
+                }}
+              >
                 Upload Profile
               </button>
             </div>
-
             <div className="formData mt-12 w-[817px] h-auto mx-auto flex flex-col gap-12">
               <div className="nftUserInfo mb-11">
                 <div

@@ -1,6 +1,10 @@
 .profileSetting {
   .container {
     .inner {
+      .uploadDiv {
+        .plusIcon {
+        }
+      }
       .formData {
         .nftUserInfo {
           .input-box {
@@ -10,7 +14,7 @@
                 border: 3px solid #e7e7e7;
                 padding: 19px 30px 18px 30px;
                 &::placeholder {
-                  color: #808080!important;
+                  color: #808080 !important;
                 }
               }
             }
@@ -30,13 +34,11 @@
       }
       .socialLinks {
         .nftUserInfo {
-          .displayDiv{
-            .input-box{
-              label{
-
+          .displayDiv {
+            .input-box {
+              label {
               }
-              .input-wrapper{
-
+              .input-wrapper {
               }
             }
           }
@@ -55,71 +57,66 @@
     }
   }
 }
-@media screen and (max-width:1100px) {
-  .profileSetting{
-    .container{
-      .inner{
+@media screen and (max-width: 1100px) {
+  .profileSetting {
+    .container {
+      .inner {
         width: 100%;
-        .uploadDiv{
-          button{
-            left: 42%;
-            top: 30%;
-          }
+        .uploadDiv {
+          // button{
+          //   left: 42%;
+          //   top: 30%;
+          // }
         }
 
         .formData {
           width: 100%;
           .nftUserInfo {
-            .displayDiv{
+            .displayDiv {
               width: 100%;
-              .input-box{
-              width: 100% !important;
-                label{
-  
+              .input-box {
+                width: 100% !important;
+                label {
                 }
-                .input-wrapper{
-                  
+                .input-wrapper {
                 }
               }
             }
-            .emailInput{
+            .emailInput {
               width: 100% !important;
               .input-box {
                 width: 100% !important;
                 .input-wrapper {
-             width: 100%;
+                  width: 100%;
                   input {
-                width: 100%;
-                 
+                    width: 100%;
                   }
                 }
               }
             }
-          
+
             .bio {
               width: 100%;
-  
+
               .textArea {
                 width: 100%;
-                
               }
             }
           }
         }
 
-        .socialLinks{
+        .socialLinks {
           width: 100%;
-          .nftUserInfo{
+          .nftUserInfo {
             width: 100%;
-            .emailInput{
+            .emailInput {
               width: 100% !important;
               .input-box {
                 width: 100% !important;
                 .input-wrapper {
-             width: 100%;
+                  width: 100%;
                   input {
-                width: 100%;
-                 
+                    width: 100%;
                   }
                 }
               }
@@ -127,25 +124,28 @@
           }
           .saveBtn {
             width: 140px !important;
-            
           }
         }
       }
     }
   }
-  
 }
 
-
-@media screen and (max-width:600px){
-  .profileSetting{
-    .container{
-      .inner{
+@media screen and (max-width: 600px) {
+  .profileSetting {
+    .container {
+      .inner {
         width: 100%;
-        .uploadDiv{
-          button{
-            left: 36%;
-            top: 25%;
+        .uploadDiv {
+          .plusIcon {
+            width: 80px;
+            height: 80px;
+            bottom: -40px;
+            left: 42%;
+          }
+          button {
+            left: 35%;
+            // top: 25%;
           }
         }
       }

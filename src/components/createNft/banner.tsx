@@ -173,8 +173,8 @@ const Banner = () => {
 
                     <Select
                       className=""
-                      defaultValue="Single NFT"
-                      placeholder="Single NFT"
+                      // defaultValue="Single NFT"
+                      placeholder="Select NFT type"
                       style={{ width: 270, height: "55px", color: "black" }}
                       suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
                       onChange={onChange}  // Make sure this is not preventing default behavior
@@ -188,7 +188,7 @@ const Banner = () => {
                     <InputNumber
                       min={1}
                       max={99999999999}
-                      defaultValue={3}
+                      defaultValue={1}
                       onChange={onSupply}
                       className="gray-input"
 
