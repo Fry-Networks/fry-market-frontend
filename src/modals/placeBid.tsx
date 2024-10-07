@@ -32,6 +32,10 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
 
 
             console.log("response", response);
+            if (typeof (response) == "string" && response.includes("Error")) {
+              reject(false);
+              return;
+            }
             resolve(true)
             getAuctionedNft();
             handleOk();

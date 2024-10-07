@@ -41,6 +41,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
             minWidth={96}
             minHeight={37}
             text="Place a Bid"
+            disabled={(data.biddingEndTime * 1000) < Date.now()}
             onClick={showplaceBidModal}
           />
           <div
