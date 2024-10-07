@@ -20,9 +20,9 @@ const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
           <div className="inner relative ">
 
             <div className="relative mainn">
-              <img className="absolute bottom-[-50px] left-[45%] bannerProfilePic" src={profileData?.profile_image ? profileData?.profile_image : bannerProfile} alt="" />
+              <img className="absolute w-full max-w-[118px] max-h-[118px] h-full object-cover rounded-full bottom-[-50px] left-[45%] bannerProfilePic" src={profileData?.profile_image ? profileData?.profile_image : bannerProfile} alt="" />
               <img
-                className="profilebanner mt-10 w-full z-90"
+                className="profilebanner mt-10 w-full z-90 max-h-[305px] h-full object-cover "
                 src={profileData?.banner_image ? profileData?.banner_image : banner}
                 alt=""
               />
