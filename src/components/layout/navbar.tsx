@@ -42,6 +42,8 @@ const Navbar = (props: Toggle) => {
 
 
   const isNftActive = location.pathname === "/create-nft-page" || location.pathname === "/create-nft" || location.pathname === "/multiple-collect" || location.pathname === "/select-nft" || location.pathname === "/create-nft-collection" || location.pathname === "/artist-profile-art" || location.pathname === "/artist-profile" || location.pathname === "/sell-method";
+  const isCollectionActive = location.pathname === "/create-collection";
+
   console.log(location.pathname);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<string>("left");
@@ -116,7 +118,7 @@ const Navbar = (props: Toggle) => {
                   <li>AI Nft Generation</li>
                 </NavLink>
                 <NavLink
-                  className={`navlink ${isNftActive ? "active" : ""}`}
+                  className={`navlink ${isCollectionActive ? "active" : ""}`}
                   to="/create-collection"
                 >
                   <li>Create Collection</li>

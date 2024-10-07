@@ -2,7 +2,7 @@ import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import artistImage from "../../assets/artistsProfile/leftImg.webp";
-import { getAllListedByUser, userFryBalance } from "../../fryMarketMethods";
+import { getAllListedByUser, getAllUserNfts, userFryBalance } from "../../fryMarketMethods";
 import PixacioBanner from '../topCollection/pixacioBanner';
 import ProfileBanner from './profileBanner';
 import ProfileNft from './profileNft';
@@ -13,6 +13,7 @@ const ProfilePage = () => {
 
   const [collectionData, setCollectionData] = useState<any>({})
   const [allListedNft, setAllListedNft] = useState<any>([])
+  const [allNft, setAllNft] = useState<any>([])
   const [fryBalance, setFryBalance] = useState<any>(0)
   const [profileData, setProfileData] = useState<any>({})
 
@@ -52,6 +53,19 @@ const ProfilePage = () => {
 
     }
   }
+  const getAllNft = async () => {
+    try {
+
+      if (activeAccount?.address) {
+        const response = await getAllUserNfts(activeAccount?.address);
+        console.log("NftLisssted", response);
+        setAllNft(response);
+      }
+    }
+    catch (e) {
+
+    }
+  }
 
   const getFryBalance = async () => {
     try {
@@ -78,6 +92,7 @@ const ProfilePage = () => {
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
         console.log("Hehe", response.data);
+        setProfileData(response.data)
         // return true;
 
       }
@@ -95,12 +110,13 @@ const ProfilePage = () => {
     getListedNft()
     getFryBalance()
     getProfileData()
+    getAllNft();
 
   }, [activeAccount])
 
   return (
     <>
-      <ProfileBanner fryBalance={fryBalance} />
+      <ProfileBanner fryBalance={fryBalance} profileData={profileData} length={allNft.length} />
       <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : artistImage} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} />
       <ProfileNft collectionData={collectionData} />
     </>

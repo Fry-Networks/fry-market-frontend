@@ -4,13 +4,13 @@ import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
-import { claimNftRoyalty } from "../../auctionMethod";
-import { buyNftWithRoyalty, listNft } from "../../fryMarketMethods";
+import { cancelAuction, claimNftRoyalty } from "../../auctionMethod";
+import { buyNftWithRoyalty, cancelList, listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
 
-const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {} }: any) => {
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -84,8 +84,6 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
   }
   const handleBuyNft = async () => {
-
-
     try {
       return new Promise(async (resolve, reject) => {
         try {
@@ -142,6 +140,95 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
             console.log("response", response);
+            resolve(true)
+
+
+          }
+        }
+        catch (e) {
+          console.log("Error While Claiming nft", e);
+
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+      return e;
+    }
+
+
+
+
+  }
+  const handleCancelNftList = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+          if (activeAccount?.address) {
+
+            const response = await cancelList(activeAccount.address, data.index, signer);
+            // (
+            //   activeAccount?.address,
+            //   data.assetId,
+            //   signer,
+            //   data.seller,
+            //   data.price);
+
+
+            console.log("response", response);
+            setGetNftDataAgain((prev: any) => !prev)
+            resolve(true)
+
+
+          }
+        }
+        catch (e) {
+          console.log("Error While Claiming nft", e);
+
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+      return e;
+    }
+
+
+
+
+  }
+  const handleCancelNftAuction = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+          if (activeAccount?.address) {
+            console.log("heheWell", data);
+
+            const response = await cancelAuction(activeAccount.address, signer, data.params.nftAddress, data.params.bidContract, signTransactions, sendTransactions);
+            // (
+            //   activeAccount?.address,
+            //   data.assetId,
+            //   signer,
+            //   data.seller,
+            //   data.price);
+
+
+            console.log("response", response);
+            setGetNftDataAgain((prev: any) => !prev)
             resolve(true)
 
 
@@ -276,6 +363,29 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                       )
 
                     }
+                    else if (label == "Cancel" && auctionCancel) {
+                      toast.promise(
+                        handleCancelNftAuction(),
+                        {
+                          pending: "NFT Auction Cancellation in progress",
+                          error: "There was an error Cancelling NFT Auction",
+                          success: "NFT Auction Cancelled successfully"
+
+                        }
+                      )
+                    }
+                    else if (label == "Cancel") {
+                      toast.promise(
+                        handleCancelNftList(),
+                        {
+                          pending: "NFT Listing Cancellation in progress",
+                          error: "There was an error Cancelling NFT Listing",
+                          success: "NFT List Cancelled successfully"
+
+                        }
+                      )
+                    }
+
 
                   }}
                 />

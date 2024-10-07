@@ -100,7 +100,10 @@ const TrendingNft = ({ collectionData }: any) => {
           ))} */}
 
           {listedNfts.sort((data1: any, data2: any) => data1.list_count - data2.list_count).map((data: any, index: any) => (
-            <CollectionsCard key={data.assetId} data={data} label={"Buy"} collectionData={collectionData[data.seller]} />
+            data.isListed ?
+              <CollectionsCard key={data.assetId} data={data} label={"Buy"} collectionData={collectionData[data.seller]} />
+              :
+              ""
           ))}
 
         </div>

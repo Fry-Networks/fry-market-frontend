@@ -1,8 +1,16 @@
+import { useEffect } from "react";
 import banner from "../../assets/artistsProfile/banner.webp";
 import bannerProfile from "../../assets/artistsProfile/bannerUserIcon.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 import Button from "../../components/shared/button";
-const ProfileBanner = ({ fryBalance }: any) => {
+const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
+
+  useEffect(() => {
+    console.log("ss", profileData);
+
+  }, [])
+
+
   return (
     <>
       <div className="profileBanner mb-14 relative">
@@ -12,10 +20,10 @@ const ProfileBanner = ({ fryBalance }: any) => {
           <div className="inner relative ">
 
             <div className="relative mainn">
-              <img className="absolute bottom-[-50px] left-[45%] bannerProfilePic" src={bannerProfile} alt="" />
+              <img className="absolute bottom-[-50px] left-[45%] bannerProfilePic" src={profileData?.profile_image ? profileData?.profile_image : bannerProfile} alt="" />
               <img
                 className="profilebanner mt-10 w-full z-90"
-                src={banner}
+                src={profileData?.banner_image ? profileData?.banner_image : banner}
                 alt=""
               />
               <Button
@@ -43,10 +51,10 @@ const ProfileBanner = ({ fryBalance }: any) => {
 
             <div className="profileContent flex flex-col gap-5 justify-center items-center mt-14">
               <h3 className="darkBlack font-Apex font-normal tracking-[1.6px] ">
-                WILLIAM AKARANA
+                {profileData?.display_name ? profileData?.display_name : "WILLIAM AKARANA"}
               </h3>
               <div className="followerDiv flex gap-4">
-                <div className="part1 flex items-center gap-1">
+                {/* <div className="part1 flex items-center gap-1">
                   <p className="darkBlack font-Roboto font-bold text-[20px]">
                     99
                   </p>
@@ -62,11 +70,11 @@ const ProfileBanner = ({ fryBalance }: any) => {
                   <p className="lightGray text-[16px] font-normal ">
                     Following
                   </p>
-                </div>
+                </div> */}
 
                 <div className="part1 flex items-center gap-1">
                   <p className="darkBlack font-Roboto font-bold text-[20px]">
-                    12
+                    {length ? length : 0}
                   </p>
                   <p className="lightGray text-[16px] font-normal ">Items</p>
                 </div>

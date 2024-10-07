@@ -69,9 +69,13 @@ const Auction = ({ collectionData = {} }: any) => {
             {/* {auctionCard.map((data, index) => (
               <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))} */}
-            {auctionedNfts.map((data: any, index: any) => (
+            {Array.isArray(auctionedNfts) && auctionedNfts.length > 0 ? auctionedNfts.map((data: any, index: any) => (
               <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]} />
-            ))}
+            ))
+              :
+
+              "No Nfts currently listed on Auction"
+            }
           </div>
 
           <Button

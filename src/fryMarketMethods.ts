@@ -192,6 +192,7 @@ export const cancelList = async (
     const { marketClient } = await createFryMarketClient(signer, sender)
     const cancelTxn = await marketClient.cancelList({ asset: assetId }, { sendParams: { fee: algokit.algos(0.002) } });
     console.log(cancelTxn.transaction)
+    return true;
 }
 
 export const buyNft = async (
