@@ -3,7 +3,6 @@ import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import banner from "../../assets/artistsProfile/banner.webp";
 import midGlow from "../../assets/artistsProfile/midGlow.webp";
 import settingBanerGlow from "../../assets/artistsProfile/settingBanerGlow.webp";
 import UploadImage from "../../modals/uploadImage";
@@ -19,7 +18,32 @@ const ProfileSettingPage = () => {
   const [profileData, setProfileData] = useState<any>({});
   const [currentImage, setCurrentImage] = useState<any>({});
   const { activeAccount } = useWallet()
+  const getProfileData = async () => {
+    if (activeAccount?.address) {
 
+      try {
+
+        // const config = {
+        //   headers: { Authorization: `Bearer ${token}` }
+        // };
+
+        const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
+        console.log("Hehed", response.data);
+        setProfileData(response.data)
+        setCurrentImage(response.data.profile_image
+        )
+        setBannerImage(response.data.banner_image)
+        // return true;
+
+      }
+      catch (e) {
+        console.log("Error Updating Profile Data");
+        // toast.error("Error Getting Profile Data");
+        // return false
+
+      }
+    }
+  }
   const showImageModal = () => {
     setisuploadmodal(true);
   };
@@ -127,6 +151,10 @@ const ProfileSettingPage = () => {
 
   }, [bannerImage, profileImage, profileData])
 
+  useEffect(() => {
+    getProfileData()
+  }, [])
+
   return (
     <>
       <div className="profileSetting relative mb-20">
@@ -139,7 +167,7 @@ const ProfileSettingPage = () => {
 
               {
                 bannerImage &&
-                <img className="w-full h-full" src={bannerImage ? URL.createObjectURL(bannerImage) : banner} alt="" />
+                <img className="w-full h-full" src={typeof (bannerImage) == "string" ? bannerImage : URL.createObjectURL(bannerImage)} alt="" />
               }
 
 
@@ -163,7 +191,7 @@ const ProfileSettingPage = () => {
 
                 {
                   profileImage ?
-                    <img className="w-full h-full object-cover rounded-full" src={URL.createObjectURL(profileImage)} alt="" />
+                    <img className="w-full h-full object-cover rounded-full" src={typeof (profileImage) == "string" ? profileImage : URL.createObjectURL(profileImage)} alt="" />
                     :
                     <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#6B6B6B" }} />
                 }

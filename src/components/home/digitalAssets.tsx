@@ -1,10 +1,12 @@
+import { useNavigate } from "react-router-dom";
+import leftLines from "../../assets/home/images/homeImages/digitalGrid.webp";
 import digitalassetBack from "../../assets/home/images/topSeller/digitalAssetBack.webp";
 import digittalGrid from "../../assets/home/images/topSeller/digitalGrid.png";
 import generateIcon from "../../assets/icons/generateIcon.svg";
 import Input from "../shared/input";
-import leftLines from "../../assets/home/images/homeImages/digitalGrid.webp";
 
 const DigitalAssets = () => {
+  const navigate = useNavigate()
   return (
     <>
       <div className="digitalAssetWrapper my-52 flex-col flex-center relative">
@@ -27,7 +29,7 @@ const DigitalAssets = () => {
               className="m-auto my-72"
 
             />
-            <button className="absolute top-[13.5px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">Generate
+            <button className="absolute top-[13.5px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2" onClick={() => navigate("/create-nft-page")}>Generate
               <img src={generateIcon} alt="" />
             </button>
           </div>

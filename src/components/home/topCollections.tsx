@@ -1,13 +1,5 @@
-import React, { useEffect } from "react";
 
-import TopCollectionCard from "../cards/topCollectionCard";
-import card1BodyImg1 from "../../assets/home/images/topCollections/cardBodyImg1.png";
-import card1BodyImg2 from "../../assets/home/images/topCollections/cardBodyImg2.png";
-import card1BodyImg3 from "../../assets/home/images/topCollections/cardBodyImg3.png";
-import card1BodyImg4 from "../../assets/home/images/topCollections/cardBodyImg4.png";
-import card1BodyImg5 from "../../assets/home/images/topCollections/cardBodyImg5.png";
-import card1BodyImg6 from "../../assets/home/images/topCollections/cardBodyImg6.png";
-import card1BtmImg from "../../assets/home/images/topCollections/cardBtmImg1.png";
+import { useNavigate } from "react-router-dom";
 import card2BodyImg1 from "../../assets/home/images/topCollections/card2BodyImg1.png";
 import card2BodyImg2 from "../../assets/home/images/topCollections/card2BodyImg2.png";
 import card2BodyImg3 from "../../assets/home/images/topCollections/card2BodyImg3.png";
@@ -22,10 +14,17 @@ import card3BodyImg4 from "../../assets/home/images/topCollections/card3BodyImg4
 import card3BodyImg5 from "../../assets/home/images/topCollections/card3BodyImg5.png";
 import card3BodyImg6 from "../../assets/home/images/topCollections/card3BodyImg6.png";
 import card3BtmImg from "../../assets/home/images/topCollections/card3BtmImg.png";
+import card1BodyImg1 from "../../assets/home/images/topCollections/cardBodyImg1.png";
+import card1BodyImg2 from "../../assets/home/images/topCollections/cardBodyImg2.png";
+import card1BodyImg3 from "../../assets/home/images/topCollections/cardBodyImg3.png";
+import card1BodyImg4 from "../../assets/home/images/topCollections/cardBodyImg4.png";
+import card1BodyImg5 from "../../assets/home/images/topCollections/cardBodyImg5.png";
+import card1BodyImg6 from "../../assets/home/images/topCollections/cardBodyImg6.png";
+import card1BtmImg from "../../assets/home/images/topCollections/cardBtmImg1.png";
 import colectionBack from "../../assets/home/images/topCollections/topCollectionBackk.webp";
-import { useNavigate } from "react-router-dom";
+import TopCollectionCard from "../cards/topCollectionCard";
 
-const TopCollections = () => {
+const TopCollections = ({ collectionDataFull }: any) => {
   const navigate = useNavigate();
 
   return (
@@ -51,8 +50,11 @@ const TopCollections = () => {
             </p>
           </div>
           <div className="nftCardContainer flex items-center justify-center gap-8 mt-12">
-            {topCollectionData.map((data, index) => (
-              <TopCollectionCard data={data} key={data.id}   />
+            {/* {topCollectionData.map((data, index) => (
+              <TopCollectionCard data={data} key={data.id} />
+            ))} */}
+            {collectionDataFull.map((data: any, index: any) => (
+              <TopCollectionCard data={data} key={data.id} />
             ))}
           </div>
         </div>
