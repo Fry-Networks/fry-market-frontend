@@ -8,6 +8,7 @@ import Faq from "../components/home/faq";
 import Hero from "../components/home/hero";
 import ListedNft from "../components/home/listedNft";
 import ReadyForNext from "../components/home/readyForNext";
+import TopCollections from "../components/home/topCollections";
 import TopSeller from "../components/home/topSeller";
 import TrendingNft from "../components/home/trendingNft";
 
@@ -108,7 +109,7 @@ const Home = () => {
       <TrendingNft collectionData={collectionData} />
       <TopSeller />
       <Auction collectionData={collectionData} />
-      {/* <TopCollections collectionDataFull={collectionDataFull} /> */}
+      <TopCollections collectionDataFull={collectionDataFull} />
       {/* <SoldNft /> */}
       <DigitalAssets />
       <BoostNft />

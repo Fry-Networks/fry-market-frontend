@@ -26,7 +26,7 @@ const Hero = () => {
             <p className='lightGray font-light medium text-center font-Roboto'>Discover and trade unique digital art pieces on our NFT website, where creativity meets blockchain technology.</p>
             <div className='heroCards relative' >
               <img className='absolute bottom-[-230px] -z-10' src={glow} alt="" />
-              <div className="heroCardContainer flex ">
+              <div className="heroCardContainer flex mt-[50px]">
                 <img className='mr-[-115px] mb-6 heroImg1' src={leftImg2} alt="" />
                 <img className='mr-[-125px] heroImg2' src={leftImg1} alt="" />
                 <img className='heroImg3' src={homeCard1} alt="" />

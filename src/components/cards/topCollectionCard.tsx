@@ -51,8 +51,11 @@ const TopCollectionCard = ({ data }: any) => {
             <img className="max-w-[83px] max-h-[73px] w-full h-full object-cover rounded-2xl" src={data.cardBodyImg6} alt="" />
           </div>
         </div>
-        <div className="cardBtm flex justify-start items-center gap-3">
-          <img className="max-w-[65px] max-h-[65px] w-full h-full object-cover rounded" src={data.image_url ? data.image_url : ""} alt="" />
+        <div className="cardBtm flex justify-start items-center gap-3  ">
+          <div className="max-w-[65px] h-[65px] w-full  object-cover rounded-2xl flex justify-center items-center">
+            <img className="max-w-[65px] max-h-[65px] w-full h-full object-cover rounded-2xl" src={data.image_url ? data.image_url : "../../assets/home/images/topCollections/card3BtmImg.png"} alt="" />
+            {/* <img className="max-w-[65px] max-h-[65px] w-full h-full object-cover rounded-2xl" src={imdd} alt="" /> */}
+          </div>
           <div className='flex flex-col gap-1'>
             <p className='medium font-Roboto font-bold darkBlack'>{data.collection_name ? data.collection_name : ""} </p>
             <p className='small font-Roboto font-normal lightGray '>Created by <span className='font-bold'>{profile.display_name ? profile.display_name : ""} </span></p>

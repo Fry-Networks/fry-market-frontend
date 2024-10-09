@@ -13,7 +13,10 @@ const ExploreCard = ({ data }: any) => {
 
         <div className="inner flex flex-col gap-3 max-w-[417px] max-h-[276px] w-full h-full">
           <div className="headerArea flex justify-start items-center gap-3 w-full">
-            <img className="max-w-[65px] max-h-[65px] object-cover rounded w-full h-full" src={data.headerImg} alt="" />
+            <div className="max-w-[65px] h-[65px] object-cover rounded-3xl w-full flex items-center justify-center">
+              <img className="max-w-[65px] max-h-[65px] object-cover rounded-xl w-full h-full" src={data.headerImg} alt="" />
+
+            </div>
             <div className='flex flex-col gap-2'>
               <p className='medium font-Roboto font-bold darkBlack'>WONDERFUL ARTWORK</p>
               <div className='flex gap-2'>

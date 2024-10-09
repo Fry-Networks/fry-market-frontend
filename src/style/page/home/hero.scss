@@ -3,6 +3,79 @@
   height: 100%;
   margin-bottom: 140px;
   overflow-x: hidden;
+  .container {
+    .inner {
+      .heroCards {
+        .heroCardContainer {
+          .heroImg1 {
+            animation: herocard1 3.5s ease-in-out 0s infinite alternate-reverse none;
+            z-index: -20;
+          }
+
+          @keyframes herocard1 {
+            0% {
+              transform: translateX(70px);
+            }
+
+            100% {
+              transform: translateX(-10px);
+            }
+          }
+          .heroImg2 {
+            animation: herocard2 3.5s ease-in-out 0s infinite alternate-reverse none;
+          }
+
+          @keyframes herocard2 {
+            0% {
+              transform: translateX(60px);
+            }
+
+            100% {
+              transform: translateX(-10px);
+            }
+          }
+          .heroImg3 {
+            animation: herocard3 3.5s ease-in-out 3s infinite alternate-reverse none;
+          }
+          @keyframes herocard3 {
+            0% {
+              transform: translateY(20px);
+            }
+
+            100% {
+              transform: translateY(-50px);
+            }
+          }
+          .heroImg4 {
+            animation: heroCard4 3.5s ease-in-out 0s infinite alternate-reverse none;
+          }
+
+          @keyframes heroCard4 {
+            0% {
+              transform: translateX(-50px);
+            }
+
+            100% {
+              transform: translateX(0px);
+            }
+          }
+          .heroImg5 {
+            animation: heroCard5 3.5s ease-in-out 0s infinite alternate-reverse none;
+          }
+
+          @keyframes heroCard5 {
+            0% {
+              transform: translateX(-70px);
+            }
+
+            100% {
+              transform: translateX(20px);
+            }
+          }
+        }
+      }
+    }
+  }
   .leftHand {
     animation: customAni 7s linear normal forwards;
   }
@@ -13,7 +86,7 @@
     }
 
     100% {
-      left: 0; // End at the edge of the screen
+      left: -90px; // End at the edge of the screen
     }
   }
 
@@ -27,7 +100,7 @@
     }
 
     100% {
-      right: 0; // End at the edge of the screen
+      right: -90px; // End at the edge of the screen
     }
   }
   // &::after {
