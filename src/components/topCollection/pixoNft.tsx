@@ -1,6 +1,10 @@
+import { Collapse } from "antd";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userImg1 from "../../assets/home/images/card-userImg.png";
+import filter from "../../assets/icons/filter.svg";
 import search from "../../assets/icons/search.svg";
+import leftGlow from "../../assets/nftCollection/redGlow.webp";
 import trendNft1 from "../../assets/topCollection/nftImg1.png";
 import trendNft10 from "../../assets/topCollection/nftImg10.png";
 import trendNft11 from "../../assets/topCollection/nftImg11.png";
@@ -15,26 +19,22 @@ import trendNft6 from "../../assets/topCollection/nftImg6.png";
 import trendNft7 from "../../assets/topCollection/nftImg7.png";
 import trendNft8 from "../../assets/topCollection/nftImg8.png";
 import trendNft9 from "../../assets/topCollection/nftImg9.png";
-import CollectionsCard from "../cards/collectionsCard";
-import Input from "../shared/input";
-import { Collapse } from "antd";
-import filter from "../../assets/icons/filter.svg";
-import Button from "../shared/button";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
-import leftGlow from "../../assets/nftCollection/redGlow.webp";
 import pixoGrid from "../../assets/topCollection/topColectGrid.webp";
-import { useState } from "react";
+import CollectionsCard from "../cards/collectionsCard";
+import Button from "../shared/button";
+import Input from "../shared/input";
 
 
 
 
 
-const PixoNft = () => {
+const PixoNft = ({ nfts, collectionData }: any) => {
 
   const navigate = useNavigate();
 
   const handleCardClick = () => {
-    navigate("/nft-detail"); 
+    navigate("/nft-detail");
   };
 
   const onTopList = (key: any) => {
@@ -43,7 +43,7 @@ const PixoNft = () => {
 
   const [searchTerm, setSearchTerm] = useState(''); // State for search input
 
-  const handleSearchChange = (event:any) => {
+  const handleSearchChange = (event: any) => {
     setSearchTerm(event.target.value);
   };
 
@@ -55,432 +55,432 @@ const PixoNft = () => {
     <>
       <div className="pixoNftContainer mb-52 relative">
 
-      <div className="absolute top-0 left-0 w-[200px] z-50 collapseDiv">
-      
+        <div className="absolute top-0 left-0 w-[200px] z-50 collapseDiv">
 
-      <Collapse
-       defaultActiveKey={['1']}
-        onChange={onTopList}
-        items={[
-          {
-            key: "1",
-            id: "first-element",
-            label: (
-              <>
-                <div className="flex items-center justify-between mb-1">
-                  <span className="flex items-center">
-                    <img src={filter} className="mr-2" alt="" />
-                  </span>
-                </div>
-                {/* <hr className="h-[2px] bg-black w-[97%] mx-auto" /> */}
-              </>
-            ),
-            children: (
-              <Collapse
-             
-            
-                items={[
-                  {
-                    key: "1-1",
-                    label: (
-                      <div className="flex items-center justify-between">
-                        <span>Popular</span>
-                        <span className="count">15</span>
-                      </div>
-                    ),
-                    children: (
-                      <>
-                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
-                    <img src={search} alt="" />
-                      <input 
-                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
-                   
+
+          <Collapse
+            defaultActiveKey={['1']}
+            onChange={onTopList}
+            items={[
+              {
+                key: "1",
+                id: "first-element",
+                label: (
+                  <>
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="flex items-center">
+                        <img src={filter} className="mr-2" alt="" />
+                      </span>
                     </div>
-
-                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">White</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
-                        </div>
-
-                      </div>
-
-
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
-                        </div>
-
-                      </div>
-                    </div>
-                       
-                      </>
-                    ),
-                  },
-                  {
-                    key: "1-2",
-                    label: "price",
-                    children: (
-                      <>
-                      <div className="w-full flex items-center justify-center  gap-3 mt-3">
-                        <input type="number"  placeholder='Min' className="bg-black  border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
-                       
-                        <p>to</p>
-                        <input type="number"  placeholder='Max' className="bg-black border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
-
-                      </div>
-                     <div className="mt-5 w-full flex-center">
-                     <Button
-              className="button btn-primary font-Roboto text-[15px] font-medium"
-              minWidth={197}
-              minHeight={41}
-              text="Apply"
-       
-            />
-                     </div>
-                      </>
-                    )
-                  },
-
-                  {
-                    key: "1-3",
-                    label: (
-                      <div className="flex items-center justify-between">
-                        <span>Background</span>
-                        <span className="count">20</span>
-                      </div>
-                    ),
-                    children: (
-                      <>
-                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
-                    <img src={search} alt="" />
-                      <input 
-                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
-                   
-                    </div>
-
-                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">White</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
-                        </div>
-
-                      </div>
-
-
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
-                        </div>
-
-                      </div>
-                    </div>
-                       
-                      </>
-                    ),
-                  },
-
-
-                  {
-                    key: "1-4",
-                    label: (
-                      <div className="flex items-center justify-between">
-                        <span>Clothing</span>
-                        <span className="count">110</span>
-                      </div>
-                    ),
-                    children: (
-                      <>
-                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
-                    <img src={search} alt="" />
-                      <input 
-                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
-                   
-                    </div>
-
-                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">White</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
-                        </div>
-
-                      </div>
-
-
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
-                        </div>
-
-                      </div>
-                    </div>
-                       
-                      </>
-                    ),
-                  },
-
-
-                  {
-                    key: "1-5",
-                    label: (
-                      <div className="flex items-center justify-between">
-                        <span>Eye</span>
-                        <span className="count">2</span>
-                      </div>
-                    ),
-                    children: (
-                      <>
-                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
-                    <img src={search} alt="" />
-                      <input 
-                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
-                   
-                    </div>
-
-                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">White</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
-                        </div>
-
-                      </div>
-
-
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
-                        </div>
-
-                      </div>
-                    </div>
-                       
-                      </>
-                    ),
-                  },
-
-                  {
-                    key: "1-6",
-                    label: (
-                      <div className="flex items-center justify-between">
-                        <span>Body Color</span>
-                        <span className="count">11</span>
-                      </div>
-                    ),
-                    children: (
-                      <>
-                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
-                    <img src={search} alt="" />
-                      <input 
-                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
-                   
-                    </div>
-
-                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">White</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
-                        </div>
-
-                      </div>
-
-
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
-                        </div>
-
-                      </div>
-                    </div>
-                       
-                      </>
-                    ),
-                  },
-
-                  {
-                    key: "1-7",
-                    label: (
-                      <div className="flex items-center justify-between">
-                        <span>Head</span>
-                        <span className="count">33</span>
-                      </div>
-                    ),
-                    children: (
-                      <>
-                    <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
-                    <img src={search} alt="" />
-                      <input 
-                       type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
-                   
-                    </div>
-
-                    <div className="nftBg w-full flex flex-col gap-3 mt-3">
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">White</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">37</p>
-                        </div>
-
-                      </div>
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Red</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">5</p>
-                        </div>
-
-                      </div>
-
-
-
-
-                      <div className="whiteClr flex justify-between items-center">
-                        <div className="leftPart flex items-center gap-2">
-                          <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
-                          <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
-                        </div>
-                        <div className="rightPart">
-                          <p className="darkBlack medium font-Roboto font-normal ">10</p>
-                        </div>
-
-                      </div>
-                    </div>
-                       
-                      </>
-                    ),
-                  },
-                ]}
-              />
-            ),
-          },
-         
-        ]}
-      />
-    </div>
-    <img src={rightGlow} className="absolute right-0 top-[200px] -z-50" alt="" />
-    <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-50" alt="" />
-    <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-50' alt="" />
+                    {/* <hr className="h-[2px] bg-black w-[97%] mx-auto" /> */}
+                  </>
+                ),
+                children: (
+                  <Collapse
+
+
+                    items={[
+                      {
+                        key: "1-1",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Popular</span>
+                            <span className="count">15</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                              <img src={search} alt="" />
+                              <input
+                                type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+
+                            </div>
+
+                            <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">White</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                                </div>
+
+                              </div>
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                                </div>
+
+                              </div>
+
+
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </>
+                        ),
+                      },
+                      {
+                        key: "1-2",
+                        label: "price",
+                        children: (
+                          <>
+                            <div className="w-full flex items-center justify-center  gap-3 mt-3">
+                              <input type="number" placeholder='Min' className="bg-black  border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
+
+                              <p>to</p>
+                              <input type="number" placeholder='Max' className="bg-black border-[3px] border-solid rounded-lg border-[red] text-white flex-center w-[76px] h-[44px] flex justify-center items-center ps-6" />
+
+                            </div>
+                            <div className="mt-5 w-full flex-center">
+                              <Button
+                                className="button btn-primary font-Roboto text-[15px] font-medium"
+                                minWidth={197}
+                                minHeight={41}
+                                text="Apply"
+
+                              />
+                            </div>
+                          </>
+                        )
+                      },
+
+                      {
+                        key: "1-3",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Background</span>
+                            <span className="count">20</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                              <img src={search} alt="" />
+                              <input
+                                type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+
+                            </div>
+
+                            <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">White</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                                </div>
+
+                              </div>
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                                </div>
+
+                              </div>
+
+
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </>
+                        ),
+                      },
+
+
+                      {
+                        key: "1-4",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Clothing</span>
+                            <span className="count">110</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                              <img src={search} alt="" />
+                              <input
+                                type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+
+                            </div>
+
+                            <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">White</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                                </div>
+
+                              </div>
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                                </div>
+
+                              </div>
+
+
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </>
+                        ),
+                      },
+
+
+                      {
+                        key: "1-5",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Eye</span>
+                            <span className="count">2</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                              <img src={search} alt="" />
+                              <input
+                                type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+
+                            </div>
+
+                            <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">White</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                                </div>
+
+                              </div>
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                                </div>
+
+                              </div>
+
+
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </>
+                        ),
+                      },
+
+                      {
+                        key: "1-6",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Body Color</span>
+                            <span className="count">11</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                              <img src={search} alt="" />
+                              <input
+                                type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+
+                            </div>
+
+                            <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">White</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                                </div>
+
+                              </div>
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                                </div>
+
+                              </div>
+
+
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </>
+                        ),
+                      },
+
+                      {
+                        key: "1-7",
+                        label: (
+                          <div className="flex items-center justify-between">
+                            <span>Head</span>
+                            <span className="count">33</span>
+                          </div>
+                        ),
+                        children: (
+                          <>
+                            <div className="w-full flex justify-start gap-2 items-center  border-solid border-2 border-[#E7E7E7] py-2.5 px-3.5 rounded-lg">
+                              <img src={search} alt="" />
+                              <input
+                                type="search" className="w-full lightGray text-[16px] font-Roboto font-normal" placeholder="Search" />
+
+                            </div>
+
+                            <div className="nftBg w-full flex flex-col gap-3 mt-3">
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">White</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">37</p>
+                                </div>
+
+                              </div>
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-[red]  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Red</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">5</p>
+                                </div>
+
+                              </div>
+
+
+
+
+                              <div className="whiteClr flex justify-between items-center">
+                                <div className="leftPart flex items-center gap-2">
+                                  <div className="box w-[44px] h-[44px] border-solid border-2 border-[#E7E7E7] bg-blue-400  rounded-lg"></div>
+                                  <p className="darkBlack medium font-Roboto font-normal">Light Blue</p>
+                                </div>
+                                <div className="rightPart">
+                                  <p className="darkBlack medium font-Roboto font-normal ">10</p>
+                                </div>
+
+                              </div>
+                            </div>
+
+                          </>
+                        ),
+                      },
+                    ]}
+                  />
+                ),
+              },
+
+            ]}
+          />
+        </div>
+        <img src={rightGlow} className="absolute right-0 top-[200px] -z-50" alt="" />
+        <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-50" alt="" />
+        <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-50' alt="" />
 
         <div className="container">
           <div className="inner">
             <div className="searchDiv w-auto flex justify-end items-center mb-14">
-            <Input
+              <Input
                 wrapperClass="flex items-center justify-center border-2 border-solid border[#243c5a] bg-trasparent"
                 icon={search}
                 placeholder="Search by name"
@@ -496,23 +496,30 @@ const PixoNft = () => {
 
 
             {filteredCards.length > 0 ? (
-                <div className="cardsWrap grid grid-cols-4 gap-6">
-                  {filteredCards.map((data) => (
+              <div className="cardsWrap grid grid-cols-4 gap-6">
+                {/* {filteredCards.map((data) => (
                     <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
                       <CollectionsCard data={data} />
                     </div>
-                  ))}
-                </div>
-              ) : (
-                // Show "NFT not found" when no search results
-                <div className="text-center mt-10">
-                  <p className="text-red-500 font-bold text-xl">No Results Found</p>
-                </div>
-              )}
-            </div>
+                  ))} */}
+                {nfts.length > 0 ? nfts.map((data: any) => (
+                  <div key={data.id} className="cursor-pointer">
+                    <CollectionsCard data={{ index: data.nftAddress, params: data }} label="Nft" collectionData={collectionData} />
+                  </div>
+                ))
+                  :
+                  "No Nfts Found"}
+              </div>
+            ) : (
+              // Show "NFT not found" when no search results
+              <div className="text-center mt-10">
+                <p className="text-red-500 font-bold text-xl">No Results Found</p>
+              </div>
+            )}
           </div>
         </div>
-    
+      </div>
+
     </>
   );
 };

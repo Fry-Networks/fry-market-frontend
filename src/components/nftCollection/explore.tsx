@@ -20,7 +20,7 @@ import headerImg6 from "../../assets/nftCollection/headerImg6.png";
 import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightGlow from "../../assets/nftCollection/rightGlow.webp";
 
-const Explore = () => {
+const Explore = ({ collectionDataFull }: any) => {
   const [activeKey, setActiveKey] = React.useState("1");
 
   const onChange = (key: any) => {
@@ -125,17 +125,22 @@ const Explore = () => {
               onChange={onChange}
               tabBarStyle={{ padding: 0 }}
             >
-              <Tabs.TabPane tab="Popular" key="1">
+              <Tabs.TabPane tab="All" key="1">
                 <div className="popularcardContainer grid grid-cols-3 gap-8 mt-5">
-                  {
+                  {/* {
                     exploreData.map((data, index) => (
+                      <ExploreCard data={data} />
+                    ))
+                  } */}
+                  {
+                    collectionDataFull.map((data: any, index: any) => (
                       <ExploreCard data={data} />
                     ))
                   }
 
                 </div>
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Trending" key="2">
+              {/* <Tabs.TabPane tab="Trending" key="2">
                 <div className="popularcardContainer grid grid-cols-3 gap-8 mt-5">
                   {
                     exploreData.map((data, index) => (
@@ -194,7 +199,7 @@ const Explore = () => {
                   }
 
                 </div>
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
             </Tabs>
           </div>
         </div>

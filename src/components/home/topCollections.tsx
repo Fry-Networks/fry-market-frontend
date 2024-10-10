@@ -42,7 +42,7 @@ const TopCollections = ({ collectionDataFull }: any) => {
             </h2>
             <p
               onClick={() => {
-                navigate("/nft-collection");
+                navigate("/nft-collection", { state: { collectionDataFull: collectionDataFull } });
               }}
               className="primary large font-medium font-Roboto cursor-pointer"
             >
@@ -50,12 +50,12 @@ const TopCollections = ({ collectionDataFull }: any) => {
             </p>
           </div>
           <div className="nftCardContainer flex items-center justify-center gap-8 mt-12">
-            {topCollectionData.map((data, index) => (
-              <TopCollectionCard data={data} key={data.id} />
-            ))}
-            {/* {collectionDataFull.map((data: any, index: any) => (
+            {/* {topCollectionData.map((data, index) => (
               <TopCollectionCard data={data} key={data.id} />
             ))} */}
+            {collectionDataFull.slice(0, 3).map((data: any, index: any) => (
+              <TopCollectionCard data={data} key={data.id} />
+            ))}
           </div>
         </div>
       </div>

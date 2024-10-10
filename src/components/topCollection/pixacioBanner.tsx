@@ -7,7 +7,7 @@ import internet from "../../assets/icons/internetIcon.png";
 import grid from "../../assets/nftCollection/exploreGrid.webp";
 import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
 
-const PixacioBanner = ({ name, image, description, length }: any) => {
+const PixacioBanner = ({ name, image, description, length, collectionData }: any) => {
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
@@ -16,11 +16,11 @@ const PixacioBanner = ({ name, image, description, length }: any) => {
         <div className="container">
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
-              <img className="max-w-[482px] max-h-[461px] object-cover w-full h-full rounded-3xl border-solid border-[15px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={image} alt="" />
+              <img className="max-w-[482px] max-h-[461px] object-cover w-full h-full rounded-3xl border-solid border-[15px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={collectionData.image_url ? collectionData.image_url : image} alt="" />
             </div>
             <div className="rightArea w-3/5 flex flex-col gap-8 ">
               <h2 className="font-normal font-Apex uppercase text-left tracking-wide darkBlack">
-                {name}
+                {collectionData.collection_name ? collectionData.collection_name : name}
               </h2>
               <div className="itemDiv flex flex-wrap gap-4 gap-y-8">
                 <div
@@ -30,7 +30,7 @@ const PixacioBanner = ({ name, image, description, length }: any) => {
                   <p className="small font-normal lightGray font-Roboto">
                     Items Listed
                   </p>
-                  <p className="small font-bold lightGray font-Roboto">{length ? length : 0}</p>
+                  <p className="small font-bold lightGray font-Roboto">{Array.isArray(collectionData.listed_nfts) ? collectionData.listed_nfts.length : 0}</p>
                 </div>
 
                 {/* <div
@@ -109,9 +109,11 @@ const PixacioBanner = ({ name, image, description, length }: any) => {
 
               <p className="text-left small font-normal lightGray ">
                 {
-                  description ?
-                    description :
-                    `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+                  collectionData.description ? collectionData.description :
+
+                    description ?
+                      description :
+                      `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
                 euismod vulputate ipsum, non molestie magna facilisis a. Cras
                 tincidunt sem sed lorem dapibus laoreet. Curabitur vel lectus
                 purus. In gravida eros ac aliquam facilisis. Suspendisse at
