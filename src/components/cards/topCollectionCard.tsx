@@ -34,7 +34,7 @@ const TopCollectionCard = ({ data }: any) => {
 
   useEffect(() => {
     getProfileData(data.collection_address)
-  })
+  }, [])
 
   return (
     <>

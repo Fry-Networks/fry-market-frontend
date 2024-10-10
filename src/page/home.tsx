@@ -107,7 +107,7 @@ const Home = () => {
       {/* <Featured /> */}
       <ListedNft collectionData={collectionData} />
       <TrendingNft collectionData={collectionData} />
-      <TopSeller />
+      <TopSeller collectionDataFull={collectionDataFull} />
       <Auction collectionData={collectionData} />
       <TopCollections collectionDataFull={collectionDataFull} />
       {/* <SoldNft /> */}
