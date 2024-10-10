@@ -9,7 +9,7 @@ import { getAllUserNfts } from "../fryMarketMethods";
 
 const TopCollection = () => {
 
-  const [collectionData, setCollectionData] = useState<any>([])
+  const [collectionData, setCollectionData] = useState<any>("")
   const [profileData, setProfileData] = useState<any>([])
   const [loading, setLoading] = useState(false)
   const [nfts, setNfts] = useState<any>([])
@@ -19,12 +19,12 @@ const TopCollection = () => {
 
   const getAllNft = async () => {
     try {
-      if (activeAccount?.address) {
-        const response = await getAllUserNfts(collectionData.collection_address)
-        console.log('NftAll', response)
-        setNfts(response)
 
-      }
+      const response = await getAllUserNfts(collectionData.collection_address)
+      console.log('NftAll', response)
+      setNfts(response)
+
+
     } catch (e) {
 
     }
@@ -38,9 +38,17 @@ const TopCollection = () => {
     if (location?.state?.profile) {
       setProfileData(location.state.profile)
     }
-    getAllNft();
+    console.log("ahh");
+
+
 
   }, [])
+  useEffect(() => {
+    if (collectionData) {
+
+      getAllNft();
+    }
+  }, [collectionData])
 
   useEffect(() => {
     window.scrollTo(0, 0);

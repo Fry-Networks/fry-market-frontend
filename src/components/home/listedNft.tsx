@@ -1,6 +1,4 @@
-import arrowDown from "../../assets/icons/arrow-down.svg";
 import CollectionsCard from '../cards/collectionsCard';
-import Button from "../shared/button";
 
 import { useWallet } from "@txnlab/use-wallet";
 import { useEffect, useState } from "react";
@@ -55,7 +53,7 @@ const ListedNft = ({ collectionData }: any) => {
                     <h2 className="font-normal font-Apex uppercase">
                         Listed NFT'S
                     </h2>
-                    <Button
+                    {/* <Button
                         className="button btn-secondary font-normal medium uppercase relative flex items-center justify-center gap-1"
                         minWidth={220}
                         height={52}
@@ -63,7 +61,7 @@ const ListedNft = ({ collectionData }: any) => {
                         img={arrowDown}
                         imgClass="order-1"
 
-                    />
+                    /> */}
                 </div>
 
                 <div className="nftWrapper mt-10 grid grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">

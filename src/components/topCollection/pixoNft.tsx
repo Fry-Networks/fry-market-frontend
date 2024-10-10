@@ -1,10 +1,7 @@
-import { Collapse } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userImg1 from "../../assets/home/images/card-userImg.png";
-import filter from "../../assets/icons/filter.svg";
 import search from "../../assets/icons/search.svg";
-import leftGlow from "../../assets/nftCollection/redGlow.webp";
 import trendNft1 from "../../assets/topCollection/nftImg1.png";
 import trendNft10 from "../../assets/topCollection/nftImg10.png";
 import trendNft11 from "../../assets/topCollection/nftImg11.png";
@@ -19,10 +16,7 @@ import trendNft6 from "../../assets/topCollection/nftImg6.png";
 import trendNft7 from "../../assets/topCollection/nftImg7.png";
 import trendNft8 from "../../assets/topCollection/nftImg8.png";
 import trendNft9 from "../../assets/topCollection/nftImg9.png";
-import rightGlow from "../../assets/topCollection/rightGlow.webp";
-import pixoGrid from "../../assets/topCollection/topColectGrid.webp";
 import CollectionsCard from "../cards/collectionsCard";
-import Button from "../shared/button";
 import Input from "../shared/input";
 
 
@@ -44,6 +38,8 @@ const PixoNft = ({ nfts, collectionData }: any) => {
   const [searchTerm, setSearchTerm] = useState(''); // State for search input
 
   const handleSearchChange = (event: any) => {
+    console.log("dd", event.target.value);
+
     setSearchTerm(event.target.value);
   };
 
@@ -55,7 +51,7 @@ const PixoNft = ({ nfts, collectionData }: any) => {
     <>
       <div className="pixoNftContainer mb-52 relative">
 
-        <div className="absolute top-0 left-0 w-[200px] z-50 collapseDiv">
+        {/* <div className="absolute top-0 left-0 w-[200px] z-50 collapseDiv">
 
 
           <Collapse
@@ -72,7 +68,7 @@ const PixoNft = ({ nfts, collectionData }: any) => {
                         <img src={filter} className="mr-2" alt="" />
                       </span>
                     </div>
-                    {/* <hr className="h-[2px] bg-black w-[97%] mx-auto" /> */}
+                    <hr className="h-[2px] bg-black w-[97%] mx-auto" />
                   </>
                 ),
                 children: (
@@ -475,7 +471,7 @@ const PixoNft = ({ nfts, collectionData }: any) => {
         </div>
         <img src={rightGlow} className="absolute right-0 top-[200px] -z-50" alt="" />
         <img src={leftGlow} className="absolute left-0 bottom-[-400px] -z-50" alt="" />
-        <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-50' alt="" />
+        <img src={pixoGrid} className='absolute right-0 bottom-[-150px] -z-50' alt="" /> */}
 
         <div className="container">
           <div className="inner">
@@ -495,18 +491,30 @@ const PixoNft = ({ nfts, collectionData }: any) => {
             </div>
 
 
-            {filteredCards.length > 0 ? (
+            {nfts.length > 0 ? (
               <div className="cardsWrap grid grid-cols-4 gap-6">
                 {/* {filteredCards.map((data) => (
                     <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
                       <CollectionsCard data={data} />
                     </div>
                   ))} */}
-                {nfts.length > 0 ? nfts.map((data: any) => (
-                  <div key={data.id} className="cursor-pointer">
-                    <CollectionsCard data={{ index: data.nftAddress, params: data }} label="Nft" collectionData={collectionData} />
-                  </div>
-                ))
+                {nfts.length > 0 ? nfts.map((data: any) => {
+                  console.log("ss", searchTerm);
+                  // console.log("ss", data.name.includes(searchTerm));
+
+                  return (
+                    searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
+                      <div key={data.id} className="cursor-pointer">
+                        <CollectionsCard data={{ index: data.nftAddress, params: data }} label="Nft" collectionData={collectionData} />
+                      </div>
+                      :
+                      ""
+                      :
+                      <div key={data.id} className="cursor-pointer">
+                        <CollectionsCard data={{ index: data.nftAddress, params: data }} label="Nft" collectionData={collectionData} />
+                      </div>
+                  )
+                })
                   :
                   "No Nfts Found"}
               </div>
