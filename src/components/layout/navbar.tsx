@@ -37,7 +37,7 @@ const Navbar = (props: Toggle) => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAddress}`);
-        console.log("Hehe", response.data);
+        console.log("Hehed", response.data);
         setProfile(response.data)
         return (response.data)
         // return true;
@@ -55,7 +55,7 @@ const Navbar = (props: Toggle) => {
 
   useEffect(() => {
     getProfileData()
-  }, [])
+  }, [activeAddress])
 
   const isCreateNftPage =
     location.pathname === "/create-nft" ||
