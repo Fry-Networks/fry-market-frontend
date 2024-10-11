@@ -67,7 +67,7 @@ const Navbar = (props: Toggle) => {
     location.pathname === "/artist-profile"
 
 
-  const isHomeActive = location.pathname === "/" || location.pathname === "/auction" || location.pathname === "/nft-collection" || location.pathname === "/top-collection" || location.pathname === "/nft-detail" || location.pathname === "/top-seller" || location.pathname === "/seller-collection";
+  const isHomeActive = location.pathname === "/" || location.pathname === "/auction" || location.pathname === "/nft-collection" || location.pathname === "/top-collection" || location.pathname === "/nft-detail" || location.pathname === "/top-seller" || location.pathname === "/seller-collection" || location.pathname === "/auction-detail";
   console.log(location.pathname);
 
 

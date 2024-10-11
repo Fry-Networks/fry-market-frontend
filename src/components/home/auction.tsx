@@ -16,7 +16,7 @@ import { getAllAuctions } from '../../auctionMethod';
 import AuctionCard from '../cards/auctionCard';
 import Button from "../shared/button";
 
-const Auction = ({ collectionData = {} }: any) => {
+const Auction = ({ collectionData = {}, auctionText }: any) => {
   const navigate = useNavigate();
 
   const goToAuction = () => {
@@ -62,7 +62,7 @@ const Auction = ({ collectionData = {} }: any) => {
         {/* <img className=' auctionBack absolute left-[300px] -z-20' src={auctionBack} alt="" /> */}
         <div className="container">
           <h2 className="font-normal font-Apex uppercase mb-10">
-            AUCTION
+            {auctionText}
           </h2>
 
           <div className="nftWrapper mt-10 grid grid-cols-4 gap-x-10 gap-y-9 relative z-20">

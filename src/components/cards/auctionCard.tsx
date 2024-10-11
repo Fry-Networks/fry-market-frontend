@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Countdown from "react-countdown";
+import { useNavigate } from "react-router-dom";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
 import Button from "../shared/button";
 
 const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
+  const navigate = useNavigate();
   const [isbidmodal, setisbidmodal] = useState(false);
 
   const showplaceBidModal = () => {
@@ -18,7 +20,9 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
 
   return (
     <>
-      <div className='auctionCard flex flex-col gap-2 relative'>
+      <div onClick={(() => (
+        navigate("/auction-detail")
+      ))} className='auctionCard flex flex-col gap-2 relative cursor-pointer'>
         <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start gap-2">
           <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
