@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/react";
 import { useWallet } from "@txnlab/use-wallet";
 import { Drawer } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import navTopLogo from "../../assets/home/images/homeImages/navTopLogo.png";
 //@ts-ignore
@@ -25,6 +25,37 @@ const Navbar = (props: Toggle) => {
     navigate("/create-nft-page")
   }
   const location = useLocation();
+
+  const [profile, setProfile] = useState<any>({})
+  const getProfileData = async () => {
+    if (activeAddress) {
+
+      try {
+
+        // const config = {
+        //   headers: { Authorization: `Bearer ${token}` }
+        // };
+
+        const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAddress}`);
+        console.log("Hehe", response.data);
+        setProfile(response.data)
+        return (response.data)
+        // return true;
+
+      }
+      catch (e) {
+        console.log("Error Updating Profile Data");
+        // toast.error("Error Getting Profile Data");
+        // return false
+        return false
+
+      }
+    }
+  }
+
+  useEffect(() => {
+    getProfileData()
+  }, [])
 
   const isCreateNftPage =
     location.pathname === "/create-nft" ||
@@ -129,7 +160,7 @@ const Navbar = (props: Toggle) => {
             {isCreateNftPage ? (
               <div className="flex gap-x-3">
                 <img src={logo1} alt="button" className="cursor-pointer" />
-                <img src={logo2} alt="button" className="cursor-pointer" onClick={(() => (
+                <img src={profile?.profile_image ? profile.profile_image : logo2} alt="button" className="cursor-pointer" style={{ width: "50px", height: "50px", borderRadius: "50%" }} onClick={(() => (
                   navigate("/artist-profile")
                 ))} />
               </div>

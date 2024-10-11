@@ -22,7 +22,7 @@ const CreateNft: React.FC = () => {
   const [generatedNfts, setGeneratedNfts] = useState<any>([]);
   const [loading, setLoading] = useState(false);
   const [locationParams, setLocationParams] = useState<any>({});
-  const [isMintSuccessful, setIsMintSuccessful] = useState<any>(true);
+  const [isMintSuccessful, setIsMintSuccessful] = useState<any>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -35,8 +35,8 @@ const CreateNft: React.FC = () => {
           {
             pending: "NFT is minting",
             error: "There was an error Minting NFT",
-            success: "NFT minted successfully"
-
+            // @ts-ignore
+            success: `NFT minted successfully ${setIsMintSuccessful(true) ? "" : ""}`
           }
         )
       }
@@ -91,6 +91,12 @@ const CreateNft: React.FC = () => {
       });
 
   }
+
+  useEffect(() => {
+    if (isMintSuccessful) {
+      navigate("/artist-profile")
+    }
+  }, [isMintSuccessful])
 
   useEffect(() => {
     if (location.state) {
