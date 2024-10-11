@@ -261,7 +261,9 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
   return (
     <>
-      <div className="collectionCard flex flex-col gap-2 relative">
+      <div onClick={(() => (
+        navigate("/nft-detail")
+      ))} className="collectionCard flex flex-col gap-2 relative cursor-pointer">
         <img className=" max-w-[388px] max-h-[411px] w-full h-full whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">

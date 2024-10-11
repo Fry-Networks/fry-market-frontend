@@ -16,6 +16,7 @@ import ContractHome from "./Home"
 import ArtistProfileArt from "./page/artistProfileArt"
 import ArtistsProfile from "./page/artistsProfile"
 import Auction from "./page/auction"
+import AuctionDetail from './page/auctionDetail'
 import CreateNftCollectionManual from './page/createCollectionManual'
 import CreateNft from "./page/createNft"
 import CreateNftCollection from "./page/createNftCollection"
@@ -144,6 +145,7 @@ export default function App() {
             <Route path="/select-nft" element={<SelectedNft />} />
             <Route path="/multiple-collect" element={<MultipleCollect />} />
             <Route path="/nft-detail" element={<NftDetail />} />
+            <Route path="/auction-detail" element={<AuctionDetail />} />
             <Route path="/create-nft-page" element={<CreateNftPage />} />
             <Route path="/artist-profile" element={<ArtistsProfile />} />
             <Route path="/artist-profile-art" element={<ArtistProfileArt />} />

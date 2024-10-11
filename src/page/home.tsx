@@ -108,7 +108,7 @@ const Home = () => {
       <ListedNft collectionData={collectionData} />
       <TrendingNft collectionData={collectionData} />
       <TopSeller collectionDataFull={collectionDataFull} />
-      <Auction collectionData={collectionData} />
+      <Auction collectionData={collectionData} auctionText="Auction" />
       <TopCollections collectionDataFull={collectionDataFull} />
       {/* <SoldNft /> */}
       <DigitalAssets />
