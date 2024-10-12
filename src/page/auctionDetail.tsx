@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Auction from "../components/home/auction";
 import ReadyForNext from "../components/home/readyForNext";
 import Footer from "../components/layout/footer";
@@ -10,7 +11,16 @@ const AuctionDetail = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const [collectionData, setCollectionData] = useState<any>("")
+  const [collectionData, setCollectionData] = useState<any>({})
+  const [nftData, setNftData] = useState<any>({})
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state) {
+      console.log("Location Auction", location.state);
+    }
+  }, [location])
+
   return (
     <>
       <NftDetailBanner />

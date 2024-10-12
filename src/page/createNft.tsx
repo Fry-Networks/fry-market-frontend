@@ -36,7 +36,7 @@ const CreateNft: React.FC = () => {
             pending: "NFT is minting",
             error: "There was an error Minting NFT",
             // @ts-ignore
-            success: `NFT minted successfully ${setIsMintSuccessful(true) ? "" : ""}`
+            success: `NFT minted successfully`
           }
         )
       }
@@ -185,6 +185,7 @@ const CreateNft: React.FC = () => {
                 minHeight={37}
                 text="Mint NFT"
                 onClick={handleClick}
+                disabled={loading}
               />
             </div>
           </div>

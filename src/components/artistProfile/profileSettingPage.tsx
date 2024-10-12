@@ -30,7 +30,7 @@ const ProfileSettingPage = () => {
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
         console.log("Hehed", response.data);
         setProfileData(response.data)
-        setCurrentImage(response.data.profile_image
+        setProfileImage(response.data.profile_image
         )
         setBannerImage(response.data.banner_image)
         // return true;
@@ -153,7 +153,7 @@ const ProfileSettingPage = () => {
 
   useEffect(() => {
     getProfileData()
-  }, [])
+  }, [activeAccount])
 
   return (
     <>

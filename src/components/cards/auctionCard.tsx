@@ -21,7 +21,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   return (
     <>
       <div onClick={(() => (
-        navigate("/auction-detail")
+        navigate("/auction-detail", { state: { data, collectionData } })
       ))} className='auctionCard flex flex-col gap-2 relative cursor-pointer'>
         <img className="whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start gap-2">
