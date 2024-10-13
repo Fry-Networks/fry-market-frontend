@@ -40,7 +40,7 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
 
         setLoading(true);
         const response = await getAllAuctions(activeAccount?.address, signer);
-        console.log("NftAuctioned", response);
+        console.log("NftAuctionedh", response);
         if (moreByUser) {
           setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
         }

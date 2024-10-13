@@ -35,7 +35,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
           let obj = {};
           response?.data?.map((collectionData: any) => {
             if (typeof (collectionData.collection_address) == "string") {
-              obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url } }
+              obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url, ...collectionData } }
             }
           }
           )
@@ -78,7 +78,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
               ))} */}
 
               {auctionedNfts.map((data: any, index: any) => (
-                <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData ? collectionData[data.sellerId] : {}} />
+                <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData ? collectionData[data.sellerId] : {}} fromLive={true} />
               ))}
 
             </div>
