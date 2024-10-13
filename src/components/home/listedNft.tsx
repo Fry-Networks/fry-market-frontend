@@ -11,10 +11,10 @@ import trendingNft5 from "../../assets/home/images/trendingNft5.png";
 import trendingNft6 from "../../assets/home/images/trendingNft6.png";
 import trendingNft7 from "../../assets/home/images/trendingNft7.png";
 import trendingNft8 from "../../assets/home/images/trendingNft8.png";
-import { getAllListed } from "../../fryMarketMethods";
+import { getAllListed, getAllListedByUser } from "../../fryMarketMethods";
 
 
-const ListedNft = ({ collectionData, listedText }: any) => {
+const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
     const [loading, setLoading] = useState(false);
     const [listedNfts, setListedNfts] = useState<any>([]);
     const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -34,12 +34,33 @@ const ListedNft = ({ collectionData, listedText }: any) => {
             setLoading(false);
         }
     }
+    const getListedNftByUser = async () => {
+        try {
+
+
+            setLoading(true);
+            // console.log("dds", collectionData[Object.keys(collectionData)[0]]);
+
+            const response = await getAllListedByUser(collectionData[Object.keys(collectionData)[0]].collection_address);
+            console.log("NftListed", response);
+            setListedNfts(response);
+            setLoading(false)
+
+        }
+        catch (e) {
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         console.log("heeh");
 
+        if (moreByUser) {
+            getListedNftByUser()
+        } else {
 
-        getListedNft();
+            getListedNft();
+        }
 
 
     }, [activeAccount])

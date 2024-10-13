@@ -160,27 +160,69 @@ const ManualCreateNft = () => {
         try {
             return new Promise(async (resolve, reject) => {
                 try {
+                    setLoading(true);
                     const formDataForImage = new FormData;
-                    formDataForImage.append("images", prevImage);
-                    const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
+                    formDataForImage.append("image", prevImage);
+                    const response = await axios.post(`${baseUrl}/upload-nft-image`, formDataForImage);
                     console.log("Response in upload Image", response.data);
-                    setFormData((prev: any) => ({ ...prev, image_url: response.data?.image_urls[0] }))
-                    if (response.data?.image_urls[0]) {
+                    setFormData((prev: any) => ({ ...prev, image_url: response.data?.url }))
+                    if (response.data?.url) {
+                        let metaData = {
+                            "image": response.data?.url,
+                            "name": formData.itemName,
+                            "description": formData.itemDescription,
+                            "extra": {},
+                            "standard": "arc3",
+                            "properties": {
+                                "Eyes": "None",
+                                "Skin": "None",
+                                "Tail": "None",
+                                "Mouth": "None",
+                                "Eyewear": "None",
+                                "Special": "None",
+                                "Headgear": "None",
+                                "Background": "None"
+                            },
+                            "image_mime_type": "image/png",
+                            "extra_properties": {}
+                        }
+                        const metaDataResponse = await axios.post(`${baseUrl}/upload-metadata`, metaData);
+                        console.log("Response in upload Image", metaDataResponse?.data?.url);
+                        if (metaDataResponse?.data?.url) {
 
-                        if (await minNft(response.data?.image_urls[0])) {
-                            resolve(true);
+
+
+                            if (await mintNft({ ...metaData, metadata: metaDataResponse?.data?.url })) {
+                                setLoading(false);
+
+                                resolve(true);
+                            }
+                            else {
+                                setLoading(false);
+
+                                reject(false)
+                            }
                         }
                         else {
+                            console.log("Some Error Occured while uploading meta data. Please try again.");
+                            setLoading(false);
+
                             reject(false)
+
                         }
+
                     }
                     else {
                         console.log("Some Error Occured while uploading image. Please try again.");
+                        setLoading(false);
+
                         reject(false)
 
                     }
                 }
                 catch (e) {
+                    setLoading(false);
+
                     reject(false);
                 }
 
@@ -198,7 +240,7 @@ const ManualCreateNft = () => {
 
     }
 
-    const minNft = async (imageUrl: any) => {
+    const mintNft = async (imageUrl: any) => {
         try {
             const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, signTransactions, sendTransactions)
             console.log("response after minting", response);
@@ -521,6 +563,7 @@ const ManualCreateNft = () => {
                                                                 }
                                                             }
                                                         }
+                                                        disabled={loading}
                                                     />
                                                 </div>
 

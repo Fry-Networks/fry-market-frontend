@@ -16,7 +16,7 @@ import { getAllAuctions } from '../../auctionMethod';
 import AuctionCard from '../cards/auctionCard';
 import Button from "../shared/button";
 
-const Auction = ({ collectionData = {}, auctionText }: any) => {
+const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   const navigate = useNavigate();
   useEffect(() => {
     console.log("i", collectionData);
@@ -41,7 +41,13 @@ const Auction = ({ collectionData = {}, auctionText }: any) => {
         setLoading(true);
         const response = await getAllAuctions(activeAccount?.address, signer);
         console.log("NftAuctioned", response);
-        setAuctionedNfts(response);
+        if (moreByUser) {
+          setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
+        }
+        else {
+
+          setAuctionedNfts(response);
+        }
         setLoading(false)
 
       }

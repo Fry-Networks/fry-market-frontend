@@ -62,7 +62,7 @@ const NftDetail = () => {
     <>
 
       <NftDetailBanner detail={true} nftData={nftData} collectionData={collectionData} profileData={profileData} />
-      <ListedNft collectionData={{ [collectionData["collection_address"]]: collectionData }} nftData={nftData} listingText={"More from this collection"} />
+      <ListedNft collectionData={{ [collectionData["collection_address"]]: collectionData }} nftData={nftData} listingText={"More from this collection"} moreByUser={true} />
       {/* <MoreFromThis /> */}
       <ReadyForNext />
 
