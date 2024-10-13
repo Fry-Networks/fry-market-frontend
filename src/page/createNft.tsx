@@ -86,6 +86,7 @@ const CreateNft: React.FC = () => {
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Some Error occured while generating NFTs. Please try again.")
         setLoading(false);
 
       });

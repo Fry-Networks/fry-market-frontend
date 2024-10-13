@@ -1,11 +1,78 @@
+import { useWallet } from "@txnlab/use-wallet";
 import { Collapse, Table } from "antd";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
+import { getAllBids } from "../../auctionMethod";
+import { replaceJsonWithPng, truncateString } from "../../utils/getImageFromJson";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
+import AuctionReminder from "./auctionReminder";
+import Reminder from "./reminder";
 
-const NftDetailBanner = () => {
+
+const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {} }: any) => {
+  const [nftMetaData, setNftMetaData] = useState<any>({});
+  const [loading, setLoading] = useState<any>(false);
+  const [bidDetails, setBidDetails] = useState<any>([])
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+
+  useEffect(() => {
+    console.log("ahh", detail);
+
+  }, [detail])
+
+  const getNftMetaData = async (url: any) => {
+    try {
+
+      const response = await axios.get(url);
+      console.log("Meta Data Result", response.data);
+
+      if (response.data) {
+        setNftMetaData(response.data)
+      }
+    } catch (error) {
+
+    }
+  }
+
+  const getBidDetails = async () => {
+    if (activeAccount?.address) {
+
+
+      try {
+
+
+        setLoading(true);
+        const response = await getAllBids(nftData.bidContract, activeAccount.address, signer)
+        console.log("Nft Bids", response);
+        setBidDetails(response);
+        setLoading(false)
+
+      }
+      catch (e) {
+        setLoading(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (nftData.url) {
+      getNftMetaData(nftData.url);
+    }
+    if (nftData.imgUrl) {
+      getNftMetaData(nftData.imgUrl);
+    }
+  }, [nftData]);
+
+  useEffect(() => {
+    if (nftData.url) {
+      getBidDetails();
+    }
+  }, [nftData, activeAccount])
+
   const onChange = (key: any) => {
     console.log(key);
   };
@@ -114,37 +181,52 @@ const NftDetailBanner = () => {
 
   ];
 
-
-
-
   const offerColumns = [
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
+      title: 'Address',
+      dataIndex: 'bidder',
+      key: 'bidder',
       render: (text: string) => <span className="font-bold text-black">{text}</span>,
     },
     {
-      title: 'USD Price',
-      dataIndex: 'usd',
-      key: 'usd',
+      title: 'Bid Amount (FRY)',
+      dataIndex: 'bidAmount',
+      key: 'bidAmount',
     },
     {
-      title: 'Quantity',
-      dataIndex: 'quantity',
+      title: 'Bid Date',
+      dataIndex: 'bidDate',
       key: 'quantity',
     },
 
     {
-      title: 'Floor Difference',
-      dataIndex: 'floor',
-      key: 'floor',
+      title: 'Bid Time',
+      dataIndex: 'bidTime',
+      key: 'bidTime',
+    }
+  ];
+  const listingColumnsNew = [
+    {
+      title: 'Owner Address',
+      dataIndex: 'ownerAddress',
+      key: 'ownerAddress',
+      render: (text: string) => <span className="font-bold text-black">{text}</span>,
     },
     {
-      title: 'From',
-      dataIndex: 'from',
-      key: 'from',
-    }
+      title: 'List Count',
+      dataIndex: 'listCount',
+      key: 'listCount',
+    },
+    {
+      title: 'List Date',
+      dataIndex: 'listDate',
+      key: 'listDate',
+    },
+    {
+      title: 'List Time',
+      dataIndex: 'listTime',
+      key: 'listTime',
+    },
   ];
 
   const itemData = [
@@ -245,7 +327,7 @@ const NftDetailBanner = () => {
         <div className="container">
           <div className="topSection flex items-start gap-6 mt-10">
             <div className="leftArea w-[546px]  flex flex-col gap-7 ">
-              <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={rightSecPic} alt="" />
+              <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={nftData.url || nftData.imgUrl ? replaceJsonWithPng(nftData.url || nftData.imgUrl) : rightSecPic} alt="" />
               <div className="descriptionAccordion">
                 <Collapse
                   defaultActiveKey={"1"}
@@ -269,15 +351,19 @@ const NftDetailBanner = () => {
                             By
                             <span className="darkBlack font-medium">
                               {" "}
-                              Stella Nova
+                              {collectionData.collection_name ? collectionData.collection_name : "Stella Nova"}
                             </span>
                           </p>
                           <p className="ex-small lightGray font-normal font-Roboto">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
+                            {
+                              nftMetaData.description ?
+                                nftMetaData.description :
+
+                                `Lorem ipsum dolor sit amet, consectetur adipiscing
                             elit. Mauris eu feugiat felis, in maximus neque.
                             Morbi rutrum est interdum, suscipit erat et, mattis
                             ante. Donec at diam pulvinar, pulvinar orci vitae,
-                            luctus mauris..
+                            luctus mauris..`}
                           </p>
                         </>
                       ),
@@ -306,9 +392,16 @@ const NftDetailBanner = () => {
                       children: (
                         <>
                           <div className="grid grid-cols-3 gap-2">
-                            {traitData.map((data, index) => (
-                              <TraitsBox data={data} />
-                            ))}
+
+                            {
+                              nftMetaData.properties ?
+                                Object.keys(nftMetaData.properties).map((traitName, index) => (
+                                  <TraitsBox data={{ traitName: traitName, traitValue: nftMetaData.properties[traitName] }} />
+                                ))
+
+                                :
+
+                                "No Traits Added"}
                           </div>
 
 
@@ -321,42 +414,22 @@ const NftDetailBanner = () => {
             </div>
             <div className="rightArea ps-5 w-3/5 flex flex-col gap-5 ">
               <div className="pixacioDiv">
-                <h2 className="font-normal font-Apex uppercase leading-[82px]">PIXACIO</h2>
-                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold">Stella Nova</span></p>
-              </div>
-              <div className="salesEndDiv bg-white flex flex-col mt-6">
-                <div className="salesHeader p-5">
-                  <img src="/src/assets/icons/grayClock.svg" alt="" />
-                  <p className="lightGray font-normal text-[16px]">Sale ends 18 November 2023 at 8:47 am </p>
-                </div>
-                <div className="salesBody p-5 flex flex-col gap-5 ">
-                  <div className="area1">
-                    <p className="ex-small lightGray font-Roboto">Current price</p>
-                    <p className="font-medium text-black ex-large mt-1">5.001 FRY</p>
-                  </div>
-                  <div className="area2 flex-center gap-3">
-
-
-
-                    <Button
-                      className="button btn-secondary large font-medium btnBuy"
-                      minWidth={343}
-                      minHeight={44}
-                      text="Buy now"
-                    ></Button>
-
-                    <Button
-                      className="button btn-primary large font-medium btnOffer"
-                      minWidth={343}
-                      minHeight={44}
-                      text="Make offer"
-                    ></Button>
-                  </div>
-                </div>
-
+                <h2 className="font-normal font-Apex uppercase leading-[82px]">{nftData.name ? nftData.name : "PIXACIO"}</h2>
+                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold">{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
               </div>
 
-              <div className="listingAccordion">
+              {detail ?
+                <Reminder nftData={nftData} />
+
+                :
+                <AuctionReminder nftData={nftData} />
+              }
+
+
+
+
+
+              {/* <div className="listingAccordion">
                 <Collapse
                   defaultActiveKey={"1"}
                   expandIconPosition="end"
@@ -387,8 +460,7 @@ const NftDetailBanner = () => {
                     },
                   ]}
                 />
-              </div>
-
+              </div> */}
               <div className="listingAccordion">
                 <Collapse
                   defaultActiveKey={"1"}
@@ -401,7 +473,7 @@ const NftDetailBanner = () => {
                           <div className="flex items-center gap-3">
                             <img src="/src/assets/icons/dotedMenu.png" alt="" />
                             <span className="lightGray font-Roboto font-normal medium">
-                              Offers
+                              {detail ? "Listing Details" : "Offers"}
                             </span>
                           </div>
                         </div>
@@ -409,11 +481,31 @@ const NftDetailBanner = () => {
                       children: (
                         <>
 
-                          <Table
-                            columns={offerColumns}
-                            dataSource={offerData}
-                            pagination={false}
-                          />
+                          {detail ?
+
+                            <Table
+                              columns={listingColumnsNew}
+                              dataSource={
+                                [
+                                  {
+                                    ownerAddress: truncateString(nftData.seller), listCount: nftData.list_count, listDate: (new Date(nftData.listTime * 1000)).toLocaleDateString(), listTime: (new Date(nftData.listTime * 1000)).toLocaleTimeString()
+                                  }
+                                ]
+                              }
+                              pagination={false}
+                            />
+
+                            :
+                            <Table
+                              columns={offerColumns}
+                              dataSource={bidDetails.map((bidDetail: any) => (
+                                {
+                                  bidder: truncateString(bidDetail.bidder), bidAmount: bidDetail.bidAmount / 1000000, bidDate: (new Date(bidDetail.bidTime * 1000)).toLocaleDateString(), bidTime: (new Date(bidDetail.bidTime * 1000)).toLocaleTimeString()
+                                }
+                              ))}
+                              pagination={false}
+                            />
+                          }
 
                         </>
                       ),
@@ -421,10 +513,6 @@ const NftDetailBanner = () => {
                   ]}
                 />
               </div>
-
-
-
-
               <div className="detailsAccordion">
                 <Collapse
                   defaultActiveKey={"1"}
@@ -454,13 +542,13 @@ const NftDetailBanner = () => {
 
                             <div className="w-full flex justify-between">
                               <p className="lightGray small font-normal font-Roboto">Token ID</p>
-                              <p className="lightGray small font-normal font-Roboto">7926</p>
+                              <p className="lightGray small font-normal font-Roboto">{nftData.nftAddress || nftData.assetId ? nftData.nftAddress || nftData.assetId : "Unabel to get"}</p>
                             </div>
 
 
                             <div className="w-full flex justify-between">
                               <p className="lightGray small font-normal font-Roboto">Token Standard</p>
-                              <p className="lightGray small font-normal font-Roboto">ERC-721</p>
+                              <p className="lightGray small font-normal font-Roboto">ARC-3</p>
                             </div>
 
 
@@ -484,9 +572,7 @@ const NftDetailBanner = () => {
               </div>
             </div>
           </div>
-          <div className="bottomSection">
-
-
+          {/* <div className="bottomSection">
             <div className="itemActivityAccordion">
               <Collapse
                 defaultActiveKey={["1"]}
@@ -519,7 +605,7 @@ const NftDetailBanner = () => {
                 ]}
               />
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>

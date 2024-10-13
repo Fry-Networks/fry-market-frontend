@@ -60,7 +60,7 @@ const Home = () => {
           response?.data?.map((collectionData: any) => {
             if (typeof (collectionData.collection_address) == "string") {
 
-              obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url } }
+              obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url, ...collectionData } }
               setCollectionDataFull((prev: any) => ([...prev, collectionData]))
             }
           }

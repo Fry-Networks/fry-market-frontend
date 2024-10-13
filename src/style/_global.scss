@@ -1,6 +1,11 @@
 // flat icons
-@import url("https://cdn-uicons.flaticon.com/2.4.2/uicons-brands/css/uicons-brands.css");
+@import url('https://cdn-uicons.flaticon.com/2.4.2/uicons-brands/css/uicons-brands.css');
 .collectionCardd {
-  box-shadow: 24.875px -24.875px 24.875px 0px rgba(194, 194, 194, 0.1),
+  box-shadow:
+    24.875px -24.875px 24.875px 0px rgba(194, 194, 194, 0.1),
     -24.875px 24.875px 24.875px 0px rgba(255, 255, 255, 0.1);
+}
+
+.placeBtn {
+  display: block;
 }

@@ -18,7 +18,10 @@ import Button from "../shared/button";
 
 const Auction = ({ collectionData = {}, auctionText }: any) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("i", collectionData);
 
+  })
   const goToAuction = () => {
 
     navigate('/auction', { state: { collectionData: collectionData } });

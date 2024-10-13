@@ -14,7 +14,7 @@ import trendingNft8 from "../../assets/home/images/trendingNft8.png";
 import { getAllListed } from "../../fryMarketMethods";
 
 
-const ListedNft = ({ collectionData }: any) => {
+const ListedNft = ({ collectionData, listedText }: any) => {
     const [loading, setLoading] = useState(false);
     const [listedNfts, setListedNfts] = useState<any>([]);
     const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -51,7 +51,7 @@ const ListedNft = ({ collectionData }: any) => {
             <div className="container">
                 <div className='flex inner items-center justify-between'>
                     <h2 className="font-normal font-Apex uppercase">
-                        Listed NFT'S
+                        {listedText ? listedText : "Listed NFT'S"}
                     </h2>
                     {/* <Button
                         className="button btn-secondary font-normal medium uppercase relative flex items-center justify-center gap-1"

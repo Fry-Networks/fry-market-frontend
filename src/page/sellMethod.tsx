@@ -12,6 +12,7 @@ import bgBack from "../assets/sellMethod/bgGlow.webp";
 import { listNftAuction } from '../auctionMethod';
 import Button from "../components/shared/button";
 import { listNft } from '../fryMarketMethods';
+import { replaceJsonWithPng } from '../utils/getImageFromJson';
 
 
 const SellMethod = () => {
@@ -23,6 +24,7 @@ const SellMethod = () => {
   const [biddingDuration, setBiddingDuration] = useState<any>("")
   const [biddingDurationValue, setBiddingDurationValue] = useState<any>({});
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+  const [loading, setLoading] = useState<any>(false)
 
   const location = useLocation();
   const handleMethodSelect = (method: any) => {
@@ -54,17 +56,21 @@ const SellMethod = () => {
     return new Promise(async (resolve, reject) => {
       try {
         if (activeAccount?.address) {
-
+          setLoading(true);
           const response = await listNft(activeAccount?.address, nftData.index, signer, price * 1000000);
 
 
           console.log("response", response);
+          setLoading(false);
+
           resolve(true)
           navigate("/artist-profile")
 
         }
       }
       catch (e) {
+        setLoading(false);
+
         reject(false);
       }
 
@@ -77,17 +83,20 @@ const SellMethod = () => {
     return new Promise(async (resolve, reject) => {
       try {
         if (activeAccount?.address) {
-
+          setLoading(true);
           const response = await listNftAuction(activeAccount?.address, signer, nftData.index, price * 1000000, minimumBidAmount * 1000000, biddingDuration.biddingStartTime, biddingDuration.biddingEndTime);
 
 
           console.log("response", response);
+          setLoading(false);
+
           resolve(true)
-          // navigate("/artist-profile")
+          navigate("/artist-profile")
 
         }
       }
       catch (e) {
+        setLoading(false);
         reject(false);
       }
 
@@ -179,7 +188,7 @@ const SellMethod = () => {
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.params?.url ? nftData?.params?.url : sellImg} alt="" />
+              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.params?.url ? replaceJsonWithPng(nftData?.params?.url) : sellImg} alt="" />
               <p className="ex-large darkBlack font-medium font-Roboto">
                 Preview your item
               </p>
@@ -431,6 +440,7 @@ const SellMethod = () => {
                   minHeight={53}
                   text="Submit"
                   onClick={handleSubmit}
+                  disabled={loading}
                 />
               </div>
             </div>

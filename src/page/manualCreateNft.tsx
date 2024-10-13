@@ -356,19 +356,24 @@ const ManualCreateNft = () => {
                                                         (this is the collection where your item will appear)
                                                     </p>
                                                     <div className="newCollectionDiv flex gap-4 mt-4">
-                                                        <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2" onClick={() => navigate("/create-collection")} style={{ cursor: "pointer" }}>
-                                                            <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
-                                                                <img src={plus} alt="" />
+                                                        {!collectionData ?
+                                                            <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2" onClick={() => navigate("/create-collection")} style={{ cursor: "pointer" }}>
+                                                                <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
+                                                                    <img src={plus} alt="" />
+                                                                </div>
+                                                                <div className="rightContnt flex flex-col justify-center">
+                                                                    <p className="darkBlack medium font-medium font-Roboto">
+                                                                        Create new collection
+                                                                    </p>
+                                                                    <p className="lightGray small font-Roboto font-normal mt-2">
+                                                                        Type to create
+                                                                    </p>
+                                                                </div>
                                                             </div>
-                                                            <div className="rightContnt flex flex-col justify-center">
-                                                                <p className="darkBlack medium font-medium font-Roboto">
-                                                                    Create new collection
-                                                                </p>
-                                                                <p className="lightGray small font-Roboto font-normal mt-2">
-                                                                    Type to create
-                                                                </p>
-                                                            </div>
-                                                        </div>
+                                                            :
+                                                            ""
+
+                                                        }
                                                         {
                                                             loading ? <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", margin: "0 auto" }}>
                                                                 <Loader></Loader>

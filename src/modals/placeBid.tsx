@@ -7,6 +7,7 @@ import { createBid } from "../auctionMethod";
 import Button from "../components/shared/button";
 
 const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => {
+  const [loading, setLoading] = useState<any>(false)
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
   const [bidAmount, setBidAMount] = useState(0);
@@ -27,15 +28,19 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
       return new Promise(async (resolve, reject) => {
         try {
           if (activeAccount?.address) {
-
+            setLoading(true);
             const response = await createBid(activeAccount.address, signer, data.nftAddress, data.bidContract, bidAmount * 1000000, signTransactions, sendTransactions);
 
 
             console.log("response", response);
             if (typeof (response) == "string" && response.includes("Error")) {
+              setLoading(false);
+
               reject(false);
               return;
             }
+            setLoading(false);
+
             resolve(true)
             getAuctionedNft();
             handleOk();
@@ -43,6 +48,8 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
           }
         }
         catch (e) {
+          setLoading(false);
+
           reject(false);
         }
 
@@ -83,7 +90,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
             <img src={redline} alt="" />
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Enter bid amount</p>
-              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" value={bidAmount} onChange={(e: any) => setBidAMount(e.target.value)} />
+              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder={`Minimum bid should be more than ${((data.highestBidAmount + data.minBidAmount) / 1000000) + " FRY"}`} type="number" value={bidAmount} onChange={(e: any) => setBidAMount(e.target.value)} />
             </div>
             {/* <div className="serviceDiv w-full flex justify-between items-center">
               <p className="darkBlack font-Roboto medium font-normal">Service fee</p>

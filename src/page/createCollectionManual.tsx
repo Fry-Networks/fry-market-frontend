@@ -1,7 +1,7 @@
 // @ts-ignore
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { TokenContext } from "../App";
@@ -22,6 +22,35 @@ const CreateNftCollectionManual = () => {
     collection_name: '',
     description: '',
   });
+
+  const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
+
+  const getCollectionData = async () => {
+    if (activeAccount?.address) {
+      try {
+
+        // const config = {
+        //   headers: { Authorization: `Bearer ${token}` }
+        // };
+
+        const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
+        console.log("Collection Data", response.data);
+        setCollectionDataFound(true);
+        setFormData(response.data)
+
+      }
+      catch (e) {
+        console.log("Error Getting Collection", e);
+        // toast.error("Error Creating Collection");
+
+      }
+    }
+  }
+
+  useEffect(() => {
+    getCollectionData();
+  }, [activeAccount])
+
   const handleInput = (e: any) => {
     console.log(e.target.files[0])
     setPrevImage(e.target.files[0])
@@ -136,8 +165,8 @@ const CreateNftCollectionManual = () => {
                   <label htmlFor="collectionImage" className="block">
                     <img src={
                       // @ts-ignore
-                      prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
-                    <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
+                      formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
+                    <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} disabled={collectionDataFound} />
                     <span
                       className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
                   </label>
@@ -170,6 +199,7 @@ const CreateNftCollectionManual = () => {
                         name="collection_name"
                         value={formData.collection_name}
                         onChange={handleChange}
+                        disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -178,6 +208,7 @@ const CreateNftCollectionManual = () => {
                         label="Token Symbol*"
                         placeholder="$ CGPT, for example"
                         className="w-full input-nft"
+                        disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -202,6 +233,7 @@ const CreateNftCollectionManual = () => {
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
+                        disabled={collectionDataFound}
                       />
                     </div>
                     <div className="flex justify-end">
@@ -241,6 +273,7 @@ const CreateNftCollectionManual = () => {
                           }
 
                         }}
+                        disabled={collectionDataFound}
                       />
                     </div>
                   </form>

@@ -17,6 +17,7 @@ const ProfileSettingPage = () => {
   const [profileImage, setProfileImage] = useState<any>();
   const [profileData, setProfileData] = useState<any>({});
   const [currentImage, setCurrentImage] = useState<any>({});
+  const [loading, setLoading] = useState<any>(false);
   const { activeAccount } = useWallet()
   const getProfileData = async () => {
     if (activeAccount?.address) {
@@ -26,13 +27,15 @@ const ProfileSettingPage = () => {
         // const config = {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
-
+        setLoading(true);
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
         console.log("Hehed", response.data);
         setProfileData(response.data)
         setProfileImage(response.data.profile_image
         )
         setBannerImage(response.data.banner_image)
+        setLoading(false);
+
         // return true;
 
       }
@@ -40,6 +43,8 @@ const ProfileSettingPage = () => {
         console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
+        setLoading(false);
+
 
       }
     }
@@ -57,11 +62,17 @@ const ProfileSettingPage = () => {
         //   reject(false);
         // }
         try {
-          const formDataForImage = new FormData;
+          setLoading(true);
 
-          formDataForImage.append("images", bannerImage);
-          formDataForImage.append("images", profileImage);
-          if (bannerImage && profileImage) {
+          const formDataForImage = new FormData;
+          if ((bannerImage || profileImage) && (typeof (bannerImage) != "string" || typeof (profileImage) != "string")) {
+            if (bannerImage && typeof (bannerImage) != "string") {
+              formDataForImage.append("images", bannerImage);
+            }
+            if (profileImage && typeof (profileImage) != "string") {
+
+              formDataForImage.append("images", profileImage);
+            }
 
             const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
             console.log("Response in upload Image", response.data);
@@ -70,23 +81,33 @@ const ProfileSettingPage = () => {
             if (response.data?.image_urls[0]) {
 
               if (await handleContinue(response.data?.image_urls)) {
+                setLoading(false);
+
                 resolve(true);
               }
               else {
+                setLoading(false);
+
                 reject(false);
               }
             }
             else {
               console.log("Some Error Occured while uploading image. Please try again.");
+              setLoading(false);
+
               reject(false);
 
             }
           }
           else {
             if (await handleContinue([])) {
+              setLoading(false);
+
               resolve(true);
             }
             else {
+              setLoading(false);
+
               reject(false);
             }
           }
