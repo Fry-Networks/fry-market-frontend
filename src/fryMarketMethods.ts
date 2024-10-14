@@ -332,6 +332,38 @@ export const getAllListed = async (): Promise<Listing[]> => {
 }
 
 
+export const getSingleNftlistData = async (nftId: number): Promise<Listing> => {
+    const algod = await getAlgodClient()
+    const boxId = algosdk.encodeUint64(nftId);
+    const decoded = algosdk.decodeUint64(boxId, "safe")
+    let box = await algokit.getAppBoxValue(FRY_MARKET_ID, boxId, algod)
+    const nftData = await algod.getAssetByID(decoded).do();
+    const sellerId = algosdk.encodeAddress(box.slice(0, 32))
+    const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
+    const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
+    const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
+    const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+    const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
+    const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+
+    let listingData: Listing = {
+        assetId: decoded,
+        seller: sellerId,
+        price: listedPrice,
+        list_count: listedCount,
+        listTime: listTime,
+        isListed: listed == 1 ? true : false,
+        isSold: sold == 1 ? true : false,
+        isCancelled: canceled == 1 ? true : false,
+        name: nftData?.params?.name,
+        imgUrl: nftData?.params?.url
+    }
+
+    return listingData
+}
+
+
+
 export const mintMultipleNft = async (metaUris: any, sender: string, signer: TransactionSigner, signTransactions: any, sendTransactions: any): Promise<Uint8Array[]> => {
     try {
         const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
@@ -363,7 +395,6 @@ export const mintMultipleNft = async (metaUris: any, sender: string, signer: Tra
         const signedTransactions = await signTransactions(encodedTransaction)
         const waitRoundsToConfirm = 4
         const { id } = await sendTransactions(signedTransactions, waitRoundsToConfirm)
-        //   console.log(id)
 
         return id
     } catch (e) {
