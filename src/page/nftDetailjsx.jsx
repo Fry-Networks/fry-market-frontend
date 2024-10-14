@@ -16,8 +16,14 @@ const NftDetail = () => {
   
   return (
     <>
-      <NftDetailBanner detail={true}/>
-      <MoreFromThis />
+      <NftDetailBanner detail={true} onlyShow={location.state.onlyShow}/>
+      {
+        !location.state.onlyShow ?
+        <MoreFromThis />
+        :
+        ""
+
+}
       <ReadyForNext />
     </>
   );

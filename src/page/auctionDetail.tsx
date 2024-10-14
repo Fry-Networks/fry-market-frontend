@@ -64,10 +64,17 @@ const AuctionDetail = () => {
 
   return (
     <>
-      <NftDetailBanner detail={false} collectionData={collectionData} nftData={nftData} profileData={profileData}
+
+
+      <NftDetailBanner detail={false} collectionData={collectionData} nftData={nftData} profileData={profileData} onlyShow={location.state.onlyShow}
       />
 
-      <Auction collectionData={{ [collectionData["collection_address"]]: collectionData }} nftData={nftData} auctionText="More from this collection" moreByUser={true} />
+
+      {!location.state.onlyShow ?
+        <Auction collectionData={{ [collectionData["collection_address"]]: collectionData }} nftData={nftData} auctionText="More from this collection" moreByUser={true} />
+
+        :
+        ""}
       <ReadyForNext />
       <Footer />
 

@@ -4,7 +4,7 @@ import { useWallet } from '@txnlab/use-wallet'
 import algosdk, { Transaction } from 'algosdk'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
-import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllAuctions, getAllBids, getAllUserAuctions, getAllUserClaimable, listNftAuction } from './auctionMethod'
+import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllUserAuctions, getAllUserClaimable, getSingleAuction, listNftAuction } from './auctionMethod'
 import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
@@ -275,12 +275,14 @@ const Home: React.FC<HomeProps> = () => {
 
   useEffect(() => {
     (async () => {
-      const allAuctionListings = await getAllAuctions(activeAddress!, signer)
-      setAuctions(allAuctionListings)
-      if (selected) {
-        const allBiddings = await getAllBids(selected?.bidContract, activeAddress!, signer)
-        console.log(allBiddings)
-      }
+      const allListings = await getSingleAuction(722356340);
+      console.log("allListings", allListings)
+      // const allAuctionListings = await getAllAuctions(activeAddress!, signer)
+      // setAuctions(allAuctionListings)
+      // if (selected) {
+      //   const allBiddings = await getAllBids(selected?.bidContract, activeAddress!, signer)
+      //   console.log(allBiddings)
+      // }
     })();
   }, [selected])
 

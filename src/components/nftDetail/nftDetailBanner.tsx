@@ -13,7 +13,7 @@ import AuctionReminder from "./auctionReminder";
 import Reminder from "./reminder";
 
 
-const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {} }: any) => {
+const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow }: any) => {
   const [nftMetaData, setNftMetaData] = useState<any>({});
   const [loading, setLoading] = useState<any>(false);
   const [bidDetails, setBidDetails] = useState<any>([])
@@ -418,11 +418,13 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                 <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold">{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
               </div>
 
-              {detail ?
+              {!onlyShow ? detail ?
                 <Reminder nftData={nftData} />
 
                 :
                 <AuctionReminder nftData={nftData} />
+                :
+                ""
               }
 
 
@@ -461,58 +463,62 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                   ]}
                 />
               </div> */}
-              <div className="listingAccordion">
-                <Collapse
-                  defaultActiveKey={"1"}
-                  expandIconPosition="end"
-                  items={[
-                    {
-                      key: "1",
-                      label: (
-                        <div className="custom-label">
-                          <div className="flex items-center gap-3">
-                            <img src="/src/assets/icons/dotedMenu.png" alt="" />
-                            <span className="lightGray font-Roboto font-normal medium">
-                              {detail ? "Listing Details" : "Offers"}
-                            </span>
-                          </div>
-                        </div>
-                      ),
-                      children: (
-                        <>
+              {
+                !onlyShow ?
+                  <div className="listingAccordion">
+                    <Collapse
+                      defaultActiveKey={"1"}
+                      expandIconPosition="end"
+                      items={[
+                        {
+                          key: "1",
+                          label: (
+                            <div className="custom-label">
+                              <div className="flex items-center gap-3">
+                                <img src="/src/assets/icons/dotedMenu.png" alt="" />
+                                <span className="lightGray font-Roboto font-normal medium">
+                                  {detail ? "Listing Details" : "Offers"}
+                                </span>
+                              </div>
+                            </div>
+                          ),
+                          children: (
+                            <>
 
-                          {detail ?
+                              {detail ?
 
-                            <Table
-                              columns={listingColumnsNew}
-                              dataSource={
-                                [
-                                  {
-                                    ownerAddress: truncateString(nftData.seller), listCount: nftData.list_count, listDate: (new Date(nftData.listTime * 1000)).toLocaleDateString(), listTime: (new Date(nftData.listTime * 1000)).toLocaleTimeString()
+                                <Table
+                                  columns={listingColumnsNew}
+                                  dataSource={
+                                    [
+                                      {
+                                        ownerAddress: truncateString(nftData.seller), listCount: nftData.list_count, listDate: (new Date(nftData.listTime * 1000)).toLocaleDateString(), listTime: (new Date(nftData.listTime * 1000)).toLocaleTimeString()
+                                      }
+                                    ]
                                   }
-                                ]
+                                  pagination={false}
+                                />
+
+                                :
+                                <Table
+                                  columns={offerColumns}
+                                  dataSource={bidDetails.map((bidDetail: any) => (
+                                    {
+                                      bidder: truncateString(bidDetail.bidder), bidAmount: bidDetail.bidAmount / 1000000, bidDate: (new Date(bidDetail.bidTime * 1000)).toLocaleDateString(), bidTime: (new Date(bidDetail.bidTime * 1000)).toLocaleTimeString()
+                                    }
+                                  ))}
+                                  pagination={false}
+                                />
                               }
-                              pagination={false}
-                            />
 
-                            :
-                            <Table
-                              columns={offerColumns}
-                              dataSource={bidDetails.map((bidDetail: any) => (
-                                {
-                                  bidder: truncateString(bidDetail.bidder), bidAmount: bidDetail.bidAmount / 1000000, bidDate: (new Date(bidDetail.bidTime * 1000)).toLocaleDateString(), bidTime: (new Date(bidDetail.bidTime * 1000)).toLocaleTimeString()
-                                }
-                              ))}
-                              pagination={false}
-                            />
-                          }
-
-                        </>
-                      ),
-                    },
-                  ]}
-                />
-              </div>
+                            </>
+                          ),
+                        },
+                      ]}
+                    />
+                  </div>
+                  :
+                  ""}
               <div className="detailsAccordion">
                 <Collapse
                   defaultActiveKey={"1"}

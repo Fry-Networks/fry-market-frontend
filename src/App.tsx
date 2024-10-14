@@ -8,6 +8,7 @@ import { SnackbarProvider } from 'notistack'
 import { createContext, useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 
+import OtherProfilePage from './components/artistProfile/otherProfilePage'
 import ConnectWallet from './components/ConnectWallet'
 import Footer from "./components/layout/footer"
 import Navbar from "./components/layout/navbar"
@@ -148,6 +149,7 @@ export default function App() {
             <Route path="/auction-detail" element={<AuctionDetail />} />
             <Route path="/create-nft-page" element={<CreateNftPage />} />
             <Route path="/artist-profile" element={<ArtistsProfile />} />
+            <Route path="/artist-profile-others" element={<OtherProfilePage />} />
             <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
             <Route path="/sell-method" element={<SellMethod />} />
             <Route path="/manual-create-nft" element={<ManualCreateNft />} />
