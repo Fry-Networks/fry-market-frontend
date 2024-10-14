@@ -475,6 +475,38 @@ export const getAllAuctions = async (
     return allListings
 }
 
+export const getSingleAuction = async (nftId: number) => {
+    const algod = await getAlgodClient()
+    const boxId = algosdk.encodeUint64(nftId);
+    const decoded = algosdk.decodeUint64(boxId, "safe")
+
+    const box = await await algokit.getAppBoxValue(AUCTION_ID, boxId, algod)
+    const nftData = await algod.getAssetByID(decoded).do();
+    const sellerId = algosdk.encodeAddress(box.slice(0, 32))
+    const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "safe")
+    const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), "safe")
+    const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
+    const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), "safe")
+    const highestBidder = algosdk.encodeAddress(box.slice(64, 96))
+    const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'safe')
+    const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'safe')
+    const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'safe')
+    const listedData = {
+        nftAddress: decoded,
+        sellerId,
+        bidStartAmount,
+        minBidAmount,
+        biddingEndTime,
+        biddingStartTime,
+        highestBidder,
+        highestBidAmount,
+        bidContract,
+        totalBidders,
+        ...nftData.params
+    }
+    return listedData
+}
+
 export const getAllBids = async (
     bidContract: number,
     sender: string,
@@ -528,7 +560,6 @@ export const getAllUserAuctions = async (user: string, signer: TransactionSigner
         return error
     }
 }
-
 
 
 const getMethodByName = (name: string, contract: ABIContract): algosdk.ABIMethod => {
