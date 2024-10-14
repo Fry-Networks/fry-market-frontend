@@ -1,38 +1,70 @@
-import { Select, Table } from "antd";
-import { useEffect } from "react";
+import { Table } from "antd";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/icons/topSeller/logo.svg";
+import bannerback from "../assets/home/images/topSeller/bannerBack.webp";
 import table1 from "../assets/icons/topSeller/ts1.svg";
-import table10 from "../assets/icons/topSeller/tss10.webp";
 import table11 from "../assets/icons/topSeller/ts11.svg";
 import table2 from "../assets/icons/topSeller/ts2.svg";
 import table3 from "../assets/icons/topSeller/ts3.svg";
-import table4 from "../assets/icons/topSeller/tss4.webp";
 import table5 from "../assets/icons/topSeller/ts5.svg";
-import table6 from "../assets/icons/topSeller/tss6.webp";
-import table7 from "../assets/icons/topSeller/tss7.webp";
 import table8 from "../assets/icons/topSeller/ts8.svg";
 import table9 from "../assets/icons/topSeller/ts9.svg";
+import table10 from "../assets/icons/topSeller/tss10.webp";
+import table4 from "../assets/icons/topSeller/tss4.webp";
+import table6 from "../assets/icons/topSeller/tss6.webp";
+import table7 from "../assets/icons/topSeller/tss7.webp";
 import ts2 from "../assets/images/topSellers/ts2.jpg";
 import ts3 from "../assets/images/topSellers/ts3.jpg";
 import ts1 from "../assets/images/topSellers/tss1.webp";
-import ReadyForNext from "../components/home/readyForNext";
-import Button from "../components/shared/button";
-import bannerback from "../assets/home/images/topSeller/bannerBack.webp";
 import leftGlow from "../assets/nftCollection/redGlow.webp";
+import ReadyForNext from "../components/home/readyForNext";
+import { truncateString } from "../utils/getImageFromJson";
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const TopSeller = () => {
-
+  const [profileData, setProfileData] = useState<any>({})
 
   const navigate = useNavigate();
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   const handleRowClick = (record: any) => {
-    navigate("/seller-collection");
+    // navigate("/seller-collection");
+    navigate("/artist-profile-others", { state: { profileData: record.allProfileData } });
   };
+
+  const getProfileData = async () => {
+
+
+    try {
+
+      // const config = {
+      //   headers: { Authorization: `Bearer ${token}` }
+      // };
+
+      const response: any = await axios.get(`${baseUrl}/get-all-profiles`);
+      console.log("All Profiles", response.data);
+      setProfileData(response.data)
+      // return true;
+
+    }
+    catch (e) {
+      console.log("Error Updating Profile Data");
+      // toast.error("Error Getting Profile Data");
+      // return false
+
+    }
+
+  }
+
+  useEffect(() => {
+    getProfileData()
+  }, [])
+
   interface DataType {
     key: string;
     collection: string;
@@ -198,61 +230,61 @@ const TopSeller = () => {
   ];
   const columns = [
     {
-      title: "Collections",
+      title: "Profile",
       dataIndex: "image",
       key: "image",
       width: "330px",
-      render: (_: any, record: DataType, index: number) => (
+      render: (_: any, record: any, index: number) => (
         <div className="flex items-center">
-          <span className="mr-4">{String(index + 1).padStart(2, '0')}</span>
-          <img src={record.image} alt={record.collection} className="mr-4" />
+          {/* <span className="mr-4">{String(index + 1).padStart(2, '0')}</span> */}
+          <img src={record.image} alt={record.collection} className="mr-4 w-10 h-10 object-cover rounded-full" />
           <span>{record.collection}</span>
         </div>
       ),
     },
     {
-      title: "Volume",
-      dataIndex: "volume",
-      key: "volume",
-      width:"156px",
-      
+      title: "Address",
+      dataIndex: "address",
+      key: "address",
+      width: "156px",
+
       render: (text: any) => (
         <div className="flex items-center">
-          <img src={logo} alt="icon" className="mr-2" />
+          {/* <img src={logo} alt="icon" className="mr-2" /> */}
           <span>{text}</span>
         </div>
       ),
     },
-    {
-      title: "Followers",
-      dataIndex: "follower",
-      key: "follower",
-      width:"172px",
-    },
-    {
-      title: "24%",
-      dataIndex: "percentage",
-      key: "percentage",
-      width:"172px",
-    },
-    {
-      title: "Floor Price",
-      dataIndex: "price",
-      key: "price",
-      width:"156px",
-      render: (text: any) => (
-        <div className="flex items-center">
-          <img src={logo} alt="icon" className="mr-2" />
-          <span>{text}</span>
-        </div>
-      ),
-    },
-    {
-      title: "Items",
-      dataIndex: "items",
-      key: "items",
-      width:"100px",
-    },
+    // {
+    //   title: "Followers",
+    //   dataIndex: "follower",
+    //   key: "follower",
+    //   width: "172px",
+    // },
+    // {
+    //   title: "24%",
+    //   dataIndex: "percentage",
+    //   key: "percentage",
+    //   width: "172px",
+    // },
+    // {
+    //   title: "Floor Price",
+    //   dataIndex: "price",
+    //   key: "price",
+    //   width: "156px",
+    //   render: (text: any) => (
+    //     <div className="flex items-center">
+    //       <img src={logo} alt="icon" className="mr-2" />
+    //       <span>{text}</span>
+    //     </div>
+    //   ),
+    // },
+    // {
+    //   title: "Items",
+    //   dataIndex: "items",
+    //   key: "items",
+    //   width: "100px",
+    // },
   ];
 
 
@@ -266,85 +298,98 @@ const TopSeller = () => {
 
   return (
     <>
-    <div className="topSell relative">
-<img className=" bannerBack absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
-<img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
-<div className="container">
-        <div className="flex bannerWrapper  gap-[146px] items-center h-[80vh]">
-          <div className="headingDiv w-1/2">
-            <h2 className="font-bold font-Apex darkBlack">
-              TOP <br />
-              <span className="primary text-[128px]"> SELLERS</span>
-            </h2>
+      <div className="topSell relative">
+        <img className=" bannerBack absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
+        <img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
+        <div className="container">
+          <div className="flex bannerWrapper  gap-[146px] items-center h-[80vh]">
+            <div className="headingDiv w-1/2">
+              <h2 className="font-bold font-Apex darkBlack">
+                {/* TOP <br /> */}
+                <span className="primary text-[128px]"> SELLERS</span>
+              </h2>
+            </div>
+            <div className="relative sellerImages w-1/2">
+              <img
+                src={ts1}
+                alt="image"
+                className=" tsImage max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl z-30 relative"
+              />
+              <img
+                src={ts3}
+                alt="image"
+                className="tsImage  max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl absolute left-24 top-0 rotate-[20deg]"
+              />
+              <img
+                src={ts2}
+                alt="image"
+                className="tsImage max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl absolute left-11 top-0 rotate-[10deg]"
+              />
+            </div>
           </div>
-          <div className="relative sellerImages w-1/2">
-            <img
-              src={ts1}
-              alt="image"
-              className=" tsImage max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl z-30 relative"
-            />
-            <img
-              src={ts3}
-              alt="image"
-              className="tsImage  max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl absolute left-24 top-0 rotate-[20deg]"
-            />
-            <img
-              src={ts2}
-              alt="image"
-              className="tsImage max-w-[362px] max-h-[397px] w-full h-full object-cover rounded-3xl absolute left-11 top-0 rotate-[10deg]"
+
+          {/* <div className="flex justify-between mt-9 mb-9">
+            {/* <Button className="btn-white" text="Catagory"/>
+            <div className="catagorySelector">
+              <Select
+                defaultValue="Catagory"
+                style={{
+                  width: 138,
+                  height: 48,
+                  boxShadow: "4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
+                  borderRadius: 8,
+
+                }}
+                // className="btn-white"
+                onChange={handleChange}
+                // autoFocus={false}
+                options={[
+                  {
+                    value: "catagory1",
+                    label: "Catagory 1",
+                  },
+                  {
+                    value: "catagory2",
+                    label: "Catagory 2",
+                  },
+                ]}
+              />
+            </div>
+            <Button className="btn-white small font-semibold" text="Last 30 days" />
+          </div> */}
+
+          <div className="collectionTable relative">
+
+            <Table
+              columns={columns}
+              dataSource={profileData.length > 0 ?
+                profileData.filter((data: any) => data.wallet_address ? true : false).map((profileData: any, index: any) => (
+                  {
+                    image: profileData.profile_image || table1,
+                    collection: profileData.display_name || "Unknown",
+                    address: truncateString(profileData.wallet_address),
+                    allProfileData: profileData
+                  }
+                ))
+
+                :
+
+                []
+              }
+              pagination={false}
+
+              rowClassName="cursor-pointer"
+              onRow={(record) => ({
+                onClick: () => handleRowClick(record),
+              })}
+              className="mb-[199px] sellerTable"
             />
           </div>
-        </div>
-
-        <div className="flex justify-between mt-9 mb-9">
-          {/* <Button className="btn-white" text="Catagory"/> */}
-          <div className="catagorySelector">
-            <Select
-              defaultValue="Catagory"
-              style={{
-                width: 138,
-                height:48,
-                boxShadow:"4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
-                borderRadius:8,
-              
-              }}
-              // className="btn-white"
-              onChange={handleChange}
-              // autoFocus={false}
-              options={[
-                {
-                  value: "catagory1",
-                  label: "Catagory 1",
-                },
-                {
-                  value: "catagory2",
-                  label: "Catagory 2",
-                },
-              ]}
-            />
-          </div>
-          <Button className="btn-white small font-semibold" text="Last 30 days" />
-        </div>
-
-        <div className="collectionTable relative">
-
-          <Table
-            columns={columns}
-            dataSource={data}
-            pagination={false}
-         
-            rowClassName="cursor-pointer"
-            onRow={(record) => ({
-              onClick: () => handleRowClick(record),
-            })}
-            className="mb-[199px] sellerTable"
-          />
         </div>
       </div>
-    </div>
-   
+
       <ReadyForNext />
-      
+
     </>
   );
 };

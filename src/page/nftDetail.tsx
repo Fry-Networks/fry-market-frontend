@@ -61,8 +61,14 @@ const NftDetail = () => {
   return (
     <>
 
-      <NftDetailBanner detail={true} nftData={nftData} collectionData={collectionData} profileData={profileData} />
-      <ListedNft collectionData={{ [collectionData["collection_address"]]: collectionData }} nftData={nftData} listingText={"More from this collection"} moreByUser={true} />
+      <NftDetailBanner detail={true} nftData={nftData} collectionData={collectionData} profileData={profileData} onlyShow={location.state.onlyShow} />
+      {
+        !location.state.onlyShow ?
+          <ListedNft collectionData={{ [collectionData["collection_address"]]: collectionData }} nftData={nftData} listingText={"More from this collection"} moreByUser={true} onlyShow={location.state.onlyShow} />
+          :
+          ""
+
+      }
       {/* <MoreFromThis /> */}
       <ReadyForNext />
 

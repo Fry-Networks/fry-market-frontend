@@ -14,7 +14,7 @@ import bodyImg from "../../assets/nftCollection/popularBodyImg.png";
 import headerImg from "../../assets/nftCollection/popularHeaderImg.png";
 import CollectionsCard from '../cards/collectionsCard';
 
-const ProfileNft = ({ collectionData }: any) => {
+const ProfileNft = ({ collectionData, address }: any) => {
 
   const [activeKey, setActiveKey] = React.useState("1");
 
