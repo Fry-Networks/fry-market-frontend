@@ -22,42 +22,42 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
   const { activeAccount } = useWallet();
 
   const getCollectionData = async () => {
-    if (activeAccount?.address) {
-      try {
 
-        // const config = {
-        //   headers: { Authorization: `Bearer ${token}` }
-        // };
+    try {
 
-        const response = await axios.get(`${baseUrl}/get-all-collections`);
-        console.log("Collection Data", response.data);
-        if (response?.data?.length > 0) {
-          let obj = {};
-          response?.data?.map((collectionData: any) => {
-            if (typeof (collectionData.collection_address) == "string") {
-              obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url, ...collectionData } }
-            }
+      // const config = {
+      //   headers: { Authorization: `Bearer ${token}` }
+      // };
+
+      const response = await axios.get(`${baseUrl}/get-all-collections`);
+      console.log("Collection Data", response.data);
+      if (response?.data?.length > 0) {
+        let obj = {};
+        response?.data?.map((collectionData: any) => {
+          if (typeof (collectionData.collection_address) == "string") {
+            obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url, ...collectionData } }
           }
-          )
-          setCollectionData(obj)
-          console.log("well", obj);
-
         }
-
-
-      }
-      catch (e) {
-        console.log("Error Getting Collection", e);
-        // toast.error("Error Creating Collection");
-        setCollectionData("")
+        )
+        setCollectionData(obj)
+        console.log("well", obj);
 
       }
+
+
     }
+    catch (e) {
+      console.log("Error Getting Collection", e);
+      // toast.error("Error Creating Collection");
+      setCollectionData("")
+
+    }
+
   }
 
   useEffect(() => {
     getCollectionData();
-  }, [activeAccount])
+  }, [])
 
   return (
     <>

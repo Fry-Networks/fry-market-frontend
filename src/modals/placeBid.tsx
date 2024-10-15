@@ -150,27 +150,32 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
                 minHeight={53}
                 text="Place bid"
                 onClick={async () => {
-                  if (Number(bidAmount) > Number((data.highestBidAmount / 1000000) + (data.minBidAmount / 1000000))) {
-                    if (await getHighestBid()) {
-                      toast.promise(
-                        handleBidNft(),
-                        {
-                          pending: "Biding is in place",
-                          error: "There was an error while placing a bid",
-                          success: "Bid placed successfully"
+                  if (activeAccount?.address) {
+                    if (Number(bidAmount) > Number((data.highestBidAmount / 1000000) + (data.minBidAmount / 1000000))) {
+                      if (await getHighestBid()) {
+                        toast.promise(
+                          handleBidNft(),
+                          {
+                            pending: "Biding is in place",
+                            error: "There was an error while placing a bid",
+                            success: "Bid placed successfully"
 
-                        }
-                      )
+                          }
+                        )
+                      }
+                      else {
+                        toast.error(`Minimum Bidding Amount has been updated!`);
+                        handleCancel()
+
+                      }
+
                     }
                     else {
-                      toast.error(`Minimum Bidding Amount has been updated!`);
-                      handleCancel()
-
+                      toast.error(`Minimum Bidding Amount should be more than ${Number((data.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)).toFixed(2)}`)
                     }
-
                   }
                   else {
-                    toast.error(`Minimum Bidding Amount should be more than ${Number((data.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)).toFixed(2)}`)
+                    toast.error("Please Connect Wallet First!")
                   }
 
                 }}

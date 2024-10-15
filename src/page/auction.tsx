@@ -12,33 +12,33 @@ const Auction = () => {
 
 
   const getAuctionedNft: any = async () => {
-    if (activeAccount?.address) {
 
 
-      try {
+
+    try {
 
 
-        setLoading(true);
-        const response = await getAllAuctions();
-        console.log("NftAuctioned", response);
-        setAuctionedNfts(response);
-        setLoading(false)
+      setLoading(true);
+      const response = await getAllAuctions();
+      console.log("NftAuctioned", response);
+      setAuctionedNfts(response);
+      setLoading(false)
 
-      }
-      catch (e) {
-        setLoading(false);
-      }
     }
+    catch (e) {
+      setLoading(false);
+    }
+
   }
 
   useEffect(() => {
     console.log("heeh");
 
-    if (activeAccount?.address) {
-      getAuctionedNft();
-    }
 
-  }, [activeAccount])
+    getAuctionedNft();
+
+
+  }, [])
 
 
 

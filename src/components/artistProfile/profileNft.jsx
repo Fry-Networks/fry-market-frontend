@@ -121,7 +121,7 @@ const ProfileNft = ({ collectionData, address }) => {
   ]
 
   const getMintedNft = async () => {
-    console.log('f')
+    console.log('full')
 
     try {
       if (address || activeAccount?.address) {
@@ -167,11 +167,13 @@ const ProfileNft = ({ collectionData, address }) => {
   }
 
   const getAuctionedNft = async () => {
+    console.log("NftAuctionedd");
+    
     if (address || activeAccount?.address) {
       try {
         setLoadingAuctioned(true)
         const response = await getAllUserAuctions(address || activeAccount?.address, signer)
-        console.log('NftAuctioned', response)
+        console.log('NftAuctionedd', response)
         setAuctionedNft(response)
         setLoadingAuctioned(false)
       } catch (e) {
@@ -200,7 +202,7 @@ const ProfileNft = ({ collectionData, address }) => {
   useEffect(() => {
     console.log('heeh')
 
-    if (activeAccount?.address) {
+    if (address || activeAccount?.address) {
       getMintedNft()
       getAllNft()
       getListedNft()
