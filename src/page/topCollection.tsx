@@ -26,6 +26,7 @@ const TopCollection = () => {
 
 
     } catch (e) {
+      console.log("e", e);
 
     }
   }

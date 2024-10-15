@@ -250,7 +250,7 @@ const ProfileNft = ({ collectionData, address }) => {
                           data={{...data, imgUrl: data.url}} 
                           // otherList={address ? true : false} 
                           otherList={true} 
-                          profileOwned = {true}
+                          profileOwned = { !address && true}
                           otherAuctionData={data}
                           label="List" collectionData={collectionData} />
                         ))}
@@ -340,7 +340,7 @@ const ProfileNft = ({ collectionData, address }) => {
                             collectionData={collectionData}
                             setGetNftDataAgain={setGetNftDataAgain}
                             otherList={true} 
-                            profileOwned = {true}
+                            profileOwned = {!address && true}
                             otherAuctionData={data}
                           />
                         ))}
@@ -378,7 +378,7 @@ const ProfileNft = ({ collectionData, address }) => {
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {auctionedNft.map((data, index) => (
                           <CollectionsCard data={{ index: data.assetId, params: data }} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={setGetNftDataAgain}  otherList={true} 
-                          profileOwned = {true}
+                          profileOwned = {!address && true}
                            />
                         ))}
                       </div>
