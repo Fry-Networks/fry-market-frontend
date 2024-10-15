@@ -39,6 +39,9 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
         return false
       }
     }
+    else {
+      return false
+    }
   }
 
   const handleBidNft = async () => {

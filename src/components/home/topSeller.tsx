@@ -23,7 +23,7 @@ const TopSeller = ({ collectionDataFull }: any) => {
                 <div className="container">
                     <div className='flex justify-between items-center headWrappr'>
                         <h2 className="font-normal font-Apex uppercase mb-10">
-                            SELLERs
+                            SELLERS
                         </h2>
                         <p className='primary large font-medium font-Roboto cursor-pointer' onClick={(() => (
                             navigate("/top-seller")
