@@ -69,6 +69,10 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
             handleOk();
 
           }
+          else {
+            reject(false);
+
+          }
         }
         catch (e) {
           setLoading(false);
