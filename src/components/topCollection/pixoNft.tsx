@@ -505,13 +505,20 @@ const PixoNft = ({ nfts, collectionData }: any) => {
                   return (
                     searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
                       <div key={data.id} className="cursor-pointer">
-                        <CollectionsCard data={{ index: data.nftAddress, params: data }} label="Nft" collectionData={collectionData} />
+                        <CollectionsCard
+                          // data={{ index: data.nftAddress, params: data }}
+                          data={data}
+
+                          label="Nft" collectionData={collectionData} />
                       </div>
                       :
                       ""
                       :
                       <div key={data.id} className="cursor-pointer">
-                        <CollectionsCard data={{ index: data.nftAddress, params: data }} label="Nft" collectionData={collectionData} />
+                        <CollectionsCard
+                          // data={{ index: data.nftAddress, params: data }} 
+                          data={data}
+                          label="Nft" collectionData={collectionData} />
                       </div>
                   )
                 })

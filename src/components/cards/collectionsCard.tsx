@@ -266,7 +266,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         if (location.pathname != "/artist-profile" && label != "Minted") {
           if (otherAuction) {
 
-            navigate("/auction-detail", { state: { data: otherAuctionData, collectionData, onlyShow: true } })
+            navigate("/auction-detail", { state: { data: otherAuctionData, collectionData } })
           } else {
             if (otherList) {
 

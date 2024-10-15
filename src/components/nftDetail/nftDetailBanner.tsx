@@ -1,7 +1,7 @@
 import { useWallet } from "@txnlab/use-wallet";
 import { Collapse, Table } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
@@ -66,11 +66,18 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
       getNftMetaData(nftData.imgUrl);
     }
   }, [nftData]);
-
+  const biddingRef = useRef<any>();
   useEffect(() => {
     if (nftData.url) {
-      getBidDetails();
+      biddingRef.current = setInterval(() => {
+        getBidDetails();
+
+      }, 1000)
     }
+    return () => {
+      clearInterval(biddingRef.current)
+    }
+
   }, [nftData, activeAccount])
 
   const onChange = (key: any) => {
