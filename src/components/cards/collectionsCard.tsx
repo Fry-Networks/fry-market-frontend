@@ -10,7 +10,7 @@ import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
 
-const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel }: any) => {
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel, otherAuction, otherAuctionData, otherList, profileOwned }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -64,6 +64,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           reject(false);
@@ -101,6 +105,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             console.log("response", response);
             resolve(true)
 
+
+          }
+          else {
+            reject(false)
 
           }
         }
@@ -145,6 +153,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           console.log("Error While Claiming nft", e);
@@ -187,6 +199,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             setGetNftDataAgain((prev: any) => !prev)
             resolve(true)
 
+
+          }
+          else {
+            reject(false)
 
           }
         }
@@ -234,6 +250,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           console.log("Error While Claiming nft", e);
@@ -263,9 +283,26 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
   return (
     <>
       <div onClick={(() => {
-        if (location.pathname != "/artist-profile") {
+        if (true) {
+          if (otherAuction) {
 
-          navigate("/nft-detail", { state: { data, collectionData } })
+            navigate("/auction-detail", { state: { data: otherAuctionData, collectionData } })
+          } else {
+            if (otherList) {
+              if (label == "Minted") {
+                navigate("/nft-detail", { state: { data: data, collectionData, onlyShow: true } })
+
+              }
+              else {
+
+                navigate("/nft-detail", { state: { data: otherAuctionData, collectionData, onlyShow: true } })
+              }
+            }
+            else {
+
+              navigate("/nft-detail", { state: { data, collectionData } })
+            }
+          }
 
         }
 
@@ -324,14 +361,14 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   text="Boost"
                   onClick={showBoostModal}
                 />
-              ) : (
+              ) : !(otherAuction || otherList) || profileOwned && (
                 <Button
                   className="button btn-primary font-medium ex-small"
                   minWidth={56}
                   minHeight={36}
                   text={label ? label : "List"}
-                  onClick={() => {
-
+                  onClick={(e: any) => {
+                    e.stopPropagation();
 
                     if (label == "Buy") {
                       toast.promise(

@@ -13,7 +13,9 @@ import SellerCard from '../cards/sellerCard';
 
 
 const TopSeller = ({ collectionDataFull }: any) => {
+
     const navigate = useNavigate();
+
     return (
         <>
             <div className="topsellerWrapper my-40 relative lg:mb-24">
@@ -21,11 +23,11 @@ const TopSeller = ({ collectionDataFull }: any) => {
                 <div className="container">
                     <div className='flex justify-between items-center headWrappr'>
                         <h2 className="font-normal font-Apex uppercase mb-10">
-                            TOP SELLER
+                            SELLERS
                         </h2>
-                        {/* <p className='primary large font-medium font-Roboto cursor-pointer' onClick={(() => (
+                        <p className='primary large font-medium font-Roboto cursor-pointer' onClick={(() => (
                             navigate("/top-seller")
-                        ))}>View All</p> */}
+                        ))}>View All</p>
                     </div>
 
                     <div className="sellerCardDiv grid grid-cols-4  gap-x-10 gap-y-4" style={{ placeItems: "center" }}>

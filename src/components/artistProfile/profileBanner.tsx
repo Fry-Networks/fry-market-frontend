@@ -1,10 +1,10 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import banner from "../../assets/artistsProfile/banner.webp";
 import bannerProfile from "../../assets/artistsProfile/bannerUserIcon.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
-import Button from "../../components/shared/button";
 const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
-
+  const location = useLocation();
   useEffect(() => {
     console.log("ss", profileData);
 
@@ -26,13 +26,13 @@ const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
                 src={profileData?.banner_image ? profileData?.banner_image : banner}
                 alt=""
               />
-              <Button
+              {/* <Button
                 className="btnFollow button btn-primary medium font-semibold font-Roboto absolute top-3 right-3"
                 width={103}
                 minHeight={53}
                 text="Follow"
               >
-              </Button>
+              </Button> */}
             </div>
 
             {/* <img
@@ -79,10 +79,16 @@ const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
                   <p className="lightGray text-[16px] font-normal ">Items</p>
                 </div>
               </div>
-              <button className="profileBtn darkBlack  font-Roboto medium font-normal mt-3  w-[162px] h-[53px] flex-center gap-3 rounded-[15px] border-3 border-solid border-[#E7E7E7]">
-                <img src={foldedRed} alt="" />
-                {fryBalance ? fryBalance : 0} FRY
-              </button>
+              {location.pathname != "/artist-profile-others" ?
+                <button className="profileBtn darkBlack  font-Roboto medium font-normal mt-3  w-[162px] h-[53px] flex-center gap-3 rounded-[15px] border-3 border-solid border-[#E7E7E7]">
+                  <img src={foldedRed} alt="" />
+                  {fryBalance ? fryBalance : 0} FRY
+                </button>
+                :
+                ""
+
+              }
+
             </div>
           </div>
         </div>

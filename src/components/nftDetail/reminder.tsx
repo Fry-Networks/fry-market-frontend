@@ -30,6 +30,10 @@ const Reminder = ({ hide, showReminder, nftData }: any) => {
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           setLoading(false);

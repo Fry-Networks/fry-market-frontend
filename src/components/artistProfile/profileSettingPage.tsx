@@ -63,7 +63,6 @@ const ProfileSettingPage = () => {
         // }
         try {
           setLoading(true);
-
           const formDataForImage = new FormData;
           if ((bannerImage || profileImage) && (typeof (bannerImage) != "string" || typeof (profileImage) != "string")) {
             if (bannerImage && typeof (bannerImage) != "string") {

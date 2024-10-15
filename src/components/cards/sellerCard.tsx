@@ -1,10 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const SellerCard = ({ data }: any) => {
 
   const [profile, setProfile] = useState<any>("")
+
+  const navigate = useNavigate();
+
   const getProfileData = async (id: any) => {
     if (id) {
 
@@ -39,7 +43,7 @@ const SellerCard = ({ data }: any) => {
 
     <>
       {profile ?
-        <div className="sellerCardContainer mb-7">
+        <div className="sellerCardContainer mb-7 cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profile } })}>
           <div className="inner flex gap-3">
             <div className="leftArea">
               <img className="max-w-[116px] max-h-[116px] w-full h-full object-cover rounded-2xl" src={profile.profile_image ? profile.profile_image : data.sellerImg} alt="" />

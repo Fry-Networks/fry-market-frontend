@@ -14,7 +14,7 @@ import bodyImg from "../../assets/nftCollection/popularBodyImg.png";
 import headerImg from "../../assets/nftCollection/popularHeaderImg.png";
 import CollectionsCard from '../cards/collectionsCard';
 
-const ProfileNft = ({ collectionData }: any) => {
+const ProfileNft = ({ collectionData, address }: any) => {
 
   const [activeKey, setActiveKey] = React.useState("1");
 
@@ -152,7 +152,7 @@ const ProfileNft = ({ collectionData }: any) => {
 
                 </div>
               </Tabs.TabPane>
-              <Tabs.TabPane tab="Minted" key="3">
+              {/* <Tabs.TabPane tab="Minted" key="3">
                 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                   {featureCard.map((data, index) => (
                     <CollectionsCard data={data} />
@@ -167,7 +167,7 @@ const ProfileNft = ({ collectionData }: any) => {
                   ))}
 
                 </div>
-              </Tabs.TabPane>
+              </Tabs.TabPane> */}
               <Tabs.TabPane tab="On Sale" key="4">
                 <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                   {featureCard.map((data, index) => (
