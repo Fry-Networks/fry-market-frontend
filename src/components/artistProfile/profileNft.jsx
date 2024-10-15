@@ -294,9 +294,10 @@ const ProfileNft = ({ collectionData, address }) => {
                 ) : (
                   <>
                     {mintedNft.length > 0 ? (
+                      
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {mintedNft.map((data, index) => (
-                          <CollectionsCard data={{...data.params, imgUrl: data.params.url}} label="Minted" collectionData={collectionData} />
+                          <CollectionsCard data={{...data.params, imgUrl: data.params.url}} label="Minted" collectionData={collectionData} otherList={true}  />
                         ))}
                       </div>
                     ) : (
@@ -438,8 +439,14 @@ const ProfileNft = ({ collectionData, address }) => {
                                 sellerId: data.sellerId,
                               },
                             }}
+                            // data={{...data, imgUrl: data.url}}
                             label="Claim"
                             collectionData={collectionData}
+                            
+                          
+                          otherList={true} 
+                          profileOwned = {true}
+                          otherAuctionData={data}
                           />
                         ))}
                       </div>

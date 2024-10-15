@@ -2,6 +2,7 @@ import { useWallet } from "@txnlab/use-wallet";
 import { Collapse, Table } from "antd";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
@@ -19,6 +20,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   const [loading, setLoading] = useState<any>(false);
   const [bidDetails, setBidDetails] = useState<any>([])
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("ahh", detail);
@@ -377,7 +379,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                         <>
                           <p className="lightGray font-Roboto font-normal medium">
                             By
-                            <span className="darkBlack font-medium">
+                            <span className="darkBlack font-medium cursor-pointer" onClick={() => navigate("/top-collection", { state: { profile: profileData, collectionData: collectionData } })}>
                               {" "}
                               {collectionData.collection_name ? collectionData.collection_name : "Stella Nova"}
                             </span>
@@ -443,7 +445,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
             <div className="rightArea ps-5 w-3/5 flex flex-col gap-5 ">
               <div className="pixacioDiv">
                 <h2 className="font-normal font-Apex uppercase leading-[82px]">{nftData.name ? nftData.name : "PIXACIO"}</h2>
-                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold">{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
+                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profileData } })}>{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
               </div>
 
               {!onlyShow ? detail ?

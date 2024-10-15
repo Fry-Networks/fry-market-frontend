@@ -269,8 +269,14 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             navigate("/auction-detail", { state: { data: otherAuctionData, collectionData } })
           } else {
             if (otherList) {
+              if (label == "Minted") {
+                navigate("/nft-detail", { state: { data: data, collectionData, onlyShow: true } })
 
-              navigate("/nft-detail", { state: { data: otherAuctionData, collectionData, onlyShow: true } })
+              }
+              else {
+
+                navigate("/nft-detail", { state: { data: otherAuctionData, collectionData, onlyShow: true } })
+              }
             }
             else {
 
