@@ -287,7 +287,7 @@ export const cancelBid = async (
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
         const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
 
-        const allBids: Bid[] = await getAllBids(biddingAppId, sender, signer);
+        const allBids: Bid[] = await getAllBids(biddingAppId);
         const previousBids = allBids.filter((bid) => bid.bidder != sender)
 
         const bids = previousBids.map(bid => bid.bidTime);
@@ -434,20 +434,16 @@ export const claimNftRoyalty = async (
     }
 }
 
-export const getAllAuctions = async (
-    sender: string,
-    signer: TransactionSigner) => {
-    const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
+export const getAllAuctions = async () => {
 
-    const listings = await auctionClient.appClient.getBoxNames()
-
+    const algod = await getAlgodClient()
+    const listings = await algokit.getAppBoxNames(AUCTION_ID, algod);
+    console.log("listings", listings)
     const allListings: any[] = [];
     for (let listBox of listings) {
-
         const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
-
-        const box = await auctionClient.appClient.getBoxValue(listBox)
-        const nftData = await algodClient.getAssetByID(decoded).do();
+        let box = await algokit.getAppBoxValue(AUCTION_ID, listBox.nameRaw, algod)
+        const nftData = await algod.getAssetByID(decoded).do();
         const sellerId = algosdk.encodeAddress(box.slice(0, 32))
         const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "safe")
         const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), "safe")
@@ -480,7 +476,7 @@ export const getSingleAuction = async (nftId: number) => {
     const boxId = algosdk.encodeUint64(nftId);
     const decoded = algosdk.decodeUint64(boxId, "safe")
 
-    const box = await await algokit.getAppBoxValue(AUCTION_ID, boxId, algod)
+    const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algod)
     const nftData = await algod.getAssetByID(decoded).do();
     const sellerId = algosdk.encodeAddress(box.slice(0, 32))
     const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "safe")
@@ -508,17 +504,15 @@ export const getSingleAuction = async (nftId: number) => {
 }
 
 export const getAllBids = async (
-    bidContract: number,
-    sender: string,
-    signer: TransactionSigner
+    bidContract: number
 ): Promise<Bid[]> => {
     try {
-        const { biddingClient } = await createBiddingClient(signer, sender, bidContract)
-        const biddings = await biddingClient.appClient.getBoxNames()
+        const algod = await getAlgodClient()
+        const biddings = await algokit.getAppBoxNames(bidContract, algod);
         const allBids: Bid[] = [];
         for (let bid of biddings) {
             const bidder = algosdk.encodeAddress(bid.nameRaw)
-            const bidData = await biddingClient.appClient.getBoxValue(bid)
+            const bidData = await algokit.getAppBoxValue(bidContract, bid, algod)
 
             const bidAmount = algosdk.decodeUint64(bidData.slice(0, 8), "safe")
             const bidTime = algosdk.decodeUint64(bidData.slice(8, 16), "safe")
@@ -543,7 +537,7 @@ export const getAllBids = async (
 //! ger user claimable nfts from auction
 export const getAllUserClaimable = async (user: string, signer: TransactionSigner) => {
     try {
-        const auctions = await getAllAuctions(user, signer);
+        const auctions = await getAllAuctions();
         const claimable = auctions.filter((item) => item.highestBidder === user && item.biddingEndTime < Math.floor(Date.now() / 1000))
         return claimable
     } catch (error) {
@@ -553,7 +547,7 @@ export const getAllUserClaimable = async (user: string, signer: TransactionSigne
 
 export const getAllUserAuctions = async (user: string, signer: TransactionSigner) => {
     try {
-        const allAuctions = await getAllAuctions(user, signer);
+        const allAuctions = await getAllAuctions();
         const userAuctions = allAuctions.filter((item) => item.sellerId === user)
         return userAuctions
     } catch (error) {

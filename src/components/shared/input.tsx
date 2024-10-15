@@ -89,8 +89,8 @@ const Input = ({
             aria-placeholder={placeholderClass}
             // placeholderClass={placeholderClass}
             aria-label={label}
-            aria-inputClass={inputClass}
-            aria-labelClass={labelClass}
+          // aria-inputClass={inputClass}
+          // aria-labelClass={labelClass}
           />
           {/* <label className={`text-capitalize ${labelClass}`}>{placeholder}</label> */}
           {icon && (

@@ -19,7 +19,7 @@ const Auction = () => {
 
 
         setLoading(true);
-        const response = await getAllAuctions(activeAccount?.address, signer);
+        const response = await getAllAuctions();
         console.log("NftAuctioned", response);
         setAuctionedNfts(response);
         setLoading(false)

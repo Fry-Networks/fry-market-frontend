@@ -39,23 +39,23 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   }
 
   const getBidDetails = async () => {
-    if (activeAccount?.address) {
+    // if (activeAccount?.address) {
 
 
-      try {
+    try {
 
 
-        setLoading(true);
-        const response = await getAllBids(nftData.bidContract, activeAccount.address, signer)
-        console.log("Nft Bids", response);
-        setBidDetails(response);
-        setLoading(false)
+      setLoading(true);
+      const response = await getAllBids(nftData.bidContract)
+      console.log("Nft Bids", response);
+      setBidDetails(response);
+      setLoading(false)
 
-      }
-      catch (e) {
-        setLoading(false);
-      }
     }
+    catch (e) {
+      setLoading(false);
+    }
+    // }
   }
 
   useEffect(() => {
@@ -396,7 +396,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                             {
                               nftMetaData.properties ?
                                 Object.keys(nftMetaData.properties).map((traitName, index) => (
-                                  <TraitsBox data={{ traitName: traitName, traitValue: nftMetaData.properties[traitName] }} />
+                                  <TraitsBox key={index} data={{ traitName: traitName, traitValue: nftMetaData.properties[traitName] }} />
                                 ))
 
                                 :

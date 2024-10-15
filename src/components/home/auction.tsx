@@ -32,37 +32,37 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
   const getAuctionedNft = async () => {
-    if (activeAccount?.address) {
+    // if (activeAccount?.address) {
 
 
-      try {
+    try {
 
 
-        setLoading(true);
-        const response = await getAllAuctions(activeAccount?.address, signer);
-        console.log("NftAuctionedh", response);
-        if (moreByUser) {
-          setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
-        }
-        else {
-
-          setAuctionedNfts(response);
-        }
-        setLoading(false)
-
+      setLoading(true);
+      const response = await getAllAuctions();
+      console.log("NftAuctionedh", response);
+      if (moreByUser) {
+        setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
       }
-      catch (e) {
-        setLoading(false);
+      else {
+
+        setAuctionedNfts(response);
       }
+      setLoading(false)
+
     }
+    catch (e) {
+      setLoading(false);
+    }
+    // }
   }
 
   useEffect(() => {
     console.log("heeh");
 
-    if (activeAccount?.address) {
-      getAuctionedNft();
-    }
+    // if (activeAccount?.address) {
+    getAuctionedNft();
+    // }
 
   }, [activeAccount])
   return (
