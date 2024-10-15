@@ -64,6 +64,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           reject(false);
@@ -101,6 +105,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             console.log("response", response);
             resolve(true)
 
+
+          }
+          else {
+            reject(false)
 
           }
         }
@@ -143,6 +151,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             console.log("response", response);
             resolve(true)
 
+
+          }
+          else {
+            reject(false)
 
           }
         }
@@ -189,6 +201,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           console.log("Error While Claiming nft", e);
@@ -232,6 +248,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             setGetNftDataAgain((prev: any) => !prev)
             resolve(true)
 
+
+          }
+          else {
+            reject(false)
 
           }
         }

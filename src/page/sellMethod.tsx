@@ -93,6 +93,8 @@ const SellMethod = () => {
           resolve(true)
           navigate("/artist-profile")
 
+        } else {
+          reject(false)
         }
       }
       catch (e) {
