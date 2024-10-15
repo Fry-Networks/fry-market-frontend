@@ -341,9 +341,9 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   minWidth={56}
                   minHeight={36}
                   text={label ? label : "List"}
-                  onClick={(e) => {
-
+                  onClick={(e: any) => {
                     e.stopPropagation();
+
                     if (label == "Buy") {
                       toast.promise(
                         handleBuyNft(),
