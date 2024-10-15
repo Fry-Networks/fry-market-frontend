@@ -79,7 +79,8 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
               <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))} */}
             {Array.isArray(auctionedNfts) && auctionedNfts.length > 0 ? auctionedNfts.map((data: any, index: any) => (
-              <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]} />
+              data.biddingStartTime * 1000 < Date.now() &&
+              < AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]} />
             ))
               :
 
