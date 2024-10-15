@@ -138,17 +138,21 @@ const CreateNft: React.FC = () => {
   const mintNft = async () => {
     return new Promise(async (resolve, reject) => {
       try {
-
+        setLoading(true);
         const response: any = await mintMultipleNft(selectedImages, activeAccount?.address || "", signer, signTransactions, sendTransactions)
         console.log("response after minting", response);
         // toast.success("Mint Successful")
+        setLoading(false);
         resolve(true);
+
         navigate("/artist-profile")
 
       }
       catch (e) {
         console.log("Error Mintin Nft");
         // toast.error("Error Creating Collection");
+        setLoading(false);
+
         reject(false);
 
 
