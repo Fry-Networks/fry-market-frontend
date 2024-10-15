@@ -13,6 +13,7 @@ import Button from "../shared/button";
 const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel, otherAuction, otherAuctionData, otherList, profileOwned }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [btnLoader, setBtnLoader] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const navigate = useNavigate();
   const location = useLocation();
@@ -138,8 +139,8 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
       return new Promise(async (resolve, reject) => {
         try {
           if (activeAccount?.address) {
-
-            const response = await claimNftRoyalty(activeAccount.address, signer, data.index, data.params.bidContract, data.params.price, data.params.sellerId)
+            setBtnLoader(true)
+            const response = await claimNftRoyalty(activeAccount.address, signer, data.url, data.bidContract, data.params.price, data.params.sellerId)
             // (
             //   activeAccount?.address,
             //   data.assetId,
@@ -147,19 +148,23 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             //   data.seller,
             //   data.price);
 
-
             console.log("response", response);
+            setBtnLoader(false)
+
             resolve(true)
 
 
           }
           else {
+            setBtnLoader(false)
+
             reject(false)
 
           }
         }
         catch (e) {
           console.log("Error While Claiming nft", e);
+          setBtnLoader(false)
 
           reject(false);
         }
@@ -184,9 +189,11 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
     try {
       return new Promise(async (resolve, reject) => {
         try {
-          if (activeAccount?.address) {
 
-            const response = await cancelList(activeAccount.address, data.index, signer);
+
+          if (activeAccount?.address) {
+            setBtnLoader(true)
+            const response: any = await cancelList(activeAccount.address, data.assetId, signer);
             // (
             //   activeAccount?.address,
             //   data.assetId,
@@ -194,20 +201,29 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             //   data.seller,
             //   data.price);
 
-
+            if (typeof (response) == "string" && response?.includes("Input is not a 64-bit unsigned integer")) {
+              setBtnLoader(false)
+              reject(false)
+              return;
+            }
             console.log("response", response);
             setGetNftDataAgain((prev: any) => !prev)
+            setBtnLoader(false)
+
             resolve(true)
 
 
           }
           else {
+            setBtnLoader(false)
+
             reject(false)
 
           }
         }
         catch (e) {
           console.log("Error While Claiming nft", e);
+          setBtnLoader(false)
 
           reject(false);
         }
@@ -233,7 +249,9 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
       return new Promise(async (resolve, reject) => {
         try {
           if (activeAccount?.address) {
+            setBtnLoader(true)
             console.log("heheWell", data);
+            setBtnLoader(true)
 
             const response = await cancelAuction(activeAccount.address, signer, data.params.nftAddress, data.params.bidContract, signTransactions, sendTransactions);
             // (
@@ -243,20 +261,29 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             //   data.seller,
             //   data.price);
 
-
+            if (typeof (response) == "string" && response?.includes("Input is not a 64-bit unsigned integer")) {
+              setBtnLoader(false)
+              reject(false)
+              return;
+            }
             console.log("response", response);
             setGetNftDataAgain((prev: any) => !prev)
+            setBtnLoader(false)
+
             resolve(true)
 
 
           }
           else {
+            setBtnLoader(false)
+
             reject(false)
 
           }
         }
         catch (e) {
           console.log("Error While Claiming nft", e);
+          setBtnLoader(false)
 
           reject(false);
         }
@@ -367,6 +394,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   minWidth={56}
                   minHeight={36}
                   text={label ? label : "List"}
+                  disabled={btnLoader}
                   onClick={(e: any) => {
                     e.stopPropagation();
 

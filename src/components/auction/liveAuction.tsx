@@ -78,7 +78,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
               ))} */}
 
               {auctionedNfts.map((data: any, index: any) => (
-                data.biddingStartTime / 1000 < Date.now() &&
+                (data.biddingStartTime * 1000) < Date.now() &&
                 <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData ? collectionData[data.sellerId] : {}} fromLive={true} />
               ))}
 

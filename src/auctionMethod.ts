@@ -220,6 +220,8 @@ export const listNftAuction = async (
             console.log(e)
         })
 
+        return true;
+
     } catch (e) { console.log(e) }
 }
 
