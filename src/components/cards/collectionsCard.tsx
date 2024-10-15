@@ -10,7 +10,7 @@ import BoostNft from "../../modals/boostNft";
 import Button from "../shared/button";
 
 
-const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel, otherAuction, otherAuctionData, otherList }: any) => {
+const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel, otherAuction, otherAuctionData, otherList, profileOwned }: any) => {
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -263,7 +263,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
   return (
     <>
       <div onClick={(() => {
-        if (location.pathname != "/artist-profile" && label != "Minted") {
+        if (true) {
           if (otherAuction) {
 
             navigate("/auction-detail", { state: { data: otherAuctionData, collectionData } })
@@ -335,15 +335,15 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   text="Boost"
                   onClick={showBoostModal}
                 />
-              ) : !(otherAuction || otherList) && (
+              ) : !(otherAuction || otherList) || profileOwned && (
                 <Button
                   className="button btn-primary font-medium ex-small"
                   minWidth={56}
                   minHeight={36}
                   text={label ? label : "List"}
-                  onClick={() => {
+                  onClick={(e) => {
 
-
+                    e.stopPropagation();
                     if (label == "Buy") {
                       toast.promise(
                         handleBuyNft(),

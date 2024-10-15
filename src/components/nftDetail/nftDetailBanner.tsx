@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
-import { getAllBids } from "../../auctionMethod";
+import { getAllBids, getSingleAuction } from "../../auctionMethod";
 import { replaceJsonWithPng, truncateString } from "../../utils/getImageFromJson";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
@@ -15,6 +15,7 @@ import Reminder from "./reminder";
 
 const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow }: any) => {
   const [nftMetaData, setNftMetaData] = useState<any>({});
+  const [highestBid, setHighestBid] = useState<any>(0);
   const [loading, setLoading] = useState<any>(false);
   const [bidDetails, setBidDetails] = useState<any>([])
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -48,7 +49,26 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
         setLoading(true);
         const response = await getAllBids(nftData.bidContract, activeAccount.address, signer)
         console.log("Nft Bids", response);
-        setBidDetails(response);
+        setBidDetails(response.sort((a, b) => b.bidAmount - a.bidAmount));
+        setLoading(false)
+
+      }
+      catch (e) {
+        setLoading(false);
+      }
+    }
+  }
+  const getHighestBid = async () => {
+    if (activeAccount?.address) {
+
+
+      try {
+
+
+        setLoading(true);
+        const response = await getSingleAuction(nftData.nftAddress)
+        console.log("Single Auction", response);
+        setHighestBid(response.highestBidAmount);
         setLoading(false)
 
       }
@@ -71,8 +91,9 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
     if (nftData.url) {
       biddingRef.current = setInterval(() => {
         getBidDetails();
+        getHighestBid();
 
-      }, 1000)
+      }, 3000)
     }
     return () => {
       clearInterval(biddingRef.current)
@@ -429,7 +450,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                 <Reminder nftData={nftData} />
 
                 :
-                <AuctionReminder nftData={nftData} />
+                <AuctionReminder nftData={nftData} highestBid={highestBid} />
                 :
                 ""
               }

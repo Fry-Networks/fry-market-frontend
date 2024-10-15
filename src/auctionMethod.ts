@@ -261,7 +261,7 @@ export const createBid = async (
 
     } catch (e: any) {
         console.log(e)
-        return e.message
+        throw e.message
     }
 }
 

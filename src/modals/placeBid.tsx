@@ -3,7 +3,7 @@ import { Modal } from "antd";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import redline from "../assets/modals/redLine.png";
-import { createBid } from "../auctionMethod";
+import { createBid, getSingleAuction } from "../auctionMethod";
 import Button from "../components/shared/button";
 
 const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => {
@@ -20,6 +20,26 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
     setisbidmodal(false);
     console.log("Modal should close now");
   };
+
+  const getHighestBid = async () => {
+    if (activeAccount?.address) {
+
+
+      try {
+
+
+        setLoading(true);
+        const response = await getSingleAuction(data.nftAddress)
+        console.log("Single Auction", response);
+
+        return (Number(bidAmount) > Number((response.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)))
+
+      }
+      catch (e) {
+        return false
+      }
+    }
+  }
 
   const handleBidNft = async () => {
 
@@ -114,6 +134,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
                 minHeight={53}
                 text="Cancel"
                 onClick={handleCancel}
+                disabled={loading}
               ></Button>
 
               <Button
@@ -121,17 +142,25 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
                 width={166}
                 minHeight={53}
                 text="Place bid"
-                onClick={() => {
+                onClick={async () => {
                   if (Number(bidAmount) > Number((data.highestBidAmount / 1000000) + (data.minBidAmount / 1000000))) {
-                    toast.promise(
-                      handleBidNft(),
-                      {
-                        pending: "Biding is in place",
-                        error: "There was an error while placing a bid",
-                        success: "Bid placed successfully"
+                    if (await getHighestBid()) {
+                      toast.promise(
+                        handleBidNft(),
+                        {
+                          pending: "Biding is in place",
+                          error: "There was an error while placing a bid",
+                          success: "Bid placed successfully"
 
-                      }
-                    )
+                        }
+                      )
+                    }
+                    else {
+                      toast.error(`Minimum Bidding Amount has been updated!`);
+                      handleCancel()
+
+                    }
+
                   }
                   else {
                     toast.error(`Minimum Bidding Amount should be more than ${Number((data.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)).toFixed(2)}`)
