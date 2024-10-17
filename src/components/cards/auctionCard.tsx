@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
+import { truncateImageName } from "../../utils/getImageFromJson";
 import Button from "../shared/button";
 
 const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
@@ -30,7 +31,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
-              {data.name}
+              {data.name ? truncateImageName(data.name) : "NFT"}
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
               @{collectionData?.collection_name ? collectionData?.collection_name : "collection"}

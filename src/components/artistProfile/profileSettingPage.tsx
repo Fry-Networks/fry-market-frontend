@@ -184,41 +184,45 @@ const ProfileSettingPage = () => {
         <div className="container">
           <div className="inner">
             <div className="uploadDiv relative w-full h-[305px] bg-[#D9D9D9]  rounded-2xl mt-5">
+              <label htmlFor="bannerImage">
+                <input type="file" className="hidden" name="" id="bannerImage" onChange={(e: any) => setBannerImage(e.target.files[0])} />
+                {
+                  bannerImage &&
+                  <img className="w-full h-full object-cover" src={typeof (bannerImage) == "string" ? bannerImage : URL.createObjectURL(bannerImage)} alt="" />
+                }
 
-              {
-                bannerImage &&
-                <img className="w-full h-full" src={typeof (bannerImage) == "string" ? bannerImage : URL.createObjectURL(bannerImage)} alt="" />
-              }
 
 
+                <div
+                  // onClick={() => {
+                  //   setCurrentImage("banner")
+                  //   showImageModal()
+                  // }}
+                  className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
+                >
 
-              <button
-                onClick={() => {
-                  setCurrentImage("banner")
-                  showImageModal()
-                }}
-                className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
-              >
-
-                Upload Banner
-              </button>
-
+                  Upload Banner
+                </div>
+              </label>
 
               {/* </div> */}
 
+              <label htmlFor="profileImage">
+                <input type="file" className="hidden" name="" id="profileImage" onChange={(e: any) => setProfileImage(e.target.files[0])} />
 
-              <div className="absolute w-[100px] h-[100px] rounded-full border-dashed border-[2px] border-[#6B6B6B] bg-[#D9D9D9] bottom-[-60px] left-[47%] cursor-pointer plusIcon flex items-center justify-center" onClick={showImageModal}>
+                <div className="absolute w-[100px] h-[100px] rounded-full border-dashed border-[2px] border-[#6B6B6B] bg-[#D9D9D9] bottom-[-60px] left-[47%] cursor-pointer plusIcon flex items-center justify-center" >
 
-                {
-                  profileImage ?
-                    <img className="w-full h-full object-cover rounded-full" src={typeof (profileImage) == "string" ? profileImage : URL.createObjectURL(profileImage)} alt="" />
-                    :
-                    <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#6B6B6B" }} />
-                }
-              </div>
+                  {
+                    profileImage ?
+                      <img className="w-full h-full object-cover rounded-full" src={typeof (profileImage) == "string" ? profileImage : URL.createObjectURL(profileImage)} alt="" />
+                      :
+                      <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#6B6B6B" }} />
+                  }
+                </div>
+              </label>
             </div>
 
-            <div className="w-full flex justify-center mt-24">
+            {/* <div className="w-full flex justify-center mt-24">
               <button className=" ml-7 border-solid border-2  border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg"
                 onClick={() => {
                   setCurrentImage("profileImage")
@@ -227,8 +231,8 @@ const ProfileSettingPage = () => {
               >
                 Upload Profile
               </button>
-            </div>
-            <div className="formData mt-12 w-[817px] h-auto mx-auto flex flex-col gap-12">
+            </div> */}
+            <div className="formData mt-20 w-[817px] h-auto mx-auto flex flex-col gap-12">
               <div className="nftUserInfo mb-11">
                 <div
                   // style={{

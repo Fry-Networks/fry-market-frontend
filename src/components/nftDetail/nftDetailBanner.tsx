@@ -14,7 +14,7 @@ import AuctionReminder from "./auctionReminder";
 import Reminder from "./reminder";
 
 
-const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow }: any) => {
+const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow, forList }: any) => {
   const [nftMetaData, setNftMetaData] = useState<any>({});
   const [highestBid, setHighestBid] = useState<any>(0);
   const [loading, setLoading] = useState<any>(false);
@@ -449,7 +449,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
               </div>
 
               {!onlyShow ? detail ?
-                <Reminder nftData={nftData} />
+                <Reminder nftData={nftData} forList={forList} />
 
                 :
                 <AuctionReminder nftData={nftData} highestBid={highestBid} />
@@ -494,7 +494,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                 />
               </div> */}
               {
-                !onlyShow ?
+                !onlyShow && !forList ?
                   <div className="listingAccordion">
                     <Collapse
                       defaultActiveKey={"1"}

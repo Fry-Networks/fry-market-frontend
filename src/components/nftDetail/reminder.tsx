@@ -5,7 +5,7 @@ import { toast } from "react-toastify"
 import { buyNftWithRoyalty } from "../../fryMarketMethods"
 import Button from "../shared/button"
 
-const Reminder = ({ hide, showReminder, nftData }: any) => {
+const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
   const [loading, setLoading] = useState<any>(false)
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const navigate = useNavigate();
@@ -55,35 +55,50 @@ const Reminder = ({ hide, showReminder, nftData }: any) => {
   return (
     <>
       <div className="salesEndDiv bg-white flex flex-col mt-6">
-        <div className="salesHeader p-5">
-          <img src="/src/assets/icons/grayClock.svg" alt="" />
-          <p className="lightGray font-normal text-[16px]">Listed at {(new Date(nftData.listTime * 1000)).toLocaleString()}</p>
-        </div>
+        {
+          !forList ?
+            <div className="salesHeader p-5">
+              <img src="/src/assets/icons/grayClock.svg" alt="" />
+              <p className="lightGray font-normal text-[16px]">Listed at {(new Date(nftData.listTime * 1000)).toLocaleString()}</p>
+            </div>
+            :
+
+            ""
+        }
         <div className="salesBody p-5 flex flex-col gap-5 ">
-          <div className="area1">
-            <p className="ex-small lightGray font-Roboto">Current price</p>
-            <p className="font-medium text-black ex-large mt-1">{nftData.price / 1000000} FRY</p>
-          </div>
+          {
+            !forList ?
+              <div className="area1">
+                <p className="ex-small lightGray font-Roboto">Current price</p>
+                <p className="font-medium text-black ex-large mt-1">{nftData.price / 1000000} FRY</p>
+              </div>
+              :
+              ""}
           <div className="area2 flex-start gap-3">
 
             <>
               {/* <Button className="button btn-secondary large font-medium btnBuy" minWidth={343} minHeight={44} text="Buy now"></Button> */}
 
-              <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text="Buy now"
+              <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text={forList ? "List now" : "Buy now"}
                 disabled={loading}
                 onClick={() => {
                   if (activeAccount?.address) {
+                    if (forList) {
+                      navigate("/sell-method", { state: { nftData: nftData } })
+                    }
+                    else {
+                      toast.promise(
+                        handleBuyNft(),
+                        {
+                          pending: "NFT buying in progress ",
+                          error: "There was an error Buying NFT",
+                          success: "NFT bought successfully"
+
+                        }
+                      )
+                    }
 
 
-                    toast.promise(
-                      handleBuyNft(),
-                      {
-                        pending: "NFT buying in progress ",
-                        error: "There was an error Buying NFT",
-                        success: "NFT bought successfully"
-
-                      }
-                    )
                   }
                   else {
                     toast.error("Please Connect Wallet First!")

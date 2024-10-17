@@ -11,3 +11,12 @@ export function truncateString(str: any) {
   }
   return ""
 }
+export function truncateImageName(str: any) {
+  if (str) {
+    if (str?.length <= 19) return str; // If the string is shorter than or equal to 5 characters, no need to truncate
+    const firstPart = str.slice(0, 15); // Get the first 3 characters
+
+    return `${firstPart}...`;
+  }
+  return ""
+}

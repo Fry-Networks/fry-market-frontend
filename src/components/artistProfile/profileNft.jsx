@@ -252,7 +252,7 @@ const ProfileNft = ({ collectionData, address }) => {
                           otherList={true} 
                           profileOwned = { !address && true}
                           otherAuctionData={data}
-                          label="List" collectionData={collectionData} />
+                          label={address ? "" : "List"} collectionData={collectionData} />
                         ))}
                       </div>
                     ) : (
@@ -299,7 +299,7 @@ const ProfileNft = ({ collectionData, address }) => {
                       
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {mintedNft.map((data, index) => (
-                          <CollectionsCard data={{...data.params, imgUrl: data.params.url}} label="Minted" collectionData={collectionData} otherList={true}  />
+                          <CollectionsCard data={{...data.params, imgUrl: data.params.url, assetId: data.index}} label="Minted" collectionData={collectionData} otherList={true}  />
                         ))}
                       </div>
                     ) : (
