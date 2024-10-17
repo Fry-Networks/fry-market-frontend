@@ -1,12 +1,14 @@
 import { useWallet } from "@txnlab/use-wallet"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { buyNftWithRoyalty } from "../../fryMarketMethods"
+import { buyNftWithRoyalty, cancelList } from "../../fryMarketMethods"
 import Button from "../shared/button"
 
 const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
   const [loading, setLoading] = useState<any>(false)
+  const [isOwner, setOwner] = useState(false);
+  const [ownerSectionsVisible, setOwnerSectionsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const navigate = useNavigate();
   const handleBuyNft = async () => {
@@ -52,11 +54,83 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
     }
   }
 
+  const handleCancelNftList = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+
+
+          if (activeAccount?.address) {
+            setLoading(true)
+            const response: any = await cancelList(activeAccount.address, nftData.assetId, signer);
+            // (
+            //   activeAccount?.address,
+            //   data.assetId,
+            //   signer,
+            //   data.seller,
+            //   data.price);
+
+            if (typeof (response) == "string" && response?.includes("Input is not a 64-bit unsigned integer")) {
+              setLoading(false)
+              reject(false)
+              return;
+            }
+            console.log("response", response);
+            // setGetNftDataAgain((prev: any) => !prev)
+            navigate("/artist-profile")
+            setLoading(false)
+
+            resolve(true)
+
+
+          }
+          else {
+            setLoading(false)
+
+            reject(false)
+
+          }
+        }
+        catch (e) {
+          console.log("Error While Claiming nft", e);
+          setLoading(false)
+
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+      return e;
+    }
+
+
+
+
+  }
+
+  useEffect(() => {
+    if (nftData.seller == activeAccount?.address) {
+      setOwnerSectionsVisible(true)
+    }
+
+    if (nftData.seller == activeAccount?.address && nftData.isListed) {
+      setOwner(true);
+    }
+
+  }, [nftData, activeAccount])
+
   return (
     <>
       <div className="salesEndDiv bg-white flex flex-col mt-6">
         {
-          !forList ?
+          !forList && !ownerSectionsVisible ?
             <div className="salesHeader p-5">
               <img src="/src/assets/icons/grayClock.svg" alt="" />
               <p className="lightGray font-normal text-[16px]">Listed at {(new Date(nftData.listTime * 1000)).toLocaleString()}</p>
@@ -67,7 +141,7 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
         }
         <div className="salesBody p-5 flex flex-col gap-5 ">
           {
-            !forList ?
+            !forList && !ownerSectionsVisible ?
               <div className="area1">
                 <p className="ex-small lightGray font-Roboto">Current price</p>
                 <p className="font-medium text-black ex-large mt-1">{nftData.price / 1000000} FRY</p>
@@ -79,11 +153,25 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
             <>
               {/* <Button className="button btn-secondary large font-medium btnBuy" minWidth={343} minHeight={44} text="Buy now"></Button> */}
 
-              <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text={forList ? "List now" : "Buy now"}
+              <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text={isOwner ? nftData.isListed ? "Cancel" : "List now" : forList ? "List now" : "Buy now"}
                 disabled={loading}
                 onClick={() => {
                   if (activeAccount?.address) {
-                    if (forList) {
+                    if (isOwner && !nftData.isListed) {
+                      navigate("/sell-method")
+                    }
+                    if (isOwner) {
+                      toast.promise(
+                        handleCancelNftList(),
+                        {
+                          pending: "NFT Listing Cancellation in progress",
+                          error: "There was an error Cancelling NFT Listing",
+                          success: "NFT List Cancelled successfully"
+
+                        }
+                      )
+                    }
+                    else if (forList) {
                       navigate("/sell-method", { state: { nftData: nftData } })
                     }
                     else {

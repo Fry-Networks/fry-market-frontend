@@ -318,10 +318,12 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           } else {
             if (otherList) {
               if (label == "Minted") {
+                console.log("Ff", data);
+
                 navigate("/nft-detail", { state: { data: data, collectionData, onlyShow: true } })
 
               }
-              if (label == "List") {
+              else if (label == "List" && profileOwned) {
                 navigate("/nft-detail", { state: { data: data, collectionData, forList: true } })
 
               }

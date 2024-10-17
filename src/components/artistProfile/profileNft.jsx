@@ -299,7 +299,8 @@ const ProfileNft = ({ collectionData, address }) => {
                       
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {mintedNft.map((data, index) => (
-                          <CollectionsCard data={{...data.params, imgUrl: data.params.url, assetId: data.index}} label="Minted" collectionData={collectionData} otherList={true}  />
+                          <CollectionsCard data={{...data.params, imgUrl: data.params.url, assetId: data.index}} label="Minted" collectionData={collectionData} otherList={true}                           otherAuctionData={data}
+                          />
                         ))}
                       </div>
                     ) : (
