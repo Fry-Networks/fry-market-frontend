@@ -30,7 +30,7 @@ const TopSeller = ({ collectionDataFull }: any) => {
                         ))}>View All</p>
                     </div>
 
-                    <div className="sellerCardDiv grid grid-cols-4  gap-x-10 gap-y-4" style={{ placeItems: "center" }}>
+                    <div className="sellerCardDiv flex  justify-between" style={{ placeItems: "center" }}>
                         {/* {
                             sellerData.map((data, index) => (
                                 <SellerCard data={data} key={data.id} />
