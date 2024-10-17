@@ -30,6 +30,10 @@ const Reminder = ({ hide, showReminder, nftData }: any) => {
 
 
           }
+          else {
+            reject(false)
+
+          }
         }
         catch (e) {
           setLoading(false);
@@ -68,15 +72,22 @@ const Reminder = ({ hide, showReminder, nftData }: any) => {
               <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text="Buy now"
                 disabled={loading}
                 onClick={() => {
-                  toast.promise(
-                    handleBuyNft(),
-                    {
-                      pending: "NFT buying in progress ",
-                      error: "There was an error Buying NFT",
-                      success: "NFT bought successfully"
+                  if (activeAccount?.address) {
 
-                    }
-                  )
+
+                    toast.promise(
+                      handleBuyNft(),
+                      {
+                        pending: "NFT buying in progress ",
+                        error: "There was an error Buying NFT",
+                        success: "NFT bought successfully"
+
+                      }
+                    )
+                  }
+                  else {
+                    toast.error("Please Connect Wallet First!")
+                  }
                 }
                 }
               ></Button>

@@ -32,37 +32,37 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
   const getAuctionedNft = async () => {
-    if (activeAccount?.address) {
+    // if (activeAccount?.address) {
 
 
-      try {
+    try {
 
 
-        setLoading(true);
-        const response = await getAllAuctions(activeAccount?.address, signer);
-        console.log("NftAuctionedh", response);
-        if (moreByUser) {
-          setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
-        }
-        else {
-
-          setAuctionedNfts(response);
-        }
-        setLoading(false)
-
+      setLoading(true);
+      const response = await getAllAuctions();
+      console.log("NftAuctionedh", response);
+      if (moreByUser) {
+        setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
       }
-      catch (e) {
-        setLoading(false);
+      else {
+
+        setAuctionedNfts(response);
       }
+      setLoading(false)
+
     }
+    catch (e) {
+      setLoading(false);
+    }
+    // }
   }
 
   useEffect(() => {
     console.log("heeh");
 
-    if (activeAccount?.address) {
-      getAuctionedNft();
-    }
+    // if (activeAccount?.address) {
+    getAuctionedNft();
+    // }
 
   }, [activeAccount])
   return (
@@ -79,7 +79,8 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
               <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))} */}
             {Array.isArray(auctionedNfts) && auctionedNfts.length > 0 ? auctionedNfts.map((data: any, index: any) => (
-              <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]} />
+              data.biddingStartTime * 1000 < Date.now() &&
+              < AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]} />
             ))
               :
 

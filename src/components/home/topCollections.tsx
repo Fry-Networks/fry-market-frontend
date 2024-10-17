@@ -56,6 +56,7 @@ const TopCollections = ({ collectionDataFull }: any) => {
             {collectionDataFull.slice(0, 3).map((data: any, index: any) => (
               <TopCollectionCard data={data} key={data.id} />
             ))}
+
           </div>
         </div>
       </div>

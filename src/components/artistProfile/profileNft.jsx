@@ -121,7 +121,7 @@ const ProfileNft = ({ collectionData, address }) => {
   ]
 
   const getMintedNft = async () => {
-    console.log('f')
+    console.log('full')
 
     try {
       if (address || activeAccount?.address) {
@@ -167,11 +167,13 @@ const ProfileNft = ({ collectionData, address }) => {
   }
 
   const getAuctionedNft = async () => {
+    console.log("NftAuctionedd");
+    
     if (address || activeAccount?.address) {
       try {
         setLoadingAuctioned(true)
         const response = await getAllUserAuctions(address || activeAccount?.address, signer)
-        console.log('NftAuctioned', response)
+        console.log('NftAuctionedd', response)
         setAuctionedNft(response)
         setLoadingAuctioned(false)
       } catch (e) {
@@ -200,7 +202,7 @@ const ProfileNft = ({ collectionData, address }) => {
   useEffect(() => {
     console.log('heeh')
 
-    if (activeAccount?.address) {
+    if (address || activeAccount?.address) {
       getMintedNft()
       getAllNft()
       getListedNft()
@@ -244,8 +246,12 @@ const ProfileNft = ({ collectionData, address }) => {
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {boughtNft.map((data, index) => (
                           <CollectionsCard 
-                          data={{ index: data.nftAddress, params: data }} 
-                          otherList={address ? true : false} otherAuctionData={data}
+                          // data={{ index: data.nftAddress, params: data }} 
+                          data={{...data, imgUrl: data.url}} 
+                          // otherList={address ? true : false} 
+                          otherList={true} 
+                          profileOwned = { !address && true}
+                          otherAuctionData={data}
                           label="List" collectionData={collectionData} />
                         ))}
                       </div>
@@ -290,9 +296,10 @@ const ProfileNft = ({ collectionData, address }) => {
                 ) : (
                   <>
                     {mintedNft.length > 0 ? (
+                      
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {mintedNft.map((data, index) => (
-                          <CollectionsCard data={data} label="Minted" collectionData={collectionData} />
+                          <CollectionsCard data={{...data.params, imgUrl: data.params.url}} label="Minted" collectionData={collectionData} otherList={true}  />
                         ))}
                       </div>
                     ) : (
@@ -332,6 +339,9 @@ const ProfileNft = ({ collectionData, address }) => {
                             label="Cancel"
                             collectionData={collectionData}
                             setGetNftDataAgain={setGetNftDataAgain}
+                            otherList={true} 
+                            profileOwned = {!address && true}
+                            otherAuctionData={data}
                           />
                         ))}
                       </div>
@@ -367,7 +377,9 @@ const ProfileNft = ({ collectionData, address }) => {
                     {auctionedNft.length > 0 ? (
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {auctionedNft.map((data, index) => (
-                          <CollectionsCard data={{ index: data.assetId, params: data }} otherAuction={address ? true : false} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={setGetNftDataAgain} />
+                          <CollectionsCard data={{ index: data.assetId, params: data }} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={setGetNftDataAgain}  otherList={true} 
+                          profileOwned = {!address && true}
+                           />
                         ))}
                       </div>
                     ) : (
@@ -434,8 +446,14 @@ const ProfileNft = ({ collectionData, address }) => {
                                 sellerId: data.sellerId,
                               },
                             }}
+                            // data={{...data, imgUrl: data.url}}
                             label="Claim"
                             collectionData={collectionData}
+                            
+                          
+                          otherList={true} 
+                          profileOwned = {true}
+                          otherAuctionData={data}
                           />
                         ))}
                       </div>

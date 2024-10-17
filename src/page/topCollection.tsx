@@ -5,7 +5,7 @@ import artistImage from "../../src/assets/topCollection/leftImg.webp";
 import ReadyForNext from "../components/home/readyForNext";
 import PixacioBanner from "../components/topCollection/pixacioBanner";
 import PixoNft from "../components/topCollection/pixoNft";
-import { getAllUserNfts } from "../fryMarketMethods";
+import { getAllListedByUser } from "../fryMarketMethods";
 
 const TopCollection = () => {
 
@@ -20,12 +20,13 @@ const TopCollection = () => {
   const getAllNft = async () => {
     try {
 
-      const response = await getAllUserNfts(collectionData.collection_address)
+      const response = await getAllListedByUser(collectionData.collection_address)
       console.log('NftAll', response)
       setNfts(response)
 
 
     } catch (e) {
+      console.log("e", e);
 
     }
   }

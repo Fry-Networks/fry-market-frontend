@@ -1,11 +1,12 @@
 import { useWallet } from "@txnlab/use-wallet";
 import { Collapse, Table } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
-import { getAllBids } from "../../auctionMethod";
+import { getAllBids, getSingleAuction } from "../../auctionMethod";
 import { replaceJsonWithPng, truncateString } from "../../utils/getImageFromJson";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
@@ -15,9 +16,11 @@ import Reminder from "./reminder";
 
 const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow }: any) => {
   const [nftMetaData, setNftMetaData] = useState<any>({});
+  const [highestBid, setHighestBid] = useState<any>(0);
   const [loading, setLoading] = useState<any>(false);
   const [bidDetails, setBidDetails] = useState<any>([])
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+  const navigate = useNavigate();
 
   useEffect(() => {
     console.log("ahh", detail);
@@ -39,23 +42,42 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   }
 
   const getBidDetails = async () => {
-    if (activeAccount?.address) {
 
 
-      try {
+
+    try {
 
 
-        setLoading(true);
-        const response = await getAllBids(nftData.bidContract, activeAccount.address, signer)
-        console.log("Nft Bids", response);
-        setBidDetails(response);
-        setLoading(false)
+      setLoading(true);
+      const response = await getAllBids(nftData.bidContract)
+      console.log("Nft Bids", response);
+      setBidDetails(response.sort((a, b) => b.bidAmount - a.bidAmount));
+      setLoading(false)
 
-      }
-      catch (e) {
-        setLoading(false);
-      }
     }
+    catch (e) {
+      setLoading(false);
+    }
+
+  }
+  const getHighestBid = async () => {
+
+
+
+    try {
+
+
+      setLoading(true);
+      const response = await getSingleAuction(nftData.nftAddress)
+      console.log("Single Auction", response);
+      setHighestBid(response.highestBidAmount);
+      setLoading(false)
+
+    }
+    catch (e) {
+      setLoading(false);
+    }
+
   }
 
   useEffect(() => {
@@ -66,11 +88,19 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
       getNftMetaData(nftData.imgUrl);
     }
   }, [nftData]);
-
+  const biddingRef = useRef<any>();
   useEffect(() => {
     if (nftData.url) {
-      getBidDetails();
+      biddingRef.current = setInterval(() => {
+        getBidDetails();
+        getHighestBid();
+
+      }, 3000)
     }
+    return () => {
+      clearInterval(biddingRef.current)
+    }
+
   }, [nftData, activeAccount])
 
   const onChange = (key: any) => {
@@ -349,7 +379,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                         <>
                           <p className="lightGray font-Roboto font-normal medium">
                             By
-                            <span className="darkBlack font-medium">
+                            <span className="darkBlack font-medium cursor-pointer" onClick={() => navigate("/top-collection", { state: { profile: profileData, collectionData: collectionData } })}>
                               {" "}
                               {collectionData.collection_name ? collectionData.collection_name : "Stella Nova"}
                             </span>
@@ -415,14 +445,14 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
             <div className="rightArea ps-5 w-3/5 flex flex-col gap-5 ">
               <div className="pixacioDiv">
                 <h2 className="font-normal font-Apex uppercase leading-[82px]">{nftData.name ? nftData.name : "PIXACIO"}</h2>
-                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold">{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
+                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profileData } })}>{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
               </div>
 
               {!onlyShow ? detail ?
                 <Reminder nftData={nftData} />
 
                 :
-                <AuctionReminder nftData={nftData} />
+                <AuctionReminder nftData={nftData} highestBid={highestBid} />
                 :
                 ""
               }

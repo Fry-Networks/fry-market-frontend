@@ -1,7 +1,7 @@
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import artistImage from "../../assets/artistsProfile/leftImg.webp";
 import { getAllListedByUser, getAllUserNfts, userFryBalance } from "../../fryMarketMethods";
 import PixacioBanner from '../topCollection/pixacioBanner';
@@ -17,6 +17,7 @@ const OtherProfilePage = () => {
     const [allNft, setAllNft] = useState<any>([])
     const [fryBalance, setFryBalance] = useState<any>(0)
     const [profileData, setProfileData] = useState<any>({})
+    const navigate = useNavigate();
     const location = useLocation();
     const { activeAccount } = useWallet()
 
@@ -120,6 +121,10 @@ const OtherProfilePage = () => {
             // getFryBalance()
             // getProfileData()
             getAllNft(location.state.profileData.wallet_address);
+
+        }
+        else {
+            navigate("/")
         }
 
 
@@ -129,7 +134,7 @@ const OtherProfilePage = () => {
         <>
             <ProfileBanner fryBalance={fryBalance} profileData={profileData} length={allNft.length} />
             <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : artistImage} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} />
-            <ProfileNft collectionData={collectionData} address={location.state.profileData.wallet_address} />
+            <ProfileNft collectionData={collectionData} address={location?.state?.profileData?.wallet_address} />
         </>
     )
 }

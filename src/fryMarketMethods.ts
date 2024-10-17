@@ -123,7 +123,7 @@ export const listNft = async (
         const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
 
         const accountInfo = await algodClient.accountInformation(FRY_MARKET_ADDRESS).do();
-        const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === parseInt(assetId.toString()));
+        const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === parseInt(assetId?.toString()));
 
         if (!hasOptedIn) {
             await algorandClient.send.payment({
@@ -165,6 +165,7 @@ export const listNft = async (
         const listNft = await marketClient.listAsset({ boxPay: boxPay, xfer: assetTransferTx, price: BigInt(price), listTime: BigInt(Math.floor(Date.now() / 1000)) })
 
         console.log("list nft", listNft)
+        return listNft
     } catch (e) {
         console.log(e)
         throw e

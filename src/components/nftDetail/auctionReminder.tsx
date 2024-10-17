@@ -2,7 +2,7 @@ import { useState } from "react";
 import PlaceBid from "../../modals/placeBid";
 import Button from "../shared/button";
 
-const AuctionReminder = ({ hide, showReminder, nftData }: any) => {
+const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
   const [isbidmodal, setisbidmodal] = useState(false);
 
   const showplaceBidModal = () => {
@@ -45,7 +45,7 @@ const AuctionReminder = ({ hide, showReminder, nftData }: any) => {
         <div className="salesBody p-5 flex flex-col gap-5 ">
           <div className="area1">
             <p className="ex-small lightGray font-Roboto">Highest Bid</p>
-            <p className="font-medium text-black ex-large mt-1">{nftData.highestBidAmount / 1000000} FRY</p>
+            <p className="font-medium text-black ex-large mt-1">{highestBid ? highestBid / 1000000 : nftData.highestBidAmount / 1000000} FRY</p>
           </div>
           <div className="area2 flex-start gap-3">
             <>

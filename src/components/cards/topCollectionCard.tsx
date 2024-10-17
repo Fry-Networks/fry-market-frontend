@@ -53,7 +53,7 @@ const TopCollectionCard = ({ data }: any) => {
           </div>
         </div> */}
         <div onClick={(() => (
-          navigate("/top-collection")
+          navigate("/top-collection", { state: { profile: profile, collectionData: data } })
         ))} className="cardBtm flex flex-col justify-start items-center gap-3 max-w-[300px] w-full cursor-pointer">
           <div className="max-w-[300px] h-[130px] w-full  object-cover rounded-2xl flex justify-center items-center">
             <img className="max-w-[300px] max-h-[130px] w-full h-full object-cover rounded-2xl" src={data.image_url ? data.image_url : "../../assets/home/images/topCollections/card3BtmImg.png"} alt="" />

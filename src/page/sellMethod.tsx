@@ -57,12 +57,16 @@ const SellMethod = () => {
       try {
         if (activeAccount?.address) {
           setLoading(true);
-          const response = await listNft(activeAccount?.address, nftData.index, signer, price * 1000000);
+          const response: any = await listNft(activeAccount?.address, nftData.nftAddress, signer, price * 1000000);
 
 
           console.log("response", response);
           setLoading(false);
-
+          if (response == undefined) {
+            loading(false)
+            reject(false)
+            return
+          }
           resolve(true)
           navigate("/artist-profile")
 
@@ -84,15 +88,22 @@ const SellMethod = () => {
       try {
         if (activeAccount?.address) {
           setLoading(true);
-          const response = await listNftAuction(activeAccount?.address, signer, nftData.index, price * 1000000, minimumBidAmount * 1000000, biddingDuration.biddingStartTime, biddingDuration.biddingEndTime);
+          const response: any = await listNftAuction(activeAccount?.address, signer, nftData.nftAddress, price * 1000000, minimumBidAmount * 1000000, biddingDuration.biddingStartTime, biddingDuration.biddingEndTime);
 
+          if (response == undefined) {
+            loading(false)
 
+            reject(false)
+            return
+          }
           console.log("response", response);
           setLoading(false);
 
           resolve(true)
           navigate("/artist-profile")
 
+        } else {
+          reject(false)
         }
       }
       catch (e) {
@@ -188,7 +199,7 @@ const SellMethod = () => {
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.params?.url ? replaceJsonWithPng(nftData?.params?.url) : sellImg} alt="" />
+              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" />
               <p className="ex-large darkBlack font-medium font-Roboto">
                 Preview your item
               </p>

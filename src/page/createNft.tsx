@@ -21,6 +21,7 @@ const CreateNft: React.FC = () => {
   const [selectedImages, setSelectedImages] = useState<any>([]);
   const [generatedNfts, setGeneratedNfts] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [mintLoading, setMintLoading] = useState(false);
   const [locationParams, setLocationParams] = useState<any>({});
   const [isMintSuccessful, setIsMintSuccessful] = useState<any>(false);
   const navigate = useNavigate();
@@ -138,17 +139,21 @@ const CreateNft: React.FC = () => {
   const mintNft = async () => {
     return new Promise(async (resolve, reject) => {
       try {
-
+        setMintLoading(true);
         const response: any = await mintMultipleNft(selectedImages, activeAccount?.address || "", signer, signTransactions, sendTransactions)
         console.log("response after minting", response);
         // toast.success("Mint Successful")
+        setMintLoading(false);
         resolve(true);
+
         navigate("/artist-profile")
 
       }
       catch (e) {
         console.log("Error Mintin Nft");
         // toast.error("Error Creating Collection");
+        setMintLoading(false);
+
         reject(false);
 
 
@@ -186,7 +191,7 @@ const CreateNft: React.FC = () => {
                 minHeight={37}
                 text="Mint NFT"
                 onClick={handleClick}
-                disabled={loading}
+                disabled={loading || mintLoading}
               />
             </div>
           </div>
