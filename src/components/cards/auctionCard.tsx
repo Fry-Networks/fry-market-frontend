@@ -1,15 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { useNavigate } from "react-router-dom";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
+import { formatPrice, truncateImageName } from "../../utils/getImageFromJson";
 import Button from "../shared/button";
 
 const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   const navigate = useNavigate();
   const [isbidmodal, setisbidmodal] = useState(false);
+  useEffect(() => {
+    console.log("ggg", data);
 
+  })
   const showplaceBidModal = () => {
     setisbidmodal(true);
   };
@@ -30,7 +34,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
-              {data.name}
+              {data.name ? truncateImageName(data.name) : "NFT"}
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
               @{collectionData?.collection_name ? collectionData?.collection_name : "collection"}
@@ -63,7 +67,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               <p className="ex-small darkBlack font-medium font-Roboto">
                 Min raise
               </p>
-              <p className="ex-small lightGray font-medium font-Roboto">{data.minBidAmount / 1000000}</p>
+              <p className="ex-small lightGray font-medium font-Roboto">{formatPrice(parseInt(data.minBidAmount) / 1000000)}</p>
             </div>
 
 
@@ -73,7 +77,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               <div className="flex gap-1">
                 <img src={timeIcon} alt="" />
                 <span className="ex-small lightGray font-medium">
-                  {data.highestBidAmount / 1000000}
+                  {formatPrice(parseInt(data.highestBidAmount) / 1000000)}
                 </span>
               </div>
             </button>

@@ -14,11 +14,12 @@ import AuctionReminder from "./auctionReminder";
 import Reminder from "./reminder";
 
 
-const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow }: any) => {
+const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow, forList }: any) => {
   const [nftMetaData, setNftMetaData] = useState<any>({});
   const [highestBid, setHighestBid] = useState<any>(0);
   const [loading, setLoading] = useState<any>(false);
   const [bidDetails, setBidDetails] = useState<any>([])
+  const [isOwner, setIsOwner] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const navigate = useNavigate();
 
@@ -349,6 +350,17 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
     },
 
   ];
+
+
+  useEffect(() => {
+    if (activeAccount?.address) {
+
+      if (nftData.seller == activeAccount?.address && nftData.isListed) {
+        setIsOwner(true);
+      }
+    }
+
+  }, [nftData, activeAccount])
   return (
     <>
       <div className="nftDetailBannerWrapper mb-52 relative">
@@ -448,8 +460,8 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                 <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profileData } })}>{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
               </div>
 
-              {!onlyShow ? detail ?
-                <Reminder nftData={nftData} />
+              {!onlyShow || isOwner || nftData.isListed ? detail ?
+                <Reminder nftData={nftData} forList={forList} />
 
                 :
                 <AuctionReminder nftData={nftData} highestBid={highestBid} />
@@ -494,7 +506,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                 />
               </div> */}
               {
-                !onlyShow ?
+                !onlyShow && !forList ?
                   <div className="listingAccordion">
                     <Collapse
                       defaultActiveKey={"1"}

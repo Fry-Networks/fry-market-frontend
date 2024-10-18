@@ -23,7 +23,7 @@ const CreateNft: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [mintLoading, setMintLoading] = useState(false);
   const [locationParams, setLocationParams] = useState<any>({});
-  const [isMintSuccessful, setIsMintSuccessful] = useState<any>(false);
+  const [isMintSuccessful, setIsMintSuccessful] = useState<any>(true);
   const navigate = useNavigate();
   const location = useLocation();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -31,15 +31,21 @@ const CreateNft: React.FC = () => {
   const handleClick = () => {
     if (selectedImages.length > 0) {
       if (activeAccount?.address) {
-        toast.promise(
-          mintNft(),
-          {
-            pending: "NFT is minting",
-            error: "There was an error Minting NFT",
-            // @ts-ignore
-            success: `NFT minted successfully`
-          }
-        )
+        if (selectedImages.length > 0) {
+
+          toast.promise(
+            mintNft(),
+            {
+              pending: "NFT is minting",
+              error: "There was an error Minting NFT",
+              // @ts-ignore
+              success: `NFT minted successfully`
+            }
+          )
+        }
+        else {
+          toast.error(`${locationParams.nftType == "single" ? "Please select an NFT" : "Please select NFTs"}`)
+        }
       }
       else {
 
@@ -94,16 +100,16 @@ const CreateNft: React.FC = () => {
 
   }
 
-  useEffect(() => {
-    if (isMintSuccessful) {
-      navigate("/artist-profile")
-    }
-  }, [isMintSuccessful])
+  // useEffect(() => {
+  //   if (isMintSuccessful) {
+  //     navigate("/artist-profile")
+  //   }
+  // }, [isMintSuccessful])
 
   useEffect(() => {
     if (location.state) {
-      const { inputValue, selectedStyle, supply } = location.state
-      if (inputValue && selectedStyle && supply && !loading) {
+      const { inputValue, selectedStyle, supply, nftType } = location.state
+      if (inputValue && selectedStyle && supply && nftType && !loading) {
         setLocationParams(location.state)
         console.log(location.state);
         console.log("u called");
@@ -144,6 +150,7 @@ const CreateNft: React.FC = () => {
         console.log("response after minting", response);
         // toast.success("Mint Successful")
         setMintLoading(false);
+        setIsMintSuccessful(true);
         resolve(true);
 
         navigate("/artist-profile")
@@ -153,6 +160,7 @@ const CreateNft: React.FC = () => {
         console.log("Error Mintin Nft");
         // toast.error("Error Creating Collection");
         setMintLoading(false);
+        setIsMintSuccessful(false);
 
         reject(false);
 
@@ -172,11 +180,11 @@ const CreateNft: React.FC = () => {
           <div className="nftBtnContainer flex items-center justify-between mb-[75px]">
             <div className="singlenft flex items-center justify-between gap-4 ">
               <Button
-                text="Single NFT"
+                text={`${locationParams.nftType == "single" ? "Single NFT" : "Multiple NFT"}`}
                 className="py-4 px-8 lightGray font-normal font-Roboto border"
               />
               <p className="large lightGray font-normal font-Roboto">
-                {locationParams.supply ? loading ? "0 / " + locationParams.supply : locationParams.supply + "/" + locationParams.supply : "0/0"} Generated
+                {isMintSuccessful ? locationParams.supply ? loading ? "0 / " + locationParams.supply : locationParams.supply + "/" + locationParams.supply : "0/0" : "0/0"} Generated
               </p>
             </div>
 
@@ -195,7 +203,7 @@ const CreateNft: React.FC = () => {
               />
             </div>
           </div>
-          <div className="singleNftCard flex items-center justify-between">
+          <div className="singleNftCard flex items-center justify-between" style={{ flexWrap: "wrap", justifyContent: "flex-start", gap: "50px" }}>
             {/* {images.map((image, index) => (
               <div
                 key={index}

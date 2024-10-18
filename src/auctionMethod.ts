@@ -451,23 +451,23 @@ export const getAllAuctions = async () => {
         let box = await algokit.getAppBoxValue(AUCTION_ID, listBox.nameRaw, algod)
         const nftData = await algod.getAssetByID(decoded).do();
         const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-        const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "safe")
-        const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-        const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-        const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), "safe")
+        const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+        const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+        const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+        const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), "mixed")
         const highestBidder = algosdk.encodeAddress(box.slice(64, 96))
-        const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'safe')
-        const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'safe')
-        const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'safe')
+        const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'mixed')
+        const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
+        const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
         const listedData = {
             nftAddress: decoded,
             sellerId,
-            bidStartAmount,
-            minBidAmount,
+            bidStartAmount: Number(bidStartAmount),
+            minBidAmount: Number(minBidAmount),
             biddingEndTime,
             biddingStartTime,
             highestBidder,
-            highestBidAmount,
+            highestBidAmount: Number(highestBidAmount),
             bidContract,
             totalBidders,
             ...nftData.params
@@ -485,14 +485,14 @@ export const getSingleAuction = async (nftId: number) => {
     const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algod)
     const nftData = await algod.getAssetByID(decoded).do();
     const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-    const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "safe")
-    const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-    const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-    const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), "safe")
+    const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+    const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+    const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+    const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), "mixed")
     const highestBidder = algosdk.encodeAddress(box.slice(64, 96))
-    const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'safe')
-    const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'safe')
-    const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'safe')
+    const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'mixed')
+    const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
+    const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
     const listedData = {
         nftAddress: decoded,
         sellerId,

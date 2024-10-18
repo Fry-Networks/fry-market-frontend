@@ -10,13 +10,14 @@ const NftDetail = () => {
   
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    
+  }, [location]);
 
 
   
   return (
     <>
-      <NftDetailBanner detail={true} onlyShow={location.state.onlyShow}/>
+      <NftDetailBanner detail={true} onlyShow={location.state.onlyShow} />
       {
         !location.state.onlyShow ?
         <MoreFromThis />

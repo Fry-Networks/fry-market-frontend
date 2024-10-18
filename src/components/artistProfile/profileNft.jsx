@@ -220,7 +220,9 @@ const ProfileNft = ({ collectionData, address }) => {
         <div className="container">
           <div className="nftContainer">
             <Tabs className="collectionTab" defaultActiveKey="1" activeKey={activeKey} onChange={onChange} tabBarStyle={{ padding: 0 }}>
-              <Tabs.TabPane tab="Owned" key="1">
+              {
+                !address ? 
+<Tabs.TabPane tab="Owned" key="1">
                 {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} isProfilePage={true}  />
@@ -252,7 +254,7 @@ const ProfileNft = ({ collectionData, address }) => {
                           otherList={true} 
                           profileOwned = { !address && true}
                           otherAuctionData={data}
-                          label="List" collectionData={collectionData} />
+                          label={address ? "" : "List"} collectionData={collectionData} />
                         ))}
                       </div>
                     ) : (
@@ -261,6 +263,10 @@ const ProfileNft = ({ collectionData, address }) => {
                   </>
                 )}
               </Tabs.TabPane>
+                :
+                ""
+              }
+              
               {/* <Tabs.TabPane tab="Generated" key="2">
               <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
@@ -299,7 +305,8 @@ const ProfileNft = ({ collectionData, address }) => {
                       
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {mintedNft.map((data, index) => (
-                          <CollectionsCard data={{...data.params, imgUrl: data.params.url}} label="Minted" collectionData={collectionData} otherList={true}  />
+                          <CollectionsCard data={{...data.params, imgUrl: data.params.url, assetId: data.index}} label="Minted" collectionData={collectionData} otherList={true}                           otherAuctionData={data}
+                          />
                         ))}
                       </div>
                     ) : (

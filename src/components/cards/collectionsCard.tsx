@@ -7,6 +7,7 @@ import timeIcon from "../../assets/icons/timeIcon.svg";
 import { cancelAuction, claimNftRoyalty } from "../../auctionMethod";
 import { buyNftWithRoyalty, cancelList, listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
+import { formatPrice, truncateImageName } from "../../utils/getImageFromJson";
 import Button from "../shared/button";
 
 
@@ -317,7 +318,13 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           } else {
             if (otherList) {
               if (label == "Minted") {
+                console.log("Ff", data);
+
                 navigate("/nft-detail", { state: { data: data, collectionData, onlyShow: true } })
+
+              }
+              else if (label == "List" && profileOwned) {
+                navigate("/nft-detail", { state: { data: data, collectionData, forList: true } })
 
               }
               else {
@@ -344,7 +351,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
-              {data?.name ? data?.name : data?.params?.name ? data?.params?.name : "NFT"}
+              {data?.name ? truncateImageName(data?.name) : data?.params?.name ? truncateImageName(data?.params?.name) : "NFT"}
             </p>
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
               @{collectionData?.collection_name ? collectionData?.collection_name : "collection"}
@@ -475,7 +482,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   <div className="flex gap-1">
                     <img src={timeIcon} alt="" />
                     <span className="ex-small lightGray font-medium">
-                      {data.price / 1000000}
+                      {formatPrice(data.price / 1000000)}
                     </span>
                   </div>
 
