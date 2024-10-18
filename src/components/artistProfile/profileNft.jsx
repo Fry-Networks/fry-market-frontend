@@ -220,7 +220,9 @@ const ProfileNft = ({ collectionData, address }) => {
         <div className="container">
           <div className="nftContainer">
             <Tabs className="collectionTab" defaultActiveKey="1" activeKey={activeKey} onChange={onChange} tabBarStyle={{ padding: 0 }}>
-              <Tabs.TabPane tab="Owned" key="1">
+              {
+                !address ? 
+<Tabs.TabPane tab="Owned" key="1">
                 {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
               <CollectionsCard data={data} isProfilePage={true}  />
@@ -261,6 +263,10 @@ const ProfileNft = ({ collectionData, address }) => {
                   </>
                 )}
               </Tabs.TabPane>
+                :
+                ""
+              }
+              
               {/* <Tabs.TabPane tab="Generated" key="2">
               <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
              {featureCard.map((data, index) => (
