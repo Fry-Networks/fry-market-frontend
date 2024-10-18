@@ -43,10 +43,10 @@ const SellerCard = ({ data }: any) => {
 
     <>
       {profile ?
-        <div className="sellerCardContainer cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profile } })}>
+        <div className="sellerCardContainer  w-full cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profile } })}>
           <div className="inner flex gap-3">
             <div className="leftArea">
-              <img className="max-w-[116px] max-h-[116px] w-full h-full object-cover rounded-2xl" src={profile.profile_image ? profile.profile_image : data.sellerImg} alt="" />
+              <img className="w-[116px] h-[116px]  object-cover rounded-2xl" src={profile.profile_image ? profile.profile_image : data.sellerImg} alt="" />
             </div>
             <div className="rightArea flex flex-col justify-end pb-3 gap-2">
               <p className="large font-bold font-Roboto darkBlack ">
