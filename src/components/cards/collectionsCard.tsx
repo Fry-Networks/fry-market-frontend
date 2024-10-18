@@ -7,7 +7,7 @@ import timeIcon from "../../assets/icons/timeIcon.svg";
 import { cancelAuction, claimNftRoyalty } from "../../auctionMethod";
 import { buyNftWithRoyalty, cancelList, listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
-import { truncateImageName } from "../../utils/getImageFromJson";
+import { formatPrice, truncateImageName } from "../../utils/getImageFromJson";
 import Button from "../shared/button";
 
 
@@ -482,7 +482,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                   <div className="flex gap-1">
                     <img src={timeIcon} alt="" />
                     <span className="ex-small lightGray font-medium">
-                      {data.price / 1000000}
+                      {formatPrice(data.price / 1000000)}
                     </span>
                   </div>
 

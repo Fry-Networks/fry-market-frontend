@@ -116,6 +116,9 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
   }
 
   useEffect(() => {
+    if (!activeAccount?.address) {
+      return;
+    }
     if (nftData.seller == activeAccount?.address) {
       setOwnerSectionsVisible(true)
     }

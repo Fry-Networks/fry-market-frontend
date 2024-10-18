@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import whiteCard from "../../assets/home/images/whiteCard.png";
 import timeIcon from "../../assets/icons/timeIcon.svg";
 import PlaceBid from "../../modals/placeBid";
-import { truncateImageName } from "../../utils/getImageFromJson";
+import { formatPrice, truncateImageName } from "../../utils/getImageFromJson";
 import Button from "../shared/button";
 
 const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
@@ -67,7 +67,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               <p className="ex-small darkBlack font-medium font-Roboto">
                 Min raise
               </p>
-              <p className="ex-small lightGray font-medium font-Roboto">{parseInt(data.minBidAmount) / 1000000}</p>
+              <p className="ex-small lightGray font-medium font-Roboto">{formatPrice(parseInt(data.minBidAmount) / 1000000)}</p>
             </div>
 
 
@@ -77,7 +77,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               <div className="flex gap-1">
                 <img src={timeIcon} alt="" />
                 <span className="ex-small lightGray font-medium">
-                  {parseInt(data.highestBidAmount) / 1000000}
+                  {formatPrice(parseInt(data.highestBidAmount) / 1000000)}
                 </span>
               </div>
             </button>

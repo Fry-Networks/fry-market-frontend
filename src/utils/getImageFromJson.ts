@@ -20,3 +20,20 @@ export function truncateImageName(str: any) {
   }
   return ""
 }
+
+export function formatPrice(price: any) {
+  // Check for numbers in the thousand, million, and billion range
+  if (price >= 1e9) {
+    // Billion range
+    return (price / 1e9).toFixed(1) + 'B';
+  } else if (price >= 1e6) {
+    // Million range
+    return (price / 1e6).toFixed(1) + 'M';
+  } else if (price >= 1e3) {
+    // Thousand range
+    return (price / 1e3).toFixed(1) + 'k';
+  } else {
+    // Less than a thousand, return the original price
+    return price.toString();
+  }
+}

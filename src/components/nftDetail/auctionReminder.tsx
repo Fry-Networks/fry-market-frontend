@@ -63,7 +63,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
               }
               console.log("response", response);
               // setGetNftDataAgain((prev: any) => !prev)
-              navigate("/sell-method")
+              navigate("/artist-profile")
               setLoading(false)
 
               resolve(true)
