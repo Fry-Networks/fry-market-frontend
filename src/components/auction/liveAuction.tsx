@@ -1,7 +1,6 @@
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import leftGlow from "../../assets/auction/leftGlow.webp";
 import featureTopGrid from "../../assets/auction/listGrid.webp";
 import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
 import trendingNft2 from "../../assets/home/images/auction/auctionImg2.png";
@@ -62,7 +61,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
   return (
     <>
       <div className="liveAuctionWrapper mb-52 relative">
-        <img className='absolute left-0 top-28' src={leftGlow} alt="" />
+        {/* <img className='absolute left-0 top-28' src={leftGlow} alt="" /> */}
         <img className="absolute top-[-260px] left-0 -z-50" src={featureTopGrid} alt="" />
 
         <div className="container">
