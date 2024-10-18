@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import { useNavigate } from "react-router-dom";
 import whiteCard from "../../assets/home/images/whiteCard.png";
@@ -10,7 +10,10 @@ import Button from "../shared/button";
 const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   const navigate = useNavigate();
   const [isbidmodal, setisbidmodal] = useState(false);
+  useEffect(() => {
+    console.log("ggg", data);
 
+  })
   const showplaceBidModal = () => {
     setisbidmodal(true);
   };
@@ -64,7 +67,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               <p className="ex-small darkBlack font-medium font-Roboto">
                 Min raise
               </p>
-              <p className="ex-small lightGray font-medium font-Roboto">{data.minBidAmount / 1000000}</p>
+              <p className="ex-small lightGray font-medium font-Roboto">{parseInt(data.minBidAmount) / 1000000}</p>
             </div>
 
 
@@ -74,7 +77,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               <div className="flex gap-1">
                 <img src={timeIcon} alt="" />
                 <span className="ex-small lightGray font-medium">
-                  {data.highestBidAmount / 1000000}
+                  {parseInt(data.highestBidAmount) / 1000000}
                 </span>
               </div>
             </button>

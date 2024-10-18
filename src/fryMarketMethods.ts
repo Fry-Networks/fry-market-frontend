@@ -307,19 +307,19 @@ export const getAllListed = async (): Promise<Listing[]> => {
         let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
         const nftData = await algod.getAssetByID(decoded).do();
         const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-        const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
-        const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-        const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-        const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+        const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+        const listedCount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+        const listTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+        const listed = algosdk.decodeUint64(box.slice(56, 64), "mixed")
         const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
-        const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+        const canceled = algosdk.decodeUint64(box.slice(72, 80), "mixed")
 
         let listingData: Listing = {
             assetId: decoded,
             seller: sellerId,
-            price: listedPrice,
-            list_count: listedCount,
-            listTime: listTime,
+            price: Number(listedPrice),
+            list_count: Number(listedCount),
+            listTime: Number(listTime),
             isListed: listed == 1 ? true : false,
             isSold: sold == 1 ? true : false,
             isCancelled: canceled == 1 ? true : false,
@@ -340,19 +340,19 @@ export const getSingleNftlistData = async (nftId: number): Promise<Listing> => {
     let box = await algokit.getAppBoxValue(FRY_MARKET_ID, boxId, algod)
     const nftData = await algod.getAssetByID(decoded).do();
     const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-    const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
-    const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-    const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-    const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
+    const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+    const listedCount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+    const listTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+    const listed = algosdk.decodeUint64(box.slice(56, 64), "mixed")
     const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
-    const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+    const canceled = algosdk.decodeUint64(box.slice(72, 80), "mixed")
 
     let listingData: Listing = {
         assetId: decoded,
         seller: sellerId,
-        price: listedPrice,
-        list_count: listedCount,
-        listTime: listTime,
+        price: Number(listedPrice),
+        list_count: Number(listedCount),
+        listTime: Number(listTime),
         isListed: listed == 1 ? true : false,
         isSold: sold == 1 ? true : false,
         isCancelled: canceled == 1 ? true : false,
@@ -428,19 +428,19 @@ export const getAllNfts = async (sender: string) => {
                 let box = await algokit.getAppBoxValue(FRY_MARKET_ID, listBox.nameRaw, algod)
                 const nftData = await algod.getAssetByID(decoded).do();
                 const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-                const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
-                const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-                const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-                const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
-                const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
-                const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+                const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+                const listedCount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+                const listTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+                const listed = algosdk.decodeUint64(box.slice(56, 64), "mixed")
+                const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
+                const canceled = algosdk.decodeUint64(box.slice(72, 80), "mixed")
 
                 let listingData: Listing = {
                     assetId: decoded,
                     seller: sellerId,
-                    price: listedPrice,
-                    list_count: listedCount,
-                    listTime: listTime,
+                    price: Number(listedPrice),
+                    list_count: Number(listedCount),
+                    listTime: Number(listTime),
                     isListed: listed == 1 ? true : false,
                     isSold: sold == 1 ? true : false,
                     isCancelled: canceled == 1 ? true : false,
@@ -474,19 +474,19 @@ export const getAllCollectionWListed = async (sender: string) => {
                 let box = await algokit.getAppBoxValue(FRY_MARKET_ID, listBox.nameRaw, algod)
                 const nftData = await algod.getAssetByID(decoded).do();
                 const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-                const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
-                const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-                const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-                const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
-                const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
-                const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+                const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+                const listedCount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+                const listTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+                const listed = algosdk.decodeUint64(box.slice(56, 64), "mixed")
+                const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
+                const canceled = algosdk.decodeUint64(box.slice(72, 80), "mixed")
 
                 let listingData: Listing = {
                     assetId: decoded,
                     seller: sellerId,
-                    price: listedPrice,
-                    list_count: listedCount,
-                    listTime: listTime,
+                    price: Number(listedPrice),
+                    list_count: Number(listedCount),
+                    listTime: Number(listTime),
                     isListed: listed == 1 ? true : false,
                     isSold: sold == 1 ? true : false,
                     isCancelled: canceled == 1 ? true : false,
@@ -516,19 +516,19 @@ export const getAllListedByUser = async (user: string): Promise<Listing[]> => {
         let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
         const nftData = await algod.getAssetByID(decoded).do();
         const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-        const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
-        const listedCount = algosdk.decodeUint64(box.slice(40, 48), "safe")
-        const listTime = algosdk.decodeUint64(box.slice(48, 56), "safe")
-        const listed = algosdk.decodeUint64(box.slice(56, 64), "safe")
-        const sold = algosdk.decodeUint64(box.slice(64, 72), "safe")
-        const canceled = algosdk.decodeUint64(box.slice(72, 80), "safe")
+        const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "mixed")
+        const listedCount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+        const listTime = algosdk.decodeUint64(box.slice(48, 56), "mixed")
+        const listed = algosdk.decodeUint64(box.slice(56, 64), "mixed")
+        const sold = algosdk.decodeUint64(box.slice(64, 72), "mixed")
+        const canceled = algosdk.decodeUint64(box.slice(72, 80), "mixed")
 
         let listingData: Listing = {
             assetId: decoded,
             seller: sellerId,
-            price: listedPrice,
-            list_count: listedCount,
-            listTime: listTime,
+            price: Number(listedPrice),
+            list_count: Number(listedCount),
+            listTime: Number(listTime),
             isListed: listed == 1 ? true : false,
             isSold: sold == 1 ? true : false,
             isCancelled: canceled == 1 ? true : false,

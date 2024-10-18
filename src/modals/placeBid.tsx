@@ -117,7 +117,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
             <img src={redline} alt="" />
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Enter bid amount</p>
-              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder={`Minimum bid should be more than ${((data.highestBidAmount + data.minBidAmount) / 1000000) + " FRY"}`} type="number" value={bidAmount} onChange={(e: any) => setBidAMount(e.target.value)} />
+              <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder={`Minimum bid should be more than ${((parseInt(data.highestBidAmount) + parseInt(data.minBidAmount)) / 1000000) + " FRY"}`} type="number" value={bidAmount} onChange={(e: any) => setBidAMount(e.target.value)} />
             </div>
             {/* <div className="serviceDiv w-full flex justify-between items-center">
               <p className="darkBlack font-Roboto medium font-normal">Service fee</p>
