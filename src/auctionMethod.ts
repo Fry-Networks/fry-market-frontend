@@ -343,7 +343,7 @@ export const cancelAuction = async (
         const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
 
 
-        await auctionClient.cancelNftAuction({ asset: BigInt(asset), highestBidder: previousHighestBidder! }, { sendParams: { fee: algokit.algos(0.003) } })
+        await auctionClient.cancelNftAuction({ asset: BigInt(asset), highestBidder: previousHighestBidder! }, { sendParams: { fee: algokit.algos(0.004) } })
 
         return "Auction Canceled"
 
