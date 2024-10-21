@@ -254,7 +254,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             console.log("heheWell", data);
             setBtnLoader(true)
 
-            const response = await cancelAuction(activeAccount.address, signer, data.params.nftAddress, data.params.bidContract, signTransactions, sendTransactions);
+            const response = await cancelAuction(activeAccount.address, signer, data.params.nftAddress, data.params.bidContract, signTransactions, sendTransactions, data.params.highestBidder);
             // (
             //   activeAccount?.address,
             //   data.assetId,
