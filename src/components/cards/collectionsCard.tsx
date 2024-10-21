@@ -347,7 +347,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         <img className=" max-w-[388px] max-h-[411px] w-full h-full whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
-            <img className="w-full h-full object-cover rounded-full" src={collectionData?.image_url ? collectionData?.image_url : data?.userImg} alt="" />
+            <img className="w-full h-full object-cover rounded-full" src={collectionData?.image_url ? collectionData?.image_url : data?.userImg ? data?.userImg : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
