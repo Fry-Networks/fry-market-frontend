@@ -8,7 +8,7 @@ import { FryAuctionClient } from "./contracts/FryAuction";
 import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
-const AUCTION_ID: bigint = 722439728n;
+const AUCTION_ID: bigint = 724501904n;
 const AUCTION_ADDRESS: string = algosdk.getApplicationAddress(AUCTION_ID)
 const FEE_PERCENT: number = 5000;  // 100 represent 1% & 10000 represent 100%
 const ROYALTY_BASIS: number = 1000;  // 100 represent 1% & 10000 represent 100%
@@ -247,9 +247,11 @@ export const createBid = async (
         };
         txId: string;
         id: string;
-    }>
+    }>,
+    previousHighestBidder: string,
 ): Promise<string> => {
     try {
+        console.log(previousHighestBidder)
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
         const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
         const boxPay = await algorandClient.transactions.payment({
@@ -258,10 +260,16 @@ export const createBid = async (
             amount: algokit.microAlgos(BID_BOX_PRICE),
             signer
         })
-
+        const fee = (bidAmount * FEE_PERCENT) / 10000
+        const priceTransferTx = await algorandClient.transactions.assetTransfer({
+            sender,
+            assetId: FRY_TOKEN_ID,
+            amount: BigInt(bidAmount + fee),
+            receiver: AUCTION_ADDRESS
+        })
 
         await biddingClient.bid({ bidAmount: BigInt(bidAmount), boxPay })
-        await auctionClient.bid({ asset: BigInt(asset), bidAmount: BigInt(bidAmount) })
+        await auctionClient.bid({ asset: BigInt(asset), bidAmount: BigInt(bidAmount), previousBidder: previousHighestBidder, bidAxfer: priceTransferTx }, { sendParams: { fee: algokit.algos(0.003) } })
 
         return "Bid Placed"
 
@@ -327,14 +335,15 @@ export const cancelAuction = async (
         };
         txId: string;
         id: string;
-    }>
+    }>,
+    previousHighestBidder?: string,
 ): Promise<string> => {
     try {
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
         const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
 
 
-        await auctionClient.cancelNftAuction({ asset: BigInt(asset) }, { sendParams: { fee: algokit.algos(0.003) } })
+        await auctionClient.cancelNftAuction({ asset: BigInt(asset), highestBidder: previousHighestBidder! }, { sendParams: { fee: algokit.algos(0.003) } })
 
         return "Auction Canceled"
 
@@ -411,7 +420,7 @@ export const claimNftRoyalty = async (
 
         const accountInfo = await algodClient.accountInformation(sender).do();
         const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
-        const fee = (bidAmount * FEE_PERCENT) / 10000
+        // const fee = (bidAmount * FEE_PERCENT) / 10000
 
         if (!hasOptedIn) {
             await algorandClient.send.assetTransfer({
@@ -423,14 +432,14 @@ export const claimNftRoyalty = async (
         }
 
 
-        const priceTransferTx = await algorandClient.transactions.assetTransfer({
-            sender,
-            assetId: FRY_TOKEN_ID,
-            amount: BigInt(bidAmount + fee),
-            receiver: AUCTION_ADDRESS
-        })
+        // const priceTransferTx = await algorandClient.transactions.assetTransfer({
+        //     sender,
+        //     assetId: FRY_TOKEN_ID,
+        //     amount: BigInt(bidAmount + fee),
+        //     receiver: AUCTION_ADDRESS
+        // })
 
-        await auctionClient.claimNftRoyalty({ asset: BigInt(asset), nftSeller: seller, buyTx: priceTransferTx, fryId: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.006) } })
+        await auctionClient.claimNftRoyalty({ asset: BigInt(asset), nftSeller: seller, fryId: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.006) } })
 
         return "nftClaimed"
 
