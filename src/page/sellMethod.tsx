@@ -153,11 +153,7 @@ const SellMethod = () => {
           }
           else {
             toast.error("You can only select future dates")
-
           }
-
-
-
         }
         else {
           toast.error("Please fill all fields")

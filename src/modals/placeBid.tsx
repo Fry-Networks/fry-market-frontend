@@ -52,7 +52,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
         try {
           if (activeAccount?.address) {
             setLoading(true);
-            const response = await createBid(activeAccount.address, signer, data.nftAddress, data.bidContract, bidAmount * 1000000, signTransactions, sendTransactions);
+            const response = await createBid(activeAccount.address, signer, data.nftAddress, data.bidContract, bidAmount * 1000000, signTransactions, sendTransactions, data.highestBidder);
 
 
             console.log("response", response);
