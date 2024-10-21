@@ -159,7 +159,7 @@ const Navbar = (props: Toggle) => {
             {isCreateNftPage ? (
               <div className="flex gap-x-3">
                 <img src={logo1} alt="button" className="cursor-pointer" onClick={toggleWalletModal} />
-                {activeAccount?.address ? <img src={profile?.profile_image ? profile.profile_image : "	https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="button" className="cursor-pointer" style={{ width: "55px", height: "55px", borderRadius: "50%" }} onClick={(() => (
+                {activeAccount?.address ? <img src={profile?.profile_image ? profile.profile_image : "	https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="button" className="cursor-pointer" style={{ width: "55px", height: "55px", borderRadius: "50%", objectFit: "cover" }} onClick={(() => (
                   navigate("/artist-profile")
                 ))} />
                   :
