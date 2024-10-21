@@ -1,7 +1,6 @@
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import artistImage from "../../assets/artistsProfile/leftImg.webp";
 import { getAllListedByUser, getAllUserNfts, userFryBalance } from "../../fryMarketMethods";
 import PixacioBanner from '../topCollection/pixacioBanner';
 import ProfileBanner from './profileBanner';
@@ -117,7 +116,7 @@ const ProfilePage = () => {
   return (
     <>
       <ProfileBanner fryBalance={fryBalance} profileData={profileData} length={allNft.length} />
-      <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : artistImage} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} />
+      <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} />
       <ProfileNft collectionData={collectionData} />
     </>
   )

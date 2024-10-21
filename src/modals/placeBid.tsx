@@ -52,29 +52,35 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
         try {
           if (activeAccount?.address) {
             setLoading(true);
-            const response = await createBid(activeAccount.address, signer, data.nftAddress, data.bidContract, bidAmount * 1000000, signTransactions, sendTransactions);
+            const response = await createBid(activeAccount.address, signer, data.nftAddress, data.bidContract, bidAmount * 1000000, signTransactions, sendTransactions, data.highestBidder);
 
 
             console.log("response", response);
             if (typeof (response) == "string" && response.includes("Error")) {
+              setisbidmodal(false);
+
               setLoading(false);
 
               reject(false);
               return;
             }
             setLoading(false);
-
+            setisbidmodal(false);
             resolve(true)
             getAuctionedNft();
             handleOk();
 
           }
           else {
+            setisbidmodal(false);
+
             reject(false);
 
           }
         }
         catch (e) {
+          setisbidmodal(false);
+
           setLoading(false);
 
           reject(false);

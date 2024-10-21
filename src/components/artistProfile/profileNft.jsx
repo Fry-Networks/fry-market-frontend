@@ -23,7 +23,7 @@ import Loader from '../Loader'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const ProfileNft = ({ collectionData, address }) => {
-  const [activeKey, setActiveKey] = React.useState('1')
+  const [activeKey, setActiveKey] = React.useState(`${address ? "3" : "1"}`)
   const [mintedNft, setMintedNft] = useState([])
   const [boughtNft, setAllBoughtNft] = useState([])
   const [listedNft, setAllListedNft] = useState([])
