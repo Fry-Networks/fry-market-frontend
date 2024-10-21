@@ -4,7 +4,7 @@ import { useWallet } from '@txnlab/use-wallet'
 import algosdk, { Transaction } from 'algosdk'
 import { useSnackbar } from 'notistack'
 import React, { useEffect, useState } from 'react'
-import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllUserAuctions, getAllUserClaimable, getSingleAuction, listNftAuction } from './auctionMethod'
+import { cancelAuction, cancelBid, claimNftRoyalty, createBid, deployAuction, getAllAuctions, getAllBids, getAllUserAuctions, getAllUserClaimable, listNftAuction } from './auctionMethod'
 import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
@@ -170,7 +170,7 @@ const Home: React.FC<HomeProps> = () => {
 
 
   const bid = async () => {
-    const bidding = await createBid(activeAddress!, signer, selected.nftAddress, selected.bidContract, bidAmount * 1000000, signTransactions, sendTransactions)
+    const bidding = await createBid(activeAddress!, signer, selected.nftAddress, selected.bidContract, bidAmount * 1000000, signTransactions, sendTransactions, selected.highestBidder)
     console.log(bidding)
   }
 
@@ -180,7 +180,7 @@ const Home: React.FC<HomeProps> = () => {
   }
 
   const auctionCancel = async () => {
-    const cancel = await cancelAuction(activeAddress!, signer, selected.nftAddress, selected.bidContract, signTransactions, sendTransactions)
+    const cancel = await cancelAuction(activeAddress!, signer, selected.nftAddress, selected.bidContract, signTransactions, sendTransactions, selected.highestBidder)
   }
 
   const claimAuctionNft = async () => {
@@ -275,18 +275,18 @@ const Home: React.FC<HomeProps> = () => {
 
   useEffect(() => {
     (async () => {
-      const allListings = await getSingleAuction(722356340);
-      console.log("allListings", allListings)
-      // const allAuctionListings = await getAllAuctions(activeAddress!, signer)
-      // setAuctions(allAuctionListings)
-      // if (selected) {
-      //   const allBiddings = await getAllBids(selected?.bidContract, activeAddress!, signer)
-      //   console.log(allBiddings)
-      // }
+      // const allListings = await getSingleAuction(717753482);
+      // console.log("allListings", allListings)
+      const allAuctionListings = await getAllAuctions()
+      setAuctions(allAuctionListings)
+      if (selected) {
+        const allBiddings = await getAllBids(selected?.bidContract)
+        console.log(allBiddings)
+      }
     })();
   }, [selected])
 
-  console.log(bidEndTime)
+  console.log(selected)
   return (
     <div className="hero min-h-screen bg-teal-400 flex flex-col items-center justify-center">
 

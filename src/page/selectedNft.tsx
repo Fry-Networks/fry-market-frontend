@@ -160,7 +160,7 @@ const SelectedNft = () => {
           {/* <img className="nftGlow absolute top-0 left-0 h-full w-full -z-10 object-cover" src={selectNftGlow} alt="" /> */}
           <img src={rightGlow} className="absolute top-[-200px] right-0 -z-20" alt="" />
           <div className="container">
-            <div className="inner flex gap-8">
+            <div className="inner flex gap-8" onClick={(e: any) => { lisMyNft(e) }}>
               <div className="backBtnContainer flex flex-col  items-start">
                 <Button
                   className="btn-white !font-normal flex items-center gap-4 !px-5 mb-9 !text-[20px]"
@@ -396,8 +396,8 @@ const SelectedNft = () => {
                             <div className="rightSide">
                               <Button
                                 className={`button medium font-medium ${selectedArtworkId === artwork.id
-                                    ? '!text-white bg-gradient-to-tl from-[#FD0000] to-[#FF9292] !border-none'
-                                    : 'text-black border-solid border-2 border-[#E7E7E7] bg-[#F4F4F4]'
+                                  ? '!text-white bg-gradient-to-tl from-[#FD0000] to-[#FF9292] !border-none'
+                                  : 'text-black border-solid border-2 border-[#E7E7E7] bg-[#F4F4F4]'
                                   }`}
                                 onClick={() => handleClicked(artwork.id)}
                                 minWidth={115}
