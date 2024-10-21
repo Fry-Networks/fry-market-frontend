@@ -6,7 +6,7 @@ import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
 // const FRY_MARKET_ID: bigint = 717737375n;  // previous working market
-const FRY_MARKET_ID: bigint = 722259757n;
+const FRY_MARKET_ID: bigint = 724678047n;
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
 const FEE_PERCENT: number = 3000;  // 100 represent 1% & 10000 represent 100%
 const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ";
@@ -80,7 +80,6 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
             return e
         })
 
-        console.log(market.appId)
 
         const { marketClient, algorandClient } = await createFryMarketClient(signer, sender, market.appId)
 
@@ -91,7 +90,7 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
             amount: algokit.algos(0.1 + 0.1),
             extraFee: algokit.algos(0.001)
         })
-        if (market.appId) {
+        if (market?.appId) {
             const mbrPay = await algorandClient.transactions.payment({
                 sender,
                 receiver: algosdk.getApplicationAddress(market?.appId),
