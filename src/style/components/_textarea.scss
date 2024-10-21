@@ -1,3 +1,9 @@
+textarea{
+  &:disabled{
+    color: rgb(202, 202, 202);
+  }
+}
+
 .textarea-box {
     display: flex;
     flex-direction: column;
