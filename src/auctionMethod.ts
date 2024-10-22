@@ -160,72 +160,101 @@ export const listNftAuction = async (
             biddingEndTime: BigInt(biddingEndTime),
         }
 
+        const bidding = await biddingClient.create.initBidding({ ...auctionParams, seller: sender }).then(async (res) => {
+
+            const atc = new algosdk.AtomicTransactionComposer();
+            const suggestedParams = await algodClient.getTransactionParams().do();
+            const bidFunds = await algorandClient.transactions.payment({
+                sender,
+                receiver: algosdk.getApplicationAddress(res.confirmation?.applicationIndex!),
+                amount: algokit.microAlgos(100000),
+                signer
+            })
+            atc.addTransaction({ txn: bidFunds, signer })
+            const accountInfo = await algodClient.accountInformation(AUCTION_ADDRESS).do();
+            const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
+
+            if (!hasOptedIn) {
+                const auctionFund = await algorandClient.transactions.payment({
+                    sender,
+                    receiver: algosdk.getApplicationAddress(AUCTION_ID),
+                    amount: algokit.algos(0.1 + 0.1),
+                    extraFee: algokit.algos(0.001)
+                })
+                atc.addTransaction({ txn: auctionFund, signer })
+
+                const mbrPay = await algorandClient.transactions.payment({
+                    sender,
+                    receiver: algosdk.getApplicationAddress(AUCTION_ID),
+                    amount: algokit.algos(0.1),
+                    extraFee: algokit.algos(0.002),
+                    signer
+                })
+                // const optInAsset = await auctionClient.assetOptIn({ asset: asset, mbrPay })
+
+                atc.addMethodCall({
+                    suggestedParams,
+                    appID: Number(AUCTION_ID),
+                    method: auctionClient.appClient.getABIMethod("assetOptIn")!,
+                    methodArgs: [Number(asset), { txn: mbrPay, signer }],
+                    sender: sender,
+                    signer: signer,
+                    appForeignAssets: [Number(asset)],
+                });
+            }
+
+            const boxPay = await algorandClient.transactions.payment({
+                sender,
+                receiver: AUCTION_ADDRESS,
+                amount: algokit.microAlgos(AUCTION_BOX_PRICE),
+                signer
+            })
 
 
-        const bidding = await biddingClient.create.initBidding({ ...auctionParams, seller: sender }).then((res) => {
-            return res
+            const xfer = await algorandClient.transactions.assetTransfer({
+                sender,
+                receiver: AUCTION_ADDRESS,
+                amount: BigInt(1),
+                assetId: BigInt(asset),
+                signer
+            })
+
+            atc.addMethodCall({
+                suggestedParams,
+                appID: Number(AUCTION_ID),
+                method: auctionClient.appClient.getABIMethod("listNftOnAuction")!,
+                methodArgs: [Number(asset), auctionParams.bidStartAmount, auctionParams.minBidAmount, auctionParams.bidStartAmount, auctionParams.biddingEndTime, BigInt(res.appId), { txn: xfer, signer }, { txn: boxPay, signer }],
+                sender: sender,
+                signer: signer,
+                appForeignAssets: [Number(asset)],
+                boxes: [
+                    {
+                        appIndex: Number(AUCTION_ID),
+                        name: algosdk.encodeUint64(asset),
+                    },
+                ],
+            });
+            const result = await atc.execute(algodClient, 4);
+            for (const mr of result.methodResults) {
+                console.log(`${mr.returnValue}`);
+            }
         }).catch((e) => {
             console.log(e)
             throw e
         })
-        await algorandClient.send.payment({
-            sender,
-            receiver: algosdk.getApplicationAddress(bidding.confirmation?.applicationIndex!),
-            amount: algokit.microAlgos(100000),
-            signer
-        })
-        const accountInfo = await algodClient.accountInformation(AUCTION_ADDRESS).do();
-        const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
 
-        if (!hasOptedIn) {
-            await algorandClient.send.payment({
-                sender,
-                receiver: algosdk.getApplicationAddress(AUCTION_ID),
-                amount: algokit.algos(0.1 + 0.1),
-                extraFee: algokit.algos(0.001)
-            })
-
-            console.log(algosdk.getApplicationAddress(AUCTION_ID))
-            const mbrPay = await algorandClient.transactions.payment({
-                sender,
-                receiver: algosdk.getApplicationAddress(AUCTION_ID),
-                amount: algokit.algos(0.1),
-                extraFee: algokit.algos(0.002),
-                signer
-            })
-            const optInAsset = await auctionClient.assetOptIn({ asset: asset, mbrPay })
-            console.log("optin Asset", optInAsset)
-        }
-
-        const boxPay = await algorandClient.transactions.payment({
-            sender,
-            receiver: AUCTION_ADDRESS,
-            amount: algokit.microAlgos(AUCTION_BOX_PRICE),
-            signer
-        })
-
-
-        const xfer = await algorandClient.transactions.assetTransfer({
-            sender,
-            receiver: AUCTION_ADDRESS,
-            amount: BigInt(1),
-            assetId: BigInt(asset),
-            signer
-        })
-
-
-        await auctionClient.listNftOnAuction({ ...auctionParams, biddingContract: BigInt(bidding!.appId), xfer, boxPay }).then((res) => {
-            console.log(res)
-        }).catch((e) => {
-            console.log(e)
-        })
+        // await auctionClient.listNftOnAuction({ ...auctionParams, biddingContract: BigInt(bidding!.appId), xfer, boxPay }).then((res) => {
+        //     console.log(res)
+        // }).catch((e) => {
+        //     console.log(e)
+        // })
 
         return true;
 
     } catch (e) {
+        console.log(e)
         return undefined;
 
-        console.log(e)
     }
 }
 
@@ -248,12 +277,13 @@ export const createBid = async (
         txId: string;
         id: string;
     }>,
-    previousHighestBidder: string,
+    previousHighestBidder: string
 ): Promise<string> => {
     try {
-        console.log(previousHighestBidder)
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
-        const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
+        const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId);
+        const atc = new algosdk.AtomicTransactionComposer();
+        const suggestedParams = await algodClient.getTransactionParams().do();
         const boxPay = await algorandClient.transactions.payment({
             sender,
             receiver: algosdk.getApplicationAddress(biddingAppId),
@@ -268,8 +298,43 @@ export const createBid = async (
             receiver: AUCTION_ADDRESS
         })
 
-        await biddingClient.bid({ bidAmount: BigInt(bidAmount), boxPay })
-        await auctionClient.bid({ asset: BigInt(asset), bidAmount: BigInt(bidAmount), previousBidder: previousHighestBidder, bidAxfer: priceTransferTx }, { sendParams: { fee: algokit.algos(0.003) } })
+        atc.addMethodCall({
+            suggestedParams,
+            appID: biddingAppId,
+            method: biddingClient.appClient.getABIMethod("bid")!,
+            methodArgs: [bidAmount, { txn: boxPay, signer }],
+            sender: sender,
+            signer: signer,
+            appForeignAssets: [Number(asset)],
+            boxes: [
+                {
+                    appIndex: biddingAppId,
+                    name: algosdk.decodeAddress(sender).publicKey,
+                },
+            ],
+        });
+        atc.addMethodCall({
+            suggestedParams,
+            appID: Number(AUCTION_ID),
+            method: auctionClient.appClient.getABIMethod("bid")!,
+            methodArgs: [BigInt(asset), previousHighestBidder, BigInt(bidAmount), { txn: priceTransferTx, signer }],
+            sender: sender,
+            signer: signer,
+            appForeignAssets: [Number(asset)],
+            boxes: [
+                {
+                    appIndex: Number(AUCTION_ID),
+                    name: algosdk.encodeUint64(asset),
+                },
+            ],
+        });
+        const result = await atc.execute(algodClient, 4);
+        for (const mr of result.methodResults) {
+            console.log(`${mr.returnValue}`);
+        }
+
+        // await biddingClient.bid({ bidAmount: BigInt(bidAmount), boxPay })
+        // await auctionClient.bid({ asset: BigInt(asset), bidAmount: BigInt(bidAmount), previousBidder: previousHighestBidder, bidAxfer: priceTransferTx }, { sendParams: { fee: algokit.algos(0.003) } })
 
         return "Bid Placed"
 
@@ -420,26 +485,41 @@ export const claimNftRoyalty = async (
 
         const accountInfo = await algodClient.accountInformation(sender).do();
         const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
-        // const fee = (bidAmount * FEE_PERCENT) / 10000
+        const atc = new algosdk.AtomicTransactionComposer();
+        const suggestedParams = await algodClient.getTransactionParams().do();
 
         if (!hasOptedIn) {
-            await algorandClient.send.assetTransfer({
-                sender,
-                receiver: sender,
+            const opIn = await algorandClient.transactions.assetOptIn({
                 assetId: BigInt(asset),
-                amount: BigInt(0)
+                sender,
+                extraFee: algokit.algos(0.001),
             })
+            atc.addTransaction({ txn: opIn, signer: signer });
         }
 
 
-        // const priceTransferTx = await algorandClient.transactions.assetTransfer({
-        //     sender,
-        //     assetId: FRY_TOKEN_ID,
-        //     amount: BigInt(bidAmount + fee),
-        //     receiver: AUCTION_ADDRESS
-        // })
+        atc.addMethodCall({
+            suggestedParams,
+            appID: Number(AUCTION_ID),
+            method: auctionClient.appClient.getABIMethod("buyNftRoyalty")!,
+            methodArgs: [asset, FRY_TOKEN_ID, seller],
+            sender: sender,
+            signer: signer,
+            appForeignAssets: [Number(asset)],
+            boxes: [
+                {
+                    appIndex: Number(AUCTION_ID),
+                    name: algosdk.encodeUint64(asset),
+                },
+            ],
+        });
 
-        await auctionClient.claimNftRoyalty({ asset: BigInt(asset), nftSeller: seller, fryId: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.006) } })
+        const result = await atc.execute(algodClient, 4);
+        for (const mr of result.methodResults) {
+            console.log(`${mr.returnValue}`);
+        }
+
+        // await auctionClient.claimNftRoyalty({ asset: BigInt(asset), nftSeller: seller, fryId: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.006) } })
 
         return "nftClaimed"
 
@@ -453,7 +533,6 @@ export const getAllAuctions = async () => {
 
     const algod = await getAlgodClient()
     const listings = await algokit.getAppBoxNames(AUCTION_ID, algod);
-    console.log("listings", listings)
     const allListings: any[] = [];
     for (let listBox of listings) {
         const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
