@@ -481,12 +481,14 @@ export const claimNftRoyalty = async (
     seller: string,
 ): Promise<string> => {
     try {
+        console.log("thisss")
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
 
         const accountInfo = await algodClient.accountInformation(sender).do();
         const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
         const atc = new algosdk.AtomicTransactionComposer();
         const suggestedParams = await algodClient.getTransactionParams().do();
+        suggestedParams.fee = 3000
 
         if (!hasOptedIn) {
             const opIn = await algorandClient.transactions.assetOptIn({
@@ -501,17 +503,18 @@ export const claimNftRoyalty = async (
         atc.addMethodCall({
             suggestedParams,
             appID: Number(AUCTION_ID),
-            method: auctionClient.appClient.getABIMethod("buyNftRoyalty")!,
+            method: auctionClient.appClient.getABIMethod("claimNftRoyalty")!,
             methodArgs: [asset, FRY_TOKEN_ID, seller],
             sender: sender,
             signer: signer,
-            appForeignAssets: [Number(asset)],
+            appForeignAssets: [Number(asset), Number(FRY_TOKEN_ID)],
             boxes: [
                 {
                     appIndex: Number(AUCTION_ID),
                     name: algosdk.encodeUint64(asset),
                 },
             ],
+            appAccounts: [FEE_WALLET]
         });
 
         const result = await atc.execute(algodClient, 4);

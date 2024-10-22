@@ -293,7 +293,7 @@ const Home: React.FC<HomeProps> = () => {
       <div className='flex gap-4'>
         {
           auctions ? auctions.map((list, index) => (
-            <div onClick={() => { setSelected(list) }} key={list.nftAddress} >
+            <div onClick={() => { setSelected(list) }} key={list.nftAddress} style={{ cursor: "pointer" }} >
               <img src={list.url} alt="nft" className='w-48' />
               <p>Auction # {index}</p>
               <p>name: {list.name}</p>
