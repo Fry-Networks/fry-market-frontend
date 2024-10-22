@@ -14,14 +14,14 @@ import AuctionReminder from "./auctionReminder";
 import Reminder from "./reminder";
 
 
-const NftDetailBanner = ({ detail, collectionData = {}, nftData: nftDataFromProp = {}, profileData = {}, onlyShow, forList }: any) => {
+const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileData = {}, onlyShow, forList }: any) => {
   const [nftMetaData, setNftMetaData] = useState<any>({});
   const [highestBid, setHighestBid] = useState<any>(0);
   const [loading, setLoading] = useState<any>(false);
   const [bidDetails, setBidDetails] = useState<any>([])
   const [isOwner, setIsOwner] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
-  const [nftData, setNftData] = useState<any>()
+  const [nftDataLatest, setNftDataLatest] = useState<any>(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -70,10 +70,10 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData: nftDataFromProp
 
 
       setLoading(true);
-      const response = await getSingleAuction(nftDataFromProp.nftAddress)
+      const response = await getSingleAuction(nftData.nftAddress)
       console.log("Single Auction", response);
       setHighestBid(response.highestBidAmount);
-      setNftData(response)
+      setNftDataLatest(response)
       setLoading(false)
 
     }
@@ -463,11 +463,14 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData: nftDataFromProp
               </div>
 
               {!onlyShow || isOwner || nftData.isListed ? detail ?
-                <Reminder nftData={nftData} forList={forList} />
+                <Reminder nftData={nftDataLatest ? nftDataLatest : nftData} forList={forList} />
 
                 :
-                <AuctionReminder nftData={nftData} highestBid={highestBid} />
+
+                <AuctionReminder nftData={nftDataLatest ? nftDataLatest : nftData} highestBid={highestBid} />
+
                 :
+
                 ""
               }
 
