@@ -55,9 +55,17 @@ const Navbar = (props: Toggle) => {
   }
 
   useEffect(() => {
-    console.log("g", props.isPfpChange);
+
 
     getProfileData()
+  }, [activeAddress])
+  useEffect(() => {
+    console.log("g", props.isPfpChange);
+    setTimeout(() => {
+      getProfileData()
+
+    }, 2000)
+
   }, [activeAddress, props.isPfpChange])
 
   const isCreateNftPage =
