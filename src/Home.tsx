@@ -31,7 +31,7 @@ const Home: React.FC<HomeProps> = () => {
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const { activeAddress, signer, sendTransactions, signTransactions } = useWallet()
+  const { activeAddress, signer, sendTransactions, signTransactions, activeAccount } = useWallet()
 
   const toggleWalletModal = () => {
     setOpenWalletModal(!openWalletModal)
