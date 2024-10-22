@@ -14,7 +14,9 @@ import Button from "../shared/button";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 interface Toggle {
   open: boolean,
-  setOpen: (value: boolean) => void
+  setOpen: (value: boolean) => void,
+  isPfpChange: boolean,
+  setIsPfpChange: (value: any) => void
 }
 
 const Navbar = (props: Toggle) => {
@@ -53,8 +55,10 @@ const Navbar = (props: Toggle) => {
   }
 
   useEffect(() => {
+    console.log("g", props.isPfpChange);
+
     getProfileData()
-  }, [activeAddress])
+  }, [activeAddress, props.isPfpChange])
 
   const isCreateNftPage =
     location.pathname === "/create-nft" ||

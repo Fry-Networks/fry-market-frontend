@@ -365,7 +365,7 @@ const TopSeller = () => {
               dataSource={profileData.length > 0 ?
                 profileData.filter((data: any) => data.wallet_address ? true : false).map((profileData: any, index: any) => (
                   {
-                    image: profileData.profile_image || table1,
+                    image: profileData.profile_image || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
                     collection: profileData.display_name || "Unknown",
                     address: truncateString(profileData.wallet_address),
                     allProfileData: profileData

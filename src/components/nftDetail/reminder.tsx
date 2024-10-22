@@ -2,12 +2,13 @@ import { useWallet } from "@txnlab/use-wallet"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { buyNftWithRoyalty, cancelList } from "../../fryMarketMethods"
+import { buyNftWithRoyalty, cancelList, getSingleNftlistData } from "../../fryMarketMethods"
 import Button from "../shared/button"
 
-const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
+const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: any) => {
   const [loading, setLoading] = useState<any>(false)
   const [isOwner, setOwner] = useState(false);
+  const [nftData, setNftData] = useState<any>({})
   const [ownerSectionsVisible, setOwnerSectionsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const navigate = useNavigate();
@@ -110,9 +111,29 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
       return e;
     }
 
+  }
+
+  const getRecentListingData = async () => {
 
 
 
+    try {
+
+
+      setLoading(true);
+      const response = await getSingleNftlistData(nftDataFromProps.assetId)
+      console.log("Single Listing Data", response);
+      setNftData(response)
+      setLoading(false);
+
+      // return (Number(bidAmount) > Number((response.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)))
+
+    }
+    catch (e) {
+      setLoading(false);
+
+      console.log("Error getting Single Nft Detail");
+    }
   }
 
   useEffect(() => {
@@ -127,6 +148,7 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
       setOwner(true);
     }
 
+    getRecentListingData();
   }, [nftData, activeAccount])
 
   return (

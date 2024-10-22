@@ -11,13 +11,14 @@ import Input from "../shared/input";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 
-const ProfileSettingPage = () => {
+const ProfileSettingPage = ({ setIsPfpChange }: any) => {
   const [isuploadmodal, setisuploadmodal] = useState(false);
   const [bannerImage, setBannerImage] = useState<any>();
   const [profileImage, setProfileImage] = useState<any>();
   const [profileData, setProfileData] = useState<any>({});
   const [currentImage, setCurrentImage] = useState<any>({});
   const [loading, setLoading] = useState<any>(false);
+  const [anyChange, setAnyChange] = useState<any>(false)
   const { activeAccount } = useWallet()
   const getProfileData = async () => {
     if (activeAccount?.address) {
@@ -65,12 +66,19 @@ const ProfileSettingPage = () => {
           setLoading(true);
           const formDataForImage = new FormData;
           if ((bannerImage || profileImage) && (typeof (bannerImage) != "string" || typeof (profileImage) != "string")) {
+
+            let bannerImageUpload = false;
+            let profileImageUpload = false;
+
             if (bannerImage && typeof (bannerImage) != "string") {
               formDataForImage.append("images", bannerImage);
+              bannerImageUpload = true;
             }
             if (profileImage && typeof (profileImage) != "string") {
 
               formDataForImage.append("images", profileImage);
+              profileImageUpload = true;
+              setIsPfpChange((prev: any) => !prev)
             }
 
             const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
@@ -79,9 +87,9 @@ const ProfileSettingPage = () => {
             // setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
             if (response.data?.image_urls[0]) {
 
-              if (await handleContinue(response.data?.image_urls)) {
+              if (await handleContinue(response.data?.image_urls, bannerImageUpload, profileImageUpload)) {
                 setLoading(false);
-
+                setAnyChange(false);
                 resolve(true);
               }
               else {
@@ -101,6 +109,7 @@ const ProfileSettingPage = () => {
           else {
             if (await handleContinue([])) {
               setLoading(false);
+              setAnyChange(false);
 
               resolve(true);
             }
@@ -113,6 +122,9 @@ const ProfileSettingPage = () => {
 
         }
         catch (e) {
+          setLoading(false);
+          console.log("e", e);
+
           reject(false)
         }
 
@@ -132,15 +144,19 @@ const ProfileSettingPage = () => {
 
   }
 
-  const handleContinue = async (imageUrl: any) => {
+  const handleContinue = async (imageUrl: any, bannerImageUpload?: any, profileImageUpload?: any) => {
     try {
 
       // const config = {
       //   headers: { Authorization: `Bearer ${token}` }
       // };
       if (imageUrl.length > 0) {
+        console.log("h");
+        console.log("h", bannerImageUpload);
+        console.log("h", profileImageUpload);
 
-        const response: any = await axios.post(`${baseUrl}/profile-settings`, { ...profileData, wallet_address: activeAccount?.address ? activeAccount?.address : 0, banner_image: imageUrl[0], profile_image: imageUrl[1] });
+
+        const response: any = await axios.post(`${baseUrl}/profile-settings`, { ...profileData, wallet_address: activeAccount?.address ? activeAccount?.address : 0, banner_image: (bannerImageUpload && profileImageUpload) || (bannerImageUpload) ? imageUrl[0] : profileData.banner_image, profile_image: (bannerImageUpload && profileImageUpload) ? imageUrl[1] : profileImageUpload ? imageUrl[0] : profileData.profile_image });
         console.log("Hehe", response.data);
         return true;
       }
@@ -160,7 +176,7 @@ const ProfileSettingPage = () => {
   }
 
   const handleProfileDataChange = (e: any) => {
-
+    setAnyChange(true);
     setProfileData((prev: any) => ({ ...prev, [e.target.name]: e.target.value }))
 
   }
@@ -185,7 +201,11 @@ const ProfileSettingPage = () => {
           <div className="inner">
             <div className="uploadDiv relative w-full h-[305px] bg-[#D9D9D9]  rounded-2xl mt-5">
               <label htmlFor="bannerImage">
-                <input type="file" className="hidden" name="" id="bannerImage" onChange={(e: any) => setBannerImage(e.target.files[0])} />
+                <input type="file" className="hidden" name="" id="bannerImage" onChange={(e: any) => {
+                  setAnyChange(true);
+                  setBannerImage(e.target.files[0])
+                }
+                } />
                 {
                   bannerImage &&
                   <img className="w-full h-full object-cover" src={typeof (bannerImage) == "string" ? bannerImage : URL.createObjectURL(bannerImage)} alt="" />
@@ -208,7 +228,10 @@ const ProfileSettingPage = () => {
               {/* </div> */}
 
               <label htmlFor="profileImage">
-                <input type="file" className="hidden" name="" id="profileImage" onChange={(e: any) => setProfileImage(e.target.files[0])} />
+                <input type="file" className="hidden" name="" id="profileImage" onChange={(e: any) => {
+                  setAnyChange(true);
+                  setProfileImage(e.target.files[0])
+                }} />
 
                 <div className="absolute w-[100px] h-[100px] rounded-full border-dashed border-[2px] border-[#6B6B6B] bg-[#D9D9D9] bottom-[-60px] left-[47%] cursor-pointer plusIcon flex items-center justify-center" >
 
@@ -455,18 +478,25 @@ const ProfileSettingPage = () => {
                 minHeight={53}
                 text="Save changes"
                 onClick={() => {
-                  toast.promise(
-                    uploadImages(),
-                    {
-                      pending: "Updating proiile data",
-                      error: "There was an error while updating profile data",
-                      success: "profile data updated successfully"
+                  if (anyChange) {
 
-                    }
-                  )
+                    toast.promise(
+                      uploadImages(),
+                      {
+                        pending: "Updating proiile data",
+                        error: "There was an error while updating profile data",
+                        success: "profile data updated successfully"
+
+                      }
+                    )
+                  }
+                  else {
+                    toast.error("Already Updated", { toastId: "alreadyUpdatedTost" })
+                  }
 
 
                 }}
+                disabled={loading}
               ></Button>
             </div>
           </div>
