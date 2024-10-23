@@ -1,3 +1,4 @@
+import { useWallet } from "@txnlab/use-wallet";
 import { Table } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const TopSeller = () => {
   const [profileData, setProfileData] = useState<any>({})
-
+  const { activeAccount } = useWallet();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,7 +35,17 @@ const TopSeller = () => {
 
   const handleRowClick = (record: any) => {
     // navigate("/seller-collection");
-    navigate("/artist-profile-others", { state: { profileData: record.allProfileData } });
+    console.log("Ff", record?.allProfileData);
+    console.log("Ff", activeAccount?.address);
+
+    if (activeAccount?.address == record?.allProfileData?.wallet_address) {
+      navigate("/artist-profile")
+
+    }
+    else {
+      navigate("/artist-profile-others", { state: { profileData: record.allProfileData } });
+
+    }
   };
 
   const getProfileData = async () => {

@@ -1,3 +1,4 @@
+import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -7,7 +8,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const SellerCard = ({ data }: any) => {
 
   const [profile, setProfile] = useState<any>("")
-
+  const { activeAccount } = useWallet();
   const navigate = useNavigate();
 
   const getProfileData = async (id: any) => {
@@ -46,8 +47,14 @@ const SellerCard = ({ data }: any) => {
       {profile ?
         <div className="sellerCardContainer mb-7 cursor-pointer w-full" onClick={() => {
           console.log("profile", profile);
+          if (activeAccount?.address == data?.collection_address) {
+            navigate("/artist-profile")
 
-          // navigate("/artist-profile-others", { state: { profileData: profile } })
+          }
+          else {
+            navigate("/artist-profile-others", { state: { profileData: profile } })
+
+          }
 
         }}>
           <div className="inner flex gap-3">

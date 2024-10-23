@@ -485,7 +485,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                       {
                         pending: "Updating proiile data",
                         error: "There was an error while updating profile data",
-                        success: "profile data updated successfully"
+                        success: "Profile data updated successfully"
 
                       }
                     )
