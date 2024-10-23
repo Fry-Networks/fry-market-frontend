@@ -180,7 +180,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
                 onClick={() => {
                   if (activeAccount?.address) {
                     if (isOwner && !nftData.isListed) {
-                      navigate("/sell-method")
+                      navigate("/sell-method", { state: { nftData: nftDataFromProps } })
                     }
                     if (isOwner) {
                       toast.promise(
@@ -194,7 +194,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
                       )
                     }
                     else if (forList) {
-                      navigate("/sell-method", { state: { nftData: nftData } })
+                      navigate("/sell-method", { state: { nftData: nftDataFromProps } })
                     }
                     else {
                       toast.promise(

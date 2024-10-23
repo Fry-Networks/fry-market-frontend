@@ -191,7 +191,7 @@ export const listNft = async (
             console.log(`${mr.returnValue}`);
         }
 
-        // return listNft
+        return true
     } catch (e) {
         console.log(e)
         throw e
@@ -279,8 +279,10 @@ export const buyNftWithRoyalty = async (
         for (const mr of result.methodResults) {
             console.log(`${mr.returnValue}`);
         }
+
     } catch (e) {
         console.log(e)
+        throw e
     }
 }
 
