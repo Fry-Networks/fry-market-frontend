@@ -528,7 +528,7 @@ export const claimNftRoyalty = async (
 
     } catch (e: any) {
         console.log(e)
-        return e.message
+        throw e.message
     }
 }
 

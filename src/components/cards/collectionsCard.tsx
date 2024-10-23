@@ -141,7 +141,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         try {
           if (activeAccount?.address) {
             setBtnLoader(true)
-            const response = await claimNftRoyalty(activeAccount.address, signer, data.url, data.bidContract, data.params.price, data.params.sellerId)
+            const response = await claimNftRoyalty(activeAccount.address, signer, data.index, data.params.bidContract, data.params.price, data.params.sellerId)
             // (
             //   activeAccount?.address,
             //   data.assetId,
