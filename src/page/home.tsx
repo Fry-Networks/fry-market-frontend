@@ -2,7 +2,6 @@ import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Auction from "../components/home/auction";
-import BoostNft from "../components/home/boostNft";
 import DigitalAssets from "../components/home/digitalAssets";
 import Faq from "../components/home/faq";
 import Hero from "../components/home/hero";
@@ -112,7 +111,7 @@ const Home = () => {
       <TopCollections collectionDataFull={collectionDataFull} />
       {/* <SoldNft /> */}
       <DigitalAssets />
-      <BoostNft />
+      {/* <BoostNft /> */}
       <Faq />
       <ReadyForNext />
 
