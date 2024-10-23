@@ -120,17 +120,14 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
     try {
 
 
-      setLoading(true);
       const response = await getSingleNftlistData(nftDataFromProps.assetId)
       console.log("Single Listing Data", response);
       setNftData(response)
-      setLoading(false);
 
       // return (Number(bidAmount) > Number((response.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)))
 
     }
     catch (e) {
-      setLoading(false);
 
       console.log("Error getting Single Nft Detail");
     }
