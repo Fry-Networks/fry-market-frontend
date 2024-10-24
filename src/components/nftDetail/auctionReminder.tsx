@@ -48,7 +48,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
 
               setLoading(true)
 
-              const response = await cancelAuction(activeAccount.address, signer, nftData.nftAddress, nftData.bidContract, signTransactions, sendTransactions);
+              const response = await cancelAuction(activeAccount.address, signer, nftData.nftAddress, nftData.bidContract, signTransactions, sendTransactions, nftData.highestBidder);
               // (
               //   activeAccount?.address,
               //   data.assetId,
@@ -158,7 +158,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
                     )
                   }
                   else {
-                    showplaceBidModal
+                    showplaceBidModal()
 
                   }
 

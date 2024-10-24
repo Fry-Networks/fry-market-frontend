@@ -1,7 +1,5 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import banner from "../../assets/artistsProfile/banner.webp";
-import bannerProfile from "../../assets/artistsProfile/bannerUserIcon.webp";
 import foldedRed from "../../assets/icons/foldedRed.svg";
 const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
   const location = useLocation();
@@ -20,10 +18,10 @@ const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
           <div className="inner relative ">
 
             <div className="relative mainn">
-              <img className="absolute w-full max-w-[118px] max-h-[118px] h-full object-cover rounded-full bottom-[-50px] left-[45%] bannerProfilePic" src={profileData?.profile_image ? profileData?.profile_image : bannerProfile} alt="" />
+              <img className="absolute w-full max-w-[118px] max-h-[118px] h-full object-cover rounded-full bottom-[-50px] left-[45%] bannerProfilePic" src={profileData?.profile_image ? profileData?.profile_image : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
               <img
                 className="profilebanner mt-10 w-full z-90 max-h-[305px] h-full object-cover "
-                src={profileData?.banner_image ? profileData?.banner_image : banner}
+                src={profileData?.banner_image ? profileData?.banner_image : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"}
                 alt=""
               />
               {/* <Button

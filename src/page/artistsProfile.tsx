@@ -1,10 +1,10 @@
 import ProfileData from './profileData';
 
-const ArtistsProfile = () => {
+const ArtistsProfile = ({ setIsPfpChange }: any) => {
   return (
     <>
 
-      <ProfileData />
+      <ProfileData setIsPfpChange={setIsPfpChange} />
     </>
   )
 }

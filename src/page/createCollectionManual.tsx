@@ -158,8 +158,8 @@ const CreateNftCollectionManual = () => {
       <div>
         <div className="nftCollection mt-[107px] h-[110vh]">
           <div className="container">
-            <div className="flex gap-8">
-              <div className="flex flex-col  items-start">
+            <div className="contentWrapper flex gap-8 w-full">
+              <div className=" leftContent flex flex-col  items-start">
                 <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow ">
 
                   <label htmlFor="collectionImage" className="block">
@@ -174,8 +174,8 @@ const CreateNftCollectionManual = () => {
 
               </div>
 
-              <div className="w-[992px]">
-                <div className="flex gap-3 items-center">
+              <div className="w-[992px] rightContent">
+                <div className="flex gap-3 items-center rightText">
                   {/* <Button
                     className="btn-gray w-32 lightGray"
                     text="Collection"
@@ -185,7 +185,7 @@ const CreateNftCollectionManual = () => {
                     text="100 Items"
                   /> */}
                 </div>
-                <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] ">
+                <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] manualDiv">
                   <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24 uppercase mt-[20px]">
                     Create a collection
                   </h2>

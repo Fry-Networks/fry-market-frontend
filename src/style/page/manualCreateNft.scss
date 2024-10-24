@@ -17,16 +17,15 @@
         }
       }
       .rightContent {
-        .rightText{
-            .manualDiv{
-                form{
-                    .chooseCollection{
-                        .newCollectionDiv{
-
-                        }
-                    }
+        .rightText {
+          .manualDiv {
+            form {
+              .chooseCollection {
+                .newCollectionDiv {
                 }
+              }
             }
+          }
         }
       }
     }
@@ -40,11 +39,14 @@
     .container {
       .contentWrapper {
         display: flex;
+        align-items: center;
+        justify-content: center;
         flex-direction: column;
         margin-top: 50px;
         .leftContent {
           display: flex;
           justify-content: center;
+          align-items: center;
           width: 100%;
           .uploadDiv {
             width: 100%;
@@ -65,20 +67,23 @@
         .rightContent {
           width: 100%;
           .rightText {
-            .manualDiv {
-              padding: 20px;
-              .chooseCollection{
-                .chooseContent{
-                    flex-direction: column;
-                    align-items: flex-start;
-                }
-              .newCollectionDiv{
+          }
+          .manualDiv {
+            padding: 20px;
+            h2 {
+              font-size: 30px;
+            }
+            .chooseCollection {
+              .chooseContent {
+                flex-direction: column;
+                align-items: flex-start;
+              }
+              .newCollectionDiv {
                 flex-direction: column;
                 align-items: center;
-                .createNewCollection{
-                    width: 300px;
+                .createNewCollection {
+                  width: 300px;
                 }
-              }
               }
             }
           }

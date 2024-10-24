@@ -21,6 +21,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   const [bidDetails, setBidDetails] = useState<any>([])
   const [isOwner, setIsOwner] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+  const [nftDataLatest, setNftDataLatest] = useState<any>(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -72,6 +73,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
       const response = await getSingleAuction(nftData.nftAddress)
       console.log("Single Auction", response);
       setHighestBid(response.highestBidAmount);
+      setNftDataLatest(response)
       setLoading(false)
 
     }
@@ -393,7 +395,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                             By
                             <span className="darkBlack font-medium cursor-pointer" onClick={() => navigate("/top-collection", { state: { profile: profileData, collectionData: collectionData } })}>
                               {" "}
-                              {collectionData.collection_name ? collectionData.collection_name : "Stella Nova"}
+                              {collectionData.collection_name ? collectionData.collection_name : "Unknown"}
                             </span>
                           </p>
                           <p className="ex-small lightGray font-normal font-Roboto">
@@ -457,15 +459,28 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
             <div className="rightArea ps-5 w-3/5 flex flex-col gap-5 ">
               <div className="pixacioDiv">
                 <h2 className="font-normal font-Apex uppercase leading-[82px]">{nftData.name ? nftData.name : "PIXACIO"}</h2>
-                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold cursor-pointer" onClick={() => navigate("/artist-profile-others", { state: { profileData: profileData } })}>{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
+                <p className="lightGray text-[20px] font-normal font-Roboto">Owned by <span className="darkBlack font-semibold cursor-pointer" onClick={() => {
+                  if (activeAccount?.address == profileData?.wallet_address) {
+                    navigate("/artist-profile")
+
+                  }
+                  else {
+                    navigate("/artist-profile-others", { state: { profileData: profileData } })
+
+                  }
+
+                }}>{profileData.display_name ? profileData.display_name : "Unknown"}</span></p>
               </div>
 
               {!onlyShow || isOwner || nftData.isListed ? detail ?
-                <Reminder nftData={nftData} forList={forList} />
+                <Reminder nftData={nftDataLatest ? nftDataLatest : nftData} forList={forList} />
 
                 :
-                <AuctionReminder nftData={nftData} highestBid={highestBid} />
+
+                <AuctionReminder nftData={nftDataLatest ? nftDataLatest : nftData} highestBid={highestBid} />
+
                 :
+
                 ""
               }
 

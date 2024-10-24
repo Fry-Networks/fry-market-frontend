@@ -2,48 +2,47 @@
   .container {
     .inner {
       .earnMoneyDiv {
-        .part2{
-.earnInput{
-  .input-box{
-    .input-wrapper{
-      border: 3px solid #E7E7E7;
-      box-shadow: none;
-      padding-right: 130px;
+        .part2 {
+          .earnInput {
+            .input-box {
+              .input-wrapper {
+                border: 3px solid #e7e7e7;
+                box-shadow: none;
+                padding-right: 130px;
 
-      input{
-        font-size: 18px;
-        &::placeholder{
-          color: #808080;
-          font-size: 18px !important;
-        }
-      }
-    }
-  }
-}
+                input {
+                  font-size: 18px;
+                  &::placeholder {
+                    color: #808080;
+                    font-size: 18px !important;
+                  }
+                }
+              }
+            }
+          }
         }
         .part3 {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            // border: 1px solid red;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // border: 1px solid red;
           .slectDiv {
             .ant-select {
               .ant-select-selector {
                 font-size: 18px;
                 padding: 20px;
                 display: flex;
-                border: 3px solid #E7E7E7;
+                border: 3px solid #e7e7e7;
                 border-radius: 15px;
                 color: #808080;
                 height: 58px;
                 font-weight: 400;
-                background: #FFF;
-             .ant-select-selection{
-
-              &::placeholder{
-                color: #808080 !important;
-              }
-             }
+                background: #fff;
+                .ant-select-selection {
+                  &::placeholder {
+                    color: #808080 !important;
+                  }
+                }
                 input {
                   border-bottom: 0px !important;
                 }
@@ -55,11 +54,11 @@
                 margin-top: -5px;
               }
             }
-            .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder{
+            .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
               color: #808080;
             }
-            .ant-select-single{
-            height: 58px;
+            .ant-select-single {
+              height: 58px;
             }
             .custom-select .ant-select-selection-placeholder {
               color: #808080;
@@ -67,112 +66,118 @@
           }
 
           .supplyDiv {
-            .ant-input-number{
-                border: 3px solid #E7E7E7;
-                width: 109px;
-                height: 58px;
-                font-size: 18px;
-                border-radius: 15px;
-               display: flex;
-               align-items: center;
-               justify-content: center;
-                background: #FFF;
+            .ant-input-number {
+              border: 3px solid #e7e7e7;
+              width: 109px;
+              height: 58px;
+              font-size: 18px;
+              border-radius: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background: #fff;
             }
             .gray-input .ant-input-number-input {
               color: #808080;
             }
-
           }
-          .addStyle{
+          .addStyle {
             width: 198px;
-height: 58px;
-border-radius: 15px;
-border: 3px solid #E7E7E7;
-background: #FFF;
-padding: 19px 30px;
+            height: 58px;
+            border-radius: 15px;
+            border: 3px solid #e7e7e7;
+            background: #fff;
+            padding: 19px 30px;
           }
         }
       }
     }
   }
 }
-@media screen and (max-width:1440px){
-  .bannerWrapper{
-    .container{
-      .inner{
-        h2{
-          span{
-            .topVector{
-            top: -30%;
+@media screen and (max-width: 1440px) {
+  .bannerWrapper {
+    .container {
+      .inner {
+        h2 {
+          span {
+            .topVector {
+              top: -30%;
             }
-            .btmVector{
-             bottom: -30%;
+            .btmVector {
+              bottom: -30%;
             }
           }
         }
-      
       }
     }
   }
-} 
-@media screen and (max-width:1200px) {
-  .bannerWrapper{
-    .container{
-      .inner{
-        .earnMoneyDiv{
+}
+@media screen and (max-width: 1200px) {
+  .bannerWrapper {
+    .container {
+      .inner {
+        .earnMoneyDiv {
           width: 100% !important;
-          .part1{
-
+          .part1 {
           }
-          .part2{
+          .part2 {
             width: 100%;
-.earnInput{
-  width: 100% !important;
+            .earnInput {
+              width: 100% !important;
 
-  .input-box{
-    width: 100% !important;
-    .input-wrapper{
-width: 100% !important;
-input{
-  //width: 100% !important;
-}
-    }
-  }
-}
+              .input-box {
+                width: 100% !important;
+                .input-wrapper {
+                  width: 100% !important;
+                  input {
+                    //width: 100% !important;
+                  }
+                }
+              }
+            }
           }
         }
       }
     }
   }
-  
 }
 
-
-
-@media screen and (max-width:800px) {
-  .bannerWrapper{
+@media screen and (max-width: 800px) {
+  .bannerWrapper {
     margin-bottom: 50px !important;
-    .container{
-      .inner{
-        h2{
+    .container {
+      .inner {
+        h2 {
           margin-top: 0px !important;
         }
-        .earnMoneyDiv{
+        .earnMoneyDiv {
           width: 100% !important;
-.part1{
-  margin-top: 20px;
-}
-        .part2{
-        
-        }
-          .part3{
-        
-flex-wrap: wrap;
-gap: 20px;
+          .part1 {
+            margin-top: 20px;
+          }
+          .part2 {
+          }
+          .part3 {
+            flex-direction: column;
+            gap: 20px;
+            .slectDiv {
+              height: 55px;
+            }
+
+            .supplyDiv {
+              .gray-input {
+                width: 210px;
+                height: 55px;
+              }
+            }
+
+            .addStyle {
+              width: 270px;
+              height: 55px;
+            }
           }
         }
       }
     }
   }
-  
 }

@@ -11,6 +11,7 @@ import downArrow from "../../assets/icons/nft-down-arrow.svg";
 import plus from "../../assets/icons/plus.svg";
 import vectorTop from "../../assets/icons/topVector.png";
 import banerGlow from "../../assets/images/topSellers/bannerGlow.webp";
+import Button from "../../components/shared/button";
 import AddStyleModal from "../../modals/addStyleModal";
 import GenerateNft from "../../modals/generateNft";
 import Input from "../shared/input";
@@ -19,7 +20,7 @@ const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const Banner = () => {
   const [isstylemodal, setisstylemodal] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const showAddStyleModal = () => {
     setisstylemodal(true);
   };
@@ -148,7 +149,7 @@ const Banner = () => {
                   </div>
                 </div>
 
-                <div className="part3 my-6 flex-center gap-16">
+                <div className="part3 my-5 flex-center gap-16">
                   <div className="slectDiv">
                     {/* <Select
                       showSearch
@@ -206,6 +207,20 @@ const Banner = () => {
                     <p className="lightGray font-normal medium font-Roboto">Add Traits</p>
                     <img src="/src/assets/icons/plus.svg" alt="" />
                   </div> */}
+                </div>
+                <div className="part4 flex flex-col w-full items-center gap-4">
+                  <p className="font-semibold text-[#504e4e]">OR</p>
+                  <Button
+                    className="button btn-primary large font-medium btnConnect font-Roboto"
+                    minWidth={213}
+                    minHeight={58}
+                    text="Manual Create Nft"
+                    onClick={(() => (
+                      navigate("/manual-create-nft")
+                    ))}
+
+                  />
+
                 </div>
               </div>
             </div>

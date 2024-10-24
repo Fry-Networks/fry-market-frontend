@@ -37,3 +37,13 @@ export function formatPrice(price: any) {
     return price.toString();
   }
 }
+
+export function truncateNameString(str: any) {
+  if (str) {
+    if (str?.length <= 15) return str; // If the string is shorter than or equal to 5 characters, no need to truncate
+    const firstPart = str.slice(0, 13); // Get the first 3 characters
+    // Get the last 2 characters
+    return `${firstPart}...`;
+  }
+  return ""
+}

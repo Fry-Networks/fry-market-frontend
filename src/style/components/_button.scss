@@ -15,34 +15,28 @@ button {
 
   &.btn-primary {
     color: #fff;
-    background: linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%);
-
-
+    background: linear-gradient(318deg, #fd0000 26.88%, #ff9292 105.85%);
   }
 
-  &.btn-whiteClr{
+  &.btn-whiteClr {
     color: var(--darkBlack);
-   background-color: white;
-   border: 2px solid #F4F3F3;
-
-
+    background-color: white;
+    border: 2px solid #f4f3f3;
   }
 
-  
-  &.btn-grayDark{
+  &.btn-grayDark {
     border-radius: 8px;
-    border: 2px solid #E7E7E7;
-    background-color: #F4F4F4 !important;
+    border: 2px solid #e7e7e7;
+    background-color: #f4f4f4 !important;
     padding: 16px 32px;
-    color: #2B2B2B;
-    
+    color: #2b2b2b;
   }
   &.btn-primaryBorder {
     border: 2.7px solid rgba(253, 253, 253, 0.15);
   }
 
   &.btn-secondary {
-    border: 1.8px solid var(--main, #FD0000);
+    border: 1.8px solid var(--main, #fd0000);
     color: var(--primary);
     background: #fff;
 
@@ -56,14 +50,13 @@ button {
   }
 
   &.btn-white {
-    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.20);
+    box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
     background-color: white;
-    color: #2B2B2B;
+    color: #2b2b2b;
     font-family: Roboto;
     font-size: 14px;
     letter-spacing: 0.42px;
     padding: 15px;
-
   }
 
   &.btn-gray {
@@ -72,11 +65,10 @@ button {
     // color: var(--lightGray);
     font-family: Roboto;
     font-size: 16px;
-    border: 2.8px solid #E7E7E7;
+    border: 2.8px solid #e7e7e7;
     border-radius: 15px;
     padding: 10px;
     // padding: 10px;
-
 
     // &.btn-grayDark{
     //   border-radius: 8px;
@@ -84,15 +76,9 @@ button {
     //   background-color: #F4F4F4 !important;
     //   padding: 16px 32px;
     //   color: #2B2B2B;
-      
+
     // }
-  
-
-
-
   }
-
-
 
   @keyframes rotateAnimation {
     from {
@@ -105,16 +91,21 @@ button {
   }
 }
 
-@media screen and (max-width:800px) {
-
-  button{
-    
-  &.btn-primary{
-    min-height: 40px !important;
-    font-size: 15px;
-  }
-  &.btn-secondary{
-    min-height: 40px !important;
-  }
+@media screen and (max-width: 800px) {
+  button {
+    &.btn-primary {
+      min-height: 40px !important;
+      min-width: auto !important;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 14px;
+    }
+    &.btn-secondary {
+      min-height: 40px !important;
+      min-width: auto !important;
+      padding-left: 10px;
+      padding-right: 10px;
+      font-size: 14px;
+    }
   }
 }

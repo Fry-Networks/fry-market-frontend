@@ -2,12 +2,13 @@ import { useWallet } from "@txnlab/use-wallet"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
-import { buyNftWithRoyalty, cancelList } from "../../fryMarketMethods"
+import { buyNftWithRoyalty, cancelList, getSingleNftlistData } from "../../fryMarketMethods"
 import Button from "../shared/button"
 
-const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
+const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: any) => {
   const [loading, setLoading] = useState<any>(false)
   const [isOwner, setOwner] = useState(false);
+  const [nftData, setNftData] = useState<any>({})
   const [ownerSectionsVisible, setOwnerSectionsVisible] = useState(false);
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const navigate = useNavigate();
@@ -110,9 +111,26 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
       return e;
     }
 
+  }
+
+  const getRecentListingData = async () => {
 
 
 
+    try {
+
+
+      const response = await getSingleNftlistData(nftDataFromProps.assetId)
+      console.log("Single Listing Data", response);
+      setNftData(response)
+
+      // return (Number(bidAmount) > Number((response.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)))
+
+    }
+    catch (e) {
+
+      console.log("Error getting Single Nft Detail");
+    }
   }
 
   useEffect(() => {
@@ -127,6 +145,7 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
       setOwner(true);
     }
 
+    getRecentListingData();
   }, [nftData, activeAccount])
 
   return (
@@ -161,7 +180,7 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
                 onClick={() => {
                   if (activeAccount?.address) {
                     if (isOwner && !nftData.isListed) {
-                      navigate("/sell-method")
+                      navigate("/sell-method", { state: { nftData: nftDataFromProps } })
                     }
                     if (isOwner) {
                       toast.promise(
@@ -175,7 +194,7 @@ const Reminder = ({ hide, showReminder, nftData, forList }: any) => {
                       )
                     }
                     else if (forList) {
-                      navigate("/sell-method", { state: { nftData: nftData } })
+                      navigate("/sell-method", { state: { nftData: nftDataFromProps } })
                     }
                     else {
                       toast.promise(

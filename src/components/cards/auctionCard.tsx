@@ -82,7 +82,12 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
               </div>
             </button>
           </div>
-          <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={replaceJsonWithPng(data.url)} alt="" />
+          <div className="relative">
+
+
+            <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={replaceJsonWithPng(data.url)} alt="" />
+            <p className="primary font-semibold small absolute top-1 right-1">AI</p>
+          </div>
         </div>
       </div>
 

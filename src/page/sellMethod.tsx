@@ -18,8 +18,8 @@ import { replaceJsonWithPng } from '../utils/getImageFromJson';
 const SellMethod = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState("fixed");
-  const [price, setPrice] = useState(0);
-  const [minimumBidAmount, setMinimumBidAmount] = useState(0);
+  const [price, setPrice] = useState<any>(0);
+  const [minimumBidAmount, setMinimumBidAmount] = useState<any>(0);
   const [nftData, setData] = useState<any>({})
   const [biddingDuration, setBiddingDuration] = useState<any>("")
   const [biddingDurationValue, setBiddingDurationValue] = useState<any>({});
@@ -146,18 +146,14 @@ const SellMethod = () => {
               )
             }
             else {
-              toast.error("Bidding end date should be mroe than bidding start date")
+              toast.error("Bidding end date should be more than bidding start date")
 
             }
 
           }
           else {
             toast.error("You can only select future dates")
-
           }
-
-
-
         }
         else {
           toast.error("Please fill all fields")
@@ -273,7 +269,7 @@ const SellMethod = () => {
                     type="number"
                     className="w-full py-[12px] px-[20px]  rounded-2xl border-solid border-[#E7E7E7] border-2"
                     value={price}
-                    onChange={(e) => { setPrice(Number(e.target.value)) }}
+                    onChange={(e) => { setPrice(e.target.value) }}
                   />
                 </div>
               </div>
@@ -294,7 +290,7 @@ const SellMethod = () => {
                           type="number"
                           className="w-full py-[12px] px-[20px]  rounded-xl border-solid border-[#E7E7E7] border-2"
                           value={minimumBidAmount}
-                          onChange={(e) => { setMinimumBidAmount(Number(e.target.value)) }}
+                          onChange={(e) => { setMinimumBidAmount(e.target.value) }}
                         />
                       </div>
                     </div>

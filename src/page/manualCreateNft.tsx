@@ -39,6 +39,10 @@ const beforeUpload = (file: RcFile) => {
 };
 
 const ManualCreateNft = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     const onSwitch = (checked: any) => {
         console.log(`switch to ${checked}`);
     };

@@ -65,6 +65,7 @@ export const TokenContext = createContext<any>(null);
 export default function App() {
   const [openWalletModal, setOpenWalletModal] = useState<boolean>(false);
   const [openDemoModal, setOpenDemoModal] = useState<boolean>(false);
+  const [isPfpChange, setIsPfpChange] = useState<any>(false);
   const algodConfig = getAlgodConfigFromViteEnvironment();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet();
 
@@ -132,7 +133,7 @@ export default function App() {
     <TokenContext.Provider value={token}>
       <SnackbarProvider maxSnack={3}>
         <WalletProvider value={walletProviders}>
-          <Navbar open={openWalletModal} setOpen={toggleWalletModal} />
+          <Navbar open={openWalletModal} setOpen={toggleWalletModal} isPfpChange={isPfpChange} setIsPfpChange={setIsPfpChange} />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auction" element={<Auction />} />
@@ -148,7 +149,7 @@ export default function App() {
             <Route path="/nft-detail" element={<NftDetail />} />
             <Route path="/auction-detail" element={<AuctionDetail />} />
             <Route path="/create-nft-page" element={<CreateNftPage />} />
-            <Route path="/artist-profile" element={<ArtistsProfile />} />
+            <Route path="/artist-profile" element={<ArtistsProfile setIsPfpChange={setIsPfpChange} />} />
             <Route path="/artist-profile-others" element={<OtherProfilePage />} />
             <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
             <Route path="/sell-method" element={<SellMethod />} />
