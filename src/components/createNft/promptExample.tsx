@@ -20,14 +20,14 @@ const PromptExample = () => {
             id: 1,
             nftImg: promptImg,
             title: "Sea Creatures",
-            description: "Amollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description: "A silver-haired mermaid in a seaweed dress swims among unique marine creatures in a glowing blue underwater world."
 
         },
         {
             id: 2,
             nftImg: promptImg2,
             title: "Creep Crew ",
-            description: "Sed vitae orci mollis, ultrices augue id, laoreet tellus. Sed vitae fermentum neque. Nunc sed tincidunt enim, sed ultricies nisl. Maecenas ullamcorper nunc metus, sed facilisis dolor cursus eu. Nam sit amet maximus augue."
+            description: "Four hooded skeletal figures in dark robes stand in a dimly lit, eerie dungeon, one holding a glowing lantern. Their greenish, ghastly faces peek from the hoods, creating a haunting atmosphere"
 
         },
         {
