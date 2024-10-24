@@ -1,3 +1,4 @@
+import { Icon } from "@iconify/react";
 import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -58,8 +59,11 @@ const SellerCard = ({ data }: any) => {
 
         }}>
           <div className="inner flex gap-3">
-            <div className="leftArea">
+            <div className="leftArea relative">
               <img className="w-[116px] h-[116px] object-cover rounded-2xl" src={profile.profile_image ? profile.profile_image : data.sellerImg ? data.sellerImg : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
+              <div className="absolute top-[-10px] right-[-10px] size-[50px] rounded-full bg-indigo-500 z-40 border-[5px] border-solid border-[white]">
+                <Icon icon="charm:tick" width="28" height="28" style={{ color: "white" }} />
+              </div>
             </div>
             <div className="rightArea flex flex-col justify-end pb-3 gap-2">
               <p className="large font-bold font-Roboto darkBlack ">

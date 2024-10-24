@@ -12,7 +12,11 @@ const PromptCard = ({ data }: any) => {
           alt=""
         />
         <div className="leftSide w-1/2 h-full">
-          <img className="max-w-[310px] max-h-[232px] w-full h-full object-cover rounded-2xl" src={data.nftImg} alt="" />
+          <div className="max-w-[310px] max-h-[252px] w-full h-full ">
+
+
+            <img className="max-w-[310px] max-h-[252px] w-full h-full object-cover rounded-2xl" src={data.nftImg} alt="" />
+          </div>
         </div>
         <div className="rightSide w-2/5 flex flex-col gap-3  justify-start  h-full">
           <p className="font-Apex large font-normal darkBlack">{data.title}</p>

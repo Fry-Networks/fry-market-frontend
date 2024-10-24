@@ -55,23 +55,23 @@ const Footer = () => {
                   </p>
                 </Link>
 
-                <Link to="">
+                <Link to="/auction">
                   <p className="large font-normal font-Roboto  leading-9 text-white">
                     Live Auctions
                   </p>
                 </Link>
 
-                <Link to="">
+                <Link to="/top-collection">
                   <p className="large font-normal font-Roboto  leading-9 text-white">
                     Collection
                   </p>
                 </Link>
 
-                <Link to="">
+                {/* <Link to="">
                   <p className="large font-normal font-Roboto  leading-9 text-white">
                     Activity
                   </p>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>

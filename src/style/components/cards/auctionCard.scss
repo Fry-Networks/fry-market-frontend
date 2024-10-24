@@ -1,102 +1,94 @@
-.auctionCard  {
-    width: 310px;
-    padding: 36px 20px 20px 20px;
-    background-color: none;
-    position: relative;
+.auctionCard {
+  width: 310px;
+  padding: 36px 20px 20px 20px;
+  background-color: none;
+  position: relative;
 
-    .whiteCard {
-        filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.27));
-      }
-   &:hover{
-
-.cardBody{
-    &::after{
+  .whiteCard {
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.27));
+  }
+  &:hover {
+    .cardBody {
+      &::after {
         opacity: 0.4;
         transition: 0.7s ease-in-out;
-    }
-    .timimgDiv{
-        transform: translateY(40px);
-        transition: 0.8s ease-in-out;
-        left: 75px;
-        
-    }
-    .placeBidBtn{
+      }
+      .timimgDiv {
+        transform: translateY(35px);
+        transition: all 0.7s ease-in-out;
+        left: 65px;
+      }
+      .placeBidBtn {
         opacity: 1;
         transform: translateY(-170px);
-        transition: 0.8s ease-in-out;
+        transition: all 0.7s ease-in-out;
         z-index: 5;
+      }
     }
-}
-   }
-//    &::before {
-//     position: absolute;
-//     content: "";
-// top: -20px;
-// z-index: 2;
-//     left: 40%;
-//     background: transparent;
-//     width: 60.087px;
-//     height: 41.463px;
-//     // border-radius: 50%;
-//     // border-bottom-right-radius: 1.25rem;
-//     // border-bottom-left-radius: 1.25rem;
-//     // box-shadow: 0.313rem 0.313rem 0 0.313rem #fff;
-
-//     border-radius: 32.922px;
-// //border: 0.784px solid #EAEAEA;
-// background: rgba(255, 255, 255, 0.01);
-// backdrop-filter: blur(24.87459945678711px);
-// //box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
-//   }
-
-  .Cardheader{
-
   }
-  .cardBody{
-position: relative;
-.placeBidBtn{
-transition: 0.7s ease-in-out;
-}
-&::after{
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    content: url(../../../assets/auction/grayLayer.png);
-    opacity: 0;
-    background: #000;
-    z-index: 1;
-    border-radius: 10px;
-    transition: 0.7s ease-in-out;
+  //    &::before {
+  //     position: absolute;
+  //     content: "";
+  // top: -20px;
+  // z-index: 2;
+  //     left: 40%;
+  //     background: transparent;
+  //     width: 60.087px;
+  //     height: 41.463px;
+  //     // border-radius: 50%;
+  //     // border-bottom-right-radius: 1.25rem;
+  //     // border-bottom-left-radius: 1.25rem;
+  //     // box-shadow: 0.313rem 0.313rem 0 0.313rem #fff;
 
-    .timimgDiv {
-transition: 0.7s ease-in-out;
-    }
+  //     border-radius: 32.922px;
+  // //border: 0.784px solid #EAEAEA;
+  // background: rgba(255, 255, 255, 0.01);
+  // backdrop-filter: blur(24.87459945678711px);
+  // //box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
+  //   }
 
-    
-}
+  .Cardheader {
   }
+  .cardBody {
+    position: relative;
+    .placeBidBtn {
+      transition: 0.7s ease-in-out;
+    }
+    &::after {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      content: url(../../../assets/auction/grayLayer.png);
+      opacity: 0;
+      background: #000;
+      z-index: 1;
+      border-radius: 10px;
+      transition: 0.7s ease-in-out;
 
+      .timimgDiv {
+        transition: 0.7s ease-in-out;
+      }
+    }
+  }
 }
 
-@media screen and (max-width:1440px){
-    .auctionCard{
-        &:hover{
-            .cardBody{
-                .placeBidBtn{
-                  opacity: 1;
-                  transform: translateY(-170px);
-               }
-           }
+@media screen and (max-width: 1440px) {
+  .auctionCard {
+    &:hover {
+      .cardBody {
+        .placeBidBtn {
+          opacity: 1;
+          transform: translateY(-170px);
         }
-        .cardBody{
-             .placeBidBtn{
-               opacity: 0;
-               left: 83px;
-            }
-        }
-      
+      }
     }
-    
+    .cardBody {
+      .placeBidBtn {
+        opacity: 0;
+        left: 83px;
+      }
+    }
+  }
 }

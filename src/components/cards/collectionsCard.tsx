@@ -347,7 +347,8 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         <img className=" max-w-[388px] max-h-[411px] w-full h-full whiteCard absolute top-0 left-0 -z-20" src={whiteCard} alt="" />
         <div className="Cardheader flex justify-start items-center gap-2">
           <div className="t-left-part max-w-[53px] max-h-[53px] w-full h-full">
-            <img className="w-full h-full object-cover rounded-full" src={collectionData?.image_url ? collectionData?.image_url : data?.userImg ? data?.userImg : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
+
+            <img className="w-full h-full object-cover rounded-full z-10" src={collectionData?.image_url ? collectionData?.image_url : data?.userImg ? data?.userImg : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"} alt="" />
           </div>
           <div className="t-right-part w-4/5 flex flex-col gap-2">
             <p className="medium font-Apex font-light darkBlack ">
@@ -495,7 +496,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
             <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg} alt="" />
-            <p className="primary font-semibold small absolute top-1 right-1">AI</p>
+            <p className="primary font-semibold medium absolute top-2 right-2">AI</p>
           </div>
         </div>
       </div>
