@@ -368,7 +368,7 @@ export const getSingleNftlistData = async (nftId: number): Promise<Listing> => {
 
 export const mintMultipleNft = async (metaUris: any, sender: string, signer: TransactionSigner, signTransactions: any, sendTransactions: any): Promise<Uint8Array[]> => {
     try {
-        const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
+        const { algorandClient } = await createFryMarketClient(signer, sender)
 
         let txnArray: Transaction[] = []
         for (let i = 0; i < metaUris.length; i++) {
@@ -579,6 +579,25 @@ export const getMarkeGlobalState = async (): Promise<Listing[]> => {
     return listings
 }
 
+
+//! Transaction for fee
+export const trasnferFee = async (amount: number, sender: string, signer: TransactionSigner) => {
+    try {
+        const { algorandClient } = await createFryMarketClient(signer, sender);
+        const tx = await algorandClient.send.assetTransfer({
+            sender,
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            amount: BigInt(amount)
+        })
+
+        return tx
+
+    } catch (e) {
+        console.log(e)
+        return e
+    }
+}
 
 
 //! Get all nfts in wallet
