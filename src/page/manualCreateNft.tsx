@@ -477,6 +477,20 @@ const ManualCreateNft = () => {
                                                         as filters inside your collection page and are also
                                                         shown on the item's detail page.
                                                     </p>
+                                                    <div className='flex items-center justify-start gap-7 w-full flex-wrap'>
+                                                        <input type="text" placeholder='text1' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
+                                                        <input type="text" placeholder='text2' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
+
+                                                        <Button
+                                                            className="button btn-primary small font-medium btnConnect font-Roboto"
+                                                            width={150}
+                                                            minHeight={39}
+                                                            text="Add Trait"
+                                                            data-test-id="connect-wallet"
+
+                                                        ></Button>
+                                                    </div>
+
 
                                                     <div className="relative">
                                                         <Input
@@ -501,12 +515,12 @@ const ManualCreateNft = () => {
                                                             />
                                                         </div>
                                                     </div>
-                                                    <Button
+                                                    {/* <Button
                                                         type="primary"
                                                         text="Add Traits"
                                                         className="text-white rounded-xl mt-2"
                                                         onClick={showAddTraitModal}
-                                                    />
+                                                    /> */}
                                                 </div>
 
                                                 {/* <div className="create flex justify-center mt-5">
