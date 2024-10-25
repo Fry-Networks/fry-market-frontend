@@ -22,7 +22,7 @@ const Footer = () => {
             <div className="dataArea1 flex items-start w-1/6">
               <img src={footerLogo} alt="" />
             </div>
-            <div className="dataArea2 flex flex-col justify-between w-2/6 py-7">
+            <div className="dataArea2 flex flex-col justify-between w-2/6 pb-7">
               <div className="area2content1">
                 <p className="text-white font-normal font-Roboto leading-9">
                   NFT ALGO is the world’s leading NFTs marketplace where you can
@@ -41,9 +41,9 @@ const Footer = () => {
               </div>
             </div>
             <div className="dataArea3 w-1/6 ">
-              <div className="aboutArea flex flex-col items-center justify-center gap-1">
+              <div className="aboutArea flex flex-col items-start justify-start gap-1">
 
-                <div className="w-full flex justify-center">
+                {/* <div className="w-full flex justify-center">
                   <p className="ex-large font-bold font-Roboto  leading-9 text-white">
                     About
                   </p>
@@ -53,16 +53,16 @@ const Footer = () => {
                   <p className="large font-normal font-Roboto  leading-9 text-white">
                     About NFT
                   </p>
-                </Link>
+                </Link> */}
 
                 <Link to="/auction">
-                  <p className="large font-normal font-Roboto  leading-9 text-white">
+                  <p className="medium font-normal font-Roboto  leading-9 text-white">
                     Live Auctions
                   </p>
                 </Link>
 
                 <Link to="/top-collection">
-                  <p className="large font-normal font-Roboto  leading-9 text-white">
+                  <p className="medium font-normal font-Roboto  leading-9 text-white">
                     Collection
                   </p>
                 </Link>

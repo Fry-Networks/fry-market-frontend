@@ -1,6 +1,5 @@
 import { Collapse, theme } from "antd";
 import rightGlow from "../../assets/home/images/homeImages/faqRightt.webp";
-import leftGlow from "../../assets/home/images/leftGlow.png";
 import minus from "/src/assets/icons/minus.svg";
 import plus from "/src/assets/icons/plus.svg";
 
@@ -96,7 +95,7 @@ const Faq = () => {
 
   return (
     <div className="faqWrapper my-52 relative">
-      <img className="absolute bottom-[-800px] left-0 -z-10" src={leftGlow} alt="" />
+      {/* <img className="absolute bottom-[-800px] left-0 -z-10" src={leftGlow} alt="" /> */}
       <img className="absolute top-[-500px] right-0 -z-10" src={rightGlow} alt="" />
 
       <div className="container">
@@ -163,6 +162,8 @@ const Faq = () => {
               <p className="text-base">{text4}</p>
             </Collapse.Panel>
 
+
+            {/* 
             <Collapse.Panel
               header={
                 <span className="font-semibold darkBlack font-Roboto large pt-7 pb-8">
@@ -310,7 +311,7 @@ const Faq = () => {
               style={panelStyle}
             >
               <p className="text-base">{text15}</p>
-            </Collapse.Panel>
+            </Collapse.Panel> */}
           </Collapse>
         </div>
       </div>
