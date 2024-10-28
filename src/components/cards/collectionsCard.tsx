@@ -496,9 +496,12 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
 
             <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg} alt="" />
-            <div className="absolute top-2 right-2 bg-black p-1 rounded-lg">
-              <p className="primary font-semibold medium ">AI</p>
-            </div>
+            {(data?.params?.url?.includes("/AI/")) || (data?.imgUrl?.includes("/AI/")) ?
+              <div className="absolute top-2 right-2 bg-black p-1 rounded-lg">
+                <p className="primary font-semibold medium ">AI</p>
+              </div>
+              :
+              ""}
 
           </div>
         </div>

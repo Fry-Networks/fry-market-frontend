@@ -4,10 +4,10 @@ import footerGrid from "../../assets/home/images/homeImages/footerGrid.png";
 import footerLogo from "/src/assets/home/images/footerLogo2.png";
 import discord from "/src/assets/icons/discord.svg";
 import facebook from "/src/assets/icons/facebook.svg";
-import insta from "/src/assets/icons/instagram.svg";
+import github from "/src/assets/icons/github.svg";
 import linkedIn from "/src/assets/icons/linkedin.svg";
+import reddit from "/src/assets/icons/reddit.svg";
 import telegram from "/src/assets/icons/telegram.svg";
-import tiktok from "/src/assets/icons/tiktok.svg";
 
 const Footer = () => {
   return (
@@ -31,12 +31,34 @@ const Footer = () => {
               </div>
               <div className="area2content2">
                 <div className="socialIcons flex items-start justify-start gap-2">
-                  <img className="cursor-pointer" src={facebook} alt="" />
-                  <img className="cursor-pointer" src={telegram} alt="" />
-                  <img className="cursor-pointer" src={linkedIn} alt="" />
-                  <img className="cursor-pointer" src={discord} alt="" />
-                  <img className="cursor-pointer" src={insta} alt="" />
-                  <img className="cursor-pointer" src={tiktok} alt="" />
+                  <a href="https://www.facebook.com/profile.php?id=61561225691313" target="_blank">
+                    <img className="cursor-pointer" src={facebook} alt="" />
+                  </a>
+                  <a href="https://t.me/+zodNDzQtGKQ1MTBh" target="_blank">
+
+                    <img className="cursor-pointer" src={telegram} alt="" />
+                  </a>
+
+                  <a href="https://linkedin.com/company/fry-networks" target="_blank">
+
+                    <img className="cursor-pointer" src={linkedIn} alt="" />
+                  </a>
+
+                  <a href="https://discord.gg/fry-foundation-1004603899598082069" target="_blank">
+
+                    <img className="cursor-pointer" src={discord} alt="" />
+                  </a>
+
+                  <a href="https://github.com/Fry-Foundation" target="_blank">
+
+                    <img className="cursor-pointer" src={github} alt="" />
+                  </a>
+
+                  <a href="https://www.reddit.com/r/frynetworks" target="_blank">
+
+                    <img className="cursor-pointer" src={reddit} alt="" />
+                  </a>
+
                 </div>
               </div>
             </div>

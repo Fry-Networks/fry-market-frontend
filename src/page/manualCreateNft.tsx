@@ -57,6 +57,9 @@ const ManualCreateNft = () => {
     const [collectionData, setCollectionData] = useState<any>(false);
     const [formData, setFormData] = useState<any>({})
     const [collectionSelected, setCollectionSelected] = useState(false)
+    const [traits, setTraits] = useState<any>({})
+    const [traitName, setTraitName] = useState<any>({})
+    const [traitValue, setTraitValue] = useState<any>({})
     const navigate = useNavigate();
     const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
     // const handleChange = (info: any) => {
@@ -287,6 +290,21 @@ const ManualCreateNft = () => {
 
         }
     }
+
+    const handleTraitAdd = () => {
+        if (traitName && traitValue) {
+            if (!Object.keys(traits).includes(traitName)) {
+                setTraits((prev: any) => ({ ...prev, [traitName]: traitValue }))
+            }
+            else {
+                toast.error("Trait already exists")
+            }
+        }
+        else {
+            toast.error("Please give trait name and trait value");
+        }
+    }
+
     return (
         <>
             <div>
@@ -478,8 +496,8 @@ const ManualCreateNft = () => {
                                                         shown on the item's detail page.
                                                     </p>
                                                     <div className='flex items-center justify-start gap-7 w-full flex-wrap'>
-                                                        <input type="text" placeholder='text1' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
-                                                        <input type="text" placeholder='text2' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
+                                                        <input type="text" placeholder='Trait Name' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
+                                                        <input type="text" placeholder='Trait Value' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
 
                                                         <Button
                                                             className="button btn-primary small font-medium btnConnect font-Roboto"
