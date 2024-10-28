@@ -9,7 +9,7 @@ import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
 import { CreateCollectionClient } from './contracts/CreateCollection'
-import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getMarkeGlobalState, listNft, updateNftListPrice, userFryBalance } from './fryMarketMethods'
+import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getMarkeGlobalState, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
 import { getGlobalState, testingTxn } from './methods'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -188,6 +188,10 @@ const Home: React.FC<HomeProps> = () => {
   }
 
 
+  const feeTx = async () => {
+    const tx = await trasnferFee(bidAmount * 1000000, activeAddress!, signer);
+    console.log(tx)
+  }
 
 
   // Market Place Functions 
@@ -214,7 +218,7 @@ const Home: React.FC<HomeProps> = () => {
   }
 
   const buyMyNft = async () => {
-    await buyNftWithRoyalty(activeAddress!, assetId, signer, "QAA3WI7G4YAJJQHEODF6H224PBXPB6K4KWGINPJNHJOXJL66YUNFLZSPEI", bidAmount * 1000000).then((res) => {
+    await buyNftWithRoyalty(activeAddress!, assetId, signer, "YFLVVAC7CY4KWANTKCBD3CTZDOUD3RGNFOGMJJWMKWMYW76DC5NUXEM3EI", bidAmount * 1000000).then((res) => {
       console.log("list response : ", res)
     })
   }
@@ -549,6 +553,8 @@ const Home: React.FC<HomeProps> = () => {
             <button className="button btn-primary p-2 block w-full" onClick={getMarketListedData}>Get All Listed</button>
             <button className="button btn-primary p-2 block w-full" onClick={getUserNfts}>Get All User Nfts</button>
             <button className="button btn-primary p-2 block w-full" onClick={getBalance}>Get user Fry Balance</button>
+            <button className="button btn-primary p-2 block w-full" onClick={feeTx}>Transfer Fee</button>
+
           </div>
         </div>
       </div>
