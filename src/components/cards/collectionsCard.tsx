@@ -495,7 +495,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           <div className="relative">
 
 
-            <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg}
+            <img className="rounded-lg w-[292px] h-[314px]  object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg}
               alt="" onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = data?.params?.url ? replaceJsonWithJpg(data?.params?.url) : data?.imgUrl ? replaceJsonWithJpg(data?.imgUrl) : data.nftImg;

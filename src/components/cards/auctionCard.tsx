@@ -85,13 +85,17 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
           <div className="relative">
 
 
-            <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={replaceJsonWithPng(data.url)} alt="" onError={({ currentTarget }) => {
+            <img className="rounded-lg w-[292px] h-[314px] object-cover" src={replaceJsonWithPng(data.url)} alt="" onError={({ currentTarget }) => {
               currentTarget.onerror = null; // prevents looping
               currentTarget.src = replaceJsonWithJpg(data.url);
             }} />
-            <div className="absolute top-2 right-2 bg-black p-1 rounded-lg">
-              <p className="primary font-semibold medium ">AI</p>
-            </div>
+            {(data?.url?.includes("/AI/")) ?
+              <div className="absolute top-2 right-2 bg-black p-1 rounded-lg">
+                <p className="primary font-semibold medium ">AI</p>
+              </div>
+              :
+              ""
+            }
           </div>
         </div>
       </div>
