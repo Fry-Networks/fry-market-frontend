@@ -7,7 +7,7 @@ import timeIcon from "../../assets/icons/timeIcon.svg";
 import { cancelAuction, claimNftRoyalty } from "../../auctionMethod";
 import { buyNftWithRoyalty, cancelList, listNft } from "../../fryMarketMethods";
 import BoostNft from "../../modals/boostNft";
-import { formatPrice, truncateImageName } from "../../utils/getImageFromJson";
+import { formatPrice, replaceJsonWithJpg, truncateImageName } from "../../utils/getImageFromJson";
 import Button from "../shared/button";
 
 
@@ -379,7 +379,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           >
             <p className="medium font-medium darkBlack">3:06:59:18</p>
           </div>
-          <div className="absolute p-3 bottom-0 flex justify-between items-center w-full">
+          <div className="absolute p-3 bottom-0 flex justify-between items-center w-full" style={{ zIndex: "9999" }}>
             {isAuctionPage ? (
               <div className="cursor-pointer rounded-lg p-2.5 bg-white flex justify-between items-center gap-4">
                 <p className="ex-small darkBlack font-medium font-Roboto">
@@ -495,7 +495,11 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           <div className="relative">
 
 
-            <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg} alt="" />
+            <img className="rounded-lg max-w-[292px] max-h-[314px] w-full h-full object-cover" src={data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg}
+              alt="" onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = data?.params?.url ? replaceJsonWithJpg(data?.params?.url) : data?.imgUrl ? replaceJsonWithJpg(data?.imgUrl) : data.nftImg;
+              }} />
             {(data?.params?.url?.includes("/AI/")) || (data?.imgUrl?.includes("/AI/")) ?
               <div className="absolute top-2 right-2 bg-black p-1 rounded-lg">
                 <p className="primary font-semibold medium ">AI</p>

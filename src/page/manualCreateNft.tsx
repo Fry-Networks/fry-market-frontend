@@ -1,6 +1,6 @@
-import { CloseOutlined, EditOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
+import { CloseOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import { useWallet } from '@txnlab/use-wallet';
-import { message, Switch } from 'antd';
+import { message } from 'antd';
 import { RcFile } from 'antd/es/upload';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -58,8 +58,8 @@ const ManualCreateNft = () => {
     const [formData, setFormData] = useState<any>({})
     const [collectionSelected, setCollectionSelected] = useState(false)
     const [traits, setTraits] = useState<any>({})
-    const [traitName, setTraitName] = useState<any>({})
-    const [traitValue, setTraitValue] = useState<any>({})
+    const [traitName, setTraitName] = useState<any>("")
+    const [traitValue, setTraitValue] = useState<any>("")
     const navigate = useNavigate();
     const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
     // const handleChange = (info: any) => {
@@ -155,7 +155,7 @@ const ManualCreateNft = () => {
         }
     }
     const validation = () => {
-        if (formData.itemName && formData.itemSymbol && formData.itemDescription && prevImage && collectionSelected) {
+        if (formData.itemName && formData.itemSymbol && formData.itemDescription && prevImage && collectionSelected && Object.keys(traits).length > 0) {
             return true
         }
         else {
@@ -181,14 +181,7 @@ const ManualCreateNft = () => {
                             "extra": {},
                             "standard": "arc3",
                             "properties": {
-                                "Eyes": "None",
-                                "Skin": "None",
-                                "Tail": "None",
-                                "Mouth": "None",
-                                "Eyewear": "None",
-                                "Special": "None",
-                                "Headgear": "None",
-                                "Background": "None"
+                                ...traits
                             },
                             "image_mime_type": "image/png",
                             "extra_properties": {}
@@ -203,6 +196,7 @@ const ManualCreateNft = () => {
                                 setLoading(false);
 
                                 resolve(true);
+                                navigate("/artist-profile")
                             }
                             else {
                                 setLoading(false);
@@ -295,6 +289,8 @@ const ManualCreateNft = () => {
         if (traitName && traitValue) {
             if (!Object.keys(traits).includes(traitName)) {
                 setTraits((prev: any) => ({ ...prev, [traitName]: traitValue }))
+                setTraitName("")
+                setTraitValue("")
             }
             else {
                 toast.error("Trait already exists")
@@ -496,8 +492,8 @@ const ManualCreateNft = () => {
                                                         shown on the item's detail page.
                                                     </p>
                                                     <div className='flex items-center justify-start gap-7 w-full flex-wrap'>
-                                                        <input type="text" placeholder='Trait Name' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
-                                                        <input type="text" placeholder='Trait Value' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' />
+                                                        <input type="text" placeholder='Trait Name' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' value={traitName} onChange={(e) => { setTraitName(e.target.value) }} />
+                                                        <input type="text" placeholder='Trait Value' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' value={traitValue} onChange={(e) => { setTraitValue(e.target.value) }} />
 
                                                         <Button
                                                             className="button btn-primary small font-medium btnConnect font-Roboto"
@@ -505,34 +501,38 @@ const ManualCreateNft = () => {
                                                             minHeight={39}
                                                             text="Add Trait"
                                                             data-test-id="connect-wallet"
-
+                                                            onClick={handleTraitAdd}
                                                         ></Button>
                                                     </div>
 
-
-                                                    <div className="relative">
-                                                        <Input
-                                                            type="text"
-                                                            value={value}
-                                                            onChange={(e: any) => setValue(e.target.value)}
-                                                            placeholder="blue: fox"
-                                                            className="w-full"
-                                                            inputClass={`w-full  bg-[#F4F4F4] border-none pl-4 pr-12 ${isEditing ? "outline-none focus:ring-2" : ""
-                                                                }`}
-                                                            readOnly={!isEditing}
-                                                        />
-                                                        <div className="absolute inset-y-0 right-5 top-2 flex items-center space-x-8 pr-2">
-                                                            <EditOutlined
-                                                                className="text-gray-500 cursor-pointer"
-                                                                onClick={() => { handleEditClick(); showAddTraitModal(); }}
+                                                    {Object.keys(traits).map((keyName, index) => (
+                                                        <div className="relative">
+                                                            <Input
+                                                                type="text"
+                                                                value={`${keyName}: ${traits[keyName]}`}
+                                                                onChange={(e: any) => setValue(e.target.value)}
+                                                                placeholder={`${keyName}: ${traits[keyName]}`}
+                                                                className="w-full"
+                                                                inputClass={`w-full  bg-[#F4F4F4] border-none pl-4 pr-12 ${isEditing ? "outline-none focus:ring-2" : ""
+                                                                    }`}
+                                                                readOnly={!isEditing}
                                                             />
-                                                            <div className="h-[24px] w-[1px] bg-gray-400"></div>
-                                                            <CloseOutlined
-                                                                className="text-gray-500 cursor-pointer"
-                                                                onClick={handleClearClick}
-                                                            />
+                                                            <div className="absolute inset-y-0 right-5 top-2 flex items-center space-x-8 pr-2">
+                                                                {/* <EditOutlined
+                                                                    className="text-gray-500 cursor-pointer"
+                                                                    onClick={() => { handleEditClick(); showAddTraitModal(); }}
+                                                                /> */}
+                                                                <div className="h-[24px] w-[1px] bg-gray-400"></div>
+                                                                <CloseOutlined
+                                                                    className="text-gray-500 cursor-pointer"
+                                                                    onClick={handleClearClick}
+                                                                />
+                                                            </div>
                                                         </div>
-                                                    </div>
+
+
+                                                    ))}
+
                                                     {/* <Button
                                                         type="primary"
                                                         text="Add Traits"
@@ -551,7 +551,7 @@ const ManualCreateNft = () => {
                                                 </div> */}
 
 
-                                                <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
+                                                {/* <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
                                                     <p className="lightGray font-normal medium font-Roboto">
                                                         Add Traits
                                                     </p>
@@ -566,7 +566,7 @@ const ManualCreateNft = () => {
                                                         defaultChecked
                                                         onChange={onSwitch}
                                                     />
-                                                </div>
+                                                </div> */}
                                                 <div className="flex justify-end">
                                                     {/* <Button
                                                         className="btn-primary px-8 py-4 mb-5"

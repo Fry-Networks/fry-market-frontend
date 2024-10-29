@@ -1,6 +1,9 @@
 export function replaceJsonWithPng(str: any) {
   return str.includes('.json') ? str.replace('.json', '.png') : str;
 }
+export function replaceJsonWithJpg(str: any) {
+  return str.includes('.json') ? str.replace('.json', '.jpg') : str;
+}
 
 export function truncateString(str: any) {
   if (str) {

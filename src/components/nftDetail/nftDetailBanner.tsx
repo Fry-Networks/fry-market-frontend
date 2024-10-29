@@ -7,7 +7,7 @@ import leftGlow from "../../assets/nftCollection/redGloww.webp";
 import rightSecPic from "../../assets/nftDetail/leftPic.webp";
 import rightGlow from "../../assets/topCollection/rightGlow.webp";
 import { getAllBids, getSingleAuction } from "../../auctionMethod";
-import { replaceJsonWithPng, truncateString } from "../../utils/getImageFromJson";
+import { replaceJsonWithJpg, replaceJsonWithPng, truncateString } from "../../utils/getImageFromJson";
 import TraitsBox from "../cards/traitsBox";
 import Button from "../shared/button";
 import AuctionReminder from "./auctionReminder";
@@ -371,7 +371,10 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
         <div className="container">
           <div className="topSection flex items-start gap-6 mt-10">
             <div className="leftArea w-[546px]  flex flex-col gap-7 ">
-              <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={nftData.url || nftData.imgUrl ? replaceJsonWithPng(nftData.url || nftData.imgUrl) : rightSecPic} alt="" />
+              <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={nftData.url || nftData.imgUrl ? replaceJsonWithPng(nftData.url || nftData.imgUrl) : rightSecPic} alt="" onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = nftData.url || nftData.imgUrl ? replaceJsonWithJpg(nftData.url || nftData.imgUrl) : rightSecPic
+              }} />
               <div className="descriptionAccordion">
                 <Collapse
                   defaultActiveKey={"1"}

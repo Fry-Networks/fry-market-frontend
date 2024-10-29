@@ -12,7 +12,7 @@ import bgBack from "../assets/sellMethod/bgGlow.webp";
 import { listNftAuction } from '../auctionMethod';
 import Button from "../components/shared/button";
 import { listNft } from '../fryMarketMethods';
-import { replaceJsonWithPng } from '../utils/getImageFromJson';
+import { replaceJsonWithJpg, replaceJsonWithPng } from '../utils/getImageFromJson';
 
 
 const SellMethod = () => {
@@ -195,7 +195,10 @@ const SellMethod = () => {
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" />
+              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" onError={({ currentTarget }) => {
+                currentTarget.onerror = null; // prevents looping
+                currentTarget.src = nftData?.url ? replaceJsonWithJpg(nftData?.url) : sellImg
+              }} />
               <p className="ex-large darkBlack font-medium font-Roboto">
                 Preview your item
               </p>
