@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.wallet-provider-btn{
+    border: 1px solid #FD0000;
+    color: #000;
+}
+.wallet-provider-btn:hover{
+    color: #fff !important;
+}
+
+.ant-modal .ant-modal-content {
+    border-radius: 25px !important;
+}

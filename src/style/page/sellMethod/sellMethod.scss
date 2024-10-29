@@ -1,0 +1,144 @@
+.sellMethodContainer {
+  .container {
+    .inner {
+      .leftArea {
+      }
+      .rightArea {
+        .duration {
+          .selectDiv {
+            .ant-select {
+              .ant-select-selector {
+                border: 2px solid #e7e7e7;
+                padding: 19px 30px;
+                border-radius: 10px;
+              }
+
+              .ant-select-arrow {
+                margin-top: 1px;
+                margin-right: 10px;
+              }
+
+              .ant-select-selection-item {
+                color: #808080;
+                font-family: Roboto;
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                letter-spacing: 0.54px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width:1440px) {
+    .sellMethodContainer{
+        .container{
+            .inner{
+                .leftArea{
+
+                }
+                .rightArea{
+
+                    .duration{
+                        width: 100%;
+                        .selectDiv{
+                            .ant-select{
+                                width: 100% !important;
+                                .ant-select-selector{
+                                    width: 100% !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+@media screen and (max-width: 1000px) {
+  .sellMethodContainer {
+    .container {
+      .inner {
+        margin-top: 10px;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        .leftArea {
+          width: 100%;
+          flex-direction: column;
+          align-items: center;
+          .doorBtn {
+            width: 100px;
+            height: 50px;
+            font-size: 16px;
+          }
+          .sellImg{
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+          }
+        }
+        .rightArea {
+            margin-top: 10px;
+            width: 100%;
+            .priceBox{
+                .enterPrice{
+                    flex-direction: column;
+                    align-items:flex-start;
+                    .fryText{
+
+                    }
+                }
+            }
+            .duration{
+                width: 100%;
+                .selectDiv{
+                    .ant-select{
+                        width: 100% !important;
+                        .ant-select-selector{
+                            width: 100% !important;
+                        }
+                    }
+                }
+            }
+
+            .submitBtn{
+                button{
+                    min-height: 40px !important;
+                    min-width: 100px !important;
+                }
+            }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width:750px){
+
+    .sellMethodContainer{
+        .container{
+            .inner{
+                .leftArea{
+
+                }
+                .rightArea{
+                    padding: 20px;
+
+                    .selectMethodContainer{
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        flex-wrap: wrap;
+                        // flex-direction: column;
+                    }
+                }
+            }
+        }
+    }
+}

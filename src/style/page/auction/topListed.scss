@@ -1,0 +1,257 @@
+.topListedSection {
+  .collapseDiv {
+    .ant-collapse {
+      width: 292px;
+     // padding: 20px !important;
+      border-radius: 30px;
+      background: #fff;
+      box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+      .ant-collapse-item {
+        .ant-collapse-header {
+          align-items: center;
+          span {
+            color: #2b2b2b;
+            font-family: Roboto;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+            text-transform: capitalize;
+          }
+          .ant-collapse-expand-icon {
+            display: block !important;
+            order: 1;
+            .ant-collapse-arrow {
+              display: block !important;
+              svg {
+                display: block;
+                margin-top: 0px;
+              }
+            }
+          }
+        }
+
+        .ant-collapse-content {
+          border-radius: 0px 0px 20px 20px;
+          div{
+            input{
+             // border: 3px solid #FE0101;
+              &::placeholder{
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+              }
+            }
+          }
+          .ant-collapse-content-box {
+            padding: 10px;
+
+            .ant-collapse {
+              width: auto;
+              padding: 0px !important;
+              border-radius: 8px !important;
+              //background-color: transparent !important;
+              border: 2px solid white;
+              box-shadow: none;
+              .ant-collapse-item {
+                margin-bottom: 20px;
+                border-radius: 8px !important;
+                border: 2.8px solid #e7e7e7;
+                .ant-collapse-header {
+                  span {
+                    color: #2b2b2b;
+                    font-family: Roboto;
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: normal;
+                    text-transform: capitalize;
+                  }
+                  .ant-collapse-expand-icon{
+                    padding-inline-end: 0px;
+                    padding-left: 10px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.custom-tree-node-title {
+  display: flex;
+  align-items: center;
+  border: 3px solid #e7e7e7;
+  padding: 14px 20px;
+  border-radius: 8px;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  color: #2b2b2b;
+  font-family: Roboto;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  text-transform: capitalize;
+}
+
+.count-container {
+  display: flex;
+  align-items: center;
+}
+
+#first-element {
+  // background: red;
+  padding: 0px !important;
+  border: 2px solid transparent !important;
+}
+@media screen and (max-width:1879px) {
+  .topListedSection{
+    margin-top: 100px;
+    .collapseDiv{
+top: 100px;
+left: 30px;
+    }
+    .container{
+      .topListedInner{
+        margin-bottom: 170px;
+
+        h2{
+
+        }
+        .auctionCarContainer{
+          margin-top: 150px;
+        }
+      }
+
+    }
+  }
+}
+
+@media screen and (max-width:1400px) {
+  .topListedSection{
+    margin-top: 100px;
+    .collapseDiv{
+top: 100px;
+left: 30px;
+    }
+    .container{
+      .topListedInner{
+        margin-bottom: 170px;
+
+        h2{
+
+        }
+        .auctionCarContainer{
+          margin-top: 150px;
+        }
+      }
+
+    }
+  }
+}
+
+@media screen and (max-width:1320px) {
+  .topListedSection{
+    margin-top: 100px;
+    position: relative;
+   
+    .collapseDiv{
+      top: 60px;
+      left: 2% !important;
+      position: absolute;
+      z-index: 9999;
+      .ant-collapse{
+        
+      }
+    }
+    .container{
+      .topListedInner{
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        h2{
+     
+        }
+      
+      }
+      .auctionCarContainer{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr) !important;
+        place-items: center;
+      }
+    }
+  }
+  
+}
+
+@media screen and (max-width:1200px) {
+
+  .topListedSection{
+   
+  
+    .collapseDiv{
+      top: 60px;
+      left: 4% !important;
+      position: absolute;
+      z-index: 9999;
+      .ant-collapse{
+        
+      }
+    }
+    .container{
+      .topListedInner{
+        margin-bottom: 140px;
+        h2{
+
+        }
+   
+      }
+      .auctionCarContainer{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        place-items: center;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width:800px) {
+
+  .topListedSection{
+    margin-top: 100px !important;
+   margin-bottom: 50px !important;
+  
+    .collapseDiv{
+   display: none;
+      .ant-collapse{
+        
+      }
+    }
+    .container{
+      .topListedInner{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 20px;
+        gap: 10px;
+        h2{
+     
+text-align: center;
+        }
+      
+      }
+      
+      .auctionCarContainer{
+        margin-top: 40px;
+         grid-template-columns: repeat(1, 1fr) !important;
+    
+       }
+    }
+  }
+}

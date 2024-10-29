@@ -1,0 +1,60 @@
+.profileBanner {
+  .container {
+    .inner {
+      .mainn {
+        .bannerProfilePic {
+        }
+        .profilebanner {
+        }
+      }
+      .profileContent {
+        .followerDiv {
+          .part1 {
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .profileBanner {
+    margin-bottom: 60px;
+    .container {
+      .inner {
+        .mainn {
+          .bannerProfilePic {
+            left: 40%;
+            width: 90px;
+          }
+          .profilebanner {
+            height: 300px !important;
+            object-fit: cover;
+            .btnFollow {
+              min-width: 70px !important;
+              width: 100%;
+              height: 60px;
+            }
+          }
+        }
+        .profileContent {
+          .followerDiv {
+            flex-direction: column;
+            align-items: center;
+
+            .part1 {
+              p {
+                font-size: 17px;
+              }
+            }
+          }
+          .profileBtn {
+            font-size: 15px;
+            width: 130px;
+            height: 50px;
+          }
+        }
+      }
+    }
+  }
+}

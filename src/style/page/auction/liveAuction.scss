@@ -1,0 +1,58 @@
+.liveAuctionWrapper{
+    .container{
+        .innerLiveAuction{
+            .auctionCarContainer{
+
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width:1300px){
+
+    .liveAuctionWrapper{
+        .container{
+            .innerLiveAuction{
+                .auctionCarContainer{
+    grid-template-columns: repeat(3,1fr);
+    place-items: center;
+                }
+            }
+        }
+    } 
+}
+
+@media screen and (max-width:1200px){
+
+    .liveAuctionWrapper{
+        margin-bottom: 80px;
+        .container{
+            .innerLiveAuction{
+                .auctionCarContainer{
+    grid-template-columns: repeat(2,1fr);
+    place-items: center;
+                }
+            }
+        }
+    } 
+}
+
+
+@media screen and (max-width:800px){
+
+    .liveAuctionWrapper{
+        margin-bottom: 60px !important;
+        .container{
+            .innerLiveAuction{
+                h2{
+                    text-align: center;
+                }
+                .auctionCarContainer{
+    grid-template-columns: repeat(1,1fr);
+    place-items: center;
+                }
+            }
+        }
+    } 
+}

@@ -1,0 +1,60 @@
+.sellerColectCard{
+    .container{
+        .condition{
+            .colectbtns{
+.ant-select{
+    .ant-select-selector{
+        .ant-select-selection-item{
+        color: red;
+        font-size: 18px;
+        padding-left: 10px;
+  
+        }
+    }
+}
+            }
+        }
+
+        .cardContainer{
+
+        }
+    }
+}
+@media screen and (max-width:1200px) {
+    .sellerColectCard{
+        .container{
+    
+            .cardContainer{
+    grid-template-columns: repeat(2, 1fr);
+    place-items: center;
+            }
+        }
+    } 
+    
+}
+
+@media screen and (max-width:800px) {
+    .sellerColectCard{
+        .container{
+    .condition{
+        h2{
+            text-align: center;
+        }
+        .colectbtns{
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            margin: 0 auto;
+            gap: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+    }
+            .cardContainer{
+    grid-template-columns: repeat(1, 1fr);
+    place-items: center;
+            }
+        }
+    } 
+    
+}

@@ -1,0 +1,47 @@
+.topCollectionWrapper{
+   
+    .container{
+        .headingDiv{
+
+        }
+        .nftCardContainer {
+
+        }
+    }
+}
+
+@media screen and (max-width:1300px) {
+    .topCollectionWrapper{
+        margin-top: 50px !important;
+        margin-bottom: 50px !important;
+        .colectionBack{
+            display: none;
+        }
+        .container{
+            
+            .nftCardContainer{
+                flex-wrap: wrap;
+            }
+        }
+    }
+    
+}
+
+@media screen and (max-width:1000px) {
+    .topCollectionWrapper{
+        margin-bottom: 90px !important;
+        .colectionBack{
+            display: none;
+        }
+        .container{
+            .headingDiv{
+                display: flex;
+                flex-direction: column;
+            }
+            .nftCardContainer{
+                flex-wrap: wrap;
+            }
+        }
+    }
+    
+}

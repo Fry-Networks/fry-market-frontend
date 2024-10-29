@@ -1,0 +1,23 @@
+.nextNftWrapper {
+  .input-box {
+    .input-wrapper {
+      input {
+        height: 96px;
+        border: 1px solid red;
+        border-radius: 16px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .nextNftWrapper {
+    .input-box {
+      .input-wrapper {
+        input {
+          // height: 66px;
+        }
+      }
+    }
+  }
+}

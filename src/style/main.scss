@@ -1,0 +1,103 @@
+@import "./global";
+
+// base style
+@import "./base/color";
+@import "./base/mixins";
+@import "./base/reset";
+@import "./base/font";
+@import "./base/typography";
+@import "./base/tailwindConfig";
+@import "./base/animations";
+
+// components
+@import "./components/button";
+@import "./components/checkbox";
+@import "./components/input";
+@import "./components/pagination";
+@import "./components/navbar.scss";
+@import "./components/footer";
+@import "./components/textarea";
+@import "./components/alert";
+@import "./components/radioButton";
+@import "./components/header";
+
+
+ 
+// pages
+//Home
+@import "./page/home/hero.scss";
+@import "./page/home/featured.scss";
+@import "./page/home/faq.scss";
+@import "./page/readyForNext.scss";
+@import "./page/home/trending.scss";
+@import "./page/home/topseller.scss";
+@import "./page/home/auction.scss";
+@import "./page/home/topcollection.scss";
+@import "./page/home/soldNft.scss";
+@import "./page/home/digitalAsset.scss";
+@import "./page/home/boostNft.scss";
+@import "./page/home/readyNext.scss";
+
+
+
+
+
+//Cards
+@import "./components/cards/collectionCard.scss";
+@import "./components/cards/auctionCard.scss";
+@import "./components/cards/exploreCard.scss";
+
+///Auction
+@import "./page/auction/topListed.scss";
+@import "./page/auction/auctionBanner.scss";
+@import "./page/auction/liveAuction.scss";
+
+
+///nftCollection
+@import "./page/nftCollection/explore.scss";
+@import "./page/nftCollection/nftCollectBanner.scss";
+
+
+//top collection
+@import "./page/topCollection/pixoNft.scss";
+@import "./page/topCollection/pixacioBanner.scss";
+
+
+//Top Seller
+@import "./page/topSeller.scss";
+
+//Seller Collection
+@import "./page/sellerCollection.scss";
+@import "./page/sellerCollection/sellerBanner.scss";
+@import "./page/sellerCollection/collectCard.scss";
+
+//Create Nft
+@import "./page/createNft.scss";
+;
+
+//nftDetail
+@import "./page/nftDetail/nftDetailBanner.scss";
+@import "./page/nftDetail/moreFromThis.scss";
+
+///createNft
+@import "./page/createNft/banner.scss";
+@import "./page/createNft/promptExample.scss";
+@import "./page/createNft/promptCard.scss";
+
+//artistProfile
+@import "./page/artistProfile/artistProfile.scss";
+@import "./page/artistProfile/profileBanner.scss";
+@import "./page/artistProfile/profileNft.scss";
+
+//Modals
+@import "./modals/connectWallet.scss";
+@import "./modals/addStyle.scss";
+
+//Sell Method
+@import "./page/sellMethod/sellMethod.scss";
+
+//selected nft
+@import "./page/selectedNft.scss";
+
+//Manual-create-NFT
+@import "./page/manualCreateNft.scss";

@@ -1,0 +1,25 @@
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 25px !important;
+
+    .ant-modal-body {
+      .connectModal {
+        .innerContent {
+          .wltbtn {
+            position: relative;
+            background: white;
+            background-color: rgb(190, 76, 76);
+          }
+          .enterAmount {
+            .ant-select {
+              width: 100% !important;
+              .ant-select-selector {
+                border: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

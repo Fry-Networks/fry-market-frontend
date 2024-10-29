@@ -1,0 +1,60 @@
+.auctionBannerWrapper {
+  .container {
+    .bannerInner {
+      .nftDiv {
+        img {
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 1440px) {
+  .auctionBannerWrapper {
+    margin-top: 20px !important;
+    margin-bottom: 50px !important;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .auctionBannerWrapper {
+    .container {
+      .bannerInner {
+        margin-top: 20px;
+        height: auto;
+        h1 {
+          font-size: 100px;
+        }
+        .nftDiv {
+          flex-wrap: wrap;
+          align-items: center;
+          justify-content: center;
+          img {
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .auctionBannerWrapper {
+    height: auto !important;
+
+    .bannergrid {
+      display: none;
+    }
+    .container {
+      .bannerInner {
+        height: auto;
+        margin-top: 20px;
+        h1 {
+          font-size: 60px;
+        }
+        .nftDiv {
+          height: auto;
+          img {
+          }
+        }
+      }
+    }
+  }
+}

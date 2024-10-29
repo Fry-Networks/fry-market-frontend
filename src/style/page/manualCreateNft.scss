@@ -1,0 +1,152 @@
+.nftCollection {
+  .container {
+    .contentWrapper {
+      .leftContent {
+        .uploadDiv {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          border-radius: 20px;
+          .ant-upload-wrapper {
+            .ant-upload {
+              width: 300px !important;
+              height: 300px !important;
+              border-radius: 20px;
+            }
+          }
+        }
+      }
+      .rightContent {
+        .rightText {
+          .manualDiv {
+            form {
+              .chooseCollection {
+                .newCollectionDiv {
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 1100px) {
+  .nftCollection {
+    .glow {
+      display: none;
+    }
+    .container {
+      .contentWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: 50px;
+        .leftContent {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          .uploadDiv {
+            width: 100%;
+            .ant-upload-wrapper {
+              width: 100%;
+              display: flex;
+              .ant-upload {
+                width: 100%;
+                margin: 0 auto;
+                // width: 300px !important;
+                // height: 300px !important;
+                // border-radius: 20px;
+              }
+            }
+          }
+        }
+
+        .rightContent {
+          width: 100%;
+          .rightText {
+          }
+          .manualDiv {
+            padding: 20px;
+            h2 {
+              font-size: 30px;
+            }
+            .chooseCollection {
+              .chooseContent {
+                flex-direction: column;
+                align-items: flex-start;
+              }
+              .newCollectionDiv {
+                flex-direction: column;
+                align-items: center;
+                .createNewCollection {
+                  width: 300px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .nftCollection {
+    .container {
+      .contentWwrapper {
+        .leftContent {
+        }
+        .rightContent {
+          .rightText {
+            .manualDiv {
+              form {
+                .chooseCollection {
+                  .chooseContent {
+                    display: flex;
+                    flex-direction: column;
+                  }
+
+                  .newCollectionDiv {
+                    display: flex;
+                    flex-direction: column !important;
+                    gap: 30px;
+                    .createNewCollection {
+                      width: 100%;
+                    }
+                  }
+                }
+
+                // .choseCollectionBox {
+                //   padding: 30px;
+                //   .chooseCollection2 {
+                //     .artWorkContainer {
+                //       .artWork {
+                //         width: 100%;
+                //         display: flex;
+                //         flex-direction: column;
+                //         gap: 20px;
+
+                //         .leftSide {
+                //           width: 100%;
+                //           justify-content: center;
+                //         }
+                //         .rightSide {
+                //           width: 100%;
+                //           justify-content: center;
+                //           display: flex;
+                //         }
+                //       }
+                //     }
+                //   }
+                // }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

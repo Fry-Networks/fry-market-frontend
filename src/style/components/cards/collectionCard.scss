@@ -1,0 +1,42 @@
+.collectionCard {
+  // border-radius: 23.516px;
+  // border: 0.784px solid #eaeaea;
+  // background: rgba(255, 255, 255);
+  // box-shadow: 24.875px -24.875px 24.875px 0px rgba(194, 194, 194, 0.1),
+  //   -24.875px 24.875px 24.875px 0px rgba(255, 255, 255, 0.1);
+  //box-shadow: 1px 1px 9px 0px rgba(0,0,0,0.75);
+  // -webkit-box-shadow: 3px 1px 9px 0px rgba(0,0,0,0.75);
+  // -moz-box-shadow: 3px 1px 9px 0px rgba(0,0,0,0.75);
+  width: 310px;
+  padding: 36px 20px 20px 20px;
+  background-color: none;
+  position: relative;
+
+  .whiteCard {
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.27));
+  }
+  // background-image: url(src/assets/images/cardback.webp);
+  // background-position: center;
+  // background-size: 100% 100%;
+
+  // &::before {
+  //   position: absolute;
+  //   content: "";
+  //   top: -20px;
+  //   z-index: 2;
+  //   left: 40%;
+  //   background: transparent;
+  //   width: 60.087px;
+  //   height: 41.463px;
+  //   // border-radius: 50%;
+  //   // border-bottom-right-radius: 1.25rem;
+  //   // border-bottom-left-radius: 1.25rem;
+  //   // box-shadow: 0.313rem 0.313rem 0 0.313rem #fff;
+
+  //   border-radius: 32.922px;
+  //   //border: 0.784px solid #EAEAEA;
+  //   background: rgba(255, 255, 255, 0.01);
+  //   backdrop-filter: blur(24.87459945678711px);
+  //   //box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
+  // }
+}

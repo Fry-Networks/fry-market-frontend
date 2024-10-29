@@ -1,0 +1,75 @@
+:root {
+  --primary: #fe0101;
+  --darkBlack: #2b2b2b;
+  --lightGray: #808080;
+  --grayOpacity: #8B8B8B;
+  --text-clr: #6B6B6B;
+  --graybg: #E7E7E7;
+  --white: #fff;
+  --black: #000;
+--bodyBg:#FFF9F9;
+}
+
+.primary {
+  color: var(--primary);
+}
+
+.bg-primary {
+  background-color: var(--primary);
+}
+
+.darkBlack {
+  color: var(--darkBlack);
+}
+
+.lightGray {
+  color: var(--lightGray);
+}
+
+.white {
+  color: var(--white);
+}
+
+.black {
+  color: var(--black);
+}
+
+.graybg {
+  background-color: var(--graybg);
+}
+
+.text-clr {
+  color: var(--text-clr);
+}
+
+.grayOpacity {
+  color: var(--grayOpacity);
+}
+.bodyBg {
+  color: var(--bodyBg);
+}
+
+// Light Mode Style
+[data-theme="light"] {
+  --bg-color: #c2c2c2;
+  --text-color: #373737;
+  --light-gray: #828282;
+  --dark-gray: #373737;
+  --forest-green: #00661f;
+  --neon-green: #4dfe7e;
+  --medium-green: #148c36;
+  --dark-green: #01320f;
+  --light-green: #4CCB9E;
+}
+
+/* Dark mode styles */
+[data-theme="dark"] {
+  --bg-color: #c2c2c2;
+  --text-color: #373737;
+  --dark-gray: #373737;
+  --forest-green: #00661f;
+  --neon-green: #4dfe7e;
+  --medium-green: #148c36;
+  --dark-green: #01320f;
+}
+

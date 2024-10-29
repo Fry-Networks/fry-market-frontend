@@ -1,0 +1,52 @@
+.colectionBanner{
+    .container{
+        .inner{
+            .topArea {
+
+            }
+            .bottomArea{
+
+            }
+        }
+   
+    }
+}
+
+@media screen and (max-width:1440px) {
+    .collectionBanner{
+        .container{
+            .inner{
+            
+                .topArea {
+    margin-bottom: -40px !important;
+                }
+                .bottomArea{
+    
+                }
+            }
+       
+        }
+    }
+    
+    
+}
+
+
+@media screen and (max-width:800px) {
+    .collectionBanner{
+        .container{
+            .inner{
+            margin-top: 10px;
+                .topArea {
+    margin-bottom: 0px !important;
+                }
+                .bottomArea{
+    
+                }
+            }
+       
+        }
+    }
+    
+    
+}

@@ -1,0 +1,196 @@
+.heroWrapper {
+  min-height: 100vh;
+  height: 100%;
+  margin-bottom: 140px;
+  overflow-x: hidden;
+  .container {
+    .inner {
+      .heroCards {
+        .heroCardContainer {
+          .heroImg1 {
+            animation: herocard1 3.5s ease-in-out 0s infinite alternate-reverse none;
+            z-index: -20;
+          }
+
+          @keyframes herocard1 {
+            0% {
+              transform: translateX(70px);
+            }
+
+            100% {
+              transform: translateX(-10px);
+            }
+          }
+          .heroImg2 {
+            animation: herocard2 3.5s ease-in-out 0s infinite alternate-reverse none;
+          }
+
+          @keyframes herocard2 {
+            0% {
+              transform: translateX(60px);
+            }
+
+            100% {
+              transform: translateX(-10px);
+            }
+          }
+          .heroImg3 {
+            animation: herocard3 3.5s ease-in-out 3s infinite alternate-reverse none;
+          }
+          @keyframes herocard3 {
+            0% {
+              transform: translateY(20px);
+            }
+
+            100% {
+              transform: translateY(-50px);
+            }
+          }
+          .heroImg4 {
+            animation: heroCard4 3.5s ease-in-out 0s infinite alternate-reverse none;
+          }
+
+          @keyframes heroCard4 {
+            0% {
+              transform: translateX(-50px);
+            }
+
+            100% {
+              transform: translateX(0px);
+            }
+          }
+          .heroImg5 {
+            animation: heroCard5 3.5s ease-in-out 0s infinite alternate-reverse none;
+          }
+
+          @keyframes heroCard5 {
+            0% {
+              transform: translateX(-70px);
+            }
+
+            100% {
+              transform: translateX(20px);
+            }
+          }
+        }
+      }
+    }
+  }
+  .leftHand {
+    animation: customAni 7s linear normal forwards;
+  }
+
+  @keyframes customAni {
+    0% {
+      left: -100%; // Start from off-screen
+    }
+
+    100% {
+      left: -90px; // End at the edge of the screen
+    }
+  }
+
+  .rightHand {
+    animation: customAnim 7s linear normal forwards;
+  }
+
+  @keyframes customAnim {
+    0% {
+      right: -100%; // Start from off-screen
+    }
+
+    100% {
+      right: -90px; // End at the edge of the screen
+    }
+  }
+  // &::after {
+  //   width: 100%;
+  //   height: 100%;
+  //   position: absolute;
+  //   content: "";
+  //   top: 0px;
+  //   left: 0px;
+  //   background-color: transparent;
+  //   z-index: 1;
+  // }
+
+  h1 {
+    line-height: 102px; /* 106.25% */
+    letter-spacing: 3.84px;
+    width: 1146px;
+    margin: 0 auto;
+    // border: 1px solid red;
+  }
+  p {
+    width: 578px;
+    margin: 0 auto;
+    letter-spacing: 0.54px;
+  }
+
+  .ant-select-single.ant-select-open .ant-select-selection-item {
+    font-size: 18px !important;
+    color: var(--primary) !important;
+    font-weight: 600;
+    font-family: Roboto;
+  }
+}
+@media screen and (max-width: 1440px) {
+  .heroWrapper {
+    height: auto;
+    margin-bottom: 140px !important;
+    &:after {
+      display: none;
+    }
+    .leftHand {
+      display: none;
+    }
+    .rightHand {
+      display: none;
+    }
+
+    .container {
+      .inner {
+        padding-bottom: 0px;
+        h1 {
+          line-height: 100%;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .heroWrapper {
+    margin-bottom: 30px !important;
+    .container {
+      .inner {
+        p {
+          width: 100%;
+        }
+        .heroCards {
+          .heroCardContainer {
+            display: none;
+          }
+          .nft-singleItem {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .heroWrapper {
+    margin-top: 20px !important;
+    .container {
+      .inner {
+      }
+    }
+  }
+}
