@@ -5,7 +5,7 @@ import plus from "/src/assets/icons/plus.svg";
 
 
 const text1 = `
-The Fry Foundation NFT Marketplace is a centralized platform where users can easily create, buy, sell, and trade NFTs using advanced AI tools and the Algorand blockchain. Our marketplace offers a seamless experience for both creators and collectors.
+The Fry Networks NFT Marketplace is a centralized platform where users can easily create, buy, sell, and trade NFTs using advanced AI tools and the Algorand blockchain. Our marketplace offers a seamless experience for both creators and collectors.
 `;
 
 const text2 = `
@@ -17,7 +17,7 @@ You can create NFTs on our platform using our AI-powered NFT generation tool. Si
 `;
 
 const text4 = `
-Fry Foundation utilizes the Algorand blockchain, known for its speed, security, and low transaction fees. This ensures a smooth and efficient user experience for NFT creation and transactions.
+Fry Networks utilizes the Algorand blockchain, known for its speed, security, and low transaction fees. This ensures a smooth and efficient user experience for NFT creation and transactions.
 `;
 
 
@@ -27,7 +27,7 @@ The FRY token is the native cryptocurrency of our marketplace. You can use FRY t
 
 
 const text6 = `
- Yes, the Fry Foundation supports both fixed-price listings and auctions. You can set your NFTs for auction, allowing other users to bid on them within a time-limited window.
+ Yes, the Fry Networks supports both fixed-price listings and auctions. You can set your NFTs for auction, allowing other users to bid on them within a time-limited window.
 `;
 
 
@@ -119,7 +119,7 @@ const Faq = () => {
               header={
                 <div className="flex justify-start items-center gap-7">
                   <span className="font-semibold darkBlack font-Roboto large">
-                    What is the Fry Foundation NFT Marketplace?
+                    What is the Fry Networks NFT Marketplace?
                   </span>
                 </div>
               }
@@ -142,7 +142,7 @@ const Faq = () => {
             <Collapse.Panel
               header={
                 <span className="font-semibold darkBlack font-Roboto large pt-7 pb-8">
-                  How do I create an NFT on the Fry Foundation platform?
+                  How do I create an NFT on the Fry Networks platform?
                 </span>
               }
               key="3"
@@ -153,7 +153,7 @@ const Faq = () => {
             <Collapse.Panel
               header={
                 <span className="font-semibold darkBlack font-Roboto large pt-7 pb-8">
-                  Which blockchain does the Fry Foundation use?
+                  Which blockchain does the Fry Networks use?
                 </span>
               }
               key="4"
