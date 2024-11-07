@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import footerBg from "../../assets/home/images/footer.webp";
 import footerGrid from "../../assets/home/images/homeImages/footerGrid.png";
+import twitter from "../../assets/icons/tweet.png";
 import footerLogo from "/src/assets/home/images/footerLogo2.png";
 import discord from "/src/assets/icons/discord.svg";
 import facebook from "/src/assets/icons/facebook.svg";
@@ -25,8 +26,8 @@ const Footer = () => {
             <div className="dataArea2 flex flex-col justify-between w-2/6 pb-7">
               <div className="area2content1">
                 <p className="text-white font-normal font-Roboto leading-9">
-                  NFT ALGO is the world’s leading NFTs marketplace where you can
-                  discover, sell and bid NFTs and get rich{" "}
+                  Fry.market is the world’s leading NFTs marketplace where you can
+                  discover, sell and bid NFTs
                 </p>
               </div>
               <div className="area2content2">
@@ -58,6 +59,12 @@ const Footer = () => {
 
                     <img className="cursor-pointer" src={reddit} alt="" />
                   </a>
+                  <div className="bg-white rounded-md flex items-center justify-center p-2">
+                    <a href="https://twitter.com/FrysCrypto" target="_blank">
+
+                      <img className="cursor-pointer" src={twitter} alt="" />
+                    </a>
+                  </div>
 
                 </div>
               </div>
