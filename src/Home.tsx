@@ -9,7 +9,7 @@ import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
 import { CreateCollectionClient } from './contracts/CreateCollection'
-import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getMarkeGlobalState, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
+import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getImgGenFee, getMarkeGlobalState, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
 import { getGlobalState, testingTxn } from './methods'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -253,6 +253,12 @@ const Home: React.FC<HomeProps> = () => {
     // console.log("nfts", nfts)
   }
 
+
+  const imageGentx = async () => {
+    const txn = await getImgGenFee(true, 13, signer, activeAddress!);
+    console.log(txn)
+
+  }
   const getBalance = async () => {
     const bal = await userFryBalance(activeAddress!)
     console.log("bal", bal)
@@ -554,6 +560,8 @@ const Home: React.FC<HomeProps> = () => {
             <button className="button btn-primary p-2 block w-full" onClick={getUserNfts}>Get All User Nfts</button>
             <button className="button btn-primary p-2 block w-full" onClick={getBalance}>Get user Fry Balance</button>
             <button className="button btn-primary p-2 block w-full" onClick={feeTx}>Transfer Fee</button>
+            <button className="button btn-primary p-2 block w-full" onClick={imageGentx}>Get Imgae Fee</button>
+
 
           </div>
         </div>

@@ -2,6 +2,7 @@ import * as algokit from '@algorandfoundation/algokit-utils';
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account';
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client';
 import algosdk, { Transaction, TransactionSigner } from 'algosdk';
+import axios from 'axios';
 import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
@@ -620,6 +621,46 @@ export const userFryBalance = async (user: string): Promise<number> => {
     const nfts: any = await algokit.lookupAccountByAddress(user, indexer);
     const asset: Asset = nfts.assets.filter((nft: Asset) => nft["asset-id"] === parseInt(FRY_TOKEN_ID.toString()))[0]
     return asset.amount
+}
+
+
+//! get fry fee for nft minting and imagegeneration
+
+export const getImgGenFee = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
+    const res = await axios.get("https://api.coingecko.com/api/v3/coins/fryscrypto").then((res) => res.data)
+    const tokenPrice = res?.market_data?.current_price?.usd; //$  dollars
+    const { algorandClient } = await createFryMarketClient(signer, sender);
+    const bal = await userFryBalance(sender)
+    if (isCollection) {
+        const pricePerImg = 0.05   //$  dollars
+        const amountInFry = pricePerImg / tokenPrice;
+        if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+            return "Not Enough Balance"
+        }
+        const tx = await algorandClient.send.assetTransfer({
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            sender,
+            amount: BigInt(Math.floor(amountInFry * numofimgs) * 1000000)
+        })
+        return tx
+    } else {
+        if (numofimgs > 1) {
+            return "Please select valid number of images"
+        }
+        const pricePerImg = 1   //$  dollars
+        const amountInFry = pricePerImg / tokenPrice;
+        if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+            return "Not Enough Balance"
+        }
+        const tx = await algorandClient.send.assetTransfer({
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            sender,
+            amount: BigInt(Math.floor(amountInFry * numofimgs) * 1000000)
+        })
+        return tx
+    }
 }
 
 
