@@ -1,5 +1,4 @@
 import glow from "../../assets/home/images/heroGlow.webp";
-import heroleftGrid from "../../assets/home/images/homeImages/heroLeftGrid.webp";
 import homeCard1 from "../../assets/home/images/homeImages/homeCardImg1.png";
 import homeCard2 from "../../assets/home/images/homeImages/homeCardImg2.png";
 import homeCard3 from "../../assets/home/images/homeImages/homeCardImg3.png";
@@ -11,13 +10,14 @@ import rightImg1 from "../../assets/home/images/homeImages/rightImg1.webp";
 import rightImg2 from "../../assets/home/images/homeImages/rightImg2.webp";
 import leftHand from "../../assets/home/images/leftHand.png";
 import rightHand from "../../assets/home/images/rightHand.png";
+
 const Hero = () => {
   return (
     <>
-      <div className="heroWrapper  my-16 mb-72 relaytive">
-        <img className='leftHand  absolute left-[0px] top-[90%]' src={leftHand} alt="" />
-        <img className='rightHand absolute right-[0px] top-[90%]' src={rightHand} alt="" />
-        <img className='absolute top-0 left-0 -z-50' src={heroleftGrid} alt="" />
+      <div className="heroWrapper  my-16 pb-[100px] h-full relative overflow-hidden">
+        <img className='leftHand  absolute bottom-[-7%]' src={leftHand} alt="" />
+        <img className='rightHand absolute bottom-[-7%]' src={rightHand} alt="" />
+        {/* <img className='absolute top-0 left-0 -z-50' src={heroleftGrid} alt="" /> */}
 
         {/* <img className='absolute bottom-[-290px]' src={hands} alt="" /> */}
         <div className="container">

@@ -77,7 +77,7 @@
     }
   }
   .leftHand {
-    animation: customAni 7s linear normal forwards;
+    animation: customAni 4s linear normal forwards;
   }
 
   @keyframes customAni {
@@ -86,12 +86,12 @@
     }
 
     100% {
-      left: -90px; // End at the edge of the screen
+      left: -100px; // End at the edge of the screen
     }
   }
 
   .rightHand {
-    animation: customAnim 7s linear normal forwards;
+    animation: customAnim 4s linear normal forwards;
   }
 
   @keyframes customAnim {
@@ -100,7 +100,7 @@
     }
 
     100% {
-      right: -90px; // End at the edge of the screen
+      right: -100px; // End at the edge of the screen
     }
   }
   // &::after {
