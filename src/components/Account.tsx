@@ -16,7 +16,8 @@ const Account = () => {
       <a
         className="text-xl text-black"
         target="_blank"
-        href={`https://app.dappflow.org/setnetwork?name=${dappFlowNetworkName}&redirect=explorer/account/${activeAddress}/`}
+        href={`https://${dappFlowNetworkName == "testnet" ? dappFlowNetworkName + "." : ""}explorer.perawallet.app/address/${activeAddress}/`}
+      // href={`https://app.dappflow.org/setnetwork?name=${dappFlowNetworkName}&redirect=explorer/account/${activeAddress}/`}
       >
         Address: {ellipseAddress(activeAddress)}
       </a>
