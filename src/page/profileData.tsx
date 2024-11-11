@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ProfilePage from "../components/artistProfile/profilePage";
 import ProfileSettingPage from "../components/artistProfile/profileSettingPage";
-
+// fry
 const ProfileData = ({ setIsPfpChange }: any) => {
   const [activePage, setActivePage] = useState("profile");
 
@@ -31,8 +31,8 @@ const ProfileData = ({ setIsPfpChange }: any) => {
 
             <button
               className={`small font-medium font-Roboto w-[125px] h-[34px] ${activePage === "profileSettings"
-                  ? "bg-red-500 text-white"
-                  : "darkBlack"
+                ? "bg-red-500 text-white"
+                : "darkBlack"
                 }`}
               onClick={() => setActivePage("profileSettings")}
             >
