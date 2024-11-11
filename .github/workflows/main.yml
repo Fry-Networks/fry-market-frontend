@@ -62,7 +62,7 @@ jobs:
             # Clone or update the repository
             if [ ! -d "$TARGET_DIR/.git" ]; then
               mkdir -p "$TARGET_DIR"
-              git clone git@github.com:Fry-Foundation/fry-market-frontend.git "$TARGET_DIR"
+              git clone git@github-repo2:Fry-Foundation/fry-market-frontend.git "$TARGET_DIR"
             else
               git -C "$TARGET_DIR" pull origin main
             fi
