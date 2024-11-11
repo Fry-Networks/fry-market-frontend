@@ -57,14 +57,15 @@ jobs:
           echo "$REPO2_PRIVATE_KEY" > ~/.ssh/repo2
           chmod 600 ~/.ssh/repo2
           
+          # Start ssh-agent and add repo2 key
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/repo2
+          
           # Configure SSH to use repo2 key for GitHub
           echo -e "Host github.com\n\tIdentityFile ~/.ssh/repo2\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
           
-          # Load the repo2 key to ensure it is being used
-          ssh-add ~/.ssh/repo2
-
           # Deploy application to server
           sshpass -p "$SSH_PASSWORD" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << EOF
             set -e
