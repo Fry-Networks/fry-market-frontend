@@ -75,7 +75,7 @@ jobs:
           # Add GitHub and production server IP to known_hosts to avoid prompts
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
-
+          
           # Deploy application to server
           sshpass -p "$SSH_PASSWORD" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << EOF
             set -e
@@ -104,6 +104,12 @@ jobs:
             # Install pm2 globally
             sudo npm install -g pm2
             
+            # Stop any existing pm2 process with the name fry-node
+            if pm2 list | grep -q 'fry-node'; then
+              pm2 stop fry-node
+              pm2 delete fry-node
+            fi
+            
             # Install dependencies and start the frontend app with pm2
             if [ -f "package.json" ]; then
               npm install
@@ -124,7 +130,7 @@ jobs:
     steps:
       - name: Configure and Restart Nginx
         run: |
-          sudo apt install nginx -y
+          
           sudo nginx -t
           sudo systemctl restart nginx
           sudo systemctl status nginx
