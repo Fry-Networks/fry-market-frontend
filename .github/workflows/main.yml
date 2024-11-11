@@ -56,11 +56,11 @@ jobs:
           mkdir -p ~/.ssh
           echo "$REPO2_PRIVATE_KEY" > ~/.ssh/repo2
           chmod 600 ~/.ssh/repo2
-          
+
           # Start ssh-agent and add repo2 key
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/repo2
-          ssh-add -l  # Confirm repo2 is loaded
+          ssh-add -l  # Verify repo2 is loaded
 
           # Configure SSH to use only repo2 key for GitHub
           cat <<EOL > ~/.ssh/config
@@ -70,35 +70,35 @@ jobs:
             IdentitiesOnly yes
             StrictHostKeyChecking no
           EOL
-          
-          # Add GitHub and production server IP to known_hosts to avoid prompts
+
+          # Add GitHub to known_hosts to avoid prompts
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
-          
+
           # Deploy application to server
-          sshpass -p "$SSH_PASSWORD" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << EOF
+          sshpass -p "$SSH_PASSWORD" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << 'EOF'
             set -e
             echo "Deploying to production"
-            
-            # Clone or update the repository
+
+            # Clone or update the repository using the same GIT_SSH_COMMAND as tested
             if [ ! -d "$TARGET_DIR/.git" ]; then
               mkdir -p "$TARGET_DIR"
-              GIT_SSH_COMMAND="ssh -v" git clone git@github.com:Fry-Foundation/fry-market-frontend.git "$TARGET_DIR"
+              GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git clone git@github.com:Fry-Foundation/fry-market-frontend.git "$TARGET_DIR"
             else
-              GIT_SSH_COMMAND="ssh -v" git -C "$TARGET_DIR" pull origin main
+              GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git -C "$TARGET_DIR" pull origin main
             fi
-            
+
             cd "$TARGET_DIR"
-            
+
             # Install Node.js LTS if not already installed
             if ! command -v node &> /dev/null; then
               curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
               sudo apt-get install -y nodejs
             fi
-            
+
             # Install pm2 globally
             sudo npm install -g pm2
-            
+
             # Install dependencies and start the frontend app with pm2
             if [ -f "package.json" ]; then
               npm install
@@ -106,12 +106,13 @@ jobs:
               echo "No package.json found in $TARGET_DIR"
               exit 1
             fi
-            
+
             # Start the frontend app with pm2
             pm2 start start.sh --name fry-node
             pm2 save
             pm2 list
           EOF
+
   nginx-config:
     runs-on: ubuntu-latest
     needs: deploy
