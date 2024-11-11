@@ -49,7 +49,7 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
           SSH_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
           HOST_IP: ${{ secrets.PRODUCTION_HOST_IP }}
-          TARGET_DIR: ${{ secrets.TARGET_DIR }}
+          TARGET_DIR: '/root/front-end'
           REPO2_PRIVATE_KEY: ${{ secrets.REPO2_PRIVATE_KEY }}
         run: |
           # Set up repo2 key for GitHub access only
@@ -71,7 +71,7 @@ jobs:
             StrictHostKeyChecking no
           EOL
 
-          # Add GitHub to known_hosts to avoid prompts
+          # Add GitHub and production server IP to known_hosts to avoid prompts
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
 
@@ -80,7 +80,7 @@ jobs:
             set -e
             echo "Deploying to production"
 
-            # Clone or update the repository using the same GIT_SSH_COMMAND as tested
+            # Clone or update the repository using the specified TARGET_DIR
             if [ ! -d "$TARGET_DIR/.git" ]; then
               mkdir -p "$TARGET_DIR"
               GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git clone git@github.com:Fry-Foundation/fry-market-frontend.git "$TARGET_DIR"
@@ -92,7 +92,7 @@ jobs:
 
             # Install Node.js LTS if not already installed
             if ! command -v node &> /dev/null; then
-              curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
               sudo apt-get install -y nodejs
             fi
 
