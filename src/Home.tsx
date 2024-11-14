@@ -9,7 +9,7 @@ import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
 import { CreateCollectionClient } from './contracts/CreateCollection'
-import { buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getImgGenFee, getMarkeGlobalState, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
+import { addCollectionRoyalty, buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getImgGenFee, getMarkeGlobalState, getRoyalty, getSingleNftlistData, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
 import { getGlobalState, testingTxn } from './methods'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -26,7 +26,9 @@ const Home: React.FC<HomeProps> = () => {
   const [selected, setSelected] = useState<any>()
   const [bidAmount, setBidAmount] = useState<number>(0)
   const [minBidAmount, setMinBidAmount] = useState<number>(0)
-  const [bidEndTime, setBidEndTime] = useState<any>()
+  const [bidEndTime, setBidEndTime] = useState<any>();
+  const [royaltyBasis, setRoyaltyBasis] = useState<number>(0);
+  const [collectionAddress, setCollectionAddress] = useState<string>("")
 
 
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
@@ -197,7 +199,7 @@ const Home: React.FC<HomeProps> = () => {
   // Market Place Functions 
   const marketInit = async () => {
     try {
-      const init = await deployMarketplace(activeAddress!, signer, 1000, 3000)
+      const init = await deployMarketplace(activeAddress!, signer, 1000)
       console.log("init", init)
       enqueueSnackbar(`${init!.appId}`, {
         variant: "success"
@@ -210,7 +212,6 @@ const Home: React.FC<HomeProps> = () => {
     }
   }
 
-
   const listMyNft = async () => {
     await listNft(activeAddress!, assetId, signer, bidAmount * 1000000).then((res) => {
       console.log("list response : ", res)
@@ -218,7 +219,7 @@ const Home: React.FC<HomeProps> = () => {
   }
 
   const buyMyNft = async () => {
-    await buyNftWithRoyalty(activeAddress!, assetId, signer, "YFLVVAC7CY4KWANTKCBD3CTZDOUD3RGNFOGMJJWMKWMYW76DC5NUXEM3EI", bidAmount * 1000000).then((res) => {
+    await buyNftWithRoyalty(activeAddress!, assetId, signer, "3UVTPV244SYIMQ44JNQWWXCYBAYY3I7XR773BMDLRF36LRNCP6TURFHBMI", bidAmount * 1000000).then((res) => {
       console.log("list response : ", res)
     })
   }
@@ -235,24 +236,29 @@ const Home: React.FC<HomeProps> = () => {
     })
   }
 
-
   const getUserNfts = async () => {
     const nfts = await getAllUserNfts(activeAddress!)
     console.log("nfts", nfts)
   }
-
 
   const getUserAuctions = async () => {
     const nfts = await getAllUserAuctions(activeAddress!, signer)
     console.log("user Auucttion", nfts)
   }
 
-
   const getUserClaimableNfts = async () => {
     const nfts = await getAllUserClaimable(activeAddress!, signer)
     // console.log("nfts", nfts)
   }
 
+  const initRoyalty = async () => {
+    const royal = await addCollectionRoyalty(activeAddress!, signer, royaltyBasis, collectionAddress)
+  }
+
+  const getRoyalties = async () => {
+    const royal = await getRoyalty();
+    console.log(royal)
+  }
 
   const imageGentx = async () => {
     const txn = await getImgGenFee(true, 13, signer, activeAddress!);
@@ -276,6 +282,12 @@ const Home: React.FC<HomeProps> = () => {
     }
   }
 
+  const getSingleMarketNftData = async () => {
+    const data = await getSingleNftlistData(Number(assetId));
+    console.log(data)
+    console.log(data ? true : false)
+  }
+
   const decoder = async () => {
     const encode = "LbqtopnVoDEUdniCGVwZvCA3Na3vCjrg5RMcJX3lGuI=";
     const arra = Uint8Array.from(window.atob(encode.replace(/^data[^,]+,/, '')), v => v.charCodeAt(0));
@@ -296,7 +308,7 @@ const Home: React.FC<HomeProps> = () => {
     })();
   }, [selected])
 
-  console.log(selected)
+  console.log(collectionAddress)
   return (
     <div className="hero min-h-screen bg-teal-400 flex flex-col items-center justify-center">
 
@@ -550,13 +562,20 @@ const Home: React.FC<HomeProps> = () => {
             <input type="number" value={assetId.toString()} className='border-2 border-black rounded p-2' onChange={(e) => { setAssetId(BigInt(parseInt(e.target.value < '0' ? '0' : e.target.value))) }} />
             <label htmlFor="">List Price</label>
             <input type="number" value={bidAmount} className='border-2 border-black rounded p-2' onChange={(e) => { setBidAmount(parseFloat(e.target.value < '0' ? '0' : e.target.value)) }} />
+            <label htmlFor="">Royalty Basis</label>
+            <input type="number" value={royaltyBasis} className='border-2 border-black rounded p-2' onChange={(e) => { setRoyaltyBasis(parseFloat(e.target.value < '0' ? '0' : e.target.value)) }} />
+            <label htmlFor="">Collection Address</label>
+            <input type="text" value={collectionAddress} className='border-2 border-black rounded p-2' onChange={(e) => { setCollectionAddress(e.target.value) }} />
 
             <button className="button btn-primary p-2 block w-full" onClick={marketInit}>Deploy Marketplace</button>
+            <button className="button btn-primary p-2 block w-full" onClick={initRoyalty}>Add Royalty</button>
+            <button className="button btn-primary p-2 block w-full" onClick={getRoyalties}>get Royalty</button>
             <button className="button btn-primary p-2 block w-full" onClick={listMyNft}>List Nft</button>
             <button className="button btn-primary p-2 block w-full" onClick={cancelMyNft}>Cancel List</button>
             <button className="button btn-primary p-2 block w-full" onClick={updateMyNftPrice}>Update Price</button>
             <button className="button btn-primary p-2 block w-full" onClick={buyMyNft}>Buy</button>
             <button className="button btn-primary p-2 block w-full" onClick={getMarketListedData}>Get All Listed</button>
+            <button className="button btn-primary p-2 block w-full" onClick={getSingleMarketNftData}>Get single Listed</button>
             <button className="button btn-primary p-2 block w-full" onClick={getUserNfts}>Get All User Nfts</button>
             <button className="button btn-primary p-2 block w-full" onClick={getBalance}>Get user Fry Balance</button>
             <button className="button btn-primary p-2 block w-full" onClick={feeTx}>Transfer Fee</button>

@@ -14,7 +14,7 @@ const FEE_PERCENT: number = 5000;  // 100 represent 1% & 10000 represent 100%
 const ROYALTY_BASIS: number = 1000;  // 100 represent 1% & 10000 represent 100%
 const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ";
 const FRY_TOKEN_ID: bigint = 717187263n;
-const AUCTION_BOX_PRICE = 2500 + 400 * 128;
+const AUCTION_BOX_PRICE = 2500 + 400 * 136;
 const BID_BOX_PRICE: number = 2500 + 400 * 48;
 
 const getAlgodClient = async (): Promise<algosdk.Algodv2> => {
