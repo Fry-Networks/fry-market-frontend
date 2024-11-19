@@ -709,7 +709,7 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
         const pricePerImg = 0.05   //$  dollars
         const amountInFry = pricePerImg / tokenPrice;
         if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
-            return "Not Enough Balance"
+            throw new Error("Not Enough Balance")
         }
         const tx = await algorandClient.send.assetTransfer({
             assetId: FRY_TOKEN_ID,
@@ -720,12 +720,12 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
         return tx
     } else {
         if (numofimgs > 1) {
-            return "Please select valid number of images"
+            throw new Error("Please select valid number of images")
         }
         const pricePerImg = 1   //$  dollars
         const amountInFry = pricePerImg / tokenPrice;
         if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
-            return "Not Enough Balance"
+            throw new Error("Not Enough Balance")
         }
         const tx = await algorandClient.send.assetTransfer({
             assetId: FRY_TOKEN_ID,
