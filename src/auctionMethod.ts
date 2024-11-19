@@ -522,7 +522,7 @@ export const claimNftRoyalty = async (
                     name: algosdk.decodeAddress(assetDetails?.params?.creator).publicKey
                 }
             ],
-            appAccounts: [FEE_WALLET]
+            appAccounts: [FEE_WALLET, assetDetails?.params?.creator]
         });
 
         const result = await atc.execute(algodClient, 4);

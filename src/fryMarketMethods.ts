@@ -2,7 +2,6 @@ import * as algokit from '@algorandfoundation/algokit-utils';
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account';
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client';
 import algosdk, { Transaction, TransactionSigner } from 'algosdk';
-import axios from 'axios';
 import { AUCTION_ID, createFryAuctionClient } from './auctionMethod';
 import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
@@ -737,8 +736,10 @@ export const userFryBalance = async (user: string): Promise<number> => {
 //! get fry fee for nft minting and imagegeneration
 
 export const getImgGenFee = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
-    const res = await axios.get("https://api.coingecko.com/api/v3/coins/fryscrypto").then((res) => res.data)
-    const tokenPrice = res?.market_data?.current_price?.usd; //$  dollars
+    // const res = await axios.get("https://api.coingecko.com/api/v3/coins/fryscrypto").then((res) => res.data)
+    // const tokenPrice = res?.market_data?.current_price?.usd; //$  dollars
+    const tokenPrice = 0.0336; //$  dollars
+    console.log("tokenPrice", tokenPrice)
     const { algorandClient } = await createFryMarketClient(signer, sender);
     const bal = await userFryBalance(sender)
     if (isCollection) {
