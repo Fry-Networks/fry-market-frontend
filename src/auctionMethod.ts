@@ -8,10 +8,11 @@ import { FryAuctionClient } from "./contracts/FryAuction";
 import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
-const AUCTION_ID: bigint = 724678215n;
+// const AUCTION_ID: bigint = 724678215n;
+export const AUCTION_ID: bigint = 729317952n;
 const AUCTION_ADDRESS: string = algosdk.getApplicationAddress(AUCTION_ID)
-const FEE_PERCENT: number = 5000;  // 100 represent 1% & 10000 represent 100%
-const ROYALTY_BASIS: number = 1000;  // 100 represent 1% & 10000 represent 100%
+const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
+const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
 const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ";
 const FRY_TOKEN_ID: bigint = 717187263n;
 const AUCTION_BOX_PRICE = 2500 + 400 * 136;
@@ -39,7 +40,7 @@ const getIndexerClient = async (): Promise<algosdk.Indexer> => {
     return indexer
 }
 
-const createFryAuctionClient = async (signer: TransactionSigner, activeAddress: string, appId?: number) => {
+export const createFryAuctionClient = async (signer: TransactionSigner, activeAddress: string, appId?: number) => {
     algokit.Config.configure({ populateAppCallResources: true });
 
     const algodConfig = getAlgodConfigFromViteEnvironment()
@@ -95,7 +96,7 @@ export const deployAuction = async (sender: string, signer: TransactionSigner) =
 
         const auctionClientDeploy = new FryAuctionClient(appDetails, algodClient)
 
-        const auction = await auctionClientDeploy.create.initAuction({ fryId: FRY_TOKEN_ID, feePercent: FEE_PERCENT, admin: FEE_WALLET, royaltyBasis: ROYALTY_BASIS }).then((res) => {
+        const auction = await auctionClientDeploy.create.initAuction({ fryId: FRY_TOKEN_ID, primaryFee: PRIMARY_FEE, secondaryFee: SECONDARY_FEE, admin: FEE_WALLET }).then((res) => {
             console.log(res)
             return res
         }).catch((e) => {
@@ -219,11 +220,28 @@ export const listNftAuction = async (
                 signer
             })
 
+            let fee = 0;
+            const boxId = algosdk.encodeUint64(asset);
+            const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
+            console.log(box)
+            if (!box) {
+                fee = (bidStartAmount * PRIMARY_FEE) / 10000
+            } else {
+                fee = (bidStartAmount * SECONDARY_FEE) / 10000
+            }
+
+            const feeAxfer = await algorandClient.transactions.assetTransfer({
+                sender,
+                signer,
+                assetId: FRY_TOKEN_ID,
+                receiver: FEE_WALLET,
+                amount: BigInt(fee),
+            })
             atc.addMethodCall({
                 suggestedParams,
                 appID: Number(AUCTION_ID),
                 method: auctionClient.appClient.getABIMethod("listNftOnAuction")!,
-                methodArgs: [Number(asset), auctionParams.bidStartAmount, auctionParams.minBidAmount, auctionParams.bidStartAmount, auctionParams.biddingEndTime, BigInt(res.appId), { txn: xfer, signer }, { txn: boxPay, signer }],
+                methodArgs: [Number(asset), auctionParams.bidStartAmount, auctionParams.minBidAmount, auctionParams.biddingStartTime, auctionParams.biddingEndTime, BigInt(res.appId), { txn: xfer, signer }, { txn: feeAxfer, signer }, { txn: boxPay, signer }],
                 sender: sender,
                 signer: signer,
                 appForeignAssets: [Number(asset)],
@@ -283,18 +301,38 @@ export const createBid = async (
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
         const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId);
         const atc = new algosdk.AtomicTransactionComposer();
+        console.log("previous", previousHighestBidder)
         const suggestedParams = await algodClient.getTransactionParams().do();
+        suggestedParams.fee = 3000;
         const boxPay = await algorandClient.transactions.payment({
             sender,
             receiver: algosdk.getApplicationAddress(biddingAppId),
             amount: algokit.microAlgos(BID_BOX_PRICE),
             signer
         })
-        const fee = (bidAmount * FEE_PERCENT) / 10000
+        let fee = 0;
+        const boxId = algosdk.encodeUint64(asset);
+        const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
+        if (box) {
+            const listedCount = algosdk.decodeUint64(box.slice(120, 128), "mixed")
+            console.log("listedCount : ", listedCount)
+            if (listedCount > 1) {
+                fee = (bidAmount * SECONDARY_FEE) / 10000
+            } else {
+                fee = (bidAmount * PRIMARY_FEE) / 10000
+            }
+        }
+        const feeAxfer = await algorandClient.transactions.assetTransfer({
+            sender,
+            signer,
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            amount: BigInt(fee),
+        })
         const priceTransferTx = await algorandClient.transactions.assetTransfer({
             sender,
             assetId: FRY_TOKEN_ID,
-            amount: BigInt(bidAmount + fee),
+            amount: BigInt(bidAmount),
             receiver: AUCTION_ADDRESS
         })
 
@@ -317,10 +355,11 @@ export const createBid = async (
             suggestedParams,
             appID: Number(AUCTION_ID),
             method: auctionClient.appClient.getABIMethod("bid")!,
-            methodArgs: [BigInt(asset), previousHighestBidder, BigInt(bidAmount), { txn: priceTransferTx, signer }],
+            methodArgs: [BigInt(asset), previousHighestBidder, BigInt(bidAmount), { txn: priceTransferTx, signer }, { txn: feeAxfer, signer }],
             sender: sender,
             signer: signer,
             appForeignAssets: [Number(asset)],
+            appAccounts: [previousHighestBidder],
             boxes: [
                 {
                     appIndex: Number(AUCTION_ID),
@@ -418,60 +457,6 @@ export const cancelAuction = async (
     }
 }
 
-export const claimNft = async (
-    sender: string,
-    signer: TransactionSigner,
-    asset: number,
-    biddingAppId: number,
-    bidAmount: number,
-    seller: string,
-    signTransactions: (transactions: Uint8Array[] | Uint8Array[][], indexesToSign?: number[], returnGroup?: boolean) => Promise<Uint8Array[]>,
-    sendTransactions: (transactions: Uint8Array[], waitRoundsToConfirm?: number) => Promise<{
-        "confirmed-round": number;
-        "global-state-delta": Record<string, unknown>[];
-        "pool-error": string;
-        txn: {
-            sig: Uint8Array;
-            txn: Txn;
-        };
-        txId: string;
-        id: string;
-    }>
-): Promise<string> => {
-    try {
-        const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
-        const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
-
-        const accountInfo = await algodClient.accountInformation(sender).do();
-        const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
-
-        if (!hasOptedIn) {
-            await algorandClient.send.assetTransfer({
-                sender,
-                receiver: sender,
-                assetId: BigInt(asset),
-                amount: BigInt(0)
-            })
-        }
-
-
-        const priceTransferTx = await algorandClient.transactions.assetTransfer({
-            sender,
-            assetId: FRY_TOKEN_ID,
-            amount: BigInt(bidAmount),
-            receiver: seller
-        })
-
-        await auctionClient.claimNft({ asset: BigInt(asset), nftSeller: seller, buyTx: priceTransferTx }, { sendParams: { fee: algokit.algos(0.004) } })
-
-        return "nftClaimed"
-
-    } catch (e: any) {
-        console.log(e)
-        return e.message
-    }
-}
-
 export const claimNftRoyalty = async (
     sender: string,
     signer: TransactionSigner,
@@ -481,7 +466,6 @@ export const claimNftRoyalty = async (
     seller: string,
 ): Promise<string> => {
     try {
-        console.log("thisss")
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
 
         const accountInfo = await algodClient.accountInformation(sender).do();
@@ -499,12 +483,32 @@ export const claimNftRoyalty = async (
             atc.addTransaction({ txn: opIn, signer: signer });
         }
 
+        let fee = 0;
+        const boxId = algosdk.encodeUint64(asset);
+        const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
+        if (box) {
+            const listedCount = algosdk.decodeUint64(box.slice(120, 128), "mixed")
+            console.log("listedCount : ", listedCount)
+            if (listedCount > 1) {
+                fee = (bidAmount * SECONDARY_FEE) / 10000
+            } else {
+                fee = (bidAmount * PRIMARY_FEE) / 10000
+            }
+        }
+        const feeAxfer = await algorandClient.transactions.assetTransfer({
+            sender,
+            signer,
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            amount: BigInt(fee),
+        })
 
+        const assetDetails = await algodClient.getAssetByID(Number(asset)).do();
         atc.addMethodCall({
             suggestedParams,
             appID: Number(AUCTION_ID),
             method: auctionClient.appClient.getABIMethod("claimNftRoyalty")!,
-            methodArgs: [asset, FRY_TOKEN_ID, seller],
+            methodArgs: [asset, FRY_TOKEN_ID, seller, { txn: feeAxfer, signer }],
             sender: sender,
             signer: signer,
             appForeignAssets: [Number(asset), Number(FRY_TOKEN_ID)],
@@ -513,6 +517,10 @@ export const claimNftRoyalty = async (
                     appIndex: Number(AUCTION_ID),
                     name: algosdk.encodeUint64(asset),
                 },
+                {
+                    appIndex: Number(AUCTION_ID),
+                    name: algosdk.decodeAddress(assetDetails?.params?.creator).publicKey
+                }
             ],
             appAccounts: [FEE_WALLET]
         });
@@ -536,8 +544,9 @@ export const getAllAuctions = async () => {
 
     const algod = await getAlgodClient()
     const listings = await algokit.getAppBoxNames(AUCTION_ID, algod);
+    const filteredBoxes = listings.filter((bx) => bx.nameRaw.byteLength == 8)
     const allListings: any[] = [];
-    for (let listBox of listings) {
+    for (let listBox of filteredBoxes) {
         const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
         let box = await algokit.getAppBoxValue(AUCTION_ID, listBox.nameRaw, algod)
         const nftData = await algod.getAssetByID(decoded).do();
@@ -550,6 +559,8 @@ export const getAllAuctions = async () => {
         const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'mixed')
         const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
         const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
+        const totalListcount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
+        const isListed = algosdk.decodeUint64(box.slice(128, 136), 'mixed')
         const listedData = {
             nftAddress: decoded,
             sellerId,
@@ -561,10 +572,13 @@ export const getAllAuctions = async () => {
             highestBidAmount: Number(highestBidAmount),
             bidContract,
             totalBidders,
+            totalListcount,
+            isListed: isListed == 1 ? true : false,
             ...nftData.params
         }
         allListings.push(listedData)
     }
+    console.log(allListings)
     return allListings
 }
 
