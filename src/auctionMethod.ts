@@ -358,7 +358,7 @@ export const createBid = async (
             methodArgs: [BigInt(asset), previousHighestBidder, BigInt(bidAmount), { txn: priceTransferTx, signer }, { txn: feeAxfer, signer }],
             sender: sender,
             signer: signer,
-            appForeignAssets: [Number(asset)],
+            appForeignAssets: [Number(asset), Number(FRY_TOKEN_ID)],
             appAccounts: [previousHighestBidder],
             boxes: [
                 {
