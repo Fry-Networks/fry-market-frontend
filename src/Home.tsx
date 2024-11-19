@@ -295,20 +295,38 @@ const Home: React.FC<HomeProps> = () => {
     console.log(sellerId)
   }
 
+  function convertUnixTimestampToDate(unixTimestamp: number) {
+    const date = new Date(unixTimestamp * 1000);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // months are 0-based
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    // Return the formatted date string
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
   useEffect(() => {
     (async () => {
       // const allListings = await getSingleAuction(717753482);
       // console.log("allListings", allListings)
       const allAuctionListings = await getAllAuctions()
-      setAuctions(allAuctionListings)
+      setAuctions(allAuctionListings ? allAuctionListings.filter((item) => item?.isListed) : [])
+      // setAuctions(allAuctionListings)
+    })();
+  }, [])
+
+
+  useEffect(() => {
+    (async () => {
       if (selected) {
         const allBiddings = await getAllBids(selected?.bidContract)
         console.log(allBiddings)
       }
     })();
   }, [selected])
-
-  console.log(collectionAddress)
   return (
     <div className="hero min-h-screen bg-teal-400 flex flex-col items-center justify-center">
 
@@ -316,7 +334,7 @@ const Home: React.FC<HomeProps> = () => {
         {
           auctions ? auctions.map((list, index) => (
             <div onClick={() => { setSelected(list) }} key={list.nftAddress} style={{ cursor: "pointer" }} >
-              <img src={list.url} alt="nft" className='w-48' />
+              <img src={list?.url?.replace('.json', '.png')} alt="nft" className='w-48' />
               <p>Auction # {index}</p>
               <p>name: {list.name}</p>
               <p>NftID: {list.nftAddress}</p>
@@ -325,6 +343,9 @@ const Home: React.FC<HomeProps> = () => {
               <p>highestBidder: {list.highestBidder.slice(0, 5) + "...." + list.highestBidder.slice(-5)}</p>
               <p>minBidAmount: {list.minBidAmount / 1000000}</p>
               <p>totalBidders: {list.totalBidders}</p>
+              <p>bidding start time: {convertUnixTimestampToDate(list.biddingStartTime)}</p>
+              <p>bidding End time: {convertUnixTimestampToDate(list.biddingEndTime)}</p>
+
             </div>
           )) : <p>No listed Data</p>
         }
@@ -333,193 +354,6 @@ const Home: React.FC<HomeProps> = () => {
       <div className='flex gap-10'>
         <div className="hero-content text-center rounded-lg p-6 max-w-md bg-white mx-auto">
           <div className="max-w-md">
-            {/* <h1 className="text-4xl">
-            Welcome to <div className="font-bold">AlgoKit 🙂</div>
-          </h1>
-          <p className="py-6">
-            This starter has been generated using official AlgoKit React template. Refer to the resource below for next steps.
-          </p> */}
-
-            {/* <div className='divider' />
-          <label className='label'>Enter App Id here</label>
-          <input type="number" className='input input-bordered' value={appId.toString()} onChange={(e) => { setAppId(BigInt(e.currentTarget.valueAsNumber || 0)) }} />
-
-          <label className='label'>Enter Collection App Id here</label>
-          <input type="number" className='input input-bordered' value={collAppId ? collAppId.toString() : 0} onChange={(e) => { setCollAppId(BigInt(e.currentTarget.valueAsNumber || 0)) }} />
-
-          <label className='label'>Asset Amount</label>
-          <input type="number" className='input input-bordered' value={quantity.toString()} onChange={(e) => { setQuantity(BigInt(e.currentTarget.valueAsNumber || 0)) }} />
-
-          <div className='divider' /> */}
-            {/* {activeAddress && appId === 0 && (
-            <div>
-              <label className='label'>Price per unit</label>
-              <input type="number" className='input input-bordered' value={(unitaryPrice / BigInt(10e6)).toString()} onChange={(e) => { setUnitaryPrice(BigInt(e.currentTarget.valueAsNumber) * BigInt(10e6)) }} />
-              <MethodCall methodFunction={create(algorandClient, marketClient, assetId, 1n, 1n, activeAddress!, setAppId)} text='create' />
-            </div>
-          )} */}
-            {/* <div className='divider' /> */}
-            {/* 
-          {activeAddress && parseInt(appId.toString()) !== 0 && (
-            <div>
-              <label className='label'>Asset Id</label>
-              <input type="number" className='input input-bordered' value={assetId.toString()} onChange={(e) => { setAssetId(BigInt(parseInt(e.target.value))) }} />
-              <label className='label'>Units Left</label>
-              <input type="number" className='input input-bordered' value={Number(unitsLeft)} readOnly />
-            </div>
-          )} */}
-
-
-            {/* {activeAddress && appId !== 0 && (
-            <div>
-              <label className='label'>Quantity to Buy</label>
-              <input type="number" className='input input-bordered' value={(quantity).toString()} onChange={(e) => { setQuantity(BigInt(e.currentTarget.valueAsNumber)) }} />
-              <MethodCall methodFunction={buy(algorandClient, marketClient, activeAddress, algosdk.getApplicationAddress(appId), quantity, unitaryPrice, setUnitsLeft)} text={`Buy ${quantity} for ${unitaryPrice * quantity / BigInt(10e6)}`} />
-            </div>
-          )} */}
-
-            {/* {activeAddress && parseInt(appId.toString()) !== 0 && (
-            <div>
-              <label className='label'>Quantity to Buy</label>
-              <input type="number" className='input input-bordered' value={(quantity).toString()} onChange={(e) => { setQuantity(BigInt(e.currentTarget.valueAsNumber)) }} />
-              <MethodCall methodFunction={mint(algorandClient, marketClient, activeAddress, algosdk.getApplicationAddress(appId), algodClient)} text={`Mint token`} />
-            </div>
-          )} */}
-            {/* 
-          {activeAddress && (
-            <div>
-              <label className='label'>Opt Out Id</label>
-              <input type="number" className='input input-bordered' value={optOutId} onChange={(e) => { setOptOutId(parseFloat(e.target.value)) }} />
-
-              <MethodCall methodFunction={optout(algorandClient, marketClient, activeAddress, optOutId)} text={`opt out`} />
-            </div>
-          )} */}
-
-
-            {/* {activeAddress && parseInt(appId.toString()) !== 0 && (
-            <div>
-              <label className='label'>Get Box</label>
-              <MethodCall methodFunction={getBoxValues(algorandClient, BigInt(appId), assetId.toString(), algodClient)} text={`Get Box`} />
-            </div>
-          )} */}
-
-            {/* {activeAddress && appId && (
-            <div>
-              <label className='label'>Get Collection Nfts</label>
-              <input type="number" className='input input-bordered' value={optOutId} onChange={(e) => { setOptOutId(parseFloat(e.target.value)) }} />
-
-              <MethodCall methodFunction={fetchCollection(algosdk.getApplicationAddress(appId), indexer)} text={`Get Nfts`} />
-            </div>
-          )}
-
-          {activeAddress && appId && (
-            <div>
-              <label className='label'>Get Collection Nfts</label>
-              <input type="number" className='input input-bordered' value={optOutId} onChange={(e) => { setOptOutId(parseFloat(e.target.value)) }} />
-
-              <MethodCall methodFunction={fetchCollection(algosdk.getApplicationAddress(appId), indexer)} text={`Get Nfts`} />
-            </div>
-          )} */}
-
-
-            {/* <div>
-            <button className="btn mt-2" onClick={() => { setCreateColl(!createColl) }}>
-              Create Collection
-            </button>
-          </div> */}
-
-            {/* <div>
-            <button className="btn mt-2" onClick={baseToText}>
-              Base ^4
-            </button>
-          </div> */}
-
-            {/* create collection values */}
-            {/* {createColl && <div className='my-5'>
-            <div className='divider' />
-            <h1 className='font-bold mt-3'>Create Collection</h1>
-            <label className='label'>Collection Name</label>
-            <input type="text" className='input input-bordered' value={collName} onChange={(e) => { setCollName(e.target.value) }} />
-            <label className='label'>Collection Supply</label>
-            <input type="number" className='input input-bordered' value={collSupply.toString()} onChange={(e) => { setCollSupply(BigInt(parseInt(e.target.value))) }} />
-            <label className='label'>Royalty Contract</label>
-            <input type="number" className='input input-bordered' value={royaltyId.toString()} onChange={(e) => { setRoyaltyId(BigInt(parseInt(e.target.value))) }} />
-
-            <MethodCall methodFunction={createCollection(collectionClient, collName, collSupply, royaltyId)} text={`Init Collection`} />
-            <div className='divider' />
-          </div>} */}
-
-            {/* mint nfts
-          {collAppId ? <div>
-            <MethodCall methodFunction={mintNft(algorandClient, collectionClient, activeAddress!, collAppId || 0n)} text={`Mint Contract Collection Nft`} />
-          </div> : null} */}
-
-
-
-            {/* <button className='py-2 px-5 my-3 bg-gray-200 border rounded border-black font-bold' onClick={() => { listNft(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(704441505)) }}>List Nft</button> */}
-            {/* <MethodCall methodFunction={listNft(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(assetId), signer)} text={`List Nft`} />
-          <MethodCall methodFunction={cancelList(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(assetId), signer)} text={`Cancel List`} />
-          <MethodCall methodFunction={buyNft(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(assetId), signer, BigInt(1000000))} text={`Buy Nft`} />
-          <MethodCall methodFunction={checkwallet(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(assetId), signer, BigInt(1000000))} text={`check`} /> */}
-
-
-            {/* collection and nft creation */}
-            {/* <MethodCall methodFunction={mintNft(algorandClient, collectionClient, activeAddress!, appId)} text={`mint`} />
-          <MethodCall methodFunction={burnNft(algorandClient, collectionClient, activeAddress!, assetId)} text={`Burn`} /> */}
-
-
-            {/* <MethodCall methodFunction={createNft(algorandClient, collectionClient, activeAddress!, assetId)} text={`Create royal nft`} />
-          <MethodCall methodFunction={burnMyNft(algorandClient, collectionClient, activeAddress!, assetId)} text={`burn`} />
-          <MethodCall methodFunction={transferAlgo(algorandClient, collectionClient, activeAddress!, assetId)} text={`Transfer Algos`} /> */}
-
-
-            {/* <p className='my-3'>Royality Nft Marketplace</p>
-          <MethodCall methodFunction={listRoyalNft(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(assetId), signer)} text={`List Royal Nft`} />
-          <MethodCall methodFunction={buyRoyalNft(algorandClient, marketClient, BigInt(appId), activeAddress!, BigInt(assetId), signer)} text={`Buy Royal Nft`} />
-
-          <MethodCall methodFunction={getBoxValues(algorandClient, BigInt(appId), "", algodClient)} text={`Get listing`} /> */}
-
-
-
-            {/* <button className="btn mt-2" onClick={getAssetDetails}>
-            Get Asset details
-          </button> */}
-
-            {/* <div>
-            <button className="btn mt-2" onClick={getState}>
-              Get contract state
-            </button>
-          </div> */}
-
-            {/* <button className="btn mt-2" onClick={() => { getNfts(algorandClient, BigInt(appId), assetId) }}>Get data</button>
-          <div className="grid">
-            <a
-              data-test-id="getting-started"
-              className="btn btn-primary m-2"
-              target="_blank"
-              href="https://github.com/algorandfoundation/algokit-cli"
-            >
-              Getting started
-            </a>
-
-            <div className="divider" />
-            <button data-test-id="connect-wallet" className="btn m-2" onClick={toggleWalletModal}>
-              Wallet Connection
-            </button> */}
-
-            {/* {activeAddress && (
-              <button data-test-id="transactions-demo" className="btn m-2" onClick={toggleDemoModal}>
-                Transactions Demo
-              </button>
-            )}
-
-            {activeAddress && (
-              <button data-test-id="appcalls-demo" className="btn m-2" onClick={toggleAppCallsModal}>
-                Contract Interactions Demo
-              </button>
-            )} */}
-            {/* </div> */}
-
             <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
             <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
           </div>
