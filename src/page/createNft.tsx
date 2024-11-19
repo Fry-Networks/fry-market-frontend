@@ -24,6 +24,7 @@ const CreateNft: React.FC = () => {
   const [mintLoading, setMintLoading] = useState(false);
   const [locationParams, setLocationParams] = useState<any>({});
   const [isMintSuccessful, setIsMintSuccessful] = useState<any>(true);
+  const [isFailed, setIsFailed] = useState<any>(false);
   const navigate = useNavigate();
   const location = useLocation();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -84,16 +85,22 @@ const CreateNft: React.FC = () => {
 
           console.log((response.data));
           setGeneratedNfts(response.data.image_responses)
+          setIsFailed(false);
+
         }
         else {
           toast.error("Unable to generate nfts")
+          setIsFailed(true);
+
         }
         setLoading(false);
+
 
       })
       .catch((error) => {
         console.log(error);
         toast.error("Some Error occured while generating NFTs. Please try again.")
+        setIsFailed(true);
         setLoading(false);
 
       });
@@ -106,16 +113,24 @@ const CreateNft: React.FC = () => {
   //   }
   // }, [isMintSuccessful])
 
+  const imgGeneration = () => {
+    const { inputValue, selectedStyle, supply, nftType } = location.state
+    if (inputValue && selectedStyle && supply && nftType && !loading) {
+      setLocationParams(location.state)
+      console.log(location.state);
+      console.log("u called");
+
+      generateImages(inputValue, selectedStyle, supply);
+    }
+  }
+
   useEffect(() => {
     if (location.state) {
-      const { inputValue, selectedStyle, supply, nftType } = location.state
-      if (inputValue && selectedStyle && supply && nftType && !loading) {
-        setLocationParams(location.state)
-        console.log(location.state);
-        console.log("u called");
-
-        generateImages(inputValue, selectedStyle, supply);
-      }
+      imgGeneration()
+    }
+    else {
+      // alert("No location data found")
+      navigate("/create-nft-page")
     }
   }, [])
 
@@ -139,8 +154,17 @@ const CreateNft: React.FC = () => {
 
   useEffect(() => {
     console.log("selectedImages", selectedImages);
-
   }, [selectedImages])
+
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      window.history.replaceState({}, '')
+    };
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
 
   const mintNft = async () => {
     return new Promise(async (resolve, reject) => {
@@ -201,6 +225,20 @@ const CreateNft: React.FC = () => {
                 onClick={handleClick}
                 disabled={loading || mintLoading}
               />
+
+              {!loading && isFailed &&
+                <Button
+                  className="button btn-primary text-[12px] font-semibold"
+                  width={96}
+                  minHeight={37}
+                  text="Generate Again"
+                  onClick={imgGeneration}
+                  disabled={loading || mintLoading}
+                />
+
+
+              }
+
             </div>
           </div>
           <div className="singleNftCard flex items-center justify-between" style={{ flexWrap: "wrap", justifyContent: "flex-start", gap: "50px" }}>

@@ -1,12 +1,49 @@
+import { useWallet } from "@txnlab/use-wallet";
 import { Modal, Select } from "antd";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
+import { getImgGenFee } from "../fryMarketMethods";
 
 const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType, supply, selectedStyle }: any) => {
 
+  const [loading, setLoading] = useState(false)
+  const [isPaymentSuccessfull, setIsPaymentSuccessfull] = useState(false)
   const navigate = useNavigate();
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+  const deductImageGenerationFee = async () => {
+
+    return new Promise(async (resolve, reject) => {
+      try {
+        setLoading(true);
+        const response: any = await getImgGenFee(supply == 1 ? false : true, supply, signer, activeAccount?.address ? activeAccount?.address : "123")
+        console.log("response after minting", response);
+        // toast.success("Mint Successful")
+        setLoading(false);
+        setIsPaymentSuccessfull(true);
+        resolve(true);
+        handleConfirmButtonClick();
+        // navigate("/artist-profile")
+
+      }
+      catch (e: any) {
+        console.log("Error Mintin Nft", e);
+        toast.error(e.message);
+        setLoading(false);
+        setIsPaymentSuccessfull(false);
+
+        reject(false);
+
+
+      }
+
+
+    });
+
+
+  }
 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
@@ -18,6 +55,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
   const handleOk = () => {
     setisgeneratemodal(false);
     navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle } })
+
   };
 
   const handleCancel = () => {
@@ -98,7 +136,20 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
                 width={144}
                 minHeight={53}
                 text="CONFIRM"
-                onClick={handleConfirmButtonClick}
+                disabled={loading}
+                onClick={() => {
+                  if (activeAccount?.address) {
+                    toast.promise(
+                      deductImageGenerationFee(),
+                      {
+                        pending: "Transaction in progress",
+                        error: "There was an error in transaction",
+                        // @ts-ignore
+                        success: `Transaction is successful`
+                      }
+                    )
+                  }
+                }}
               ></Button>
             </div>
           </div>
