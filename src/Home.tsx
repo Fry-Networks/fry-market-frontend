@@ -10,7 +10,6 @@ import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
 import { CreateCollectionClient } from './contracts/CreateCollection'
 import { addCollectionRoyalty, buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getImgGenFee, getMarkeGlobalState, getRoyalty, getSingleNftlistData, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
-import { transferFry } from './fryVpnFee'
 import { getGlobalState, testingTxn } from './methods'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -308,12 +307,6 @@ const Home: React.FC<HomeProps> = () => {
     // Return the formatted date string
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
-
-  const transferFrytest = async () => {
-    const test = await transferFry(activeAddress!, signer)
-    console.log(test)
-  }
-
   useEffect(() => {
     (async () => {
       // const allListings = await getSingleAuction(717753482);
@@ -385,7 +378,6 @@ const Home: React.FC<HomeProps> = () => {
             <button className="button btn-primary p-2 block w-full" onClick={claimAuctionNft}>Claim Nft</button>
             <button className="button btn-primary p-2 block w-full" onClick={getUserClaimableNfts}>Get User Claimable nFts</button>
             <button className="button btn-primary p-2 block w-full" onClick={getUserAuctions}>Get All User Auctions</button>
-            <button className="button btn-primary p-2 block w-full" onClick={transferFrytest}>Transfer Fry Test</button>
           </div>
         </div>
         <div className="hero-content text-center rounded-lg p-6 max-w-md bg-white mx-auto">
