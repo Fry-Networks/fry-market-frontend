@@ -9,7 +9,7 @@ import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
-import { addCollectionRoyalty } from "../fryMarketMethods";
+import { addCollectionRoyalty, getRoyalty } from "../fryMarketMethods";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateNftCollectionManual = () => {
@@ -35,7 +35,8 @@ const CreateNftCollectionManual = () => {
         // const config = {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
-
+        const royalty = await getRoyalty(activeAccount?.address);
+        setRoyalty(Number(royalty) / 100)
         const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
         console.log("Collection Data", response.data);
         setCollectionDataFound(true);
@@ -235,10 +236,9 @@ const CreateNftCollectionManual = () => {
                           if (e.target.value == "" || e.target.value >= 0 && e.target.value <= 15) {
                             setRoyalty(e.target.value)
                             console.log("D");
-
                           }
                         }}
-                      // disabled={collectionDataFound}
+                        disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -303,7 +303,7 @@ const CreateNftCollectionManual = () => {
                           }
 
                         }}
-                      // disabled={collectionDataFound}
+                        disabled={collectionDataFound}
                       />
                     </div>
                   </form>

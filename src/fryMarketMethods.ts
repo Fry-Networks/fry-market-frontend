@@ -778,24 +778,24 @@ export const getImgGenFeeAmount = async (isCollection: boolean, numofimgs: numbe
     const tokenPrice = 0.0336; //$  dollars
     console.log("tokenPrice", tokenPrice)
     const { algorandClient } = await createFryMarketClient(signer, sender);
-    const bal = await userFryBalance(sender)
+    // const bal = await userFryBalance(sender)
     if (isCollection) {
         const pricePerImg = 0.05   //$  dollars
         const amountInFry = pricePerImg / tokenPrice;
-        if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
-            throw new Error("Not Enough Balance")
-        }
-        return amountInFry
+        // if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+        //     throw new Error("Not Enough Balance")
+        // }
+        return Math.floor(amountInFry * numofimgs)
     } else {
         if (numofimgs > 1) {
             throw new Error("Please select valid number of images")
         }
         const pricePerImg = 1   //$  dollars
         const amountInFry = pricePerImg / tokenPrice;
-        if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
-            throw new Error("Not Enough Balance")
-        }
-        return amountInFry
+        // if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+        //     throw new Error("Not Enough Balance")
+        // }
+        return Math.floor(amountInFry)
     }
 }
 

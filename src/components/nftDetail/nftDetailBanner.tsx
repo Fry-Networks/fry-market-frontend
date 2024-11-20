@@ -626,7 +626,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
 
                             <div className="w-full flex justify-between">
                               <p className="lightGray small font-normal font-Roboto">Creator Earnings</p>
-                              <p className="lightGray small font-normal font-Roboto">6.5%</p>
+                              <p className="lightGray small font-normal font-Roboto">{collectionData?.royalty ? collectionData?.royalty : "0"}%</p>
                             </div>
 
                           </div>
