@@ -9,7 +9,7 @@ import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
 // const AUCTION_ID: bigint = 724678215n;
-export const AUCTION_ID: bigint = 729317952n;
+export const AUCTION_ID: bigint = 729430870n;
 const AUCTION_ADDRESS: string = algosdk.getApplicationAddress(AUCTION_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
 const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
@@ -191,7 +191,6 @@ export const listNftAuction = async (
                     extraFee: algokit.algos(0.002),
                     signer
                 })
-                // const optInAsset = await auctionClient.assetOptIn({ asset: asset, mbrPay })
 
                 atc.addMethodCall({
                     suggestedParams,
@@ -204,14 +203,6 @@ export const listNftAuction = async (
                 });
             }
 
-            const boxPay = await algorandClient.transactions.payment({
-                sender,
-                receiver: AUCTION_ADDRESS,
-                amount: algokit.microAlgos(AUCTION_BOX_PRICE),
-                signer
-            })
-
-
             const xfer = await algorandClient.transactions.assetTransfer({
                 sender,
                 receiver: AUCTION_ADDRESS,
@@ -220,15 +211,25 @@ export const listNftAuction = async (
                 signer
             })
 
+            let boxAmount = 0
             let fee = 0;
             const boxId = algosdk.encodeUint64(asset);
             const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
             console.log(box)
             if (!box) {
                 fee = (bidStartAmount * PRIMARY_FEE) / 10000
+                boxAmount = AUCTION_BOX_PRICE
             } else {
                 fee = (bidStartAmount * SECONDARY_FEE) / 10000
+                boxAmount = 0
             }
+
+            const boxPay = await algorandClient.transactions.payment({
+                sender,
+                receiver: AUCTION_ADDRESS,
+                amount: algokit.microAlgos(boxAmount),
+                signer
+            })
 
             const feeAxfer = await algorandClient.transactions.assetTransfer({
                 sender,
@@ -260,12 +261,6 @@ export const listNftAuction = async (
             console.log(e)
             throw e
         })
-
-        // await auctionClient.listNftOnAuction({ ...auctionParams, biddingContract: BigInt(bidding!.appId), xfer, boxPay }).then((res) => {
-        //     console.log(res)
-        // }).catch((e) => {
-        //     console.log(e)
-        // })
 
         return true;
 
@@ -488,7 +483,6 @@ export const claimNftRoyalty = async (
         const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
         if (box) {
             const listedCount = algosdk.decodeUint64(box.slice(120, 128), "mixed")
-            console.log("listedCount : ", listedCount)
             if (listedCount > 1) {
                 fee = (bidAmount * SECONDARY_FEE) / 10000
             } else {
