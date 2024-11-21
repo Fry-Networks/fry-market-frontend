@@ -29,6 +29,8 @@ const Input = ({
   error,
   errorMessage,
   disabled = false,
+  min,
+  max
 }: any) => {
   const [showPassword, setShowPassword] = useState(false);
 

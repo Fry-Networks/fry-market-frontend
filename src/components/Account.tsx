@@ -7,8 +7,8 @@ const Account = () => {
   const { activeAddress } = useWallet()
   const algoConfig = getAlgodConfigFromViteEnvironment()
 
-  const dappFlowNetworkName = useMemo(() => {
-    return algoConfig.network === '' ? 'sandbox' : algoConfig.network.toLocaleLowerCase()
+  const networkName = useMemo(() => {
+    return algoConfig.network === '' ? 'localnet' : algoConfig.network.toLocaleLowerCase()
   }, [algoConfig.network])
 
   return (
@@ -16,7 +16,7 @@ const Account = () => {
       <a
         className="text-xl text-black"
         target="_blank"
-        href={`https://${dappFlowNetworkName == "testnet" ? dappFlowNetworkName + "." : ""}explorer.perawallet.app/address/${activeAddress}/`}
+        href={`https://lora.algokit.io/${networkName}/account/${activeAddress}/`}
       // href={`https://app.dappflow.org/setnetwork?name=${dappFlowNetworkName}&redirect=explorer/account/${activeAddress}/`}
       >
         Address: {ellipseAddress(activeAddress)}

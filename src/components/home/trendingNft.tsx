@@ -30,7 +30,7 @@ const TrendingNft = ({ collectionData }: any) => {
       setLoading(true);
       const response = await getAllListed();
       console.log("NftListed", response);
-      setListedNfts(response);
+      setListedNfts(response ? response.filter((item) => item.isListed) : []);
       setLoading(false)
       console.log("aa", response.sort((data1: any, data2: any) => {
 
@@ -99,12 +99,14 @@ const TrendingNft = ({ collectionData }: any) => {
             <CollectionsCard key={data.id} data={data} />
           ))} */}
 
-          {listedNfts.sort((data1: any, data2: any) => data1.list_count - data2.list_count).map((data: any, index: any) => (
+          {Array.isArray(listedNfts) && listedNfts.length > 0 ? listedNfts.sort((data1: any, data2: any) => data1.list_count - data2.list_count).map((data: any, index: any) => (
             data.isListed ?
               <CollectionsCard key={data.assetId} data={data} label={"Buy"} collectionData={collectionData[data.seller]} />
               :
               ""
-          ))}
+          ))
+            :
+            <p>No Nft Listed</p>}
 
         </div>
       </div>

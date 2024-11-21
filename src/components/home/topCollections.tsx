@@ -53,9 +53,12 @@ const TopCollections = ({ collectionDataFull }: any) => {
             {/* {topCollectionData.map((data, index) => (
               <TopCollectionCard data={data} key={data.id} />
             ))} */}
-            {collectionDataFull.slice(0, 3).map((data: any, index: any) => (
+            {Array.isArray(collectionDataFull) && collectionDataFull.length > 0 ? collectionDataFull.slice(0, 3).map((data: any, index: any) => (
               <TopCollectionCard data={data} key={data.id} />
-            ))}
+            ))
+              :
+              <p>No Collection Found</p>
+            }
 
           </div>
         </div>

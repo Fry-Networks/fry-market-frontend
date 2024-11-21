@@ -36,10 +36,13 @@ const TopSeller = ({ collectionDataFull }: any) => {
                                 <SellerCard data={data} key={data.id} />
                             ))
                         } */}
-                        {
+                        {Array.isArray(collectionDataFull) && collectionDataFull.length > 0 ?
                             collectionDataFull.map((data: any, index: any) => (
                                 <SellerCard data={data} key={data._id} />
                             ))
+                            :
+
+                            <p>No Seller Found</p>
                         }
                     </div>
                 </div>

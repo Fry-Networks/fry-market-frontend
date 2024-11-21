@@ -26,7 +26,7 @@ const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
             setLoading(true);
             const response = await getAllListed();
             console.log("NftListed", response);
-            setListedNfts(response);
+            setListedNfts(response ? response.filter((item) => item.isListed) : []);
             setLoading(false)
 
         }
@@ -86,12 +86,15 @@ const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
                 </div>
 
                 <div className="nftWrapper mt-10 grid grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 xxl:grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
-                    {listedNfts.map((data: any, index: any) => (
+                    {Array.isArray(listedNfts) && listedNfts.length > 0 ? listedNfts.map((data: any, index: any) => (
                         data.isListed ?
                             <CollectionsCard key={data.assetId} data={data} label={"Buy"} collectionData={collectionData[data.seller]} />
                             :
                             ""
-                    ))}
+                    ))
+                        :
+                        <p>No Nft Listed</p>
+                    }
                 </div>
             </div>
         </div>

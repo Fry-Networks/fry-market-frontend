@@ -9,12 +9,13 @@ import nft1 from "../assets/images/createNft/profilepic.png";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
+import { addCollectionRoyalty, getRoyalty } from "../fryMarketMethods";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateNftCollectionManual = () => {
   const [prevImage, setPrevImage] = useState("")
   const navigate = useNavigate();
-  const { activeAccount } = useWallet()
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   // @ts-ignore
   const { token }: any = useContext(TokenContext)
 
@@ -24,6 +25,8 @@ const CreateNftCollectionManual = () => {
   });
 
   const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
+  const [royalty, setRoyalty] = useState<any>(false)
+
 
   const getCollectionData = async () => {
     if (activeAccount?.address) {
@@ -32,7 +35,8 @@ const CreateNftCollectionManual = () => {
         // const config = {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
-
+        const royalty = await getRoyalty(activeAccount?.address);
+        setRoyalty(Number(royalty) / 100)
         const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
         console.log("Collection Data", response.data);
         setCollectionDataFound(true);
@@ -68,7 +72,7 @@ const CreateNftCollectionManual = () => {
   const validation = () => {
     console.log("Dd", activeAccount?.address);
 
-    if (formData.collection_name && formData.description && activeAccount?.address && prevImage) {
+    if (formData.collection_name && formData.description && activeAccount?.address && prevImage && royalty) {
       return true
     }
     else {
@@ -85,26 +89,33 @@ const CreateNftCollectionManual = () => {
         //   reject(false);
         // }
         try {
-          const formDataForImage = new FormData;
-          formDataForImage.append("images", prevImage);
-          const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-          console.log("Response in upload Image", response.data);
-          setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
-          if (response.data?.image_urls[0]) {
+          if (activeAccount?.address) {
+            const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
+            console.log("added", addRoyaltyResponse);
 
-            if (await handleContinue(response.data?.image_urls[0])) {
-              resolve(true);
+            const formDataForImage = new FormData;
+            formDataForImage.append("images", prevImage);
+            const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
+            console.log("Response in upload Image", response.data);
+            setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
+            if (response.data?.image_urls[0]) {
+
+              if (await handleContinue(response.data?.image_urls[0])) {
+                resolve(true);
+              }
+              else {
+                reject(false);
+              }
             }
             else {
+              console.log("Some Error Occured while uploading image. Please try again.");
               reject(false);
+
             }
           }
           else {
-            console.log("Some Error Occured while uploading image. Please try again.");
-            reject(false);
-
+            reject(false)
           }
-
         }
         catch (e) {
           reject(false)
@@ -208,6 +219,25 @@ const CreateNftCollectionManual = () => {
                         label="Token Symbol*"
                         placeholder="$ CGPT, for example"
                         className="w-full input-nft"
+                        disabled={collectionDataFound}
+                      />
+                    </div>
+                    <div>
+                      <Input
+                        type="number"
+                        label="Royalty*"
+                        placeholder="Enter Royalty Percentage (0-15%)"
+                        className="w-full input-nft"
+                        name="collection_name"
+                        value={royalty}
+                        onChange={(e: any) => {
+                          console.log("e", e.target.value);
+
+                          if (e.target.value == "" || e.target.value >= 0 && e.target.value <= 15) {
+                            setRoyalty(e.target.value)
+                            console.log("D");
+                          }
+                        }}
                         disabled={collectionDataFound}
                       />
                     </div>

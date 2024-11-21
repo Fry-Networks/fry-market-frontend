@@ -2,13 +2,15 @@ import * as algokit from '@algorandfoundation/algokit-utils';
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account';
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client';
 import algosdk, { Transaction, TransactionSigner } from 'algosdk';
+import { AUCTION_ID, createFryAuctionClient } from './auctionMethod';
 import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
-// const FRY_MARKET_ID: bigint = 717737375n;  // previous working market
-const FRY_MARKET_ID: bigint = 724678047n;
+// const FRY_MARKET_ID: bigint = 724678047n;
+const FRY_MARKET_ID: bigint = 729430779n;
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
-const FEE_PERCENT: number = 3000;  // 100 represent 1% & 10000 represent 100%
+const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
+const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
 const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ";
 const FRY_TOKEN_ID: bigint = 717187263n;
 
@@ -57,8 +59,7 @@ const createFryMarketClient = async (signer: TransactionSigner, activeAddress: s
     return { marketClient, algorandClient, algodClient }
 }
 
-
-export const deployMarketplace = async (sender: string, signer: TransactionSigner, royaltyBasis: number, feePercent: number) => {
+export const deployMarketplace = async (sender: string, signer: TransactionSigner, feePercent: number) => {
     try {
         const indexer = await getIndexerClient();
 
@@ -72,7 +73,7 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
 
         const marketplace = new FryMarketClient(appDetails, algodClient)
 
-        const market = await marketplace.create.initMarket({ fryId: FRY_TOKEN_ID, feePercent: BigInt(feePercent), admin: FEE_WALLET, royaltyBasis: BigInt(royaltyBasis) }).then((res) => {
+        const market = await marketplace.create.initMarket({ fryId: FRY_TOKEN_ID, primaryFee: BigInt(PRIMARY_FEE), secondaryFee: BigInt(SECONDARY_FEE), admin: FEE_WALLET }).then((res) => {
             console.log(res)
             return res
         }).catch((e) => {
@@ -154,14 +155,6 @@ export const listNft = async (
             });
         }
 
-        const boxPay = await algorandClient.transactions.payment({
-            sender,
-            receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
-            amount: algokit.microAlgos(BOX_PRICE),
-            extraFee: algokit.algos(0.001),
-            signer
-        })
-
         const assetTransferTx = await algorandClient.transactions.assetTransfer({
             sender,
             receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
@@ -170,11 +163,42 @@ export const listNft = async (
             signer
         })
 
+        let fee = 0;
+        let boxAmount = 0;
+        const boxId = algosdk.encodeUint64(assetId);
+        const box = await algokit.getAppBoxValue(FRY_MARKET_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
+        console.log(box)
+        if (!box) {
+            fee = (price * PRIMARY_FEE) / 10000
+            boxAmount = BOX_PRICE;
+        } else {
+            fee = (price * SECONDARY_FEE) / 10000
+            boxAmount = 0
+        }
+
+        console.log("box asmoasfda", boxAmount)
+
+        const feeAxfer = await algorandClient.transactions.assetTransfer({
+            sender,
+            signer,
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            amount: BigInt(fee),
+        })
+
+        const boxPay = await algorandClient.transactions.payment({
+            sender,
+            receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
+            amount: algokit.microAlgos(boxAmount),
+            extraFee: algokit.algos(0.001),
+            signer
+        })
+
         atc.addMethodCall({
             suggestedParams,
             appID: Number(FRY_MARKET_ID),
             method: marketClient.appClient.getABIMethod("listAsset")!,
-            methodArgs: [{ txn: boxPay, signer }, { txn: assetTransferTx, signer }, BigInt(price), BigInt(Math.floor(Date.now() / 1000))],
+            methodArgs: [{ txn: boxPay, signer }, { txn: assetTransferTx, signer }, BigInt(price), BigInt(Math.floor(Date.now() / 1000)), { txn: feeAxfer, signer }],
             sender: sender,
             signer: signer,
             appForeignAssets: [Number(assetId)],
@@ -196,6 +220,68 @@ export const listNft = async (
         console.log(e)
         throw e
 
+    }
+}
+
+export const addCollectionRoyalty = async (
+    sender: string,
+    signer: TransactionSigner,
+    royaltyBasis: number,
+    collectionAddress: string
+) => {
+    const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
+    const { auctionClient } = await createFryAuctionClient(signer, sender)
+    const atc = new algosdk.AtomicTransactionComposer();
+    const suggestedParams = await algodClient.getTransactionParams().do();
+
+    const boxPay = await algorandClient.transactions.payment({
+        sender,
+        signer,
+        amount: algokit.microAlgos(2500 + 400 * 8),
+        receiver: FRY_MARKET_ADDRESS
+    })
+    atc.addMethodCall({
+        suggestedParams,
+        appID: Number(FRY_MARKET_ID),
+        method: marketClient.appClient.getABIMethod("addRoyalty")!,
+        methodArgs: [royaltyBasis * 100, collectionAddress, { txn: boxPay, signer }],
+        sender: sender,
+        signer: signer,
+        boxes: [
+            {
+                appIndex: Number(FRY_MARKET_ID),
+                name: algosdk.decodeAddress(collectionAddress).publicKey
+            }
+        ],
+    });
+
+    const aucitonboxPay = await algorandClient.transactions.payment({
+        sender,
+        signer,
+        amount: algokit.microAlgos(2500 + 400 * 8),
+        receiver: algosdk.getApplicationAddress(AUCTION_ID)
+    })
+
+
+    atc.addMethodCall({
+        suggestedParams,
+        appID: Number(AUCTION_ID),
+        method: auctionClient.appClient.getABIMethod("addRoyalty")!,
+        methodArgs: [royaltyBasis * 100, collectionAddress, { txn: aucitonboxPay, signer }],
+        sender: sender,
+        signer: signer,
+        boxes: [
+            {
+                appIndex: Number(AUCTION_ID),
+                name: algosdk.decodeAddress(collectionAddress).publicKey
+            }
+        ],
+    });
+
+
+    const result = await atc.execute(algodClient, 4);
+    for (const mr of result.methodResults) {
+        console.log(`${mr.returnValue}`);
     }
 }
 
@@ -236,7 +322,7 @@ export const buyNftWithRoyalty = async (
         const suggestedParams = await algodClient.getTransactionParams().do();
         suggestedParams.fee = 5000;
 
-        const fee = (price * FEE_PERCENT) / 10000
+
 
         const accountInfo = await algodClient.accountInformation(sender).do();
         const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === parseInt(assetId.toString()));
@@ -250,7 +336,17 @@ export const buyNftWithRoyalty = async (
             atc.addTransaction({ txn: opIn, signer: signer });
         }
 
-
+        let fee = 0;
+        const boxId = algosdk.encodeUint64(assetId);
+        const box: any = await algokit.getAppBoxValue(FRY_MARKET_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
+        if (box) {
+            const listedCount = algosdk.decodeUint64(box.slice(40, 48), "mixed")
+            if (listedCount > 1) {
+                fee = (price * SECONDARY_FEE) / 10000
+            } else {
+                fee = (price * PRIMARY_FEE) / 10000
+            }
+        }
         const xfer = await algorandClient.transactions.assetTransfer({
             sender,
             assetId: FRY_TOKEN_ID,
@@ -259,6 +355,7 @@ export const buyNftWithRoyalty = async (
             extraFee: algokit.algos(0.001),
             signer
         })
+        const assetDetails = await algodClient.getAssetByID(Number(assetId)).do();
         atc.addMethodCall({
             suggestedParams,
             appID: Number(FRY_MARKET_ID),
@@ -267,11 +364,16 @@ export const buyNftWithRoyalty = async (
             sender: sender,
             signer: signer,
             appForeignAssets: [Number(assetId)],
+            appAccounts: [assetDetails?.params?.creator],
             boxes: [
                 {
                     appIndex: Number(FRY_MARKET_ID),
                     name: algosdk.encodeUint64(assetId),
                 },
+                {
+                    appIndex: Number(FRY_MARKET_ID),
+                    name: algosdk.decodeAddress(assetDetails?.params?.creator).publicKey
+                }
             ],
         });
 
@@ -303,9 +405,12 @@ export const getAllListed = async (): Promise<Listing[]> => {
     const algod = await getAlgodClient()
     const listings: Listing[] = [];
     const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
-    await Promise.all(boxes.map(async (bx) => {
-        const decoded = algosdk.decodeUint64(bx.nameRaw, "safe")
+    const filteredBoxes = boxes.filter((bx) => bx.nameRaw.byteLength == 8)
+    console.log(filteredBoxes)
+    await Promise.all(filteredBoxes.map(async (bx) => {
         let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
+        console.log("box", box)
+        const decoded = algosdk.decodeUint64(bx.nameRaw, "safe")
         const nftData = await algod.getAssetByID(decoded).do();
         const sellerId = algosdk.encodeAddress(box.slice(0, 32))
         const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "mixed")
@@ -363,8 +468,6 @@ export const getSingleNftlistData = async (nftId: number): Promise<Listing> => {
 
     return listingData
 }
-
-
 
 export const mintMultipleNft = async (metaUris: any, sender: string, signer: TransactionSigner, signTransactions: any, sendTransactions: any): Promise<Uint8Array[]> => {
     try {
@@ -579,6 +682,13 @@ export const getMarkeGlobalState = async (): Promise<Listing[]> => {
     return listings
 }
 
+export const getRoyalty = async (collection: string) => {
+    const algod = await getAlgodClient()
+    let box = await algokit.getAppBoxValue(FRY_MARKET_ID, algosdk.decodeAddress(collection).publicKey, algod)
+    const royaltPercent = algosdk.decodeUint64(box.slice(0, 8), "mixed")
+    return royaltPercent
+}
+
 
 //! Transaction for fee
 export const trasnferFee = async (amount: number, sender: string, signer: TransactionSigner) => {
@@ -622,6 +732,72 @@ export const userFryBalance = async (user: string): Promise<number> => {
     return asset.amount
 }
 
+
+//! get fry fee for nft minting and imagegeneration
+
+export const getImgGenFee = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
+    // const res = await axios.get("https://api.coingecko.com/api/v3/coins/fryscrypto").then((res) => res.data)
+    // const tokenPrice = res?.market_data?.current_price?.usd; //$  dollars
+    const tokenPrice = 0.0336; //$  dollars
+    console.log("tokenPrice", tokenPrice)
+    const { algorandClient } = await createFryMarketClient(signer, sender);
+    const bal = await userFryBalance(sender)
+    if (isCollection) {
+        const pricePerImg = 0.05   //$  dollars
+        const amountInFry = pricePerImg / tokenPrice;
+        if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+            throw new Error("Not Enough Balance")
+        }
+        const tx = await algorandClient.send.assetTransfer({
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            sender,
+            amount: BigInt(Math.floor(amountInFry * numofimgs) * 1000000)
+        })
+        return tx
+    } else {
+        if (numofimgs > 1) {
+            throw new Error("Please select valid number of images")
+        }
+        const pricePerImg = 1   //$  dollars
+        const amountInFry = pricePerImg / tokenPrice;
+        if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+            throw new Error("Not Enough Balance")
+        }
+        const tx = await algorandClient.send.assetTransfer({
+            assetId: FRY_TOKEN_ID,
+            receiver: FEE_WALLET,
+            sender,
+            amount: BigInt(Math.floor(amountInFry * numofimgs) * 1000000)
+        })
+        return tx
+    }
+}
+
+export const getImgGenFeeAmount = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
+    const tokenPrice = 0.0336; //$  dollars
+    console.log("tokenPrice", tokenPrice)
+    const { algorandClient } = await createFryMarketClient(signer, sender);
+    // const bal = await userFryBalance(sender)
+    if (isCollection) {
+        const pricePerImg = 0.05   //$  dollars
+        const amountInFry = pricePerImg / tokenPrice;
+        // if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+        //     throw new Error("Not Enough Balance")
+        // }
+        return Math.floor(amountInFry * numofimgs)
+    } else {
+        if (numofimgs > 1) {
+            throw new Error("Please select valid number of images")
+        }
+        const pricePerImg = 1   //$  dollars
+        const amountInFry = pricePerImg / tokenPrice;
+        // if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
+        //     throw new Error("Not Enough Balance")
+        // }
+        return Math.floor(amountInFry)
+    }
+}
 
 interface Asset {
     "amount": number,
