@@ -166,7 +166,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
             !forList && !ownerSectionsVisible ?
               <div className="area1">
                 <p className="ex-small lightGray font-Roboto">Current price</p>
-                <p className="font-medium text-black ex-large mt-1">{nftData.price / 1000000} FRY</p>
+                <p className="font-medium text-black ex-large mt-1">{nftData.price ? nftData.price / 1000000 : 0} FRY</p>
               </div>
               :
               ""}
