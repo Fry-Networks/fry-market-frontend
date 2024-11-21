@@ -592,6 +592,8 @@ export const getSingleAuction = async (nftId: number) => {
     const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'mixed')
     const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
     const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
+    const totalListcount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
+    const isListed = algosdk.decodeUint64(box.slice(128, 136), 'mixed')
     const listedData = {
         nftAddress: decoded,
         sellerId,
@@ -603,6 +605,8 @@ export const getSingleAuction = async (nftId: number) => {
         highestBidAmount,
         bidContract,
         totalBidders,
+        totalListcount,
+        isListed: isListed == 1 ? true : false,
         ...nftData.params
     }
     return listedData
