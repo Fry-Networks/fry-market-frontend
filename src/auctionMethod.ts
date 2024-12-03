@@ -647,7 +647,7 @@ export const getAllBids = async (
 export const getAllUserClaimable = async (user: string, signer: TransactionSigner) => {
     try {
         const auctions = await getAllAuctions();
-        const claimable = auctions.filter((item) => item.highestBidder === user && item.biddingEndTime < Math.floor(Date.now() / 1000))
+        const claimable = auctions.filter((item) => item?.isListed).filter((item) => item.highestBidder === user && item.biddingEndTime < Math.floor(Date.now() / 1000))
         return claimable
     } catch (error) {
         return error

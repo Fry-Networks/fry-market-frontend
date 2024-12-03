@@ -42,11 +42,11 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
       const response = await getAllAuctions();
       console.log("NftAuctionedh", response);
       if (moreByUser) {
-        setAuctionedNfts(response.filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
+        setAuctionedNfts(response.filter((item) => item?.isListed).filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
       }
       else {
 
-        setAuctionedNfts(response);
+        setAuctionedNfts(response.filter((item) => item?.isListed));
       }
       setLoading(false)
 

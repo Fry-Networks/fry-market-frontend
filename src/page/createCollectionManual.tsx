@@ -118,7 +118,10 @@ const CreateNftCollectionManual = () => {
           }
         }
         catch (e) {
+          console.log("error", e);
+
           reject(false)
+
         }
 
 

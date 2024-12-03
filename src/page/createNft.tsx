@@ -135,6 +135,9 @@ const CreateNft: React.FC = () => {
   }, [])
 
   const toggleImageSelection = (nftObject: any, index: number) => {
+    if (loading || mintLoading) {
+      return;
+    }
     if (locationParams.nftType == "single") {
       setSelectedImages([nftObject])
     }

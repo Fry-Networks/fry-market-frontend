@@ -49,7 +49,7 @@ const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
 
             <div className="profileContent flex flex-col gap-5 justify-center items-center mt-14">
               <h3 className="darkBlack font-Apex font-normal tracking-[1.6px] ">
-                {profileData?.display_name ? profileData?.display_name : "WILLIAM AKARANA"}
+                {profileData?.display_name ? profileData?.display_name : "User"}
               </h3>
               <div className="followerDiv flex gap-4">
                 {/* <div className="part1 flex items-center gap-1">
