@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import readyDropIcon from "../../assets/home/images/homeImages/readyDropBtn.webp";
 import Input from "../shared/input";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
-//
+
 const ReadyForNext = () => {
 
   const [email, setEmail] = useState("")
