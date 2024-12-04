@@ -54,6 +54,9 @@ const ReadyForNext = () => {
         toast.success("Email registered successfully for air drop")
         setEmail("")
       }
+      else if (response.status == 409) {
+        toast.error("Email already registered for air drop")
+      }
       else {
         toast.error("Some error occured while registering for air drop")
 
