@@ -47,6 +47,7 @@ const ManualCreateNft = () => {
         console.log(`switch to ${checked}`);
     };
     const [loading, setLoading] = useState(false);
+    const [mintLoading, setMintLoading] = useState(false)
     const [imageUrl, setImageUrl] = useState<string | null>(null);
     const [showOriginalContent, setShowOriginalContent] = useState(true);
     const [value, setValue] = useState("blue: fox");
@@ -112,8 +113,18 @@ const ManualCreateNft = () => {
         setIsEditing(true);
     };
 
-    const handleClearClick = () => {
-        setValue("");
+    const handleClearClick = (key: any) => {
+        console.log('f', key);
+
+        setTraits((prev: any) => {
+            let traits = { ...prev };
+            console.log("rr", traits);
+
+            delete traits[key]
+            console.log("rr", traits);
+
+            return traits;
+        })
     };
 
     const handleBackClick = () => {
@@ -155,7 +166,7 @@ const ManualCreateNft = () => {
         }
     }
     const validation = () => {
-        if (formData.itemName && formData.itemSymbol && formData.itemDescription && prevImage && collectionSelected && Object.keys(traits).length > 0) {
+        if (formData.itemName?.replace(/\s+/g, '').length != 0 && formData.itemSymbol?.replace(/\s+/g, '').length != 0 && formData.itemDescription?.replace(/\s+/g, '').length != 0 && prevImage && collectionSelected && Object.keys(traits).length > 0) {
             return true
         }
         else {
@@ -167,7 +178,7 @@ const ManualCreateNft = () => {
         try {
             return new Promise(async (resolve, reject) => {
                 try {
-                    setLoading(true);
+                    setMintLoading(true);
                     const formDataForImage = new FormData;
                     formDataForImage.append("image", prevImage);
                     const response = await axios.post(`${baseUrl}/upload-nft-image`, formDataForImage);
@@ -193,20 +204,20 @@ const ManualCreateNft = () => {
 
 
                             if (await mintNft({ ...metaData, metadata: metaDataResponse?.data?.url })) {
-                                setLoading(false);
+                                setMintLoading(false);
 
                                 resolve(true);
                                 navigate("/artist-profile")
                             }
                             else {
-                                setLoading(false);
+                                setMintLoading(false);
 
                                 reject(false)
                             }
                         }
                         else {
                             console.log("Some Error Occured while uploading meta data. Please try again.");
-                            setLoading(false);
+                            setMintLoading(false);
 
                             reject(false)
 
@@ -215,14 +226,14 @@ const ManualCreateNft = () => {
                     }
                     else {
                         console.log("Some Error Occured while uploading image. Please try again.");
-                        setLoading(false);
+                        setMintLoading(false);
 
                         reject(false)
 
                     }
                 }
                 catch (e) {
-                    setLoading(false);
+                    setMintLoading(false);
 
                     reject(false);
                 }
@@ -288,6 +299,10 @@ const ManualCreateNft = () => {
     const handleTraitAdd = () => {
         if (traitName && traitValue) {
             if (!Object.keys(traits).includes(traitName)) {
+                if (traitName?.replace(/\s+/g, '').length == 0 && traitValue?.replace(/\s+/g, '').length == 0) {
+                    toast.error("Trait name and value can not be empty")
+                    return;
+                }
                 setTraits((prev: any) => ({ ...prev, [traitName]: traitValue }))
                 setTraitName("")
                 setTraitValue("")
@@ -382,7 +397,7 @@ const ManualCreateNft = () => {
                                                             <>
                                                                 <div className="flex flex-col gap-2">
                                                                     <span className="mb-1 font-medium">
-                                                                        Description
+                                                                        Description*
                                                                     </span>
                                                                     <span className="medium ">
                                                                         The description will be included on the
@@ -402,7 +417,7 @@ const ManualCreateNft = () => {
                                                 <div className="chooseCollection my-3">
                                                     <div className=" chooseContent w-full flex justify-between items-center">
                                                         <p className="darkBlack large font-medium font-Roboto">
-                                                            Choose Collection
+                                                            Choose Collection*
                                                         </p>
                                                         {/* <p
                                                             className="underline lightGray medium font-normal cursor-pointer"
@@ -484,7 +499,7 @@ const ManualCreateNft = () => {
 
                                                 <div className="addTraits flex flex-col gap-3">
                                                     <p className="darkBlack large font-medium font-Roboto">
-                                                        Add Traits
+                                                        Add Traits*
                                                     </p>
                                                     <p className="darkBlack font-Roboto medium font-normal">
                                                         Traits describe attributes of your item. They appear
@@ -525,7 +540,7 @@ const ManualCreateNft = () => {
                                                                 <div className="h-[24px] w-[1px] bg-gray-400"></div>
                                                                 <CloseOutlined
                                                                     className="text-gray-500 cursor-pointer"
-                                                                    onClick={handleClearClick}
+                                                                    onClick={() => handleClearClick(keyName)}
                                                                 />
                                                             </div>
                                                         </div>

@@ -72,7 +72,7 @@ const CreateNftCollectionManual = () => {
   const validation = () => {
     console.log("Dd", activeAccount?.address);
 
-    if (formData.collection_name && formData.description && activeAccount?.address && prevImage && royalty) {
+    if (formData.collection_name.replace(/\s+/g, '').length != 0 && formData.description.replace(/\s+/g, '').length != 0 && activeAccount?.address && prevImage && royalty) {
       return true
     }
     else {
@@ -219,7 +219,7 @@ const CreateNftCollectionManual = () => {
                     <div>
                       <Input
                         type="text"
-                        label="Token Symbol*"
+                        label="Token Symbol"
                         placeholder="$ CGPT, for example"
                         className="w-full input-nft"
                         disabled={collectionDataFound}
@@ -233,15 +233,16 @@ const CreateNftCollectionManual = () => {
                         className="w-full input-nft"
                         name="collection_name"
                         value={royalty}
+                        onKeyDown={(evt: any) => evt.key === 'e' && evt.preventDefault()}
                         onChange={(e: any) => {
                           console.log("e", e.target.value);
 
                           if (e.target.value == "" || e.target.value >= 0 && e.target.value <= 15) {
                             setRoyalty(e.target.value)
-                            console.log("D");
+                            // console.log("D");
                           }
                         }}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -253,7 +254,7 @@ const CreateNftCollectionManual = () => {
                         label={
                           <>
                             <div className="flex flex-col gap-2">
-                              <span>Description</span>
+                              <span>Description*</span>
                               <span className="medium ">
                                 The description will be included on the item's
                                 detail page underneath its image.

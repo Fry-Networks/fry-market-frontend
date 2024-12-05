@@ -17,7 +17,7 @@ import GenerateNft from "../../modals/generateNft";
 import Input from "../shared/input";
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
-const Banner = () => {
+const Banner = ({ prompt }: any) => {
   const [isstylemodal, setisstylemodal] = useState(false);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
   const navigate = useNavigate();
@@ -99,6 +99,12 @@ const Banner = () => {
 
   useEffect(() => {
     getCollectionData();
+    console.log("d", prompt);
+    if (prompt) {
+
+      setInputValue(prompt)
+    }
+
   }, [activeAccount])
 
   return (
@@ -141,6 +147,7 @@ const Banner = () => {
                       type="text"
                       className="m-auto"
                       onChange={handleChange}
+                      value={inputValue}
                     />
                     <button onClick={showGenerateNftModal} className="absolute top-[18px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2">
                       Generate

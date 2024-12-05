@@ -30,7 +30,8 @@ const Input = ({
   errorMessage,
   disabled = false,
   min,
-  max
+  max,
+  onKeyDown = () => { }
 }: any) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -91,8 +92,9 @@ const Input = ({
             aria-placeholder={placeholderClass}
             // placeholderClass={placeholderClass}
             aria-label={label}
-          // aria-inputClass={inputClass}
-          // aria-labelClass={labelClass}
+            // aria-inputClass={inputClass}
+            // aria-labelClass={labelClass}
+            onKeyDown={onKeyDown}
           />
           {/* <label className={`text-capitalize ${labelClass}`}>{placeholder}</label> */}
           {icon && (

@@ -116,7 +116,7 @@ const ProfilePage = () => {
   return (
     <>
       <ProfileBanner fryBalance={fryBalance} profileData={profileData} length={allNft.length} />
-      <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} />
+      <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} profileData={profileData} />
       <ProfileNft collectionData={collectionData} />
     </>
   )

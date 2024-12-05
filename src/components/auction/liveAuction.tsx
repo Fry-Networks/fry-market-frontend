@@ -76,10 +76,26 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
 
               ))} */}
 
-              {auctionedNfts.map((data: any, index: any) => (
+              {/* {auctionedNfts.map((data: any, index: any) => (
                 // (data.biddingStartTime * 1000) < Date.now() &&
                 <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData ? collectionData[data.sellerId] : {}} fromLive={true} />
-              ))}
+              ))} */}
+
+              {Array.isArray(auctionedNfts) && auctionedNfts.filter((data) => Number(data.biddingStartTime) * 1000 < Date.now() && Number(data.biddingEndTime) * 1000 > Date.now()).length > 0 ? auctionedNfts.filter((data) => Number(data.biddingStartTime) * 1000 < Date.now() && Number(data.biddingEndTime) * 1000 > Date.now()).map((data: any, index: any) => (
+
+
+                Number(data.biddingStartTime) * 1000 < Date.now() ?
+                  <>
+                    <AuctionCard key={index} data={data} showHiddenDiv={true} isAuctionPage={true} getAuctionedNft={getAuctionedNft} collectionData={collectionData ? collectionData[data.sellerId] : {}} fromLive={true} />
+
+                  </>
+                  :
+                  ""
+              ))
+                :
+
+                "No Nfts currently listed on Auction"
+              }
 
             </div>
           </div>
