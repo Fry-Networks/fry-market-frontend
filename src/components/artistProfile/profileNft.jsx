@@ -189,7 +189,7 @@ const ProfileNft = ({ collectionData, address }) => {
         setLoadingClaimable(true)
         const response = await getAllUserClaimable(address || activeAccount?.address, signer)
         console.log('NftClaimable', response)
-        setClaimableNft(response.filter((data)=>data.highestBidder != activeAccount?.address))
+        setClaimableNft(response.filter((data)=>data.highestBidder != data.sellerId))
         setLoadingClaimable(false)
       } catch (e) {
         console.log('dd', e)
@@ -461,6 +461,7 @@ const ProfileNft = ({ collectionData, address }) => {
                           otherList={true} 
                           profileOwned = {true}
                           otherAuctionData={data}
+                          setGetNftDataAgain={setGetNftDataAgain}
                           />
                         ))}
                       </div>

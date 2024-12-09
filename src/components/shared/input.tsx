@@ -31,7 +31,8 @@ const Input = ({
   disabled = false,
   min,
   max,
-  onKeyDown = () => { }
+  onKeyDown = () => { },
+  asterisk = ""
 }: any) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -76,7 +77,7 @@ const Input = ({
         className={`input-box  ${error ? "error" : ""} ${className}`}
         style={inputStyle}
       >
-        <label className={labelClass}>{label}</label>
+        <label className={labelClass}>{label}<span style={{ color: "#FD0000" }}> {asterisk ? asterisk : ""}</span></label>
         <div className="input-wrapper">
           <input
             autoComplete="off"

@@ -153,6 +153,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             setBtnLoader(false)
 
             resolve(true)
+            setGetNftDataAgain((prev: any) => !prev)
 
 
           }
