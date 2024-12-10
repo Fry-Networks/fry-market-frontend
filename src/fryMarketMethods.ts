@@ -524,7 +524,8 @@ export const getAllNfts = async (sender: string) => {
     const collection = createdNft.length > 0 ? createdNft.filter((item: any) => item.params.decimals === 0 && item.params.total === 1) : []
     const algod = await getAlgodClient()
     const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
-    for (let listBox of boxes) {
+    const filteredBoxes = boxes.filter((bx) => bx.nameRaw.byteLength == 8)
+    for (let listBox of filteredBoxes) {
         for (let i = 0; i < collection.length; i++) {
             const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
             if (decoded === collection[i].index) {
@@ -569,7 +570,8 @@ export const getAllCollectionWListed = async (sender: string) => {
     const collection = createdNft.length > 0 ? createdNft.filter((item: any) => item.params.decimals === 0 && item.params.total === 1) : []
     const algod = await getAlgodClient()
     const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
-    for (let listBox of boxes) {
+    const filteredBoxes = boxes.filter((bx) => bx.nameRaw.byteLength == 8)
+    for (let listBox of filteredBoxes) {
         for (let i = 0; i < collection.length; i++) {
             const decoded = algosdk.decodeUint64(listBox.nameRaw, "safe")
             if (decoded === collection[i].index) {
