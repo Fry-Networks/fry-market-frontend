@@ -299,6 +299,7 @@ export const createBid = async (
         console.log("previous", previousHighestBidder)
         const suggestedParams = await algodClient.getTransactionParams().do();
         suggestedParams.fee = 3000;
+        suggestedParams.flatFee = true
         const boxPay = await algorandClient.transactions.payment({
             sender,
             receiver: algosdk.getApplicationAddress(biddingAppId),
@@ -468,7 +469,7 @@ export const claimNftRoyalty = async (
         const atc = new algosdk.AtomicTransactionComposer();
         const suggestedParams = await algodClient.getTransactionParams().do();
         suggestedParams.fee = 3000
-
+        suggestedParams.flatFee = true
         if (!hasOptedIn) {
             const opIn = await algorandClient.transactions.assetOptIn({
                 assetId: BigInt(asset),
