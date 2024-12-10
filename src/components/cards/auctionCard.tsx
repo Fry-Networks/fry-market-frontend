@@ -57,7 +57,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
           >
             {/* <p className="medium font-medium darkBlack">3:06:59:18</p> */}
             <p className="medium font-medium darkBlack">
-              <Countdown date={Date.now() + ((data.biddingEndTime * 1000) - Date.now())} />
+              {data.biddingEndTime && <Countdown date={Date.now() + ((data.biddingEndTime * 1000) - Date.now())} />}
             </p>
           </div>
 

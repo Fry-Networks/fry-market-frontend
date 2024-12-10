@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import leftLines from "../../assets/home/images/homeImages/digitalGrid.webp";
 import digitalassetBack from "../../assets/home/images/topSeller/digitalAssetBack.webp";
 import digittalGrid from "../../assets/home/images/topSeller/digitalGrid.png";
@@ -6,7 +8,10 @@ import generateIcon from "../../assets/icons/generateIcon.svg";
 import Input from "../shared/input";
 
 const DigitalAssets = () => {
+
+  const [prompt, setPrompt] = useState("")
   const navigate = useNavigate()
+
   return (
     <>
       <div className="digitalAssetWrapper my-52 flex-col flex-center relative">
@@ -27,9 +32,21 @@ const DigitalAssets = () => {
               height={70}
               type="text"
               className="m-auto my-72"
+              value={prompt}
+              onChange={(e: any) => { setPrompt(e.target.value) }}
 
             />
-            <button className="absolute top-[13.5px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2" onClick={() => navigate("/create-nft-page")}>Generate
+            <button className="absolute top-[13.5px] right-2  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2" onClick={() => {
+              if (prompt?.replace(/\s+/g, '').length != 0) {
+
+                navigate("/create-nft-page", { state: { prompt } })
+              }
+              else {
+                toast.error("Prompt should not be empty", { toastId: "emptyPrompt" })
+              }
+
+            }
+            }>Generate
               <img src={generateIcon} alt="" />
             </button>
           </div>

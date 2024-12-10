@@ -30,7 +30,9 @@ const Input = ({
   errorMessage,
   disabled = false,
   min,
-  max
+  max,
+  onKeyDown = () => { },
+  asterisk = ""
 }: any) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -75,7 +77,7 @@ const Input = ({
         className={`input-box  ${error ? "error" : ""} ${className}`}
         style={inputStyle}
       >
-        <label className={labelClass}>{label}</label>
+        <label className={labelClass}>{label}<span style={{ color: "#FD0000" }}> {asterisk ? asterisk : ""}</span></label>
         <div className="input-wrapper">
           <input
             autoComplete="off"
@@ -91,8 +93,9 @@ const Input = ({
             aria-placeholder={placeholderClass}
             // placeholderClass={placeholderClass}
             aria-label={label}
-          // aria-inputClass={inputClass}
-          // aria-labelClass={labelClass}
+            // aria-inputClass={inputClass}
+            // aria-labelClass={labelClass}
+            onKeyDown={onKeyDown}
           />
           {/* <label className={`text-capitalize ${labelClass}`}>{placeholder}</label> */}
           {icon && (

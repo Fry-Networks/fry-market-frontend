@@ -72,7 +72,7 @@ const CreateNftCollectionManual = () => {
   const validation = () => {
     console.log("Dd", activeAccount?.address);
 
-    if (formData.collection_name && formData.description && activeAccount?.address && prevImage && royalty) {
+    if (formData.collection_name.replace(/\s+/g, '').length != 0 && formData.description.replace(/\s+/g, '').length != 0 && activeAccount?.address && prevImage && royalty) {
       return true
     }
     else {
@@ -118,7 +118,10 @@ const CreateNftCollectionManual = () => {
           }
         }
         catch (e) {
+          console.log("error", e);
+
           reject(false)
+
         }
 
 
@@ -171,15 +174,15 @@ const CreateNftCollectionManual = () => {
           <div className="container">
             <div className="contentWrapper flex gap-8 w-full">
               <div className=" leftContent flex flex-col  items-start">
-                <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow ">
+                <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow" style={{ cursor: "pointer" }}>
 
                   <label htmlFor="collectionImage" className="block">
                     <img src={
                       // @ts-ignore
-                      formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
+                      formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
                     <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} disabled={collectionDataFound} />
                     <span
-                      className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
+                      className="btn-gray w-full darkGray mt-7 text-center block" style={{ cursor: "pointer" }}> Choose file<span style={{ color: "#FD0000", cursor: "pointer" }}> *</span> </span>
                   </label>
                 </div>
 
@@ -204,7 +207,8 @@ const CreateNftCollectionManual = () => {
                     <div>
                       <Input
                         type="text"
-                        label="Collection Name*"
+                        label="Collection Name"
+                        asterisk="*"
                         placeholder="Name your Collection"
                         className="w-full input-nft"
                         name="collection_name"
@@ -216,7 +220,7 @@ const CreateNftCollectionManual = () => {
                     <div>
                       <Input
                         type="text"
-                        label="Token Symbol*"
+                        label="Token Symbol"
                         placeholder="$ CGPT, for example"
                         className="w-full input-nft"
                         disabled={collectionDataFound}
@@ -225,20 +229,22 @@ const CreateNftCollectionManual = () => {
                     <div>
                       <Input
                         type="number"
-                        label="Royalty*"
+                        label="Royalty"
+                        asterisk="*"
                         placeholder="Enter Royalty Percentage (0-15%)"
                         className="w-full input-nft"
                         name="collection_name"
                         value={royalty}
+                        onKeyDown={(evt: any) => evt.key === 'e' && evt.preventDefault()}
                         onChange={(e: any) => {
                           console.log("e", e.target.value);
 
                           if (e.target.value == "" || e.target.value >= 0 && e.target.value <= 15) {
                             setRoyalty(e.target.value)
-                            console.log("D");
+                            // console.log("D");
                           }
                         }}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -250,7 +256,7 @@ const CreateNftCollectionManual = () => {
                         label={
                           <>
                             <div className="flex flex-col gap-2">
-                              <span>Description</span>
+                              <span>Description<span style={{ color: "#FD0000" }}> *</span></span>
                               <span className="medium ">
                                 The description will be included on the item's
                                 detail page underneath its image.

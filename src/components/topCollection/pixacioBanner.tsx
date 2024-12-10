@@ -1,13 +1,15 @@
 
 // import leftImg from "../../assets/topCollection/bannerLeftImg.png";
 import { Icon } from "@iconify/react";
+import { toast } from "react-toastify";
 import discord from "../../assets/icons/discordTC.svg";
-import glasses from "../../assets/icons/glasses.svg";
 import internet from "../../assets/icons/internetIcon.png";
 import grid from "../../assets/nftCollection/exploreGrid.webp";
 import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
+import { formatURL } from "../../utils/network/helper";
 
-const PixacioBanner = ({ name, image, description, length, collectionData = {} }: any) => {
+const PixacioBanner = ({ name, image, description, length, collectionData = {}, profileData = {} }: any) => {
+
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
@@ -61,6 +63,19 @@ const PixacioBanner = ({ name, image, description, length, collectionData = {} }
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg p-2 flex-center cursor-pointer"
+                  onClick={() => {
+                    if (profileData.website_link) {
+                      const a = document.createElement('a');
+                      a.href = formatURL(profileData.website_link);
+                      a.target = '_blank'; // Open in a new tab
+                      a.rel = 'noopener noreferrer'; // Security best practice
+                      a.click();
+                    }
+                    else {
+                      toast.error("No links added. Please update your profile.")
+                    }
+
+                  }}
                 >
                   <img src={internet} alt="" />
                 </div>
@@ -69,25 +84,49 @@ const PixacioBanner = ({ name, image, description, length, collectionData = {} }
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg py-1.5 px-2.5 flex items-center justify-between gap-4 cursor-pointer"
                 >
-                  <Icon icon="fa6-brands:x-twitter" width="22" height="22" style={{ color: "black" }} />
-                  <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center cursor-pointer">
+                  <Icon icon="fa6-brands:x-twitter" width="22" height="22" style={{ color: "black" }} onClick={() => {
+                    if (profileData.twitter) {
+                      const a = document.createElement('a');
+                      a.href = formatURL(profileData.twitter);
+                      a.target = '_blank'; // Open in a new tab
+                      a.rel = 'noopener noreferrer'; // Security best practice
+                      a.click();
+                    }
+                    else {
+                      toast.error("No links added. Please update your profile.")
+                    }
+
+                  }} />
+                  {/* <div className="bg-[#FFCCCC] rounded-sm py-[7px] px-[12px] flex-center cursor-pointer">
                     <p
                       style={{ opacity: "1" }}
                       className="text-[#000] font-bold ex-small"
                     >
                       12.3k
                     </p>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                  className=" rounded-lg p-2 flex-center cursor-pointer"
+                  className=" rounded-lg p-2 flex-center cursor-pointer" onClick={() => {
+                    if (profileData.discord) {
+                      const a = document.createElement('a');
+                      a.href = formatURL(profileData.discord);
+                      a.target = '_blank'; // Open in a new tab
+                      a.rel = 'noopener noreferrer'; // Security best practice
+                      a.click();
+                    }
+                    else {
+                      toast.error("No links added. Please update your profile.")
+                    }
+
+                  }}
                 >
                   <img src={discord} alt="" />
                 </div>
 
-                <div
+                {/* <div
                   style={{ boxShadow: " 4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
                   className=" rounded-lg py-1.5 px-2.5 flex justify-between gap-4 cursor-pointer"
                 >
@@ -104,7 +143,7 @@ const PixacioBanner = ({ name, image, description, length, collectionData = {} }
                       12.3k
                     </p>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <p className="text-left small font-normal lightGray ">

@@ -1,10 +1,8 @@
 import { Provider, useWallet } from '@txnlab/use-wallet';
 import { Modal } from 'antd';
-import logo from "../assets/icons/websiteLogo.svg";
+import navTopLogo from "../assets/home/images/homeImages/navTopLogo.png";
 import redline from "../assets/modals/redLine.png";
 import Account from './Account';
-import mobileLogo from "../assets/icons/newLogo.svg";
-import navTopLogo from "../assets/home/images/homeImages/navTopLogo.png";
 
 interface ConnectWalletInterface {
   openModal: boolean
@@ -28,7 +26,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
       footer={null}>
       <form method="dialog" className="relative modal-box bg-white max-w-md">
         <div className="w-full flex flex-col items-center justify-center gap-6 mt-5">
-          <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2] walletText">Connect Your Wallet</h3>
+          <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2] walletText">{activeAddress ? "Wallet Is Connected" : "Connect Your Wallet"}</h3>
           <img className='max-w-[106px] max-h-[80px] w-full h-full object-cover' src={navTopLogo} alt="fry-logo" />
           <img src={redline} alt="redline" />
           <div className="grid mb-2 w-full">

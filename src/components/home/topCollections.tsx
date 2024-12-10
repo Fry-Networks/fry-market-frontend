@@ -1,4 +1,5 @@
 
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import card2BodyImg1 from "../../assets/home/images/topCollections/card2BodyImg1.png";
 import card2BodyImg2 from "../../assets/home/images/topCollections/card2BodyImg2.png";
@@ -24,9 +25,12 @@ import card1BtmImg from "../../assets/home/images/topCollections/cardBtmImg1.png
 import colectionBack from "../../assets/home/images/topCollections/topCollectionBackk.webp";
 import TopCollectionCard from "../cards/topCollectionCard";
 
-const TopCollections = ({ collectionDataFull }: any) => {
+const TopCollections = ({ collectionDataFull, profile }: any) => {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("hehehe", profile);
 
+  })
   return (
     <>
       <div className="topCollectionWrapper my-52 relative">

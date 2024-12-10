@@ -1,0 +1,146 @@
+name: Deploy fry-market-frontend to Production server
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code using SSH
+        uses: actions/checkout@v4
+        with:
+          repository: Fry-Foundation/fry-market-frontend
+          persist-credentials: false
+          clean: true
+          fetch-depth: 1
+
+      - name: Install dependencies for deployment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+          
+      - name: Create .ssh directory and add GitHub.com to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          if [ -f "test_cases.py" ]; then
+            python test_cases.py
+          else
+            echo "No test cases file found"
+          fi
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Deploy to Server
+        env:
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+          HOST_IP: ${{ secrets.PRODUCTION_HOST_IP }}
+          REPO2_PRIVATE_KEY: ${{ secrets.REPO2_PRIVATE_KEY }}
+        run: |
+          # Define TARGET_DIR
+          TARGET_DIR='/root/front-end'
+          
+          # Set up repo2 key for GitHub access only
+          mkdir -p ~/.ssh
+          echo "$REPO2_PRIVATE_KEY" > ~/.ssh/repo2
+          chmod 600 ~/.ssh/repo2
+          
+          # Start ssh-agent and add repo2 key
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/repo2
+          
+          # Configure SSH to use only repo2 key for GitHub
+          cat <<EOL > ~/.ssh/config
+          Host github.com
+            Hostname github.com
+            IdentityFile ~/.ssh/repo2
+            IdentitiesOnly yes
+            StrictHostKeyChecking no
+          EOL
+          
+          # Add GitHub and production server IP to known_hosts to avoid prompts
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
+          
+          # Deploy application to server
+          sshpass -p "$SSH_PASSWORD" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << EOF
+            set -e
+            echo "Deploying to production"
+            
+            # Ensure TARGET_DIR is defined within the SSH session
+            TARGET_DIR='/root/front-end'
+            
+            # Clone or update the repository in TARGET_DIR
+            if [ ! -d "$TARGET_DIR/.git" ]; then
+              echo "Cloning repository into $TARGET_DIR"
+              GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git clone git@github.com:Fry-Foundation/fry-market-frontend.git "$TARGET_DIR"
+            else
+              echo "Updating repository at $TARGET_DIR"
+              GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git -C "$TARGET_DIR" pull origin main
+            fi
+            
+            cd "$TARGET_DIR"
+            
+            # Install Node.js LTS if not already installed
+            if ! command -v node &> /dev/null; then
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+            
+            # Install pm2 globally
+            sudo npm install -g pm2
+            
+            # Stop any existing pm2 process with the name fry-node
+            if pm2 list | grep -q 'fry-node'; then
+              pm2 stop fry-node
+              pm2 delete fry-node
+            fi
+            
+            # Install dependencies and start the frontend app with pm2
+            if [ -f "package.json" ]; then
+              npm install
+            else
+              echo "No package.json found in $TARGET_DIR"
+              exit 1
+            fi
+            
+            # Start the frontend app with pm2
+            pm2 start start.sh --name fry-node
+            pm2 save
+            pm2 list
+          EOF
+
+  nginx-config:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Configure and Restart Nginx
+        run: |
+          
+          sudo nginx -t
+          sudo systemctl restart nginx
+          sudo systemctl status nginx
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: nginx-config
+    if: success()
+    steps:
+      - name: Notify Success
+        run: |
+          echo "🎉 Production deployment was successful! 🚀"
+          echo "The latest changes have been deployed to production, and Nginx has been reconfigured."
