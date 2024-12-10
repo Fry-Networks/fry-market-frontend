@@ -614,7 +614,8 @@ export const getAllListedByUser = async (user: string): Promise<Listing[]> => {
     const algod = await getAlgodClient()
     const listings: Listing[] = [];
     const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
-    await Promise.all(boxes.map(async (bx) => {
+    const filteredBoxes = boxes.filter((bx) => bx.nameRaw.byteLength == 8)
+    await Promise.all(filteredBoxes.map(async (bx) => {
         const decoded = algosdk.decodeUint64(bx.nameRaw, "safe")
         let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
         const nftData = await algod.getAssetByID(decoded).do();

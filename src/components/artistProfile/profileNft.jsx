@@ -8,6 +8,7 @@ import nftImg1 from '../../assets/home/images/cardImg1.png'
 import nftImg2 from '../../assets/home/images/cardImg2.png'
 import nftImg3 from '../../assets/home/images/cardImg3.png'
 import nftImg4 from '../../assets/home/images/cardImg4.png'
+import AuctionProfileCard from '../cards/auctionProfileCard'
 import CollectionsCard from '../cards/collectionsCard'
 
 import { useWallet } from '@txnlab/use-wallet'
@@ -140,6 +141,7 @@ const ProfileNft = ({ collectionData, address }) => {
 
   const getAllNft = async () => {
     try {
+      
       if (address || activeAccount?.address) {
         setLoadingAll(true)
         const response = await getAllUserNfts(address || activeAccount?.address)
@@ -154,7 +156,12 @@ const ProfileNft = ({ collectionData, address }) => {
 
   const getListedNft = async () => {
     try {
+      console.log("aaaa");
+      console.log("ff", activeAccount?.address);
+
       if (address || activeAccount?.address) {
+        console.log("dda", activeAccount?.address);
+
         setLoadingListed(true)
         const response = await getAllListedByUser(address || activeAccount?.address)
         console.log('NftListed', response)
@@ -162,6 +169,8 @@ const ProfileNft = ({ collectionData, address }) => {
         setLoadingListed(false)
       }
     } catch (e) {
+      console.log("ee", e);
+      
       setLoadingListed(false)
     }
   }
@@ -216,7 +225,7 @@ const ProfileNft = ({ collectionData, address }) => {
   return (
     <>
       <div className="profileNft mt-24 relative">
-        <img className="absolute top-[-900px] w-full -z-30" src={pageGlow} alt="" />
+        <img className="absolute top-0 left-0 right-0 bottom-0 -z-30 w-full h-full object-cover" src={pageGlow} alt="" />
         <div className="container">
           <div className="nftContainer">
             <Tabs className="collectionTab" defaultActiveKey="1" activeKey={activeKey} onChange={onChange} tabBarStyle={{ padding: 0 }}>
@@ -384,7 +393,7 @@ const ProfileNft = ({ collectionData, address }) => {
                     {auctionedNft.length > 0 ? (
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {auctionedNft.map((data, index) => (
-                          <CollectionsCard data={{ index: data.assetId, params: data }} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={setGetNftDataAgain}  otherList={true} 
+                          <AuctionProfileCard data={data} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={setGetNftDataAgain}  otherList={true} 
                           profileOwned = {!address && true}
                            />
                         ))}

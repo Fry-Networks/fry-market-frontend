@@ -19,7 +19,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   };
 
   function replaceJsonWithPng(str: any) {
-    return str.includes('.json') ? str.replace('.json', '.png') : str;
+    return str ? str.includes('.json') ? str.replace('.json', '.png') : str : "";
   }
 
   return (

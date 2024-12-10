@@ -182,7 +182,8 @@ const CreateNftCollectionManual = () => {
                       formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
                     <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} disabled={collectionDataFound} />
                     <span
-                      className="btn-gray w-full darkGray mt-7 text-center block" style={{ cursor: "pointer" }}> Choose file<span style={{ color: "#FD0000", cursor: "pointer" }}> *</span> </span>
+                      className="btn-gray w-full darkGray mt-7 text-center block" style={{ cursor: "pointer", border: "1px solid #E7E7E7", borderRadius: "10px", padding: "10px" }}> Choose file<span style={{ color: "#FD0000", cursor: "pointer" }}> *</span> </span>
+
                   </label>
                 </div>
 
