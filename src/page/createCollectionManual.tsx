@@ -174,15 +174,15 @@ const CreateNftCollectionManual = () => {
           <div className="container">
             <div className="contentWrapper flex gap-8 w-full">
               <div className=" leftContent flex flex-col  items-start">
-                <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow pointer">
+                <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow" style={{ cursor: "pointer" }}>
 
                   <label htmlFor="collectionImage" className="block">
                     <img src={
                       // @ts-ignore
-                      formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
+                      formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
                     <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} disabled={collectionDataFound} />
                     <span
-                      className="btn-gray w-full darkGray mt-7 text-center block"> Choose file<span style={{ color: "#FD0000" }}> *</span> </span>
+                      className="btn-gray w-full darkGray mt-7 text-center block" style={{ cursor: "pointer" }}> Choose file<span style={{ color: "#FD0000", cursor: "pointer" }}> *</span> </span>
                   </label>
                 </div>
 
