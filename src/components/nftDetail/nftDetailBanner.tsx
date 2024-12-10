@@ -353,6 +353,19 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
 
   ];
 
+  const getFee = () => {
+    if (nftData) {
+      if (nftData.list_count == 1) {
+        return (Number(nftData.price) / 100000000) * 3
+      }
+      else {
+        return (Number(nftData.price) / 100000000) * 1
+      }
+    }
+    else {
+      return 0
+    }
+  }
 
   useEffect(() => {
     if (activeAccount?.address) {
@@ -628,6 +641,10 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                               <p className="lightGray small font-normal font-Roboto">Creator Earnings</p>
                               <p className="lightGray small font-normal font-Roboto">{collectionData?.royalty ? collectionData?.royalty : "0"}%</p>
                             </div>
+                            {nftData.list_count && <div className="w-full flex justify-between">
+                              <p className="lightGray small font-normal font-Roboto">Fee</p>
+                              <p className="lightGray small font-normal font-Roboto">{getFee()} Fry</p>
+                            </div>}
 
                           </div>
                         </>

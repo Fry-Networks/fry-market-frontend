@@ -132,11 +132,11 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
             <img src={redline} alt="" />
             <div className="serviceDiv w-full flex justify-between items-center mb-7 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Marketplace fee</p>
-              <p className="darkBlack font-Roboto medium font-medium">{bidAmount * 0.5} FRY</p>
+              <p className="darkBlack font-Roboto medium font-medium">{Number(bidAmount) * (data.totalListcount == 1 ? 0.3 : 0.1)} FRY</p>
             </div>
             <div className="serviceDiv w-full flex justify-between items-center">
               <p className="darkBlack font-Roboto medium font-normal">Total bid amount</p>
-              <p className="darkBlack font-Roboto ex-large font-medium">{(Number(bidAmount) + (Number(bidAmount) * 0.5)).toFixed(2)} FRY</p>
+              <p className="darkBlack font-Roboto ex-large font-medium">{(Number(bidAmount) + (Number(bidAmount) * (data.totalListcount == 1 ? 0.3 : 0.1))).toFixed(2)} FRY</p>
             </div>
             <img src={redline} alt="" />
 
