@@ -208,7 +208,7 @@ const CreateNft: React.FC = () => {
             <div className="singlenft flex items-center justify-between gap-4 ">
               <Button
                 text={`${locationParams.nftType == "single" ? "Single NFT" : "Multiple NFT"}`}
-                className="py-4 px-8 lightGray font-normal font-Roboto border"
+                className="py-4 px-8 lightGray font-normal font-Roboto border cursor-default"
               />
               <p className="large lightGray font-normal font-Roboto">
                 {isMintSuccessful ? locationParams.supply ? loading ? "0 / " + locationParams.supply : locationParams.supply + "/" + locationParams.supply : "0/0" : "0/0"} Generated

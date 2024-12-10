@@ -109,7 +109,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
               {/* <input className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]" placeholder="Minimum bid 3.52 FRY " type="number" /> */}
 
               <Select
-                className="border-solid border-2 border-[red] rounded-lg"
+                className="rounded-lg"
                 defaultValue={nftType}
                 value={nftType}
                 style={{ width: 370, height: "55px" }}
@@ -123,7 +123,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
             </div>
             <div className="enterAmount flex flex-col justify-start gap-2 w-full mb-5 mt-3">
               <p className="darkBlack font-Roboto medium font-normal">Prompt</p>
-              <textarea className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red] h-[150px]" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus ornare ante, a mattis eros blandit non. " value={inputValue} disabled />
+              <textarea className="rounded-lg py-3.5 px-6 w-full h-[150px]" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum luctus ornare ante, a mattis eros blandit non. " value={inputValue} disabled />
             </div>
 
             {/* <div className="serviceDiv w-full flex justify-between items-center mb-7 mt-3">

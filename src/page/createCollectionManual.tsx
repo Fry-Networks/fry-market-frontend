@@ -5,7 +5,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { TokenContext } from "../App";
-import nft1 from "../assets/images/createNft/profilepic.png";
+import nft1 from "../assets/images/placeholder-image.webp";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";

@@ -218,7 +218,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                   //   setCurrentImage("banner")
                   //   showImageModal()
                   // }}
-                  className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg"
+                  className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg cursor-pointer"
                 >
 
                   Upload Banner

@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
 import plus from '../assets/icons/plus.svg';
-import nft1 from "../assets/images/createNft/profilepic.png";
+import nft1 from "../assets/images/placeholder-image.webp";
 import Loader from '../components/Loader';
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
@@ -324,7 +324,7 @@ const ManualCreateNft = () => {
                     <div className="container">
                         <div className="contentWrapper flex gap-8 leftArea">
                             <div className="leftContent  flex flex-col items-start">
-                                <div className='uploadDiv w-[300px]'>
+                                <div className='uploadDiv w-[300px] cursor-pointer'>
                                     {/* <Upload
                                         name="avatar"
                                         listType="picture-card"
@@ -349,13 +349,13 @@ const ManualCreateNft = () => {
                                         )}
                                     </Upload> */}
 
-                                    <label htmlFor="collectionImage" className="block">
+                                    <label htmlFor="collectionImage" className="block cursor-pointer">
                                         <img src={
                                             // @ts-ignore
-                                            prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover" }} />
-                                        <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
+                                            prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
+                                        <input className="hidden cursor-pointer" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
                                         <span
-                                            className="btn-gray w-full darkGray mt-7 text-center block"> Choose file </span>
+                                            className="btn-gray w-full darkGray mt-7 text-center block"> Choose file <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span> </span>
                                     </label>
 
                                 </div>
@@ -372,23 +372,25 @@ const ManualCreateNft = () => {
                                                 <div>
                                                     <Input
                                                         type="text"
-                                                        label="Item Name*"
+                                                        label="Item Name"
                                                         placeholder="Name your NFT"
                                                         className="w-full input-nft"
                                                         name="itemName"
                                                         value={formData.itemName}
                                                         onChange={handleChange}
+                                                        asterisk="*"
                                                     />
                                                 </div>
                                                 <div>
                                                     <Input
                                                         type="text"
-                                                        label="Token Symbol*"
+                                                        label="Token Symbol"
                                                         placeholder="$ CGPT, for example"
                                                         className="w-full input-nft"
                                                         name="itemSymbol"
                                                         value={formData.itemSymbol}
                                                         onChange={handleChange}
+                                                        asterisk="*"
                                                     />
                                                 </div>
                                                 <div>
@@ -397,7 +399,7 @@ const ManualCreateNft = () => {
                                                             <>
                                                                 <div className="flex flex-col gap-2">
                                                                     <span className="mb-1 font-medium">
-                                                                        Description*
+                                                                        Description <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span>
                                                                     </span>
                                                                     <span className="medium ">
                                                                         The description will be included on the
@@ -417,7 +419,7 @@ const ManualCreateNft = () => {
                                                 <div className="chooseCollection my-3">
                                                     <div className=" chooseContent w-full flex justify-between items-center">
                                                         <p className="darkBlack large font-medium font-Roboto">
-                                                            Choose Collection*
+                                                            Choose Collection <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span>
                                                         </p>
                                                         {/* <p
                                                             className="underline lightGray medium font-normal cursor-pointer"
@@ -499,7 +501,7 @@ const ManualCreateNft = () => {
 
                                                 <div className="addTraits flex flex-col gap-3">
                                                     <p className="darkBlack large font-medium font-Roboto">
-                                                        Add Traits*
+                                                        Add Traits <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span>
                                                     </p>
                                                     <p className="darkBlack font-Roboto medium font-normal">
                                                         Traits describe attributes of your item. They appear
