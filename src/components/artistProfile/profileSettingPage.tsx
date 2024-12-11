@@ -53,16 +53,27 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
   const showImageModal = () => {
     setisuploadmodal(true);
   };
+  const validation = () => {
+    console.log("Dd", activeAccount?.address);
 
+    if (profileData.display_name.replace(/\s+/g, '').length != 0 && profileData.bio.replace(/\s+/g, '').length != 0 && profileData.email.replace(/\s+/g, '').length != 0 && profileData.website_link.replace(/\s+/g, '').length != 0 && profileData.twitter.replace(/\s+/g, '').length != 0 && profileData.discord.replace(/\s+/g, '').length != 0 && profileData.instagram.replace(/\s+/g, '').length != 0 && (profileData.banner_image || bannerImage) && (profileData.profile_image || profileImage)) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
   const uploadImages = async () => {
 
     try {
       return new Promise(async (resolve, reject) => {
+
         // if (!token) {
 
         //   reject(false);
         // }
         try {
+
           setLoading(true);
           const formDataForImage = new FormData;
           if ((bannerImage || profileImage) && (typeof (bannerImage) != "string" || typeof (profileImage) != "string")) {
@@ -221,7 +232,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                   className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg cursor-pointer"
                 >
 
-                  Upload Banner
+                  Upload Banner <span style={{ color: "#FD0000", cursor: "pointer" }}>&nbsp;*</span>
                 </div>
               </label>
 
@@ -279,6 +290,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.display_name}
                     onChange={handleProfileDataChange}
                     name="display_name"
+                    asterisk="*"
 
                   />
                 </div>
@@ -287,7 +299,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
               <div className="nftUserInfo">
                 <div className="bio">
                   <p className="mb-2 text-[20px] font-normal darkBlack font-Roboto">
-                    Bio
+                    Bio <span style={{ color: "#FD0000", cursor: "pointer" }}> *</span>
                   </p>
                   <textarea
                     className="textArea"
@@ -310,7 +322,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
-                    placeholder="Enter your Name"
+                    placeholder="Enter your Email"
                     inputClass="medium font-normal font-Roboto lightGray mx-auto flex items-center justify-center border-gray border-solid "
                     width={817}
                     height={70}
@@ -321,6 +333,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.email}
                     onChange={handleProfileDataChange}
                     name="email"
+                    asterisk="*"
                   />
                 </div>
               </div>
@@ -354,6 +367,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.website_link}
                     onChange={handleProfileDataChange}
                     name="website_link"
+                    asterisk="*"
                   />
                 </div>
               </div>
@@ -370,7 +384,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
-                    placeholder="@username"
+                    placeholder="http://"
                     inputClass="medium font-normal font-Roboto lightGray mx-auto flex items-center justify-center border-gray border-solid "
                     width={817}
                     height={58}
@@ -381,6 +395,8 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.twitter}
                     onChange={handleProfileDataChange}
                     name="twitter"
+                    asterisk="*"
+
                   />
 
                   {/* <button
@@ -407,7 +423,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
-                    placeholder="@username"
+                    placeholder="http://"
                     inputClass="medium font-normal font-Roboto lightGray mx-auto flex items-center justify-center border-gray border-solid "
                     width={817}
                     height={58}
@@ -418,6 +434,8 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.discord}
                     onChange={handleProfileDataChange}
                     name="discord"
+                    asterisk="*"
+
                   />
 
                   {/* <button
@@ -447,7 +465,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 >
                   <Input
                     wrapperClass="flex items-center justify-center mx-auto"
-                    placeholder="@username"
+                    placeholder="http://"
                     inputClass="medium font-normal font-Roboto lightGray mx-auto flex items-center justify-center border-gray border-solid "
                     width={817}
                     height={58}
@@ -458,6 +476,8 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.instagram}
                     onChange={handleProfileDataChange}
                     name="instagram"
+                    asterisk="*"
+
                   />
 
                   {/* <button
@@ -479,11 +499,14 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 text="Save changes"
                 onClick={() => {
                   if (anyChange) {
-
+                    if (!validation()) {
+                      toast.error("Please provide all the data")
+                      return;
+                    }
                     toast.promise(
                       uploadImages(),
                       {
-                        pending: "Updating proiile data",
+                        pending: "Updating profile data",
                         error: "There was an error while updating profile data",
                         success: "Profile data updated successfully"
 

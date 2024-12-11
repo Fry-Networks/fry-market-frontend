@@ -205,7 +205,7 @@ const Banner = ({ prompt }: any) => {
                     />
                   </div>
                   <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
-                    <p className="lightGray font-normal medium font-Roboto">{!selectedStyle ? "Add Styles" : selectedStyle}</p>
+                    <p className="lightGray font-normal medium font-Roboto" style={{ color: `${!selectedStyle ? "" : "black"}` }}>{!selectedStyle ? "Add Styles" : selectedStyle}</p>
                     <img src={plus} alt="" />
                   </div>
 
