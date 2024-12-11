@@ -191,6 +191,7 @@ const Banner = ({ prompt }: any) => {
                         { value: 'multiple', label: "Multi-NFT Collection" },
                       ]}
                       value={nftType}
+
                     />                </div>
                   <div className="supplyDiv flex-center gap-4">
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>

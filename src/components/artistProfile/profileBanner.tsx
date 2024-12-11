@@ -78,7 +78,7 @@ const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
                 </div>
               </div>
               {location.pathname != "/artist-profile-others" ?
-                <button className="profileBtn darkBlack  font-Roboto medium font-normal mt-3  w-[162px] h-[53px] flex-center gap-3 rounded-[15px] border-3 border-solid border-[#E7E7E7]">
+                <button className="profileBtn darkBlack  font-Roboto medium font-normal mt-3  w-[162px] h-[53px] flex-center gap-3 rounded-[15px] border-3 border-solid border-[#E7E7E7] cursor-default">
                   <img src={foldedRed} alt="" />
                   {fryBalance ? fryBalance : 0} FRY
                 </button>

@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import copy from "../../assets/createNft/copy.png";
 const PromptCard = ({ data }: any) => {
   return (
@@ -10,6 +11,7 @@ const PromptCard = ({ data }: any) => {
           className="copy absolute top-[40%] left-[44%] cursor-pointer"
           src={copy}
           alt=""
+          onClick={() => { navigator.clipboard.writeText(data.description); toast.success("Prompt Successfully copied to clipboard", { toastId: "prompt copied" }) }}
         />
         <div className="leftSide w-1/2 h-full">
           <div className="max-w-[310px] max-h-[252px] w-full h-full ">
