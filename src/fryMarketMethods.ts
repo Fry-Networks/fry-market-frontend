@@ -7,7 +7,6 @@ import { AUCTION_ID, createFryAuctionClient } from './auctionMethod';
 import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
-// const FRY_MARKET_ID: bigint = 724678047n;
 const FRY_MARKET_ID: bigint = 729430779n;
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
