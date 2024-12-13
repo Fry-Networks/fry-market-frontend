@@ -11,10 +11,10 @@ const FRY_MARKET_ID: bigint = 729430779n;
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
 const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
-// const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ"; //Testnet
-// const FRY_TOKEN_ID: bigint = 717187263n; //Testnet
-const FEE_WALLET: string = "ATPVJYGEGP5H6GCZ4T6CG4PK7LH5OMWXHLXZHDPGO7RO6T3EHWTF6UUY6E"; // Mainnet
-const FRY_TOKEN_ID: bigint = 2485314946n; //Mainnet
+const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ"; //Testnet
+const FRY_TOKEN_ID: bigint = 717187263n; //Testnet
+// const FEE_WALLET: string = "ATPVJYGEGP5H6GCZ4T6CG4PK7LH5OMWXHLXZHDPGO7RO6T3EHWTF6UUY6E"; // Mainnet
+// const FRY_TOKEN_ID: bigint = 2485314946n; //Mainnet
 
 const getAlgodClient = async (): Promise<algosdk.Algodv2> => {
     const algodConfig = getAlgodConfigFromViteEnvironment()
