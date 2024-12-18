@@ -6,14 +6,18 @@ import { getAllUserAuctions } from "../auctionMethod";
 import ReadyForNext from "../components/home/readyForNext";
 import PixacioBanner from "../components/topCollection/pixacioBanner";
 import PixoNft from "../components/topCollection/pixoNft";
-import { getAllListedByUser } from "../fryMarketMethods";
+import { getAllListedByUser, getAllUserNfts } from "../fryMarketMethods";
 
 const TopCollection = () => {
 
   const [collectionData, setCollectionData] = useState<any>("")
   const [profileData, setProfileData] = useState<any>([])
-  const [loading, setLoading] = useState(false)
+  const [loadingBought, setLoadingBought] = useState<any>(false)
+  const [loadingListed, setLoadingListed] = useState<any>(false)
+  const [loadingAuctioned, setLoadingAuctioned] = useState<any>(false)
   const [nfts, setNfts] = useState<any>([])
+  const [auctionedNfts, setAuctionedNfts] = useState<any>([])
+  const [allBoughtNft, setAllBoughtNft] = useState<any>([])
   const { activeAccount, signer } = useWallet()
   const [totalListed, setTotalListed] = useState<any>(0)
   const [totalListedAuctioned, setTotalListedAuctioned] = useState<any>(0)
@@ -22,32 +26,55 @@ const TopCollection = () => {
   const navigate = useNavigate()
   const getAllNft = async () => {
     try {
-
+      setLoadingListed(true)
       const response = await getAllListedByUser(collectionData.collection_address)
       console.log('NftAll', response)
       setNfts(response)
+      setLoadingListed(false)
+
       setTotalListed(Array.isArray(response) ? response.length : 0)
 
     } catch (e) {
+
       console.log("e", e);
+      setLoadingListed(false)
+
 
     }
   }
   const getAuctionedNft = async () => {
     console.log("NftAuctionedd");
 
-    if (collectionData.collection_address || activeAccount?.address) {
+    if (collectionData.collection_address) {
       try {
-        // setLoadingAuctioned(true)
-        const response: any = await getAllUserAuctions(collectionData.collection_address || activeAccount?.address, signer)
+        setLoadingAuctioned(true)
+        const response: any = await getAllUserAuctions(collectionData.collection_address, signer)
         console.log('NftAuctionedd', response)
+        setAuctionedNfts(response.filter((item: any) => item?.isListed))
         setTotalListedAuctioned(response.filter((item: any) => item?.isListed).length)
-        // setLoadingAuctioned(false)
+        setLoadingAuctioned(false)
       } catch (e) {
         console.log('D', e)
 
-        // setLoadingAuctioned(false)
+        setLoadingAuctioned(false)
       }
+    }
+  }
+
+  const getBoughtAllNft = async () => {
+    try {
+
+      if (collectionData.collection_address) {
+        setLoadingBought(true);
+        const response = await getAllUserNfts(collectionData.collection_address)
+        console.log('NftAll', response)
+        setAllBoughtNft(response)
+        setLoadingBought(false);
+
+      }
+    } catch (e) {
+      setLoadingBought(false);
+
     }
   }
   useEffect(() => {
@@ -70,7 +97,8 @@ const TopCollection = () => {
     if (collectionData) {
 
       getAllNft();
-      getAuctionedNft()
+      getAuctionedNft();
+      getBoughtAllNft();
     }
   }, [collectionData])
 
@@ -82,7 +110,7 @@ const TopCollection = () => {
 
 
       <PixacioBanner name="Pixacio" image={artistImage} collectionData={collectionData} profileData={profileData} totalListed={totalListed} totalListedAuctioned={totalListedAuctioned} />
-      <PixoNft nfts={nfts} collectionData={collectionData} />
+      <PixoNft nfts={nfts} collectionData={collectionData} auctionedNfts={auctionedNfts} allBoughtNft={allBoughtNft} loadingBought={loadingBought} loadingListed={loadingListed} loadingAuctioned={loadingAuctioned} />
       <ReadyForNext />
 
     </>

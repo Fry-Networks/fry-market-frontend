@@ -1,3 +1,5 @@
+import { useWallet } from "@txnlab/use-wallet";
+import { Tabs } from "antd";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userImg1 from "../../assets/home/images/card-userImg.png";
@@ -16,14 +18,18 @@ import trendNft6 from "../../assets/topCollection/nftImg6.png";
 import trendNft7 from "../../assets/topCollection/nftImg7.png";
 import trendNft8 from "../../assets/topCollection/nftImg8.png";
 import trendNft9 from "../../assets/topCollection/nftImg9.png";
+import AuctionProfileCard from "../cards/auctionProfileCard";
 import CollectionsCard from "../cards/collectionsCard";
+import Loader from "../Loader";
 import Input from "../shared/input";
 
 
 
 
 
-const PixoNft = ({ nfts, collectionData }: any) => {
+const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBought, loadingListed, loadingAuctioned }: any) => {
+  const [activeKey, setActiveKey] = useState(`1`)
+  const { activeAccount, signer } = useWallet()
 
   const navigate = useNavigate();
 
@@ -47,6 +53,11 @@ const PixoNft = ({ nfts, collectionData }: any) => {
   const filteredCards = trendingCard.filter(card =>
     card.userName.toLowerCase().startsWith(searchTerm.toLowerCase())
   );
+
+  const onChange = (key: any) => {
+    setActiveKey(key)
+    console.log(key)
+  }
   return (
     <>
       <div className="pixoNftContainer mb-52 relative">
@@ -490,47 +501,152 @@ const PixoNft = ({ nfts, collectionData }: any) => {
               />
             </div>
 
+            <div className="container">
+              <div className="nftContainer">
+                <Tabs className="collectionTab" defaultActiveKey="1" activeKey={activeKey} onChange={onChange} tabBarStyle={{ padding: 0 }}>
 
-            {nfts.length > 0 ? (
-              <div className="cardsWrap grid grid-cols-4 gap-6">
-                {/* {filteredCards.map((data) => (
+                  <Tabs.TabPane tab="Owned" key="1">
+                    {loadingBought ? (
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Loader></Loader>
+                      </div>
+                    ) : (
+                      <>
+
+                        {allBoughtNft.length > 0 ?
+                          (
+                            <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+                              {allBoughtNft.map((data: any, index: any) => (
+                                searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
+                                  <CollectionsCard
+                                    // data={{ index: data.nftAddress, params: data }} 
+                                    data={{ ...data, imgUrl: data.url }}
+                                    // otherList={address ? true : false} 
+                                    otherList={true}
+                                    profileOwned={false}
+                                    otherAuctionData={data}
+                                    label={activeAccount?.address ? "" : "List"} collectionData={collectionData} />
+                                  :
+                                  index == allBoughtNft.length - 1 ? allBoughtNft.filter((data: any) => data.name.toUpperCase().includes(searchTerm.toUpperCase())).length > 0 ? "" : "No Result Found" : ""
+                                  :
+                                  <CollectionsCard
+                                    // data={{ index: data.nftAddress, params: data }} 
+                                    data={{ ...data, imgUrl: data.url }}
+                                    // otherList={address ? true : false} 
+                                    otherList={true}
+                                    profileOwned={false}
+                                    otherAuctionData={data}
+                                    label={activeAccount?.address ? "" : "List"} collectionData={collectionData} />
+
+                              ))}
+                            </div>
+                          ) : (
+                            <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>No Nft Owned yet.</div>
+                          )}
+
+                      </>
+                    )
+                    }
+
+
+
+                  </Tabs.TabPane>
+                  <Tabs.TabPane tab="Listed" key="2">
+
+
+                    {loadingListed ? (
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Loader></Loader>
+                      </div>
+                    ) : (
+                      <>
+                        {nfts.length > 0 ? (
+                          <div className="cardsWrap grid grid-cols-4 gap-6">
+                            {/* {filteredCards.map((data) => (
                     <div key={data.id} onClick={handleCardClick} className="cursor-pointer">
                       <CollectionsCard data={data} />
                     </div>
                   ))} */}
-                {nfts.length > 0 ? nfts.map((data: any) => {
-                  console.log("ss", searchTerm);
-                  // console.log("ss", data.name.includes(searchTerm));
+                            {nfts.length > 0 ? nfts.map((data: any, index: any) => {
+                              console.log("ss", searchTerm);
+                              // console.log("ss", data.name.includes(searchTerm));
 
-                  return (
-                    searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
-                      <div key={data.id} className="cursor-pointer">
-                        <CollectionsCard
-                          // data={{ index: data.nftAddress, params: data }}
-                          data={data}
+                              return (
+                                searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
+                                  <div key={data.id} className="cursor-pointer">
+                                    <CollectionsCard
+                                      // data={{ index: data.nftAddress, params: data }}
+                                      data={data}
 
-                          label="Nft" collectionData={collectionData} />
+                                      label="Nft" collectionData={collectionData} />
+                                  </div>
+                                  :
+                                  index == nfts.length - 1 ? nfts.filter((data: any) => data.name.toUpperCase().includes(searchTerm.toUpperCase())).length > 0 ? "" : "No Result Found" : ""
+                                  :
+                                  <div key={data.id} className="cursor-pointer">
+                                    <CollectionsCard
+                                      // data={{ index: data.nftAddress, params: data }} 
+                                      data={data}
+                                      label="Nft" collectionData={collectionData} />
+                                  </div>
+                              )
+                            })
+                              :
+                              "No Nfts Found"}
+                          </div>
+                        ) : (
+                          // Show "NFT not found" when no search results
+                          <div className="text-center mt-10">
+                            <p className="text-red-500 font-bold text-xl">No Results Found</p>
+                          </div>
+                        )}
+                      </>
+                    )
+                    }
+
+                  </Tabs.TabPane>
+
+                  <Tabs.TabPane tab="Auctioned" key="3">
+
+
+
+                    {loadingAuctioned ? (
+                      <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Loader></Loader>
                       </div>
-                      :
-                      "No result found"
-                      :
-                      <div key={data.id} className="cursor-pointer">
-                        <CollectionsCard
-                          // data={{ index: data.nftAddress, params: data }} 
-                          data={data}
-                          label="Nft" collectionData={collectionData} />
-                      </div>
-                  )
-                })
-                  :
-                  "No Nfts Found"}
+                    ) : (
+                      <>
+                        {auctionedNfts.length > 0 ? (
+                          <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+                            {auctionedNfts.map((data: any, index: any) => (
+                              searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
+                                <AuctionProfileCard data={data} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={() => { }} otherList={true}
+                                  profileOwned={!activeAccount?.address && true}
+                                />
+                                :
+                                index == auctionedNfts.length - 1 ? auctionedNfts.filter((data: any) => data.name.toUpperCase().includes(searchTerm.toUpperCase())).length > 0 ? "" : "No Result Found" : ""
+                                :
+                                <AuctionProfileCard data={data} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={() => { }} otherList={true}
+                                  profileOwned={!activeAccount?.address && true}
+                                />
+                            ))}
+                          </div>
+                        ) : (
+                          <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', color: 'red' }}>
+                            No Nfts listed on Auction yet!
+                          </div>
+                        )}
+                      </>
+                    )
+                    }
+
+                  </Tabs.TabPane>
+
+
+                </Tabs>
               </div>
-            ) : (
-              // Show "NFT not found" when no search results
-              <div className="text-center mt-10">
-                <p className="text-red-500 font-bold text-xl">No Results Found</p>
-              </div>
-            )}
+            </div>
+
           </div>
         </div>
       </div>

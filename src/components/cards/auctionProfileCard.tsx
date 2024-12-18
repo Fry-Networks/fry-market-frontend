@@ -17,6 +17,8 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
 
     useEffect(() => {
         console.log("ggg", data);
+        console.log("ggg", collectionData);
+        console.log("ggg", activeAccount?.address);
 
     })
     const showplaceBidModal = () => {
@@ -143,7 +145,7 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
                         className="placeBidBtn button font-Montserrat btn-primary font-semibold ex-small absolute -bottom-9 opacity-0 left-[90px]"
                         minWidth={96}
                         minHeight={37}
-                        text="Cancel"
+                        text={collectionData?.collection_address == activeAccount?.address ? "Cancel" : "View"}
                         // disabled={(data.biddingEndTime * 1000) < Date.now()}
                         onClick={() => {
 
