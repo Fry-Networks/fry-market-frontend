@@ -40,6 +40,10 @@ const Banner = ({ prompt }: any) => {
         return;
       }
       if (inputValue && supply && nftType && selectedStyle) {
+        if (!validation()) {
+          toast.error("Please enter a valid prompt.")
+          return;
+        }
         setisgeneratemodal(true);
         // navigation("create-nft")
       }
@@ -94,6 +98,17 @@ const Banner = ({ prompt }: any) => {
         setCollectionData("")
 
       }
+    }
+  }
+
+  const validation = () => {
+    console.log("here", inputValue.replace(/\s+/g, '').length != 0);
+
+    if (inputValue.replace(/\s+/g, '').length != 0) {
+      return true
+    }
+    else {
+      return false
     }
   }
 

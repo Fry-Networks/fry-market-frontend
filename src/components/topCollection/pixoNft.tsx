@@ -512,7 +512,7 @@ const PixoNft = ({ nfts, collectionData }: any) => {
                           label="Nft" collectionData={collectionData} />
                       </div>
                       :
-                      ""
+                      "No result found"
                       :
                       <div key={data.id} className="cursor-pointer">
                         <CollectionsCard

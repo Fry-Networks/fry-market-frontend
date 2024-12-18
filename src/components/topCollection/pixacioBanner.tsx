@@ -8,7 +8,7 @@ import grid from "../../assets/nftCollection/exploreGrid.webp";
 import topLeftGrid from "../../assets/topCollection/topLeftGrid.png";
 import { formatURL } from "../../utils/network/helper";
 
-const PixacioBanner = ({ name, image, description, length, collectionData = {}, profileData = {} }: any) => {
+const PixacioBanner = ({ name, image, description, length, collectionData = {}, profileData = {}, totalListed = 0, totalListedAuctioned = 0 }: any) => {
 
   return (
     <>
@@ -32,7 +32,7 @@ const PixacioBanner = ({ name, image, description, length, collectionData = {}, 
                   <p className="small font-normal lightGray font-Roboto">
                     Items Listed
                   </p>
-                  <p className="small font-bold lightGray font-Roboto">{Array.isArray(collectionData?.listed_nfts) ? collectionData.listed_nfts.length : 0}</p>
+                  <p className="small font-bold lightGray font-Roboto">{totalListed + totalListedAuctioned}</p>
                 </div>
 
                 {/* <div

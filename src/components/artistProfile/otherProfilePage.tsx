@@ -2,6 +2,7 @@ import { useWallet } from "@txnlab/use-wallet";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getAllUserAuctions } from "../../auctionMethod";
 import { getAllListedByUser, getAllUserNfts, userFryBalance } from "../../fryMarketMethods";
 import PixacioBanner from '../topCollection/pixacioBanner';
 import ProfileBanner from './profileBanner';
@@ -16,9 +17,11 @@ const OtherProfilePage = () => {
     const [allNft, setAllNft] = useState<any>([])
     const [fryBalance, setFryBalance] = useState<any>(0)
     const [profileData, setProfileData] = useState<any>({})
+    const [totalListed, setTotalListed] = useState<any>(0)
+    const [totalListedAuctioned, setTotalListedAuctioned] = useState<any>(0)
     const navigate = useNavigate();
     const location = useLocation();
-    const { activeAccount } = useWallet()
+    const { activeAccount, signer } = useWallet()
 
     useEffect(() => {
         console.log("othersProfile", location.state);
@@ -53,6 +56,10 @@ const OtherProfilePage = () => {
                 const response = await getAllListedByUser(address);
                 console.log("NftLisssted", response);
                 setAllListedNft(response);
+                setTotalListed(Array.isArray(response) ? response.length : 0)
+                console.log("Listed", response.length);
+
+
             }
         }
         catch (e) {
@@ -110,7 +117,26 @@ const OtherProfilePage = () => {
             }
         }
     }
+    const getAuctionedNft = async () => {
+        console.log("NftAuctionedd");
 
+        if (activeAccount?.address) {
+            try {
+                // setLoadingAuctioned(true)
+                const response: any = await getAllUserAuctions(activeAccount?.address || activeAccount?.address, signer)
+                console.log('NftAuctionedd', response)
+                setTotalListedAuctioned(response.filter((item: any) => item?.isListed).length)
+                console.log("auction", response);
+                console.log("auction", response.filter((item: any) => item?.isListed).length);
+
+                // setLoadingAuctioned(false)
+            } catch (e) {
+                console.log('D', e)
+
+                // setLoadingAuctioned(false)
+            }
+        }
+    }
     useEffect(() => {
 
         if (location.state) {
@@ -120,7 +146,7 @@ const OtherProfilePage = () => {
             // getFryBalance()
             // getProfileData()
             getAllNft(location.state.profileData.wallet_address);
-
+            getAuctionedNft()
         }
         else {
             navigate("/")
@@ -132,7 +158,7 @@ const OtherProfilePage = () => {
     return (
         <>
             <ProfileBanner fryBalance={fryBalance} profileData={profileData} length={allNft.length} />
-            <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} profileData={profileData} />
+            <PixacioBanner name={collectionData.collection_name ? collectionData.collection_name : "WONDERFUL ARTWORK"} image={collectionData.image_url ? collectionData.image_url : "https://media.tarkett-image.com/large/TH_25094225_25187225_001.jpg"} description={collectionData.description ? collectionData.description : ""} length={allListedNft.length} profileData={profileData} totalListed={totalListed} totalListedAuctioned={totalListedAuctioned} />
             <ProfileNft collectionData={collectionData} address={location?.state?.profileData?.wallet_address} />
         </>
     )

@@ -42,7 +42,7 @@ const TopCollections = ({ collectionDataFull, profile }: any) => {
         <div className="container">
           <div className="headingDiv flex justify-between items-center">
             <h2 className="font-normal font-Apex uppercase">
-              Top collections
+              Collections
             </h2>
             <p
               onClick={() => {

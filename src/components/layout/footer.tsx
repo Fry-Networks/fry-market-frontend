@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import footerBg from "../../assets/home/images/footer.webp";
 import footerGrid from "../../assets/home/images/homeImages/footerGrid.png";
 import twitter from "../../assets/icons/tweet.png";
@@ -9,8 +11,66 @@ import github from "/src/assets/icons/github.svg";
 import linkedIn from "/src/assets/icons/linkedin.svg";
 import reddit from "/src/assets/icons/reddit.svg";
 import telegram from "/src/assets/icons/telegram.svg";
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const Footer = () => {
+  const [collectionData, setCollectionData] = useState<any>("")
+  const [collectionDataFull, setCollectionDataFull] = useState<any>([])
+  const navigate = useNavigate();
+  const getCollectionData = async () => {
+
+    try {
+
+      // const config = {
+      //   headers: { Authorization: `Bearer ${token}` }
+      // };
+
+      const response = await axios.get(`${baseUrl}/get-all-collections`);
+      console.log("Collection Data", response.data);
+      if (response?.data?.length > 0) {
+        let obj = {};
+        response?.data?.map((collectionData: any) => {
+          if (typeof (collectionData.collection_address) == "string") {
+
+            obj = { ...obj, [collectionData.collection_address]: { collection_name: collectionData.collection_name, image_url: collectionData.image_url, ...collectionData } }
+            setCollectionDataFull((prev: any) => ([...prev, collectionData]))
+          }
+        }
+        )
+        setCollectionData(obj)
+        console.log("well", obj);
+        // Object.keys(obj).map(async (key: string) => {
+        //   console.log("called");
+        //   const response = await getProfileData(key);
+        //   console.log("fast");
+
+
+
+        //   obj = { ...obj, [key]: { ...obj[key], ...response } }
+        //   console.log("afetr");
+
+        // })
+
+        // console.log("ii", obj);
+
+
+
+      }
+
+
+    }
+    catch (e) {
+      console.log("Error Getting Collection", e);
+      // toast.error("Error Creating Collection");
+      setCollectionData("")
+
+    }
+
+  }
+
+  useEffect(() => {
+    getCollectionData();
+  }, [])
   return (
     <>
       <div className="footerWrapper my-10 relative">
@@ -84,17 +144,19 @@ const Footer = () => {
                   </p>
                 </Link> */}
 
-                <Link to="/auction">
-                  <p className="medium font-normal font-Roboto  leading-9 text-white">
-                    Live Auctions
-                  </p>
-                </Link>
 
-                <Link to="/top-collection">
-                  <p className="medium font-normal font-Roboto  leading-9 text-white">
-                    Collection
-                  </p>
-                </Link>
+                <p className="medium font-normal font-Roboto  leading-9 text-white cursor-pointer" onClick={() => {
+                  navigate('/auction', { state: { collectionData: collectionData } });
+                }}>
+                  Live Auctions
+                </p>
+
+
+                <p className="medium font-normal font-Roboto  leading-9 text-white cursor-pointer" onClick={() => {
+                  navigate("/nft-collection", { state: { collectionDataFull: collectionDataFull } });
+                }}>
+                  Collection
+                </p>
 
                 {/* <Link to="">
                   <p className="large font-normal font-Roboto  leading-9 text-white">

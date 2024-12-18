@@ -120,7 +120,10 @@ export default function App() {
     location.pathname === "/top-seller" ||
     location.pathname === "/seller-collection" ||
     location.pathname === "/create-nft-page" ||
-    location.pathname === "/createnft-collect";
+    location.pathname === "/createnft-collect" ||
+    location.pathname === "/create-collection" ||
+    location.pathname === "/artist-profile" ||
+    location.pathname === "/artist-profile-others";
 
 
   const toggleWalletModal = () => {
@@ -159,7 +162,8 @@ export default function App() {
 
 
           </Routes>
-          {isNavbar ? <Footer /> : ""}
+          {/* {isNavbar ? <Footer /> : ""} */}
+          <Footer />
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
           <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
         </WalletProvider>

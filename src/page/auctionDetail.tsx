@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Auction from "../components/home/auction";
 import ReadyForNext from "../components/home/readyForNext";
-import Footer from "../components/layout/footer";
 import NftDetailBanner from "../components/nftDetail/nftDetailBanner";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -76,7 +75,7 @@ const AuctionDetail = () => {
         :
         ""}
       <ReadyForNext />
-      <Footer />
+      {/* <Footer /> */}
 
     </>
   )

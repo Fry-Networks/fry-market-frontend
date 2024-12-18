@@ -247,8 +247,10 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 <div className="absolute w-[100px] h-[100px] rounded-full border-dashed border-[2px] border-[#6B6B6B] bg-[#D9D9D9] bottom-[-60px] left-[47%] cursor-pointer plusIcon flex items-center justify-center" >
 
                   {
-                    profileImage ?
+                    profileImage ? <div style={{ position: "relative" }}>
                       <img className="w-full h-full object-cover rounded-full" src={typeof (profileImage) == "string" ? profileImage : URL.createObjectURL(profileImage)} alt="" />
+                      <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#FFFFFF", position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }} />
+                    </div>
                       :
                       <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#6B6B6B" }} />
                   }
