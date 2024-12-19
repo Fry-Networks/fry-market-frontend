@@ -8,14 +8,15 @@ import { FryAuctionClient } from "./contracts/FryAuction";
 import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
-export const AUCTION_ID: bigint = 729430870n;
+// export const AUCTION_ID: bigint = 729430870n;
+export const AUCTION_ID: bigint = 2591188105n;
 const AUCTION_ADDRESS: string = algosdk.getApplicationAddress(AUCTION_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
 const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
-const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ"; // Testnet 
-const FRY_TOKEN_ID: bigint = 717187263n; //TestNet
-// const FEE_WALLET: string = "ATPVJYGEGP5H6GCZ4T6CG4PK7LH5OMWXHLXZHDPGO7RO6T3EHWTF6UUY6E"; // For mainnet
-// const FRY_TOKEN_ID: bigint = 2485314946n; //For Mainnet
+// const FEE_WALLET: string = "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ"; // Testnet 
+// const FRY_TOKEN_ID: bigint = 717187263n; //TestNet
+const FEE_WALLET: string = "ATPVJYGEGP5H6GCZ4T6CG4PK7LH5OMWXHLXZHDPGO7RO6T3EHWTF6UUY6E"; // For mainnet
+const FRY_TOKEN_ID: bigint = 2485314946n; //For Mainnet
 const AUCTION_BOX_PRICE = 2500 + 400 * 136;
 const BID_BOX_PRICE: number = 2500 + 400 * 48;
 
