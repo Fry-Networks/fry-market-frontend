@@ -198,7 +198,7 @@ const Banner = ({ prompt }: any) => {
                       className=""
                       // defaultValue="Single NFT"
                       placeholder="Select NFT type"
-                      style={{ width: 270, height: "55px", color: "black" }}
+                      style={{ width: 270, height: "55px" }}
                       suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
                       onChange={onChange}  // Make sure this is not preventing default behavior
                       options={[
@@ -207,7 +207,9 @@ const Banner = ({ prompt }: any) => {
                       ]}
                       value={nftType}
 
-                    />                </div>
+
+                    />
+                  </div>
                   <div className="supplyDiv flex-center gap-4">
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>
                     <InputNumber

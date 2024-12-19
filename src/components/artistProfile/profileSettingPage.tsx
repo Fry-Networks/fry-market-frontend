@@ -249,7 +249,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                   {
                     profileImage ? <div style={{ position: "relative" }}>
                       <img className="w-full h-full object-cover rounded-full" src={typeof (profileImage) == "string" ? profileImage : URL.createObjectURL(profileImage)} alt="" />
-                      <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#FFFFFF", position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }} />
+                      <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#000000", position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }} />
                     </div>
                       :
                       <Icon icon="iconoir:plus" width="32" height="32" style={{ color: "#6B6B6B" }} />
@@ -503,6 +503,21 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                   if (anyChange) {
                     if (!validation()) {
                       toast.error("Please provide all the data")
+                      return;
+                    }
+                    if (!/^[a-zA-Z]+$/.test(profileData.display_name)) {
+                      toast.error("Invalid Display Name");
+                      return;
+                    }
+                    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(profileData.email)) {
+                      toast.error("Invalid Email");
+                      return;
+                    }
+                    const webLinks = [profileData.website_link, profileData.twitter, profileData.discord, profileData.instagram];
+                    if (webLinks.some((name) => {
+                      return !(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})(\/[^\s]*)?$/.test(name));
+                    })) {
+                      toast.error("Invalid Links");
                       return;
                     }
                     toast.promise(

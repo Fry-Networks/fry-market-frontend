@@ -36,8 +36,8 @@ const TrendingNft = ({ collectionData }: any) => {
 
         console.log("data1", data1.list_count);
         console.log("data2", data2.list_count);
-
-        return data1.list_count > data2.list_count ? 1 : data2.list_count > data1.list_count ? -1 : 0
+        return data2.list_count - data1.list_count
+        // return data1.list_count > data2.list_count ? 1 : data2.list_count > data1.list_count ? -1 : 0
       }));
 
 

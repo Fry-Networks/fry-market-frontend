@@ -6,6 +6,7 @@ import icontick from "../../assets/icons/purplr-bg-tick.svg";
 import bodyImg4 from "../../assets/nftCollection/bodyImg4.png";
 import { getAllUserAuctions } from "../../auctionMethod";
 import { getAllListedByUser } from "../../fryMarketMethods";
+import { formatPrice } from "../../utils/getImageFromJson";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
@@ -109,7 +110,7 @@ const ExploreCard = ({ data }: any) => {
           </div>
           <div className="bodyArea w-full relative" >
             <div className='grayDiv absolute py-[8px] px-[17px] bg-[#E7E7E7] rounded-lg bottom-0 left-[38%] ex-small font-normal lightGray'> Items  &nbsp;
-              <span className="itemBox darkBlack font-bold">{totalListed + totalListedAuctioned}</span>
+              <span className="itemBox darkBlack font-bold">{formatPrice(totalListed + totalListedAuctioned)}</span>
             </div>
             <img className="max-w-[397px] max-h-[178px] h-full w-full object-cover" src={profile.banner_image ? profile.banner_image : bodyImg4} alt="" />
           </div>
