@@ -751,6 +751,8 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
     if (isCollection) {
         const pricePerImg = 0.05   //$  dollars
         const amountInFry = pricePerImg / tokenPrice;
+        console.log("ds", amountInFry);
+
         if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
             throw new Error("Not Enough Balance")
         }
@@ -758,7 +760,7 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
             assetId: FRY_TOKEN_ID,
             receiver: FEE_WALLET,
             sender,
-            amount: BigInt(Math.floor(amountInFry * numofimgs) * 1000000)
+            amount: BigInt(Math.floor(amountInFry * 1000000 * numofimgs))
         })
         return tx
     } else {
@@ -774,15 +776,15 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
             assetId: FRY_TOKEN_ID,
             receiver: FEE_WALLET,
             sender,
-            amount: BigInt(Math.floor(amountInFry * numofimgs) * 1000000)
+            amount: BigInt(Math.floor((amountInFry * 1000000 * numofimgs)))
         })
         return tx
     }
 }
 
 export const getImgGenFeeAmount = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
-    const tokenPrice = 0.0336; //$  dollars
-    console.log("tokenPrice", tokenPrice)
+    const res = await axios.get("https://mainnet.analytics.tinyman.org/api/v1/assets/2485314946/").then((res) => res.data)
+    const tokenPrice = res?.price_in_usd; //$  dollars
     const { algorandClient } = await createFryMarketClient(signer, sender);
     // const bal = await userFryBalance(sender)
     if (isCollection) {
@@ -791,7 +793,7 @@ export const getImgGenFeeAmount = async (isCollection: boolean, numofimgs: numbe
         // if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
         //     throw new Error("Not Enough Balance")
         // }
-        return Math.floor(amountInFry * numofimgs)
+        return (amountInFry * numofimgs).toFixed(3)
     } else {
         if (numofimgs > 1) {
             throw new Error("Please select valid number of images")
@@ -801,7 +803,7 @@ export const getImgGenFeeAmount = async (isCollection: boolean, numofimgs: numbe
         // if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
         //     throw new Error("Not Enough Balance")
         // }
-        return Math.floor(amountInFry)
+        return amountInFry.toFixed(3)
     }
 }
 
