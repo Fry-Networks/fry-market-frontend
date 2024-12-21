@@ -742,14 +742,10 @@ export const userFryBalance = async (user: string): Promise<number> => {
 //! get fry fee for nft minting and imagegeneration
 
 export const getImgGenFee = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
-    // const res = await axios.get("https://api.coingecko.com/api/v3/coins/fryscrypto").then((res) => res.data)
-    // const tokenPrice = res?.market_data?.current_price?.usd; //$  dollars
 
     const res = await axios.get("https://mainnet.analytics.tinyman.org/api/v1/assets/2485314946/").then((res) => res.data)
-    // const tokenPrice = res?.price_in_usd; //$  dollars
-    console.log(res)
-    const tokenPrice = 0.0336; //$  dollars
-    console.log("tokenPrice", tokenPrice)
+    const tokenPrice = res?.price_in_usd; //$  dollars
+    // console.log("tokenPrice", tokenPrice)
     const { algorandClient } = await createFryMarketClient(signer, sender);
     const bal = await userFryBalance(sender)
     if (isCollection) {
