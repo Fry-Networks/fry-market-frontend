@@ -2,10 +2,11 @@ import { useWallet } from "@txnlab/use-wallet"
 import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import { claimNftRoyalty } from "../../auctionMethod"
 import { buyNftWithRoyalty, cancelList, getSingleNftlistData } from "../../fryMarketMethods"
 import Button from "../shared/button"
 
-const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: any) => {
+const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forClaim }: any) => {
   const [loading, setLoading] = useState<any>(false)
   const [isOwner, setOwner] = useState(false);
   const [nftData, setNftData] = useState<any>({})
@@ -132,6 +133,57 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
       console.log("Error getting Single Nft Detail");
     }
   }
+  const handleClaimNft = async () => {
+
+
+    try {
+      return new Promise(async (resolve, reject) => {
+        try {
+          if (activeAccount?.address) {
+            setLoading(true)
+            const response = await claimNftRoyalty(activeAccount.address, signer, nftDataFromProps.index, nftDataFromProps.params.bidContract, nftDataFromProps.params.price, nftDataFromProps.params.sellerId)
+            // (
+            //   activeAccount?.address,
+            //   data.assetId,
+            //   signer,
+            //   data.seller,
+            //   data.price);
+
+            console.log("response", response);
+            setLoading(false)
+
+            resolve(true)
+            navigate("/artist-profile")
+
+          }
+          else {
+            setLoading(false)
+
+            reject(false)
+
+          }
+        }
+        catch (e) {
+          console.log("Error While Claiming nft", e);
+          setLoading(false)
+
+          reject(false);
+        }
+
+      })
+
+
+
+    }
+    catch (e) {
+      console.log("Error Uploading Image", e);
+      return e;
+    }
+
+
+
+
+  }
 
   useEffect(() => {
     if (!activeAccount?.address) {
@@ -175,7 +227,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
             <>
               {/* <Button className="button btn-secondary large font-medium btnBuy" minWidth={343} minHeight={44} text="Buy now"></Button> */}
 
-              <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text={isOwner ? nftData.isListed ? "Cancel" : "List now" : forList ? "List now" : "Buy now"}
+              <Button className="button btn-primary large font-medium btnOffer" minWidth={343} minHeight={44} text={isOwner ? nftData.isListed ? "Cancel" : "List now" : forList ? forClaim ? "Claim now" : "List now" : "Buy now"}
                 disabled={loading}
                 onClick={() => {
                   if (activeAccount?.address) {
@@ -189,6 +241,17 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList }: an
                           pending: "NFT Listing Cancellation in progress",
                           error: "There was an error Cancelling NFT Listing",
                           success: "NFT List Cancelled successfully"
+
+                        }
+                      )
+                    }
+                    else if (forClaim) {
+                      toast.promise(
+                        handleClaimNft(),
+                        {
+                          pending: "NFT claiming in progress ",
+                          error: "There was an error claiming NFT",
+                          success: "NFT claimed successfully"
 
                         }
                       )

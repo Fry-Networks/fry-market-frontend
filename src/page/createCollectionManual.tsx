@@ -147,7 +147,7 @@ const CreateNftCollectionManual = () => {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address }, config);
+      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address, royalty }, config);
       console.log("Hehe", response.data);
       return true;
 

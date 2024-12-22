@@ -328,6 +328,10 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                 navigate("/nft-detail", { state: { data: data, collectionData, forList: true } })
 
               }
+              else if (label == "Claim" && profileOwned) {
+                navigate("/nft-detail", { state: { data: data, collectionData, forList: true, forClaim: true } })
+
+              }
               else {
 
                 navigate("/nft-detail", { state: { data: otherAuctionData, collectionData, onlyShow: true } })

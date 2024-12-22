@@ -453,6 +453,7 @@ const ProfileNft = ({ collectionData, address }) => {
                         {claimableNft.map((data, index) => (
                           <CollectionsCard
                             data={{
+                              ...data,
                               index: data.nftAddress,
                               params: {
                                 url: data.url,
