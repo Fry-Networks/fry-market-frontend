@@ -8,7 +8,7 @@ const NftCollection = () => {
   const [collectionDataFull, setCollectionDataFull] = useState<any>([])
   const location = useLocation();
   useEffect(() => {
-    console.log("Collection Data Full", location.state);
+    // console.log("Collection Data Full", location.state);
     if (location?.state?.collectionDataFull) {
       setCollectionDataFull(location.state.collectionDataFull)
     }

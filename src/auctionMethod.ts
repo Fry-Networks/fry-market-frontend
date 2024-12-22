@@ -99,10 +99,10 @@ export const deployAuction = async (sender: string, signer: TransactionSigner) =
         const auctionClientDeploy = new FryAuctionClient(appDetails, algodClient)
 
         const auction = await auctionClientDeploy.create.initAuction({ fryId: FRY_TOKEN_ID, primaryFee: PRIMARY_FEE, secondaryFee: SECONDARY_FEE, admin: FEE_WALLET }).then((res) => {
-            console.log(res)
+            // console.log(res)
             return res
         }).catch((e) => {
-            console.log(e)
+            // console.log(e)
             return e
         })
 
@@ -123,14 +123,16 @@ export const deployAuction = async (sender: string, signer: TransactionSigner) =
                 signer
             })
             const optInAsset = await auctionClient.assetOptIn({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
-                console.log(res)
+                // console.log(res)
             })
         }
 
-        console.log("auction", auction)
+        // console.log("auction", auction)
         return auction
 
-    } catch (e) { console.log(e) }
+    } catch (e) {
+        // console.log(e) 
+    }
 }
 
 export const listNftAuction = async (
@@ -217,7 +219,7 @@ export const listNftAuction = async (
             let fee = 0;
             const boxId = algosdk.encodeUint64(asset);
             const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
-            console.log(box)
+            // console.log(box)
             if (!box) {
                 fee = (bidStartAmount * PRIMARY_FEE) / 10000
                 boxAmount = AUCTION_BOX_PRICE
@@ -257,17 +259,17 @@ export const listNftAuction = async (
             });
             const result = await atc.execute(algodClient, 4);
             for (const mr of result.methodResults) {
-                console.log(`${mr.returnValue}`);
+                // console.log(`${mr.returnValue}`);
             }
         }).catch((e) => {
-            console.log(e)
+            // console.log(e)
             throw e
         })
 
         return true;
 
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return undefined;
 
     }
@@ -298,7 +300,7 @@ export const createBid = async (
         const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
         const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId);
         const atc = new algosdk.AtomicTransactionComposer();
-        console.log("previous", previousHighestBidder)
+        // console.log("previous", previousHighestBidder)
         const suggestedParams = await algodClient.getTransactionParams().do();
         suggestedParams.fee = 3000;
         suggestedParams.flatFee = true
@@ -313,7 +315,7 @@ export const createBid = async (
         const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
         if (box) {
             const listedCount = algosdk.decodeUint64(box.slice(120, 128), "mixed")
-            console.log("listedCount : ", listedCount)
+            // console.log("listedCount : ", listedCount)
             if (listedCount > 1) {
                 fee = (bidAmount * SECONDARY_FEE) / 10000
             } else {
@@ -367,7 +369,7 @@ export const createBid = async (
         });
         const result = await atc.execute(algodClient, 4);
         for (const mr of result.methodResults) {
-            console.log(`${mr.returnValue}`);
+            // console.log(`${mr.returnValue}`);
         }
 
         // await biddingClient.bid({ bidAmount: BigInt(bidAmount), boxPay })
@@ -376,7 +378,7 @@ export const createBid = async (
         return "Bid Placed"
 
     } catch (e: any) {
-        console.log(e)
+        // console.log(e)
         throw e.message
     }
 }
@@ -415,7 +417,7 @@ export const cancelBid = async (
 
         return "Bid Canceled"
     } catch (e: any) {
-        console.log(e)
+        // console.log(e)
         return e.message
     }
 }
@@ -450,7 +452,7 @@ export const cancelAuction = async (
         return "Auction Canceled"
 
     } catch (e: any) {
-        console.log(e)
+        // console.log(e)
         return e.message
     }
 }
@@ -524,7 +526,7 @@ export const claimNftRoyalty = async (
 
         const result = await atc.execute(algodClient, 4);
         for (const mr of result.methodResults) {
-            console.log(`${mr.returnValue}`);
+            // console.log(`${mr.returnValue}`);
         }
 
         // await auctionClient.claimNftRoyalty({ asset: BigInt(asset), nftSeller: seller, fryId: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.006) } })
@@ -532,7 +534,7 @@ export const claimNftRoyalty = async (
         return "nftClaimed"
 
     } catch (e: any) {
-        console.log(e)
+        // console.log(e)
         throw e.message
     }
 }
@@ -575,7 +577,7 @@ export const getAllAuctions = async () => {
         }
         allListings.push(listedData)
     }
-    console.log(allListings)
+    // console.log(allListings)
     return allListings
 }
 
@@ -640,7 +642,7 @@ export const getAllBids = async (
         return allBids
 
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return []
     }
 }

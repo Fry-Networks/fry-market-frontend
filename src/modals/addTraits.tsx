@@ -10,7 +10,7 @@ const AddTraits = ({ istraitmodal, setistraitmodal }: any) => {
 
   const handleCancel = () => {
     setistraitmodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
   return (
     <>

@@ -30,12 +30,12 @@ const ProfilePage = () => {
         // };
 
         const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
-        console.log("Collection Data", response.data);
+        // console.log("Collection Data", response.data);
         setCollectionData(response.data)
 
       }
       catch (e) {
-        console.log("Error Getting Collection", e);
+        // console.log("Error Getting Collection", e);
         // toast.error("Error Creating Collection");
 
       }
@@ -47,7 +47,7 @@ const ProfilePage = () => {
 
       if (activeAccount?.address) {
         const response = await getAllListedByUser(activeAccount?.address);
-        console.log("NftLisssted", response);
+        // console.log("NftLisssted", response);
         setAllListedNft(response);
         setTotalListed(Array.isArray(response) ? response.length : 0)
 
@@ -62,7 +62,7 @@ const ProfilePage = () => {
 
       if (activeAccount?.address) {
         const response = await getAllUserNfts(activeAccount?.address);
-        console.log("NftLisssted", response);
+        // console.log("NftLisssted", response);
         setAllNft(response);
       }
     }
@@ -76,7 +76,7 @@ const ProfilePage = () => {
 
       if (activeAccount?.address) {
         const response = await userFryBalance(activeAccount?.address);
-        console.log("Fry Balance", response / 1000000);
+        // console.log("Fry Balance", response / 1000000);
         setFryBalance(response / 1000000);
       }
     }
@@ -95,13 +95,13 @@ const ProfilePage = () => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
-        console.log("Hehe", response.data);
+        // console.log("Hehe", response.data);
         setProfileData(response.data)
         // return true;
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
 
@@ -110,20 +110,20 @@ const ProfilePage = () => {
   }
 
   const getAuctionedNft = async () => {
-    console.log("NftAuctionedd");
+    // console.log("NftAuctionedd");
 
     if (activeAccount?.address) {
       try {
         // setLoadingAuctioned(true)
         const response: any = await getAllUserAuctions(activeAccount?.address || activeAccount?.address, signer)
-        console.log('NftAuctionedd', response)
+        // console.log('NftAuctionedd', response)
         setTotalListedAuctioned(response.filter((item: any) => item?.isListed).length)
-        console.log("auction", response);
-        console.log("auction", response.filter((item: any) => item?.isListed).length);
+        // console.log("auction", response);
+        // console.log("auction", response.filter((item: any) => item?.isListed).length);
 
         // setLoadingAuctioned(false)
       } catch (e) {
-        console.log('D', e)
+        // console.log('D', e)
 
         // setLoadingAuctioned(false)
       }

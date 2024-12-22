@@ -35,8 +35,8 @@ const TopSeller = () => {
 
   const handleRowClick = (record: any) => {
     // navigate("/seller-collection");
-    console.log("Ff", record?.allProfileData);
-    console.log("Ff", activeAccount?.address);
+    // console.log("Ff", record?.allProfileData);
+    // console.log("Ff", activeAccount?.address);
 
     if (activeAccount?.address == record?.allProfileData?.wallet_address) {
       navigate("/artist-profile")
@@ -58,13 +58,13 @@ const TopSeller = () => {
       // };
 
       const response: any = await axios.get(`${baseUrl}/get-all-profiles`);
-      console.log("All Profiles", response.data);
+      // console.log("All Profiles", response.data);
       setProfileData(response.data)
       // return true;
 
     }
     catch (e) {
-      console.log("Error Updating Profile Data");
+      // console.log("Error Updating Profile Data");
       // toast.error("Error Getting Profile Data");
       // return false
 
@@ -301,11 +301,11 @@ const TopSeller = () => {
 
 
   const handleChange = (value: any) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   };
 
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <>

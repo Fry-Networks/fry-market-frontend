@@ -26,7 +26,7 @@ const Footer = () => {
       // };
 
       const response = await axios.get(`${baseUrl}/get-all-collections`);
-      console.log("Collection Data", response.data);
+      // console.log("Collection Data", response.data);
       if (response?.data?.length > 0) {
         let obj = {};
         response?.data?.map((collectionData: any) => {
@@ -38,7 +38,7 @@ const Footer = () => {
         }
         )
         setCollectionData(obj)
-        console.log("well", obj);
+        // console.log("well", obj);
         // Object.keys(obj).map(async (key: string) => {
         //   console.log("called");
         //   const response = await getProfileData(key);

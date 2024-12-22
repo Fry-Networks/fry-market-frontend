@@ -11,7 +11,7 @@ const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
   const navigate = useNavigate();
   const [isbidmodal, setisbidmodal] = useState(false);
   useEffect(() => {
-    console.log("ggg", data);
+    // console.log("ggg", data);
 
   })
   const showplaceBidModal = () => {

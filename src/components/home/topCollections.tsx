@@ -28,7 +28,7 @@ import TopCollectionCard from "../cards/topCollectionCard";
 const TopCollections = ({ collectionDataFull, profile }: any) => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("hehehe", profile);
+    // console.log("hehehe", profile);
 
   })
   return (

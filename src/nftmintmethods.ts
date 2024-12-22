@@ -12,9 +12,9 @@ export function createCollection(
     return async () => {
         try {
             let create = await nftsClient.create.initCollection({ name: name, supply: collSupply, royaltyContract: algosdk.getApplicationAddress(roayltyContract) })
-            console.log(create)
+            // console.log(create)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
         }
     }
 }
@@ -37,7 +37,7 @@ export function mintNft(
 
         // console.log(mint)
 
-        console.log(algosdk.getApplicationAddress(appId))
+        // console.log(algosdk.getApplicationAddress(appId))
 
         const userOptin = await algorand.transactions.assetTransfer({
             sender,
@@ -47,7 +47,7 @@ export function mintNft(
         })
 
         const axferTx = await nftsClient.transferNft({ assetId: 716171034n, assetOptIn: userOptin }, { sendParams: { fee: algokit.algos(0.002) } })
-        console.log(axferTx)
+        // console.log(axferTx)
     }
 }
 
@@ -60,7 +60,7 @@ export function burnNft(
 ) {
     return async () => {
 
-        console.log("first")
+        // console.log("first")
         await algorand.send.assetDestroy({
             sender,
             assetId
@@ -77,7 +77,7 @@ export function createNft(
 ) {
     return async () => {
 
-        console.log("first")
+        // console.log("first")
         const axfer = await algorand.send.assetCreate({
             sender,
             unitName: "yoot",
@@ -92,7 +92,7 @@ export function createNft(
             reserve: "3SAODKBSNOH5VWLRGQR7FTNKZ4PIY4DW4HR3CWPMYCN2LVVFEHTYUO4ZPE"
         })
 
-        console.log(axfer)
+        // console.log(axfer)
     }
 }
 

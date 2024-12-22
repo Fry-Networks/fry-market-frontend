@@ -57,26 +57,26 @@ const Banner = ({ prompt }: any) => {
 
   };
   const onChange = (value: any) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
     setNftType(value);
   };
   const onSearch = (value: any) => {
-    console.log("search:", value);
+    // console.log("search:", value);
     setNftType(value);
   };
 
   const onSupply = (value: any) => {
-    console.log("changed", value);
+    // console.log("changed", value);
     setSupply(value);
   };
   const handleChange = (e: any) => {
-    console.log("handleChange", e.target.value);
+    // console.log("handleChange", e.target.value);
     setInputValue(e.target.value);
   }
   const handleGenerate = () => {
-    console.log("generate")
-    console.log("inputValue", inputValue)
-    console.log("Supply", supply)
+    // console.log("generate")
+    // console.log("inputValue", inputValue)
+    // console.log("Supply", supply)
   }
 
   const getCollectionData = async () => {
@@ -88,12 +88,12 @@ const Banner = ({ prompt }: any) => {
         // };
 
         const response = await axios.get(`${baseUrl}/get-collection/${activeAccount.address}`);
-        console.log("Collection Data", response.data);
+        // console.log("Collection Data", response.data);
         setCollectionData(response.data)
 
       }
       catch (e) {
-        console.log("Error Getting Collection", e);
+        // console.log("Error Getting Collection", e);
         // toast.error("Error Creating Collection");
         setCollectionData("")
 
@@ -102,7 +102,7 @@ const Banner = ({ prompt }: any) => {
   }
 
   const validation = () => {
-    console.log("here", inputValue.replace(/\s+/g, '').length != 0);
+    // console.log("here", inputValue.replace(/\s+/g, '').length != 0);
 
     if (inputValue.replace(/\s+/g, '').length != 0) {
       return true
@@ -114,7 +114,7 @@ const Banner = ({ prompt }: any) => {
 
   useEffect(() => {
     getCollectionData();
-    console.log("d", prompt);
+    // console.log("d", prompt);
     if (prompt) {
 
       setInputValue(prompt)

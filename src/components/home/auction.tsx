@@ -19,7 +19,7 @@ import Button from "../shared/button";
 const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   const navigate = useNavigate();
   useEffect(() => {
-    console.log("i", collectionData);
+    // console.log("i", collectionData);
 
   })
   const goToAuction = () => {
@@ -40,7 +40,7 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
 
       setLoading(true);
       const response = await getAllAuctions();
-      console.log("NftAuctionedh", response);
+      // console.log("NftAuctionedh", response);
       if (moreByUser) {
         setAuctionedNfts(response.filter((item) => item?.isListed).filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
       }
@@ -58,7 +58,7 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   }
 
   useEffect(() => {
-    console.log("heeh");
+    // console.log("heeh");
 
     // if (activeAccount?.address) {
     getAuctionedNft();

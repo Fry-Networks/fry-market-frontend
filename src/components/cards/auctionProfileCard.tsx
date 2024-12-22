@@ -16,9 +16,9 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
     const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
     useEffect(() => {
-        console.log("ggg", data);
-        console.log("ggg", collectionData);
-        console.log("ggg", activeAccount?.address);
+        // console.log("ggg", data);
+        // console.log("ggg", collectionData);
+        // console.log("ggg", activeAccount?.address);
 
     })
     const showplaceBidModal = () => {
@@ -36,7 +36,7 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
                 try {
                     if (activeAccount?.address) {
                         setBtnLoader(true)
-                        console.log("heheWell", data);
+                        // console.log("heheWell", data);
                         setBtnLoader(true)
 
                         const response = await cancelAuction(activeAccount.address, signer, data.params.nftAddress, data.params.bidContract, signTransactions, sendTransactions, data.params.highestBidder);
@@ -52,7 +52,7 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
                             reject(false)
                             return;
                         }
-                        console.log("response", response);
+                        // console.log("response", response);
                         setGetNftDataAgain((prev: any) => !prev)
                         setBtnLoader(false)
 
@@ -68,7 +68,7 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
                     }
                 }
                 catch (e) {
-                    console.log("Error While Claiming nft", e);
+                    // console.log("Error While Claiming nft", e);
                     setBtnLoader(false)
 
                     reject(false);
@@ -80,7 +80,7 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
 
         }
         catch (e) {
-            console.log("Error Uploading Image", e);
+            // console.log("Error Uploading Image", e);
             return e;
         }
 
@@ -98,7 +98,7 @@ const AuctionProfileCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isP
                     } else {
                         if (otherList) {
                             if (label == "Minted") {
-                                console.log("Ff", data);
+                                // console.log("Ff", data);
 
                                 navigate("/nft-detail", { state: { data: data, collectionData, onlyShow: true } })
 

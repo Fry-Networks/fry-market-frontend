@@ -34,7 +34,7 @@ const SelectedNft = () => {
   };
   const [showOriginalContent, setShowOriginalContent] = useState(true);
   const onSwitch = (checked: any) => {
-    console.log(`switch to ${checked}`);
+    // console.log(`switch to ${checked}`);
   };
   const [value, setValue] = useState("blue: fox");
   const [isEditing, setIsEditing] = useState(false);
@@ -105,15 +105,15 @@ const SelectedNft = () => {
       }
       expandedUris = expandedUris.slice(0, 16);
 
-      console.log(expandedUris.length)
+      // console.log(expandedUris.length)
       const mintingTsx: Uint8Array[] = await mintMultipleNft(algorandClient, expandedUris, activeAddress!, signer)
 
       const signedTransactions = await signTransactions(mintingTsx)
       const waitRoundsToConfirm = 4
       const { id } = await sendTransactions(signedTransactions, waitRoundsToConfirm)
-      console.log(id)
+      // console.log(id)
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   }
 
@@ -135,7 +135,7 @@ const SelectedNft = () => {
 
     //! get listed nfts
     const listedNfts: Listing[] = await getAllListed()
-    console.log(listedNfts)
+    // console.log(listedNfts)
 
     //! cancel list
     // const cancellist = await cancelList(activeAddress!, BigInt(assetId), signer)
@@ -147,12 +147,12 @@ const SelectedNft = () => {
 
     //!getAllNfts
     const nfts = await getAllCollectionNft(activeAddress!);
-    console.log(nfts)
+    // console.log(nfts)
 
 
   }
 
-  console.log(activeAddress)
+  // console.log(activeAddress)
   return (
     <>
       <div>

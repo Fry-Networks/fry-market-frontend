@@ -4,7 +4,7 @@ import foldedRed from "../../assets/icons/foldedRed.svg";
 const ProfileBanner = ({ fryBalance, profileData, length }: any) => {
   const location = useLocation();
   useEffect(() => {
-    console.log("ss", profileData);
+    // console.log("ss", profileData);
 
   }, [])
 

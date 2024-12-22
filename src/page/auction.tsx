@@ -20,7 +20,7 @@ const Auction = () => {
 
       setLoading(true);
       const response = await getAllAuctions();
-      console.log("NftAuctioned", response);
+      // console.log("NftAuctioned", response);
       setAuctionedNfts(response.filter((item) => item?.isListed));
       setLoading(false)
 
@@ -32,7 +32,7 @@ const Auction = () => {
   }
 
   useEffect(() => {
-    console.log("heeh");
+    // console.log("heeh");
 
 
     getAuctionedNft();

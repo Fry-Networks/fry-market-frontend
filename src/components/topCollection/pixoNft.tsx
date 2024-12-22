@@ -38,13 +38,13 @@ const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBou
   };
 
   const onTopList = (key: any) => {
-    console.log(key);
+    // console.log(key);
   };
 
   const [searchTerm, setSearchTerm] = useState(''); // State for search input
 
   const handleSearchChange = (event: any) => {
-    console.log("dd", event.target.value);
+    // console.log("dd", event.target.value);
 
     setSearchTerm(event.target.value);
   };
@@ -56,7 +56,7 @@ const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBou
 
   const onChange = (key: any) => {
     setActiveKey(key)
-    console.log(key)
+    // console.log(key)
   }
   return (
     <>
@@ -568,7 +568,7 @@ const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBou
                     </div>
                   ))} */}
                             {nfts.length > 0 ? nfts.map((data: any, index: any) => {
-                              console.log("ss", searchTerm);
+                              // console.log("ss", searchTerm);
                               // console.log("ss", data.name.includes(searchTerm));
 
                               return (

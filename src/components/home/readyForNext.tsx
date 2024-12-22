@@ -48,7 +48,7 @@ const ReadyForNext = () => {
 
     axios.request(config).then((response) => {
 
-      console.log("Email", response);
+      // console.log("Email", response);
       if (response.status == 201) {
 
         toast.success("Email registered successfully for air drop")

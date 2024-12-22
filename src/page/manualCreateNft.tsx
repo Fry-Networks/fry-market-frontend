@@ -44,7 +44,7 @@ const ManualCreateNft = () => {
         window.scrollTo(0, 0);
     }, []);
     const onSwitch = (checked: any) => {
-        console.log(`switch to ${checked}`);
+        // console.log(`switch to ${checked}`);
     };
     const [loading, setLoading] = useState(false);
     const [mintLoading, setMintLoading] = useState(false)
@@ -85,7 +85,7 @@ const ManualCreateNft = () => {
     };
 
     const handleInput = (e: any) => {
-        console.log(e.target.files[0])
+        // console.log(e.target.files[0])
         setPrevImage(e.target.files[0])
     }
 
@@ -114,14 +114,14 @@ const ManualCreateNft = () => {
     };
 
     const handleClearClick = (key: any) => {
-        console.log('f', key);
+        // console.log('f', key);
 
         setTraits((prev: any) => {
             let traits = { ...prev };
-            console.log("rr", traits);
+            // console.log("rr", traits);
 
             delete traits[key]
-            console.log("rr", traits);
+            // console.log("rr", traits);
 
             return traits;
         })
@@ -150,7 +150,7 @@ const ManualCreateNft = () => {
     const getNftCollection = async () => {
         try {
             setLoading(true)
-            console.log("dd", activeAccount);
+            // console.log("dd", activeAccount);
 
             const response: any = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
             if (response.data) {
@@ -182,7 +182,7 @@ const ManualCreateNft = () => {
                     const formDataForImage = new FormData;
                     formDataForImage.append("image", prevImage);
                     const response = await axios.post(`${baseUrl}/upload-nft-image`, formDataForImage);
-                    console.log("Response in upload Image", response.data);
+                    // console.log("Response in upload Image", response.data);
                     setFormData((prev: any) => ({ ...prev, image_url: response.data?.url }))
                     if (response.data?.url) {
                         let metaData = {
@@ -198,7 +198,7 @@ const ManualCreateNft = () => {
                             "extra_properties": {}
                         }
                         const metaDataResponse = await axios.post(`${baseUrl}/upload-metadata`, metaData);
-                        console.log("Response in upload Image", metaDataResponse?.data?.url);
+                        // console.log("Response in upload Image", metaDataResponse?.data?.url);
                         if (metaDataResponse?.data?.url) {
 
 
@@ -216,7 +216,7 @@ const ManualCreateNft = () => {
                             }
                         }
                         else {
-                            console.log("Some Error Occured while uploading meta data. Please try again.");
+                            // console.log("Some Error Occured while uploading meta data. Please try again.");
                             setMintLoading(false);
 
                             reject(false)
@@ -225,7 +225,7 @@ const ManualCreateNft = () => {
 
                     }
                     else {
-                        console.log("Some Error Occured while uploading image. Please try again.");
+                        // console.log("Some Error Occured while uploading image. Please try again.");
                         setMintLoading(false);
 
                         reject(false)
@@ -244,7 +244,7 @@ const ManualCreateNft = () => {
 
         }
         catch (e) {
-            console.log("Error Uploading Image", e);
+            // console.log("Error Uploading Image", e);
             return e;
 
         }
@@ -255,13 +255,13 @@ const ManualCreateNft = () => {
     const mintNft = async (imageUrl: any) => {
         try {
             const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, signTransactions, sendTransactions)
-            console.log("response after minting", response);
+            // console.log("response after minting", response);
             // toast.success("Mint Successful")
             return true
 
         }
         catch (e) {
-            console.log("Error Creating Collection");
+            // console.log("Error Creating Collection");
             // toast.error("Error Creating Collection");
             return false
 
@@ -282,12 +282,12 @@ const ManualCreateNft = () => {
     }, [activeAccount])
     const getNfts = async () => {
         try {
-            console.log("hehehe");
+            // console.log("hehehe");
 
             if (activeAccount?.address) {
 
                 const response = await getAllCollectionNft(activeAccount?.address);
-                console.log("got NFTS", response);
+                // console.log("got NFTS", response);
 
             }
 

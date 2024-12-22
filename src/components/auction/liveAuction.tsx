@@ -29,7 +29,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
       // };
 
       const response = await axios.get(`${baseUrl}/get-all-collections`);
-      console.log("Collection Data", response.data);
+      // console.log("Collection Data", response.data);
       if (response?.data?.length > 0) {
         let obj = {};
         response?.data?.map((collectionData: any) => {
@@ -39,14 +39,14 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
         }
         )
         setCollectionData(obj)
-        console.log("well", obj);
+        // console.log("well", obj);
 
       }
 
 
     }
     catch (e) {
-      console.log("Error Getting Collection", e);
+      // console.log("Error Getting Collection", e);
       // toast.error("Error Creating Collection");
       setCollectionData("")
 

@@ -25,7 +25,7 @@ const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
 
             setLoading(true);
             const response = await getAllListed();
-            console.log("NftListed", response);
+            // console.log("NftListed", response);
             setListedNfts(response ? response.filter((item) => item.isListed) : []);
             setLoading(false)
 
@@ -42,7 +42,7 @@ const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
             // console.log("dds", collectionData[Object.keys(collectionData)[0]]);
 
             const response = await getAllListedByUser(collectionData[Object.keys(collectionData)[0]].collection_address);
-            console.log("NftListed", response);
+            // console.log("NftListed", response);
             setListedNfts(response);
             setLoading(false)
 
@@ -53,7 +53,7 @@ const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
     }
 
     useEffect(() => {
-        console.log("heeh");
+        // console.log("heeh");
 
         if (moreByUser) {
             getListedNftByUser()

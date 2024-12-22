@@ -25,8 +25,8 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("ahh", detail);
-    console.log("ahhh", nftData);
+    // console.log("ahh", detail);
+    // console.log("ahhh", nftData);
 
   }, [detail, nftData])
 
@@ -34,7 +34,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
     try {
 
       const response = await axios.get(url);
-      console.log("Meta Data Result", response.data);
+      // console.log("Meta Data Result", response.data);
 
       if (response.data) {
         setNftMetaData(response.data)
@@ -53,7 +53,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
 
       setLoading(true);
       const response = await getAllBids(nftData.bidContract)
-      console.log("Nft Bids", response);
+      // console.log("Nft Bids", response);
       setBidDetails(response.sort((a, b) => b.bidAmount - a.bidAmount));
       setLoading(false)
 
@@ -72,7 +72,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
 
       setLoading(true);
       const response = await getSingleAuction(nftData.nftAddress)
-      console.log("Single Auction", response);
+      // console.log("Single Auction", response);
       setHighestBid(response.highestBidAmount);
       setNftDataLatest(response)
       setLoading(false)
@@ -108,7 +108,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   }, [nftData, activeAccount])
 
   const onChange = (key: any) => {
-    console.log(key);
+    // console.log(key);
   };
 
   const traitData = [

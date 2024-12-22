@@ -83,7 +83,7 @@ const CreateNft: React.FC = () => {
       .then((response) => {
         if (response.data.image_responses) {
 
-          console.log((response.data));
+          // console.log((response.data));
           setGeneratedNfts(response.data.image_responses)
           setIsFailed(false);
 
@@ -98,7 +98,7 @@ const CreateNft: React.FC = () => {
 
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         toast.error("Some Error occured while generating NFTs. Please try again.")
         setIsFailed(true);
         setLoading(false);
@@ -117,8 +117,8 @@ const CreateNft: React.FC = () => {
     const { inputValue, selectedStyle, supply, nftType } = location.state
     if (inputValue && selectedStyle && supply && nftType && !loading) {
       setLocationParams(location.state)
-      console.log(location.state);
-      console.log("u called");
+      // console.log(location.state);
+      // console.log("u called");
 
       generateImages(inputValue, selectedStyle, supply);
     }
@@ -156,7 +156,7 @@ const CreateNft: React.FC = () => {
   };
 
   useEffect(() => {
-    console.log("selectedImages", selectedImages);
+    // console.log("selectedImages", selectedImages);
   }, [selectedImages])
 
   useEffect(() => {
@@ -174,7 +174,7 @@ const CreateNft: React.FC = () => {
       try {
         setMintLoading(true);
         const response: any = await mintMultipleNft(selectedImages, activeAccount?.address || "", signer, signTransactions, sendTransactions)
-        console.log("response after minting", response);
+        // console.log("response after minting", response);
         // toast.success("Mint Successful")
         setMintLoading(false);
         setIsMintSuccessful(true);
@@ -184,7 +184,7 @@ const CreateNft: React.FC = () => {
 
       }
       catch (e) {
-        console.log("Error Mintin Nft");
+        // console.log("Error Mintin Nft");
         // toast.error("Error Creating Collection");
         setMintLoading(false);
         setIsMintSuccessful(false);

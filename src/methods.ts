@@ -231,7 +231,7 @@ export function listNft(
             // console.log("optin Asset", optInAsset)
             // }
 
-            console.log("BOX_PRICE", BOX_PRICE)
+            // console.log("BOX_PRICE", BOX_PRICE)
             const boxPay = await algorand.transactions.payment({
                 sender,
                 receiver: algosdk.getApplicationAddress(appId),
@@ -250,9 +250,9 @@ export function listNft(
 
             const listNft = await marketclient.listAsset({ mbrPay: boxPay, xfer: assetTransferTx, price: BigInt(1000000) })
 
-            console.log("list nft", listNft)
+            // console.log("list nft", listNft)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
         }
     }
 }
@@ -267,7 +267,7 @@ export function cancelList(
 ) {
     return async () => {
         const cancelTxn = await marketclient.cancelList({ asset: assetId }, { sendParams: { fee: algokit.algos(0.003) } });
-        console.log(cancelTxn)
+        // console.log(cancelTxn)
     }
 }
 
@@ -309,7 +309,7 @@ export function buyNft(
         })
 
         const buyNft = await marketclient.buyNft({ asset: assetId, xfer, xferFee: xfer_fee }, { sendParams: { fee: algokit.algos(0.002) } });
-        console.log(buyNft)
+        // console.log(buyNft)
     }
 }
 
@@ -359,7 +359,7 @@ export function getBoxValues(
     algod: algosdk.Algodv2
 ) {
     return async () => {
-        console.log(boxId)
+        // console.log(boxId)
         const listings: Listing[] = [];
         const boxes = await algokit.getAppBoxNames(appId, algod);
         await Promise.all(boxes.map(async (bx) => {
@@ -368,7 +368,7 @@ export function getBoxValues(
             const sellerId = algosdk.encodeAddress(box.slice(0, 32))
             const listedPrice = algosdk.decodeUint64(box.slice(32, 40), "safe")
             const listedCount = algosdk.decodeUint64(box.slice(-8), "safe")
-            console.log(box)
+            // console.log(box)
 
             let listingData: Listing = {
                 assetId: decoded,
@@ -379,7 +379,7 @@ export function getBoxValues(
             listings.push(listingData)
         }))
 
-        console.log("listings", listings)
+        // console.log("listings", listings)
     }
 }
 
@@ -407,7 +407,7 @@ export function fetchCollection(
 ) {
     return async () => {
         let accounts = await algokit.lookupAccountByAddress(appAddress, indexerClient);
-        console.log(accounts)
+        // console.log(accounts)
     }
 }
 
@@ -447,7 +447,7 @@ export const testingTxn = async (
         extraFee: algokit.algos(0.004),
     })
 
-    console.log("tx1", newtx, newtx.length)
+    // console.log("tx1", newtx, newtx.length)
 
     let trstx: Transaction[] = await algorand.transactions.methodCall({
         sender,
@@ -471,7 +471,7 @@ export const testingTxn = async (
     // console.log("tx2", transfertx)
     // newtx.push(transfertx)
     // newtx.push(paymenttx)
-    console.log("tx3", newtx, newtx.length)
+    // console.log("tx3", newtx, newtx.length)
     return trstx
 }
 
@@ -479,18 +479,18 @@ export const testingTxn = async (
 export const getGlobalState = async (marketClient: AlgoMarketClient) => {
     try {
         let encode = algosdk.decodeAddress("TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ");
-        console.log("dncoe", encode)
+        // console.log("dncoe", encode)
         const data = await marketClient.getGlobalState();
         return data
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return e
     }
 }
 
 export const getNfts = async (algorandClient: algokit.AlgorandClient, appId: bigint, assetId: bigint) => {
     const nft = await algorandClient.account.getAssetInformation(algosdk.getApplicationAddress(appId), assetId);
-    console.log(nft)
+    // console.log(nft)
 }
 
 // !royality market place
@@ -513,7 +513,7 @@ export function listRoyalNft(
                 signer
             })
 
-            console.log("BOX_PRICE", BOX_PRICE)
+            // console.log("BOX_PRICE", BOX_PRICE)
             const boxPay = await algorand.transactions.payment({
                 sender,
                 receiver: algosdk.getApplicationAddress(appId),
@@ -524,9 +524,9 @@ export function listRoyalNft(
 
             const listNft = await marketclient.listRoyaltyAsset({ asset: assetId, mbrPay: boxPay, price: BigInt(1000000) })
 
-            console.log("list nft", listNft)
+            // console.log("list nft", listNft)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
         }
     }
 }
@@ -550,7 +550,7 @@ export function buyRoyalNft(
             //     amount: 0n
             // })
 
-            console.log("BOX_PRICE", BOX_PRICE)
+            // console.log("BOX_PRICE", BOX_PRICE)
             const buyPriceTx = await algorand.transactions.payment({
                 sender,
                 receiver: algosdk.getApplicationAddress(appId),
@@ -561,7 +561,7 @@ export function buyRoyalNft(
 
             let result = (500 * 1000000) / 10000
 
-            console.log(result, buyPriceTx.amount)
+            // console.log(result, buyPriceTx.amount)
 
             // const axfer_tx = await algorand.transactions.methodCall({
             //     appId: BigInt(716174498),
@@ -589,9 +589,9 @@ export function buyRoyalNft(
                 }
             )
 
-            console.log("list nft", buyNfts)
+            // console.log("list nft", buyNfts)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
         }
     }
 }
@@ -607,7 +607,7 @@ export function transferNftToWallet(
     return async () => {
         try {
 
-            console.log("BOX_PRICE", BOX_PRICE)
+            // console.log("BOX_PRICE", BOX_PRICE)
             const boxPay = await algorand.transactions.payment({
                 sender,
                 receiver: algosdk.getApplicationAddress(appId),
@@ -618,7 +618,7 @@ export function transferNftToWallet(
 
             let result = (500 / 10000) * 1000000
 
-            console.log(result)
+            // console.log(result)
 
             const axfer_tx = await algorand.transactions.methodCall({
                 appId: BigInt(715530060),
@@ -626,7 +626,7 @@ export function transferNftToWallet(
                 args: [assetId, "7Z7X2AL3X5EZ72XFMZRN7XCKSB2NRVOANVYLLSWIVSEYCBAA2BP6TD4QDA", sender, "TINQ25R3FHBYQ66ONTOQTHRNGKC73HTQKJCIVEJGEGPDQPVDCHAWRRPJEQ", BigInt(500), BigInt(result), BigInt(1000000)],
                 sender,
             })
-            console.log(axfer_tx)
+            // console.log(axfer_tx)
 
             const buyNfts = await marketclient.buyRoyaltyAsset(
                 {
@@ -646,9 +646,9 @@ export function transferNftToWallet(
                 }
             )
 
-            console.log("list nft", buyNfts)
+            // console.log("list nft", buyNfts)
         } catch (e) {
-            console.log(e)
+            // console.log(e)
         }
     }
 }

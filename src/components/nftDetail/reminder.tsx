@@ -27,7 +27,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
               nftData.price);
 
 
-            console.log("response", response);
+            // console.log("response", response);
             setLoading(false);
             resolve(true)
             navigate("/artist-profile")
@@ -51,7 +51,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
   }
@@ -79,7 +79,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
               reject(false)
               return;
             }
-            console.log("response", response);
+            // console.log("response", response);
             // setGetNftDataAgain((prev: any) => !prev)
             navigate("/artist-profile")
             setLoading(false)
@@ -96,7 +96,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
           }
         }
         catch (e) {
-          console.log("Error While Claiming nft", e);
+          // console.log("Error While Claiming nft", e);
           setLoading(false)
 
           reject(false);
@@ -108,7 +108,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
 
@@ -122,7 +122,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
 
 
       const response = await getSingleNftlistData(nftDataFromProps.assetId)
-      console.log("Single Listing Data", response);
+      // console.log("Single Listing Data", response);
       setNftData(response)
 
       // return (Number(bidAmount) > Number((response.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)))
@@ -130,7 +130,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
     }
     catch (e) {
 
-      console.log("Error getting Single Nft Detail");
+      // console.log("Error getting Single Nft Detail");
     }
   }
   const handleClaimNft = async () => {
@@ -149,7 +149,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
             //   data.seller,
             //   data.price);
 
-            console.log("response", response);
+            // console.log("response", response);
             setLoading(false)
 
             resolve(true)
@@ -164,7 +164,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
           }
         }
         catch (e) {
-          console.log("Error While Claiming nft", e);
+          // console.log("Error While Claiming nft", e);
           setLoading(false)
 
           reject(false);
@@ -176,7 +176,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
 

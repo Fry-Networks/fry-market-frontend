@@ -20,7 +20,7 @@ const ProfileNft = ({ collectionData, address }: any) => {
 
   const onChange = (key: any) => {
     setActiveKey(key);
-    console.log(key);
+    // console.log(key);
   };
   const featureCard = [
     {

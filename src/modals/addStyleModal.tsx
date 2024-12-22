@@ -16,7 +16,7 @@ const AddStyleModal = ({ isstylemodal, setisstylemodal, selectedStyle, setSelect
 
   const handleCancel = () => {
     setisstylemodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
 
   const handleSelect = (style: string) => {

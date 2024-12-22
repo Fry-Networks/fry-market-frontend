@@ -90,7 +90,7 @@ const Faq = () => {
   };
 
   const onChange = (key: any) => {
-    console.log(key);
+    // console.log(key);
   };
 
   return (

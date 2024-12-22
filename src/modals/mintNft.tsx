@@ -11,7 +11,7 @@ const MintNft = ({ ismintmodal, setismintmodal }: any) => {
 
   const handleCancel = () => {
     setismintmodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
   return (
     <>

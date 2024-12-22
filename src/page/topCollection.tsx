@@ -28,7 +28,7 @@ const TopCollection = () => {
     try {
       setLoadingListed(true)
       const response = await getAllListedByUser(collectionData.collection_address)
-      console.log('NftAll', response)
+      // console.log('NftAll', response)
       setNfts(response)
       setLoadingListed(false)
 
@@ -36,25 +36,25 @@ const TopCollection = () => {
 
     } catch (e) {
 
-      console.log("e", e);
+      // console.log("e", e);
       setLoadingListed(false)
 
 
     }
   }
   const getAuctionedNft = async () => {
-    console.log("NftAuctionedd");
+    // console.log("NftAuctionedd");
 
     if (collectionData.collection_address) {
       try {
         setLoadingAuctioned(true)
         const response: any = await getAllUserAuctions(collectionData.collection_address, signer)
-        console.log('NftAuctionedd', response)
+        // console.log('NftAuctionedd', response)
         setAuctionedNfts(response.filter((item: any) => item?.isListed))
         setTotalListedAuctioned(response.filter((item: any) => item?.isListed).length)
         setLoadingAuctioned(false)
       } catch (e) {
-        console.log('D', e)
+        // console.log('D', e)
 
         setLoadingAuctioned(false)
       }
@@ -67,7 +67,7 @@ const TopCollection = () => {
       if (collectionData.collection_address) {
         setLoadingBought(true);
         const response = await getAllUserNfts(collectionData.collection_address)
-        console.log('NftAll', response)
+        // console.log('NftAll', response)
         setAllBoughtNft(response)
         setLoadingBought(false);
 
@@ -78,7 +78,7 @@ const TopCollection = () => {
     }
   }
   useEffect(() => {
-    console.log("Collection Data Full i", location.state);
+    // console.log("Collection Data Full i", location.state);
     if (location?.state?.collectionData) {
       setCollectionData(location.state.collectionData)
     }
@@ -88,7 +88,7 @@ const TopCollection = () => {
     if (location?.state?.profile) {
       setProfileData(location.state.profile)
     }
-    console.log("ahh");
+    // console.log("ahh");
 
 
 

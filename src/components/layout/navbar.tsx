@@ -38,14 +38,14 @@ const Navbar = (props: Toggle) => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAddress}`);
-        console.log("Hehed", response.data);
+        // console.log("Hehed", response.data);
         setProfile(response.data)
         return (response.data)
         // return true;
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
         return false
@@ -60,7 +60,7 @@ const Navbar = (props: Toggle) => {
     getProfileData()
   }, [activeAddress])
   useEffect(() => {
-    console.log("g", props.isPfpChange);
+    // console.log("g", props.isPfpChange);
     setTimeout(() => {
       getProfileData()
 
@@ -79,14 +79,14 @@ const Navbar = (props: Toggle) => {
 
 
   const isHomeActive = location.pathname === "/" || location.pathname === "/auction" || location.pathname === "/nft-collection" || location.pathname === "/top-collection" || location.pathname === "/nft-detail" || location.pathname === "/top-seller" || location.pathname === "/seller-collection" || location.pathname === "/auction-detail";
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
 
 
   const isNftActive = location.pathname === "/create-nft-page" || location.pathname === "/create-nft" || location.pathname === "/multiple-collect" || location.pathname === "/select-nft" || location.pathname === "/create-nft-collection" || location.pathname === "/artist-profile-art" || location.pathname === "/artist-profile" || location.pathname === "/sell-method";
   const isCollectionActive = location.pathname === "/create-collection";
 
-  console.log(location.pathname);
+  // console.log(location.pathname);
   const [open, setOpen] = useState(false);
   const [placement, setPlacement] = useState<string>("left");
   const { activeAccount } = useWallet()
@@ -97,7 +97,7 @@ const Navbar = (props: Toggle) => {
       const tokenResponse = await axios.post(`${baseUrl}/get-token`, {
         wallet_address: activeAccount?.address
       });
-      console.log("Response fom auth API", tokenResponse.data);
+      // console.log("Response fom auth API", tokenResponse.data);
 
     }
     catch (e) {

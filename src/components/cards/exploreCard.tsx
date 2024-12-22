@@ -31,14 +31,14 @@ const ExploreCard = ({ data }: any) => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${id}`);
-        console.log("Hehe", response.data);
+        // console.log("Hehe", response.data);
         setProfile(response.data)
         return (response.data)
         // return true;
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
         return false
@@ -51,26 +51,26 @@ const ExploreCard = ({ data }: any) => {
     try {
 
       const response = await getAllListedByUser(data.collection_address)
-      console.log('NftAll', response)
+      // console.log('NftAll', response)
       setTotalListed(Array.isArray(response) ? response.length : 0)
 
     } catch (e) {
-      console.log("e", e);
+      // console.log("e", e);
 
     }
   }
   const getAuctionedNft = async () => {
-    console.log("NftAuctionedd");
+    // console.log("NftAuctionedd");
 
     if (data.collection_address || activeAccount?.address) {
       try {
         // setLoadingAuctioned(true)
         const response: any = await getAllUserAuctions(data.collection_address || activeAccount?.address, signer)
-        console.log('NftAuctionedd', response)
+        // console.log('NftAuctionedd', response)
         setTotalListedAuctioned(response.filter((item: any) => item?.isListed).length)
         // setLoadingAuctioned(false)
       } catch (e) {
-        console.log('D', e)
+        // console.log('D', e)
 
         // setLoadingAuctioned(false)
       }

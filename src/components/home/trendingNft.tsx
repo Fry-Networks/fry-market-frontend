@@ -29,16 +29,16 @@ const TrendingNft = ({ collectionData }: any) => {
 
       setLoading(true);
       const response = await getAllListed();
-      console.log("NftListed", response);
+      // console.log("NftListed", response);
       setListedNfts(response ? response.filter((item) => item.isListed) : []);
       setLoading(false)
-      console.log("aa", response.sort((data1: any, data2: any) => {
+      // console.log("aa", response.sort((data1: any, data2: any) => {
 
-        console.log("data1", data1.list_count);
-        console.log("data2", data2.list_count);
-        return data2.list_count - data1.list_count
-        // return data1.list_count > data2.list_count ? 1 : data2.list_count > data1.list_count ? -1 : 0
-      }));
+      //   console.log("data1", data1.list_count);
+      //   console.log("data2", data2.list_count);
+      //   return data2.list_count - data1.list_count
+      //   // return data1.list_count > data2.list_count ? 1 : data2.list_count > data1.list_count ? -1 : 0
+      // }));
 
 
 
@@ -49,7 +49,7 @@ const TrendingNft = ({ collectionData }: any) => {
   }
 
   useEffect(() => {
-    console.log("heeh");
+    // console.log("heeh");
 
 
     getListedNft();

@@ -20,7 +20,7 @@ const NftDetail = () => {
   const location = useLocation();
 
   const getProfileData = async (id: any) => {
-    console.log("dd", id);
+    // console.log("dd", id);
 
     if (id) {
 
@@ -31,13 +31,13 @@ const NftDetail = () => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${id}`);
-        console.log("Hehehe", response.data);
+        // console.log("Hehehe", response.data);
         setProfileData(response.data)
         // return true;
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
 
@@ -48,7 +48,7 @@ const NftDetail = () => {
 
   useEffect(() => {
     if (location.state) {
-      console.log("Location Auction", location.state);
+      // console.log("Location Auction", location.state);
       if (location.state.collectionData && location.state.data) {
         setCollectionData(location.state.collectionData)
         setNftData(location.state.data)

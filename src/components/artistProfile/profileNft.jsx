@@ -39,7 +39,7 @@ const ProfileNft = ({ collectionData, address }) => {
   const { activeAccount, signer } = useWallet()
   const onChange = (key) => {
     setActiveKey(key)
-    console.log(key)
+    // console.log(key)
   }
   const featureCard = [
     {
@@ -122,18 +122,18 @@ const ProfileNft = ({ collectionData, address }) => {
   ]
 
   const getMintedNft = async () => {
-    console.log('full')
+    // console.log('full')
 
     try {
       if (address || activeAccount?.address) {
         setLoading(true)
         const response = await getAllCollectionWListed(address || activeAccount?.address)
-        console.log('NftMinted', response)
+        // console.log('NftMinted', response)
         setMintedNft(response)
         setLoading(false)
       }
     } catch (e) {
-      console.log('ee', e)
+      // console.log('ee', e)
 
       setLoading(false)
     }
@@ -145,7 +145,7 @@ const ProfileNft = ({ collectionData, address }) => {
       if (address || activeAccount?.address) {
         setLoadingAll(true)
         const response = await getAllUserNfts(address || activeAccount?.address)
-        console.log('NftAll', response)
+        // console.log('NftAll', response)
         setAllBoughtNft(response)
         setLoadingAll(false)
       }
@@ -156,37 +156,37 @@ const ProfileNft = ({ collectionData, address }) => {
 
   const getListedNft = async () => {
     try {
-      console.log("aaaa");
-      console.log("ff", activeAccount?.address);
+      // console.log("aaaa");
+      // console.log("ff", activeAccount?.address);
 
       if (address || activeAccount?.address) {
-        console.log("dda", activeAccount?.address);
+        // console.log("dda", activeAccount?.address);
 
         setLoadingListed(true)
         const response = await getAllListedByUser(address || activeAccount?.address)
-        console.log('NftListed', response)
+        // console.log('NftListed', response)
         setAllListedNft(response)
         setLoadingListed(false)
       }
     } catch (e) {
-      console.log("ee", e);
+      // console.log("ee", e);
       
       setLoadingListed(false)
     }
   }
 
   const getAuctionedNft = async () => {
-    console.log("NftAuctionedd");
+    // console.log("NftAuctionedd");
     
     if (address || activeAccount?.address) {
       try {
         setLoadingAuctioned(true)
         const response = await getAllUserAuctions(address || activeAccount?.address, signer)
-        console.log('NftAuctionedd', response)
+        // console.log('NftAuctionedd', response)
         setAuctionedNft(response.filter((item) => item?.isListed))
         setLoadingAuctioned(false)
       } catch (e) {
-        console.log('D', e)
+        // console.log('D', e)
 
         setLoadingAuctioned(false)
       }
@@ -197,11 +197,11 @@ const ProfileNft = ({ collectionData, address }) => {
       try {
         setLoadingClaimable(true)
         const response = await getAllUserClaimable(address || activeAccount?.address, signer)
-        console.log('NftClaimable', response)
+        // console.log('NftClaimable', response)
         setClaimableNft(response.filter((data)=>data.highestBidder != data.sellerId))
         setLoadingClaimable(false)
       } catch (e) {
-        console.log('dd', e)
+        // console.log('dd', e)
 
         setLoadingClaimable(false)
       }
@@ -209,7 +209,7 @@ const ProfileNft = ({ collectionData, address }) => {
   }
 
   useEffect(() => {
-    console.log('heeh')
+    // console.log('heeh')
 
     if (address || activeAccount?.address) {
       getMintedNft()

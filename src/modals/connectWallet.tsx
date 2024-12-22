@@ -2,9 +2,6 @@ import { Modal } from "antd";
 import blackFlower from "../assets/icons/blackFlower.svg";
 import blackupArrow from "../assets/icons/blackUpArrow.svg";
 import daffi from "../assets/icons/daffi.svg";
-import walletBlue from "../assets/icons/walletBlue.svg";
-import logo from "../assets/icons/websiteLogo.svg";
-import redline from "../assets/modals/redLine.png";
 import mobileLogo from "../assets/icons/newLogo.svg";
 
 
@@ -15,7 +12,7 @@ const ConnectWallet = ({ isconnectmodal, setisconnectmodal }: any) => {
 
   const handleCancel = () => {
     setisconnectmodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
   return (
     <>
@@ -49,13 +46,13 @@ const ConnectWallet = ({ isconnectmodal, setisconnectmodal }: any) => {
               <img src={daffi} alt="" />
               Daffi
             </button>{" "}
-{/*            
+            {/*            
             <button className=" wltbtn py-3.5 px-6 lightGray font-Roboto ex-small font-normal w-full flex justify-start items-center gap-5 border-solid border-2 border-[red]">
               <img src={walletBlue} alt="" />
               WalletConect
             </button> */}
 
-           
+
           </div>
         </div>
       </Modal>

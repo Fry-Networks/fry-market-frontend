@@ -38,13 +38,13 @@ const CreateNftCollectionManual = () => {
         const royalty = await getRoyalty(activeAccount?.address);
         setRoyalty(Number(royalty) / 100)
         const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
-        console.log("Collection Data", response.data);
+        // console.log("Collection Data", response.data);
         setCollectionDataFound(true);
         setFormData(response.data)
 
       }
       catch (e) {
-        console.log("Error Getting Collection", e);
+        // console.log("Error Getting Collection", e);
         // toast.error("Error Creating Collection");
 
       }
@@ -56,7 +56,7 @@ const CreateNftCollectionManual = () => {
   }, [activeAccount])
 
   const handleInput = (e: any) => {
-    console.log(e.target.files[0])
+    // console.log(e.target.files[0])
     setPrevImage(e.target.files[0])
   }
 
@@ -70,7 +70,7 @@ const CreateNftCollectionManual = () => {
   };
 
   const validation = () => {
-    console.log("Dd", activeAccount?.address);
+    // console.log("Dd", activeAccount?.address);
 
     if (formData.collection_name.replace(/\s+/g, '').length != 0 && formData.description.replace(/\s+/g, '').length != 0 && activeAccount?.address && prevImage && royalty) {
       return true
@@ -91,12 +91,12 @@ const CreateNftCollectionManual = () => {
         try {
           if (activeAccount?.address) {
             const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
-            console.log("added", addRoyaltyResponse);
+            // console.log("added", addRoyaltyResponse);
 
             const formDataForImage = new FormData;
             formDataForImage.append("images", prevImage);
             const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-            console.log("Response in upload Image", response.data);
+            // console.log("Response in upload Image", response.data);
             setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
             if (response.data?.image_urls[0]) {
 
@@ -108,7 +108,7 @@ const CreateNftCollectionManual = () => {
               }
             }
             else {
-              console.log("Some Error Occured while uploading image. Please try again.");
+              // console.log("Some Error Occured while uploading image. Please try again.");
               reject(false);
 
             }
@@ -118,7 +118,7 @@ const CreateNftCollectionManual = () => {
           }
         }
         catch (e) {
-          console.log("error", e);
+          // console.log("error", e);
 
           reject(false)
 
@@ -131,7 +131,7 @@ const CreateNftCollectionManual = () => {
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
 
 
@@ -148,12 +148,12 @@ const CreateNftCollectionManual = () => {
       };
 
       const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address, royalty }, config);
-      console.log("Hehe", response.data);
+      // console.log("Hehe", response.data);
       return true;
 
     }
     catch (e) {
-      console.log("Error Creating Collection");
+      // console.log("Error Creating Collection");
       // toast.error("Error Creating Collection");
       return false
 
@@ -238,7 +238,7 @@ const CreateNftCollectionManual = () => {
                         value={royalty}
                         onKeyDown={(evt: any) => evt.key === 'e' && evt.preventDefault()}
                         onChange={(e: any) => {
-                          console.log("e", e.target.value);
+                          // console.log("e", e.target.value);
 
                           if (e.target.value == "" || e.target.value >= 0 && e.target.value <= 15) {
                             setRoyalty(e.target.value)
@@ -278,7 +278,8 @@ const CreateNftCollectionManual = () => {
                         className="btn-primary px-8 py-4 mb-5"
                         text="Continue"
                         onClick={(e: any) => {
-                          e.preventDefault(); console.log("hello");
+                          e.preventDefault();
+                          // console.log("hello");
                           //  navigate("/select-nft") 
                           if (validation()) {
 

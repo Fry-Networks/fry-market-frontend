@@ -29,7 +29,7 @@ export const mintMultipleNft = async (algorand: algokit.AlgorandClient, metaUris
         })
         return encodedTransaction
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return []
     }
 }

@@ -31,14 +31,14 @@ const SellMethod = () => {
     setSelectedMethod(method);
   };
   const handleChange = (value: any) => {
-    console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+    // console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
 
   const onDateChange = (e: any) => {
     const currentDate = new Date();
-    console.log(currentDate.getTime());
+    // console.log(currentDate.getTime());
     const selectedDate = new Date(e?.target?.value)
-    console.log("ff", selectedDate.getTime());
+    // console.log("ff", selectedDate.getTime());
 
 
 
@@ -60,7 +60,7 @@ const SellMethod = () => {
           const response: any = await listNft(activeAccount?.address, nftData.nftAddress, signer, price * 1000000);
 
 
-          console.log("response", response);
+          // console.log("response", response);
           setLoading(false);
           if (response == undefined) {
             loading(false)
@@ -96,7 +96,7 @@ const SellMethod = () => {
             reject(false)
             return
           }
-          console.log("response", response);
+          // console.log("response", response);
           setLoading(false);
 
           resolve(true)
@@ -167,13 +167,13 @@ const SellMethod = () => {
   }
 
   useEffect(() => {
-    console.log("gg", biddingDuration);
+    // console.log("gg", biddingDuration);
 
   }, [biddingDuration])
 
   useEffect(() => {
     if (location.state) {
-      console.log("Nft Data in sell method", location.state.nftData);
+      // console.log("Nft Data in sell method", location.state.nftData);
       setData(location.state?.nftData)
 
     }

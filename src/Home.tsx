@@ -87,12 +87,12 @@ const Home: React.FC<HomeProps> = () => {
 
       try {
         const { id } = await sendTransactions(signedTransactions, waitRoundsToConfirm)
-        console.log(id)
+        // console.log(id)
       } catch (e) {
-        console.log(e)
+        // console.log(e)
       }
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   }
 
@@ -100,26 +100,26 @@ const Home: React.FC<HomeProps> = () => {
     try {
       let data = await getGlobalState(marketClient);
       let promisedata = await Promise.all([data]).then((values) => values)
-      console.log(data, promisedata)
+      // console.log(data, promisedata)
     } catch (e) {
-      console.log(e)
+      // console.log(e)
     }
   }
 
-  console.log(appId)
+  // console.log(appId)
 
   const getAssetDetails = async () => {
     const data = await algorandClient.account.getAssetInformation(activeAddress!, assetId);
     // const nft = await algorandClient.client.algod.getAssetByID(parseInt(assetId.toString()))
     const nft = await algorandClient.client.algod.getAssetByID(714838839).do()
 
-    console.log(nft)
+    // console.log(nft)
   }
 
 
 
   const baseToText = () => {
-    console.log(atob("AAAAAAAPQkA="))
+    // console.log(atob("AAAAAAAPQkA="))
   }
 
   // useEffect(() => {
@@ -136,17 +136,17 @@ const Home: React.FC<HomeProps> = () => {
   //   })
   // }, [appId])
 
-  console.log(activeAddress)
+  // console.log(activeAddress)
 
   const auctionInit = async () => {
     try {
       const init = await deployAuction(activeAddress!, signer)
-      console.log("init", init)
+      // console.log("init", init)
       enqueueSnackbar(`Auction Id : ${init!.appId}`, {
         variant: "success"
       })
     } catch (e: any) {
-      console.log(e)
+      // console.log(e)
       enqueueSnackbar(`${e.message}`, {
         variant: "error"
       })
@@ -157,13 +157,13 @@ const Home: React.FC<HomeProps> = () => {
   const listNftToAuction = async () => {
     try {
       const init = await listNftAuction(activeAddress!, signer, parseInt(assetId.toString()), bidAmount * 1000000, minBidAmount * 1000000, Math.floor(Date.now() / 1000), bidEndTime)
-      console.log("init", init)
+      // console.log("init", init)
       enqueueSnackbar(`listed`, {
         autoHideDuration: 3000,
         variant: "success"
       })
     } catch (e: any) {
-      console.log(e)
+      // console.log(e)
       enqueueSnackbar(`${e.message}`, {
         variant: "error"
       })
@@ -173,12 +173,12 @@ const Home: React.FC<HomeProps> = () => {
 
   const bid = async () => {
     const bidding = await createBid(activeAddress!, signer, selected.nftAddress, selected.bidContract, bidAmount * 1000000, signTransactions, sendTransactions, selected.highestBidder)
-    console.log(bidding)
+    // console.log(bidding)
   }
 
   const cancelBidding = async () => {
     const cancel = await cancelBid(activeAddress!, signer, selected.nftAddress, selected.bidContract, signTransactions, sendTransactions)
-    console.log(cancel)
+    // console.log(cancel)
   }
 
   const auctionCancel = async () => {
@@ -192,7 +192,7 @@ const Home: React.FC<HomeProps> = () => {
 
   const feeTx = async () => {
     const tx = await trasnferFee(bidAmount * 1000000, activeAddress!, signer);
-    console.log(tx)
+    // console.log(tx)
   }
 
 
@@ -200,12 +200,12 @@ const Home: React.FC<HomeProps> = () => {
   const marketInit = async () => {
     try {
       const init = await deployMarketplace(activeAddress!, signer, 1000)
-      console.log("init", init)
+      // console.log("init", init)
       enqueueSnackbar(`Market Id : ${init!.appId}`, {
         variant: "success"
       })
     } catch (e: any) {
-      console.log(e)
+      // console.log(e)
       enqueueSnackbar(`${e.message}`, {
         variant: "error"
       })
@@ -214,36 +214,36 @@ const Home: React.FC<HomeProps> = () => {
 
   const listMyNft = async () => {
     await listNft(activeAddress!, assetId, signer, bidAmount * 1000000).then((res) => {
-      console.log("list response : ", res)
+      // console.log("list response : ", res)
     })
   }
 
   const buyMyNft = async () => {
     await buyNftWithRoyalty(activeAddress!, assetId, signer, "3UVTPV244SYIMQ44JNQWWXCYBAYY3I7XR773BMDLRF36LRNCP6TURFHBMI", bidAmount * 1000000).then((res) => {
-      console.log("list response : ", res)
+      // console.log("list response : ", res)
     })
   }
 
   const cancelMyNft = async () => {
     await cancelList(activeAddress!, assetId, signer).then((res) => {
-      console.log("list response : ", res)
+      // console.log("list response : ", res)
     })
   }
 
   const updateMyNftPrice = async () => {
     await updateNftListPrice(activeAddress!, assetId, signer, bidAmount * 1000000).then((res) => {
-      console.log("list response : ", res)
+      // console.log("list response : ", res)
     })
   }
 
   const getUserNfts = async () => {
     const nfts = await getAllUserNfts(activeAddress!)
-    console.log("nfts", nfts)
+    // console.log("nfts", nfts)
   }
 
   const getUserAuctions = async () => {
     const nfts = await getAllUserAuctions(activeAddress!, signer)
-    console.log("user Auucttion", nfts)
+    // console.log("user Auucttion", nfts)
   }
 
   const getUserClaimableNfts = async () => {
@@ -257,17 +257,17 @@ const Home: React.FC<HomeProps> = () => {
 
   const getRoyalties = async () => {
     const royal = await getRoyalty(collectionAddress);
-    console.log(royal)
+    // console.log(royal)
   }
 
   const imageGentx = async () => {
     const txn = await getImgGenFee(true, 13, signer, activeAddress!);
-    console.log(txn)
+    // console.log(txn)
 
   }
   const getBalance = async () => {
     const bal = await userFryBalance(activeAddress!)
-    console.log("bal", bal)
+    // console.log("bal", bal)
   }
 
 
@@ -276,23 +276,23 @@ const Home: React.FC<HomeProps> = () => {
     try {
       const data = await getAllListed()
       const globalstate = await getMarkeGlobalState();
-      console.log(data, globalstate)
+      // console.log(data, globalstate)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   }
 
   const getSingleMarketNftData = async () => {
     const data = await getSingleNftlistData(Number(assetId));
-    console.log(data)
-    console.log(data ? true : false)
+    // console.log(data)
+    // console.log(data ? true : false)
   }
 
   const decoder = async () => {
     const encode = "LbqtopnVoDEUdniCGVwZvCA3Na3vCjrg5RMcJX3lGuI=";
     const arra = Uint8Array.from(window.atob(encode.replace(/^data[^,]+,/, '')), v => v.charCodeAt(0));
     const sellerId = algosdk.encodeAddress(arra)
-    console.log(sellerId)
+    // console.log(sellerId)
   }
 
   function convertUnixTimestampToDate(unixTimestamp: number) {
@@ -322,7 +322,7 @@ const Home: React.FC<HomeProps> = () => {
     (async () => {
       if (selected) {
         const allBiddings = await getAllBids(selected?.bidContract)
-        console.log(allBiddings)
+        // console.log(allBiddings)
       }
     })();
   }, [selected])

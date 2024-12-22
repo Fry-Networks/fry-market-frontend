@@ -77,10 +77,10 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
         const marketplace = new FryMarketClient(appDetails, algodClient)
 
         const market = await marketplace.create.initMarket({ fryId: FRY_TOKEN_ID, primaryFee: BigInt(PRIMARY_FEE), secondaryFee: BigInt(SECONDARY_FEE), admin: FEE_WALLET }).then((res) => {
-            console.log(res)
+            // console.log(res)
             return res
         }).catch((e) => {
-            console.log(e)
+            // console.log(e)
             return e
         })
 
@@ -103,12 +103,14 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
                 signer
             })
             const optInAsset = await marketClient.optInAsset({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
-                console.log(res)
+                // console.log(res)
             })
         }
         return market
 
-    } catch (e) { console.log(e) }
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 //!Marketplace functions
@@ -170,7 +172,7 @@ export const listNft = async (
         let boxAmount = 0;
         const boxId = algosdk.encodeUint64(assetId);
         const box = await algokit.getAppBoxValue(FRY_MARKET_ID, boxId, algodClient).then((res) => res).catch((e) => { if (e) false })
-        console.log(box)
+        // console.log(box)
         if (!box) {
             fee = (price * PRIMARY_FEE) / 10000
             boxAmount = BOX_PRICE;
@@ -179,7 +181,7 @@ export const listNft = async (
             boxAmount = 0
         }
 
-        console.log("box asmoasfda", boxAmount)
+        // console.log("box asmoasfda", boxAmount)
 
         const feeAxfer = await algorandClient.transactions.assetTransfer({
             sender,
@@ -215,12 +217,12 @@ export const listNft = async (
 
         const result = await atc.execute(algodClient, 4);
         for (const mr of result.methodResults) {
-            console.log(`${mr.returnValue}`);
+            // console.log(`${mr.returnValue}`);
         }
 
         return true
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         throw e
 
     }
@@ -284,7 +286,7 @@ export const addCollectionRoyalty = async (
 
     const result = await atc.execute(algodClient, 4);
     for (const mr of result.methodResults) {
-        console.log(`${mr.returnValue}`);
+        // console.log(`${mr.returnValue}`);
     }
 }
 
@@ -382,11 +384,11 @@ export const buyNftWithRoyalty = async (
 
         const result = await atc.execute(algodClient, 4);
         for (const mr of result.methodResults) {
-            console.log(`${mr.returnValue}`);
+            // console.log(`${mr.returnValue}`);
         }
 
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         throw e
     }
 }
@@ -409,10 +411,10 @@ export const getAllListed = async (): Promise<Listing[]> => {
     const listings: Listing[] = [];
     const boxes = await algokit.getAppBoxNames(FRY_MARKET_ID, algod);
     const filteredBoxes = boxes.filter((bx) => bx.nameRaw.byteLength == 8)
-    console.log(filteredBoxes)
+    // console.log(filteredBoxes)
     await Promise.all(filteredBoxes.map(async (bx) => {
         let box = await algokit.getAppBoxValue(FRY_MARKET_ID, bx.nameRaw, algod)
-        console.log("box", box)
+        // console.log("box", box)
         const decoded = algosdk.decodeUint64(bx.nameRaw, "safe")
         const nftData = await algod.getAssetByID(decoded).do();
         const sellerId = algosdk.encodeAddress(box.slice(0, 32))
@@ -505,7 +507,7 @@ export const mintMultipleNft = async (metaUris: any, sender: string, signer: Tra
 
         return id
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         throw e
     }
 }
@@ -710,7 +712,7 @@ export const trasnferFee = async (amount: number, sender: string, signer: Transa
         return tx
 
     } catch (e) {
-        console.log(e)
+        // console.log(e)
         return e
     }
 }
@@ -751,7 +753,7 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
     if (isCollection) {
         const pricePerImg = 0.05   //$  dollars
         const amountInFry = pricePerImg / tokenPrice;
-        console.log("ds", amountInFry);
+        // console.log("ds", amountInFry);
 
         if ((Math.floor(amountInFry * numofimgs) * 1000000) > bal) {
             throw new Error("Not Enough Balance")

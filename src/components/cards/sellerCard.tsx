@@ -22,14 +22,14 @@ const SellerCard = ({ data }: any) => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${id}`);
-        console.log("Hehe", response.data);
+        // console.log("Hehe", response.data);
         setProfile(response.data)
         return (response.data)
         // return true;
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
         return false
@@ -47,7 +47,7 @@ const SellerCard = ({ data }: any) => {
     <>
       {profile ?
         <div className="sellerCardContainer  w-full cursor-pointer w-full" onClick={() => {
-          console.log("profile", profile);
+          // console.log("profile", profile);
           if (activeAccount?.address == data?.collection_address) {
             navigate("/artist-profile")
 

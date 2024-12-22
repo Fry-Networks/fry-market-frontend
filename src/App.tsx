@@ -76,7 +76,7 @@ export default function App() {
       });
       if (result?.data?.token) {
 
-        console.log("Got the token", result?.data?.token);
+        // console.log("Got the token", result?.data?.token);
         setToken(result?.data?.token)
       }
       else {
@@ -84,7 +84,7 @@ export default function App() {
       }
 
     } catch (error) {
-      console.log("Error Getting Token", error);
+      // console.log("Error Getting Token", error);
 
     }
   }

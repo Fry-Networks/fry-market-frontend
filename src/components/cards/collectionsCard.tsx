@@ -61,7 +61,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             const response = await listNft(activeAccount?.address, data.index, signer, 1000000);
 
 
-            console.log("response", response);
+            // console.log("response", response);
             resolve(true)
 
 
@@ -81,7 +81,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
 
     }
@@ -104,7 +104,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               data.price);
 
 
-            console.log("response", response);
+            // console.log("response", response);
             resolve(true)
 
 
@@ -124,7 +124,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
 
@@ -149,7 +149,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
             //   data.seller,
             //   data.price);
 
-            console.log("response", response);
+            // console.log("response", response);
             setBtnLoader(false)
 
             resolve(true)
@@ -165,7 +165,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           }
         }
         catch (e) {
-          console.log("Error While Claiming nft", e);
+          // console.log("Error While Claiming nft", e);
           setBtnLoader(false)
 
           reject(false);
@@ -177,7 +177,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
 
@@ -208,7 +208,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               reject(false)
               return;
             }
-            console.log("response", response);
+            // console.log("response", response);
             setGetNftDataAgain((prev: any) => !prev)
             setBtnLoader(false)
 
@@ -224,7 +224,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           }
         }
         catch (e) {
-          console.log("Error While Claiming nft", e);
+          // console.log("Error While Claiming nft", e);
           setBtnLoader(false)
 
           reject(false);
@@ -236,7 +236,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
 
@@ -252,7 +252,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
         try {
           if (activeAccount?.address) {
             setBtnLoader(true)
-            console.log("heheWell", data);
+            // console.log("heheWell", data);
             setBtnLoader(true)
 
             const response = await cancelAuction(activeAccount.address, signer, data.params.nftAddress, data.params.bidContract, signTransactions, sendTransactions, data.params.highestBidder);
@@ -268,7 +268,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
               reject(false)
               return;
             }
-            console.log("response", response);
+            // console.log("response", response);
             setGetNftDataAgain((prev: any) => !prev)
             setBtnLoader(false)
 
@@ -284,7 +284,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           }
         }
         catch (e) {
-          console.log("Error While Claiming nft", e);
+          // console.log("Error While Claiming nft", e);
           setBtnLoader(false)
 
           reject(false);
@@ -296,7 +296,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
     }
 
@@ -319,7 +319,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
           } else {
             if (otherList) {
               if (label == "Minted") {
-                console.log("Ff", data);
+                // console.log("Ff", data);
 
                 navigate("/nft-detail", { state: { data: data, collectionData, onlyShow: true } })
 

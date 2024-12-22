@@ -175,7 +175,7 @@ const AppCalls = ({ openModal, setModalState }: AppCallsInterface) => {
       setLoading(false)
     }
   }
-  console.log(activeAddress)
+  // console.log(activeAddress)
 
 
   return (

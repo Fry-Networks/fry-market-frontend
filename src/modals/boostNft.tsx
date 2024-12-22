@@ -11,11 +11,11 @@ const BoostNft = ({ isboostmodal, setisboostmodal }: any) => {
 
   const handleCancel = () => {
     setisboostmodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
 
   const handleChange = (value: any) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   };
   return (
     <>

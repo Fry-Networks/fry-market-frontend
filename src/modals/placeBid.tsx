@@ -18,7 +18,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
 
   const handleCancel = () => {
     setisbidmodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
 
   const getHighestBid = async () => {
@@ -30,7 +30,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
 
         setLoading(true);
         const response = await getSingleAuction(data.nftAddress)
-        console.log("Single Auction", response);
+        // console.log("Single Auction", response);
 
         return (Number(bidAmount) > Number((response.highestBidAmount / 1000000) + (data.minBidAmount / 1000000)))
 
@@ -55,7 +55,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
             const response = await createBid(activeAccount.address, signer, data.nftAddress, data.bidContract, bidAmount * 1000000, signTransactions, sendTransactions, data.highestBidder);
 
 
-            console.log("response", response);
+            // console.log("response", response);
             if (typeof (response) == "string" && response.includes("Error")) {
               setisbidmodal(false);
 
@@ -92,7 +92,7 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
 
     }

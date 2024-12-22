@@ -61,7 +61,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
                 reject(false)
                 return;
               }
-              console.log("response", response);
+              // console.log("response", response);
               // setGetNftDataAgain((prev: any) => !prev)
               navigate("/artist-profile")
               setLoading(false)
@@ -78,7 +78,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
             }
           }
           catch (e) {
-            console.log("Error While Claiming nft", e);
+            // console.log("Error While Claiming nft", e);
             setLoading(false)
 
             reject(false);
@@ -90,12 +90,12 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
 
       }
       catch (e) {
-        console.log("Error Uploading Image", e);
+        // console.log("Error Uploading Image", e);
         return e;
       }
     }
     else {
-      console.log("Please connect your wallet!");
+      // console.log("Please connect your wallet!");
       return;
 
     }
@@ -106,13 +106,13 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
   }
 
   useEffect(() => {
-    console.log("d", nftData);
-    console.log("d", activeAccount?.address);
-    console.log("ff", isOwner);
+    // console.log("d", nftData);
+    // console.log("d", activeAccount?.address);
+    // console.log("ff", isOwner);
     if (activeAccount?.address) {
 
       if (nftData.sellerId == activeAccount?.address) {
-        console.log("goes");
+        // console.log("goes");
 
         setOwner(true);
       }

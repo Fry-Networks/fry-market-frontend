@@ -29,13 +29,13 @@ const Home = () => {
         // };
 
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${id}`);
-        console.log("Hehe", response.data);
+        // console.log("Hehe", response.data);
         return (response.data)
         // return true;
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
         return false
@@ -53,7 +53,7 @@ const Home = () => {
       // };
 
       const response = await axios.get(`${baseUrl}/get-all-collections`);
-      console.log("Collection Data", response.data);
+      // console.log("Collection Data", response.data);
       if (response?.data?.length > 0) {
         let obj = {};
         response?.data?.map((collectionData: any) => {
@@ -65,7 +65,7 @@ const Home = () => {
         }
         )
         setCollectionData(obj)
-        console.log("well", obj);
+        // console.log("well", obj);
         // Object.keys(obj).map(async (key: string) => {
         //   console.log("called");
         //   const response = await getProfileData(key);
@@ -87,7 +87,7 @@ const Home = () => {
 
     }
     catch (e) {
-      console.log("Error Getting Collection", e);
+      // console.log("Error Getting Collection", e);
       // toast.error("Error Creating Collection");
       setCollectionData("")
 

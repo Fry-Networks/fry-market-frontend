@@ -30,7 +30,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
         // };
         setLoading(true);
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${activeAccount?.address}`);
-        console.log("Hehed", response.data);
+        // console.log("Hehed", response.data);
         setProfileData(response.data)
         setProfileImage(response.data.profile_image
         )
@@ -41,7 +41,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
 
       }
       catch (e) {
-        console.log("Error Updating Profile Data");
+        // console.log("Error Updating Profile Data");
         // toast.error("Error Getting Profile Data");
         // return false
         setLoading(false);
@@ -54,7 +54,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
     setisuploadmodal(true);
   };
   const validation = () => {
-    console.log("Dd", activeAccount?.address);
+    // console.log("Dd", activeAccount?.address);
 
     if (profileData.display_name.replace(/\s+/g, '').length != 0 && profileData.bio.replace(/\s+/g, '').length != 0 && profileData.email.replace(/\s+/g, '').length != 0 && profileData.website_link.replace(/\s+/g, '').length != 0 && profileData.twitter.replace(/\s+/g, '').length != 0 && profileData.discord.replace(/\s+/g, '').length != 0 && profileData.instagram.replace(/\s+/g, '').length != 0 && (profileData.banner_image || bannerImage) && (profileData.profile_image || profileImage)) {
       return true
@@ -93,7 +93,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
             }
 
             const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-            console.log("Response in upload Image", response.data);
+            // console.log("Response in upload Image", response.data);
 
             // setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
             if (response.data?.image_urls[0]) {
@@ -110,7 +110,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
               }
             }
             else {
-              console.log("Some Error Occured while uploading image. Please try again.");
+              // console.log("Some Error Occured while uploading image. Please try again.");
               setLoading(false);
 
               reject(false);
@@ -134,7 +134,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
         }
         catch (e) {
           setLoading(false);
-          console.log("e", e);
+          // console.log("e", e);
 
           reject(false)
         }
@@ -146,7 +146,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
 
     }
     catch (e) {
-      console.log("Error Uploading Image", e);
+      // console.log("Error Uploading Image", e);
       return e;
 
 
@@ -162,24 +162,24 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
       //   headers: { Authorization: `Bearer ${token}` }
       // };
       if (imageUrl.length > 0) {
-        console.log("h");
-        console.log("h", bannerImageUpload);
-        console.log("h", profileImageUpload);
+        // console.log("h");
+        // console.log("h", bannerImageUpload);
+        // console.log("h", profileImageUpload);
 
 
         const response: any = await axios.post(`${baseUrl}/profile-settings`, { ...profileData, wallet_address: activeAccount?.address ? activeAccount?.address : 0, banner_image: (bannerImageUpload && profileImageUpload) || (bannerImageUpload) ? imageUrl[0] : profileData.banner_image, profile_image: (bannerImageUpload && profileImageUpload) ? imageUrl[1] : profileImageUpload ? imageUrl[0] : profileData.profile_image });
-        console.log("Hehe", response.data);
+        // console.log("Hehe", response.data);
         return true;
       }
       else {
         const response: any = await axios.post(`${baseUrl}/profile-settings`, { ...profileData, wallet_address: activeAccount?.address ? activeAccount?.address : 0 });
-        console.log("Hehe", response.data);
+        // console.log("Hehe", response.data);
         return true;
       }
 
     }
     catch (e) {
-      console.log("Error Updating Profile Data");
+      // console.log("Error Updating Profile Data");
       // toast.error("Error Creating Collection");
       return false
 
@@ -192,9 +192,9 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
 
   }
   useEffect(() => {
-    console.log("dd", bannerImage);
-    console.log("dd", profileImage);
-    console.log("dd", profileData);
+    // console.log("dd", bannerImage);
+    // console.log("dd", profileImage);
+    // console.log("dd", profileData);
 
   }, [bannerImage, profileImage, profileData])
 

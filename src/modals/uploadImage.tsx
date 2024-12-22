@@ -71,7 +71,7 @@ const UploadImage = ({ isuploadmodal, setisuploadmodal, setProfileImage, setBann
 
   const handleCancel = () => {
     setisuploadmodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
   return (
     <>

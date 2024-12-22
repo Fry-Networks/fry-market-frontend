@@ -11,7 +11,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
 
   const [loading, setLoading] = useState(false)
   const [isPaymentSuccessfull, setIsPaymentSuccessfull] = useState(false)
-  const [fee, setFee] = useState(0)
+  const [fee, setFee] = useState<any>(0)
 
   const navigate = useNavigate();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -21,7 +21,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
       try {
         setLoading(true);
         const response: any = await getImgGenFee(supply == 1 ? false : true, supply, signer, activeAccount?.address ? activeAccount?.address : "123")
-        console.log("response after minting", response);
+        // console.log("response after minting", response);
         // toast.success("Mint Successful")
         setLoading(false);
         setIsPaymentSuccessfull(true);
@@ -31,7 +31,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
 
       }
       catch (e: any) {
-        console.log("Error Mintin Nft", e);
+        // console.log("Error Mintin Nft", e);
         toast.error(e.message);
         setLoading(false);
         setIsPaymentSuccessfull(false);
@@ -48,7 +48,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
   }
 
   const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
+    // console.log(`selected ${value}`);
   };
   const handleConfirmButtonClick = () => {
     setisgeneratemodal(false);
@@ -62,13 +62,13 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
 
   const handleCancel = () => {
     setisgeneratemodal(false);
-    console.log("Modal should close now");
+    // console.log("Modal should close now");
   };
 
   const getFee = async () => {
     try {
       const fee = await getImgGenFeeAmount(supply == 1 ? false : true, supply, signer, activeAccount?.address ? activeAccount?.address : "123")
-      console.log("Fee", fee);
+      // console.log("Fee", fee);
       setFee(fee);
     }
     catch (e) {
@@ -77,10 +77,10 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
   }
 
   useEffect(() => {
-    console.log(inputValue);
-    console.log(nftType);
-    console.log(supply);
-    console.log(selectedStyle);
+    // console.log(inputValue);
+    // console.log(nftType);
+    // console.log(supply);
+    // console.log(selectedStyle);
     getFee()
 
   })
