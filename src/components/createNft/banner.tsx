@@ -67,6 +67,8 @@ const Banner = ({ prompt }: any) => {
 
   const onSupply = (value: any) => {
     // console.log("changed", value);
+
+
     setSupply(value);
   };
   const handleChange = (e: any) => {
@@ -214,11 +216,15 @@ const Banner = ({ prompt }: any) => {
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>
                     <InputNumber
                       min={1}
-                      max={99999999999}
+                      max={25}
                       defaultValue={1}
                       onChange={onSupply}
                       className="gray-input"
-
+                      onBlur={(value: any) => {
+                        if (value?.target?.value > 25) {
+                          toast.error("Max 25 supply allowed!", { toastId: "supplyLimitError" })
+                        }
+                      }}
                     />
                   </div>
                   <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
