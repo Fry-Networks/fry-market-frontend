@@ -1,7 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useWallet } from "@txnlab/use-wallet";
-import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import bgGlow from "../assets/images/createNft/bgGlow.webp";
@@ -28,7 +27,13 @@ const CreateNft: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
+  const walletAddressRef = useRef<string | null>(null);
 
+  useEffect(() => {
+    if (activeAccount?.address) {
+      walletAddressRef.current = activeAccount.address;
+    }
+  }, [activeAccount]);
   const handleClick = () => {
     if (selectedImages.length > 0) {
       if (activeAccount?.address) {
@@ -63,49 +68,54 @@ const CreateNft: React.FC = () => {
   };
 
   const generateImages = (inputValue: any, selectedStyle: any, supply: any) => {
-    let data = JSON.stringify({
-      "prompt": inputValue,
-      "style": selectedStyle,
-      "num_images": supply
-    });
-
-    let config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: `${baseUrl}/generate-images`,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: data
-    };
     setLoading(true);
-    axios.request(config)
-      .then((response) => {
-        if (response.data.image_responses) {
 
-          // console.log((response.data));
-          setGeneratedNfts(response.data.image_responses)
-          setIsFailed(false);
+    const ws = new WebSocket("wss://nftproduction.fry.market/ws");
 
-        }
-        else {
-          toast.error("Unable to generate nfts")
-          setIsFailed(true);
+    ws.onopen = () => {
+      console.log("WebSocket connected ✅");
+      const walletAddress = walletAddressRef.current || "fallback_wallet_address";
 
-        }
+      ws.send(JSON.stringify({
+        wallet_address: walletAddress,
+        prompt: inputValue,
+        style: selectedStyle,
+        num_images: supply
+      }));
+    };
+
+    ws.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "image") {
+        setGeneratedNfts((prevNfts: any) => [...prevNfts, data.data]);
+        setIsFailed(false);
+      } else if (data.type === "progress") {
+        console.log(`Progress: ${data.progress}%`);
+      } else if (data.type === "done") {
+        console.log("All images received ✅");
+        ws.close();
         setLoading(false);
-
-
-      })
-      .catch((error) => {
-        // console.log(error);
-        toast.error("Some Error occured while generating NFTs. Please try again.")
+      } else if (data.error) {
+        toast.error("Error while generating NFTs");
         setIsFailed(true);
         setLoading(false);
+      }
+    };
 
-      });
+    ws.onerror = (error) => {
+      console.error("WebSocket error ❌", error);
+      toast.error("WebSocket error while generating NFTs");
+      setIsFailed(true);
+      setLoading(false);
+    };
 
-  }
+    ws.onclose = (event) => {
+      console.log("WebSocket closed 🚪", event);
+    };
+  };
+
+
 
   // useEffect(() => {
   //   if (isMintSuccessful) {
@@ -114,15 +124,12 @@ const CreateNft: React.FC = () => {
   // }, [isMintSuccessful])
 
   const imgGeneration = () => {
-    const { inputValue, selectedStyle, supply, nftType } = location.state
+    const { inputValue, selectedStyle, supply, nftType } = location.state;
     if (inputValue && selectedStyle && supply && nftType && !loading) {
-      setLocationParams(location.state)
-      // console.log(location.state);
-      // console.log("u called");
-
+      setLocationParams(location.state);
       generateImages(inputValue, selectedStyle, supply);
     }
-  }
+  };
 
   useEffect(() => {
     if (location.state) {
@@ -211,7 +218,8 @@ const CreateNft: React.FC = () => {
                 className="py-4 px-8 lightGray font-normal font-Roboto border cursor-default"
               />
               <p className="large lightGray font-normal font-Roboto">
-                {isMintSuccessful ? locationParams.supply ? loading ? "0 / " + locationParams.supply : locationParams.supply + "/" + locationParams.supply : "0/0" : "0/0"} Generated
+                {/* {isMintSuccessful ? locationParams.supply ? loading ? "0 / " + locationParams.supply : locationParams.supply + "/" + locationParams.supply : "0/0" : "0/0"} Generated */}
+                {generatedNfts.length + "/" + locationParams.supply}
               </p>
             </div>
 
@@ -268,26 +276,15 @@ const CreateNft: React.FC = () => {
                 )}
               </div>
             ))} */}
-            {
-              loading &&
-              [...new Array(Number(locationParams.supply ? locationParams.supply : 0))].map((data, index) => (
-                <div
-                  key={index}
-                  className="relative group overflow-hidden cursor-pointer"
-                >
-                  <span className="loaderNew"></span>
-                </div>
-              )
-              )
-            }
             {generatedNfts.map((nftObject: any, index: any) => (
               <div
                 key={index}
                 className="relative group overflow-hidden cursor-pointer"
                 onClick={() => toggleImageSelection(nftObject, index)}
               >
+
                 <img
-                  src={nftObject.image}
+                  src={nftObject}
                   alt={`nft-${index}`}
                   className={`w-full h-full max-w-[288px] max-h-[265px] object-cover  ${selectedImages.includes(index) ? "opacity-70" : "opacity-1"
                     }`}
@@ -304,7 +301,16 @@ const CreateNft: React.FC = () => {
                 )}
               </div>
             ))}
-
+            {loading && Array.from({ length: Math.max(Number(locationParams.supply || 0) - generatedNfts.length, 0) }).map((_, index) => (
+              <div
+                key={index}
+                className="relative group overflow-hidden cursor-pointer"
+              >
+                <span className="loaderNew"></span>
+              </div>
+            )
+            )
+            }
           </div>
         </div>
 
