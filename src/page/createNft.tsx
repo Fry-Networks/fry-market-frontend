@@ -88,11 +88,24 @@ const CreateNft: React.FC = () => {
       const data = JSON.parse(event.data);
 
       if (data.type === "image") {
-        setGeneratedNfts((prevNfts: any) => [...prevNfts, data.data]);
+        // Add initial NFT object with image URL
+        setGeneratedNfts((prevNfts: any) => [...prevNfts, { image: data.data }]);
         setIsFailed(false);
+      } else if (data.type === "metadata") {
+        // Update the NFT entry with full metadata
+        const metadata = data.data;
+        setGeneratedNfts((prevNfts: any) => {
+          const index = prevNfts.findIndex((nft: any) => nft.image === metadata.image);
+          if (index !== -1) {
+            const newNfts = [...prevNfts];
+            newNfts[index] = metadata; // Replace with complete metadata
+            return newNfts;
+          }
+          return prevNfts;
+        });
       } else if (data.type === "progress") {
         console.log(`Progress: ${data.progress}%`);
-      } else if (data.type === "done") {
+      } else if (data.type === "event") {
         console.log("All images received ✅");
         ws.close();
         setLoading(false);
@@ -284,7 +297,7 @@ const CreateNft: React.FC = () => {
               >
 
                 <img
-                  src={nftObject}
+                  src={nftObject.image}
                   alt={`nft-${index}`}
                   className={`w-full h-full max-w-[288px] max-h-[265px] object-cover  ${selectedImages.includes(index) ? "opacity-70" : "opacity-1"
                     }`}
