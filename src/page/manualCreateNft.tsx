@@ -7,9 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
-import plus from '../assets/icons/plus.svg';
 import nft1 from "../assets/images/placeholder-image.webp";
-import Loader from '../components/Loader';
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from '../components/shared/textarea';
@@ -61,6 +59,8 @@ const ManualCreateNft = () => {
     const [traits, setTraits] = useState<any>({})
     const [traitName, setTraitName] = useState<any>("")
     const [traitValue, setTraitValue] = useState<any>("")
+    const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
+
     const navigate = useNavigate();
     const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
     // const handleChange = (info: any) => {
@@ -147,32 +147,31 @@ const ManualCreateNft = () => {
         setismintmodal(true);
     };
 
-    const getNftCollection = async () => {
-        try {
-            setLoading(true)
-            // console.log("dd", activeAccount);
-
-            const response: any = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
-            if (response.data) {
-                setCollectionData(response.data);
-
-
+    const getCollectionData = async () => {
+        if (activeAccount?.address) {
+            try {
+                const response = await axios.get(`${baseUrl}/get-collections/${activeAccount.address}`);
+                setCollectionData(response.data.collections);
+            } catch (error) {
+                console.error("Error fetching collections:", error);
+                toast.error("Error loading collections");
             }
-            // console.log("hehe", response.data);
-            setLoading(false)
-
-        } catch (error) {
-            setLoading(false)
         }
-    }
+    };
     const validation = () => {
-        if (formData.itemName?.replace(/\s+/g, '').length != 0 && formData.itemSymbol?.replace(/\s+/g, '').length != 0 && formData.itemDescription?.replace(/\s+/g, '').length != 0 && prevImage && collectionSelected && Object.keys(traits).length > 0) {
-            return true
+        const baseValidation =
+            formData.itemName?.trim() &&
+            formData.itemSymbol?.trim() &&
+            formData.itemDescription?.trim() &&
+            prevImage &&
+            Object.keys(traits).length > 0;
+
+        if (collectionData.length > 0) {
+            return baseValidation && selectedCollection !== null;
         }
-        else {
-            return false
-        }
-    }
+
+        return baseValidation;
+    };
     const uploadImage = async () => {
 
         try {
@@ -257,6 +256,13 @@ const ManualCreateNft = () => {
             const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, signTransactions, sendTransactions)
             // console.log("response after minting", response);
             // toast.success("Mint Successful")
+            // if (response) {
+
+            //     const result = await axios.put(`${"https://0849-154-192-138-32.ngrok-free.app"}/update-collection-nft/${selectedCollection}`, {
+            //     });
+            //     console.log(result);
+
+            // }
             return true
 
         }
@@ -273,7 +279,7 @@ const ManualCreateNft = () => {
     useEffect(() => {
         if (activeAccount?.address) {
 
-            getNftCollection()
+            getCollectionData()
         }
     }, [activeAccount])
 
@@ -417,86 +423,53 @@ const ManualCreateNft = () => {
                                                 </div>
 
                                                 <div className="chooseCollection my-3">
-                                                    <div className=" chooseContent w-full flex justify-between items-center">
+                                                    <div className="chooseContent w-full flex justify-between items-center">
                                                         <p className="darkBlack large font-medium font-Roboto">
-                                                            Choose Collection <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span>
+                                                            Choose Collection <span style={{ color: "#FD0000" }}>*</span>
                                                         </p>
-                                                        {/* <p
-                                                            className="underline lightGray medium font-normal cursor-pointer"
-                                                            onClick={handleChooseFromExistedClick}
-                                                        >
-                                                            Choose From Existed
-                                                        </p> */}
                                                     </div>
 
-                                                    <p className="itemAppear lightGray text-[16px] font-Roboto font-normal mt-2">
-                                                        (this is the collection where your item will appear)
-                                                    </p>
-                                                    <div className="newCollectionDiv flex gap-4 mt-4">
-                                                        {!collectionData ?
-                                                            <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2" onClick={() => navigate("/create-collection")} style={{ cursor: "pointer" }}>
-                                                                <div className="grayDiv p-[16px] bg-[#E7E7E7] flex-center rounded-xl">
-                                                                    <img src={plus} alt="" />
-                                                                </div>
-                                                                <div className="rightContnt flex flex-col justify-center">
-                                                                    <p className="darkBlack medium font-medium font-Roboto">
-                                                                        Create new collection
-                                                                    </p>
-                                                                    <p className="lightGray small font-Roboto font-normal mt-2">
-                                                                        Type to create
-                                                                    </p>
-                                                                </div>
-                                                            </div>
-                                                            :
-                                                            ""
-
-                                                        }
-                                                        {
-                                                            loading ? <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", margin: "0 auto" }}>
-                                                                <Loader></Loader>
-                                                                <p>Loading Exiting Collections</p>
-                                                            </div>
-                                                                :
-                                                                collectionData ?
-                                                                    <div className={`createNewCollection rounded-xl border-solid border-[${collectionSelected ? "red" : "#E7E7E7"}] border-2 p-[15px] flex justify-start gap-3 w-1/2`} onClick={() => { setCollectionSelected(prev => !prev) }}>
-
-                                                                        <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
-                                                                            <img src={collectionData.image_url} alt="" style={{ width: "61px", objectFit: "cover" }} />
-                                                                        </div>
-                                                                        <div className="rightContnt flex flex-col justify-center">
-                                                                            <p className="darkBlack medium font-medium font-Roboto">
-                                                                                {collectionData.collection_name}
-                                                                            </p>
-                                                                            <p className="lightGray small font-Roboto font-normal mt-2">
-                                                                                Items{" "}
-                                                                                <span className="font-medium darkBlack">
-                                                                                    {collectionData.listed_nfts.length}
-                                                                                </span>
+                                                    {collectionData.length > 0 ? (
+                                                        <div className="collectionGrid grid grid-cols-2 gap-4 mt-4">
+                                                            {collectionData.map((collection: any) => (
+                                                                <div
+                                                                    key={collection._id}
+                                                                    className={`collectionItem p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedCollection === collection._id
+                                                                        ? 'border-primary shadow-lg'
+                                                                        : 'border-[#E7E7E7] hover:border-gray-400'
+                                                                        }`}
+                                                                    onClick={() => setSelectedCollection(collection._id)}
+                                                                >
+                                                                    <div className="flex items-center gap-4">
+                                                                        <img
+                                                                            src={collection.image_url}
+                                                                            alt={collection.name}
+                                                                            className="w-16 h-16 rounded-lg object-cover"
+                                                                        />
+                                                                        <div>
+                                                                            <h4 className="font-medium text-lg">{collection.name}</h4>
+                                                                            <p className="text-gray-500 text-sm">
+                                                                                {collection.nftCount} items
                                                                             </p>
                                                                         </div>
                                                                     </div>
-                                                                    :
-                                                                    ""
-                                                        }
-                                                        {/* <div className="createNewCollection rounded-xl border-solid border-[#E7E7E7] border-2 p-[15px] flex justify-start gap-3 w-1/2">
-
-
-                                                            <div className="grayDiv bg-[#E7E7E7] flex-center rounded-xl">
-                                                                <img src={newCollect} alt="" />
-                                                            </div>
-                                                            <div className="rightContnt flex flex-col justify-center">
-                                                                <p className="darkBlack medium font-medium font-Roboto">
-                                                                    Wonderful Artwork
-                                                                </p>
-                                                                <p className="lightGray small font-Roboto font-normal mt-2">
-                                                                    Items{" "}
-                                                                    <span className="font-medium darkBlack">
-                                                                        1.5k
-                                                                    </span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <div className="newCollectionDiv mt-4">
+                                                            <div
+                                                                className="createNewCollection rounded-xl border-2 border-dashed border-[#E7E7E7] p-4 text-center cursor-pointer hover:border-gray-400 transition-all"
+                                                                onClick={() => navigate("/create-collection")}
+                                                            >
+                                                                <PlusOutlined className="text-2xl mb-2" />
+                                                                <p className="font-medium">Create New Collection</p>
+                                                                <p className="text-sm text-gray-500 mt-1">
+                                                                    You need a collection to mint NFTs
                                                                 </p>
                                                             </div>
-                                                        </div> */}
-                                                    </div>
+                                                        </div>
+                                                    )}
                                                 </div>
 
                                                 <div className="addTraits flex flex-col gap-3">

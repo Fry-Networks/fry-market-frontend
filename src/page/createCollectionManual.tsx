@@ -1,5 +1,6 @@
 // @ts-ignore
 import { useWallet } from "@txnlab/use-wallet";
+import algosdk from "algosdk";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +10,16 @@ import nft1 from "../assets/images/placeholder-image.webp";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
-import { addCollectionRoyalty, getRoyalty } from "../fryMarketMethods";
+import { addCollectionRoyalty } from "../fryMarketMethods";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateNftCollectionManual = () => {
+  const generateUniqueAddress = () => {
+    const account = algosdk.generateAccount();
+    return account.addr;
+  };
+
+  const uniqueCollectionAddress = generateUniqueAddress();
   const [prevImage, setPrevImage] = useState("")
   const navigate = useNavigate();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -24,9 +31,8 @@ const CreateNftCollectionManual = () => {
     description: '',
   });
 
-  const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
+  // const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
   const [royalty, setRoyalty] = useState<any>(false)
-
 
   const getCollectionData = async () => {
     if (activeAccount?.address) {
@@ -35,16 +41,16 @@ const CreateNftCollectionManual = () => {
         // const config = {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
-        const royalty = await getRoyalty(activeAccount?.address);
-        setRoyalty(Number(royalty) / 100)
-        const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
+        // const royalty = await getRoyalty(activeAccount?.address);
+        // setRoyalty(Number(royalty) / 100)
+        const response = await axios.get(`${baseUrl}/get-collections/${activeAccount?.address}`);
         // console.log("Collection Data", response.data);
-        setCollectionDataFound(true);
-        setFormData(response.data)
+        // setCollectionDataFound(true);
+        // setFormData(response.data)
 
       }
       catch (e) {
-        // console.log("Error Getting Collection", e);
+        console.log("Error Getting Collection", e);
         // toast.error("Error Creating Collection");
 
       }
@@ -118,7 +124,7 @@ const CreateNftCollectionManual = () => {
           }
         }
         catch (e) {
-          // console.log("error", e);
+          console.log("error", e);
 
           reject(false)
 
@@ -131,7 +137,7 @@ const CreateNftCollectionManual = () => {
 
     }
     catch (e) {
-      // console.log("Error Uploading Image", e);
+      console.log("Error Uploading Image", e);
       return e;
 
 
@@ -141,19 +147,32 @@ const CreateNftCollectionManual = () => {
   }
 
   const handleContinue = async (imageUrl: any) => {
+    if (!activeAccount?.address) {
+      toast.error("Wallet not connected");
+      return;
+    }
+
+    const data = {
+      collection_name: formData.collection_name,
+      collection_address: uniqueCollectionAddress,
+      wallet_address: activeAccount.address,
+      image_url: imageUrl,
+      description: formData.description,
+      royalty: royalty,
+    };
     try {
 
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address, royalty }, config);
+      const response: any = await axios.post(`${baseUrl}/create-collection`, data, config);
       // console.log("Hehe", response.data);
       return true;
 
     }
     catch (e) {
-      // console.log("Error Creating Collection");
+      console.log("Error Creating Collection", e);
       // toast.error("Error Creating Collection");
       return false
 
@@ -180,7 +199,7 @@ const CreateNftCollectionManual = () => {
                     <img src={
                       // @ts-ignore
                       formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
-                    <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} disabled={collectionDataFound} />
+                    <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
                     <span
                       className="btn-gray w-full darkGray mt-7 text-center block" style={{ cursor: "pointer", border: "1px solid #E7E7E7", borderRadius: "10px", padding: "10px" }}> Choose file<span style={{ color: "#FD0000", cursor: "pointer" }}> *</span> </span>
 
@@ -215,7 +234,7 @@ const CreateNftCollectionManual = () => {
                         name="collection_name"
                         value={formData.collection_name}
                         onChange={handleChange}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -224,7 +243,7 @@ const CreateNftCollectionManual = () => {
                         label="Token Symbol"
                         placeholder="$ CGPT, for example"
                         className="w-full input-nft"
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -270,7 +289,7 @@ const CreateNftCollectionManual = () => {
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div className="flex justify-end">
@@ -289,7 +308,7 @@ const CreateNftCollectionManual = () => {
                                   navigate("/manual-create-nft")
                                 }
 
-                              }),
+                              }).catch((err) => (console.log(err))),
                               {
                                 pending: "Collection is creating",
                                 error: "There was an error Creating Collection",
@@ -311,7 +330,7 @@ const CreateNftCollectionManual = () => {
                           }
 
                         }}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                   </form>

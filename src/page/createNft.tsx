@@ -1,5 +1,6 @@
 import { Icon } from "@iconify/react";
 import { useWallet } from "@txnlab/use-wallet";
+import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -137,7 +138,7 @@ const CreateNft: React.FC = () => {
   // }, [isMintSuccessful])
 
   const imgGeneration = () => {
-    const { inputValue, selectedStyle, supply, nftType } = location.state;
+    const { inputValue, selectedStyle, supply, nftType, selectedCollection } = location.state;
     if (inputValue && selectedStyle && supply && nftType && !loading) {
       setLocationParams(location.state);
       generateImages(inputValue, selectedStyle, supply);
@@ -176,7 +177,7 @@ const CreateNft: React.FC = () => {
   };
 
   useEffect(() => {
-    // console.log("selectedImages", selectedImages);
+    console.log("selectedImages", selectedImages);
   }, [selectedImages])
 
   useEffect(() => {
@@ -194,6 +195,16 @@ const CreateNft: React.FC = () => {
       try {
         setMintLoading(true);
         const response: any = await mintMultipleNft(selectedImages, activeAccount?.address || "", signer, signTransactions, sendTransactions)
+        if (response) {
+          const add_nfts = selectedImages.map((image: any) => image._id);
+          console.log(locationParams?.selectedCollection);
+
+          const result = await axios.put(`${"https://0849-154-192-138-32.ngrok-free.app"}/update-collection-nft/${locationParams?.selectedCollection}`, {
+            add_nfts
+          });
+          console.log(result);
+
+        }
         // console.log("response after minting", response);
         // toast.success("Mint Successful")
         setMintLoading(false);

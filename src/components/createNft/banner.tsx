@@ -31,15 +31,15 @@ const Banner = ({ prompt }: any) => {
   const [inputValue, setInputValue] = useState("")
   const [supply, setSupply] = useState(1)
   const [nftType, setNftType] = useState("single")
-  const [collectionData, setCollectionData] = useState<any>("")
-
+  const [collectionData, setCollectionData] = useState<any>([])
+  const [selectedCollection, setSelectedCollection] = useState("");
   const showGenerateNftModal = () => {
     if (activeAccount?.address) {
       if (!collectionData) {
         toast.error("Create Collection first")
         return;
       }
-      if (inputValue && supply && nftType && selectedStyle) {
+      if (inputValue && supply && nftType && selectedStyle && selectedCollection) {
         if (!validation()) {
           toast.error("Please enter a valid prompt.")
           return;
@@ -89,15 +89,15 @@ const Banner = ({ prompt }: any) => {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
 
-        const response = await axios.get(`${baseUrl}/get-collection/${activeAccount.address}`);
+        const response = await axios.get(`${baseUrl}/get-collections/${activeAccount.address}`);
         // console.log("Collection Data", response.data);
-        setCollectionData(response.data)
+        setCollectionData(response.data.collections || [])
 
       }
       catch (e) {
         // console.log("Error Getting Collection", e);
         // toast.error("Error Creating Collection");
-        setCollectionData("")
+        setCollectionData([]);
 
       }
     }
@@ -123,7 +123,9 @@ const Banner = ({ prompt }: any) => {
     }
 
   }, [activeAccount])
-
+  const handleCollectionChange = (value: any) => {
+    setSelectedCollection(value);
+  };
   return (
     <>
       <div className="bannerWrapper mb-44 relative">
@@ -212,6 +214,19 @@ const Banner = ({ prompt }: any) => {
 
                     />
                   </div>
+                  <div className="slectDiv">
+                    <Select
+                      style={{ width: 270, height: "55px" }}
+                      placeholder="Select Collection"
+                      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
+                      onChange={handleCollectionChange}
+                      value={selectedCollection}
+                      options={collectionData?.map((collection: any) => ({
+                        value: collection._id,
+                        label: collection.collection_name,
+                      }))}
+                    />
+                  </div>
                   <div className="supplyDiv flex-center gap-4">
                     <p className="medium font-normal font-Roboto lightGray">Supply</p>
                     <InputNumber
@@ -274,7 +289,7 @@ const Banner = ({ prompt }: any) => {
         nftType={nftType}
         supply={supply}
         selectedStyle={selectedStyle}
-
+        selectedCollection={selectedCollection}
       />
     </>
   );

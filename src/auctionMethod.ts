@@ -9,7 +9,7 @@ import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
 // export const AUCTION_ID: bigint = 729430870n;
-export const AUCTION_ID: bigint = 2591188105n;
+export const AUCTION_ID: bigint = 735641263n;
 const AUCTION_ADDRESS: string = algosdk.getApplicationAddress(AUCTION_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
 const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%

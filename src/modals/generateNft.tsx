@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import redline from "../assets/modals/redLine.png";
 import Button from "../components/shared/button";
-import { getImgGenFee, getImgGenFeeAmount } from "../fryMarketMethods";
+import { getImgGenFeeAmount } from "../fryMarketMethods";
 
-const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType, supply, selectedStyle }: any) => {
+const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType, supply, selectedStyle, selectedCollection }: any) => {
 
   const [loading, setLoading] = useState(false)
   const [isPaymentSuccessfull, setIsPaymentSuccessfull] = useState(false)
@@ -20,7 +20,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
     return new Promise(async (resolve, reject) => {
       try {
         setLoading(true);
-        const response: any = await getImgGenFee(supply == 1 ? false : true, supply, signer, activeAccount?.address ? activeAccount?.address : "123")
+        // const response: any = await getImgGenFee(supply == 1 ? false : true, supply, signer, activeAccount?.address ? activeAccount?.address : "123")
         // console.log("response after minting", response);
         // toast.success("Mint Successful")
         setLoading(false);
@@ -52,11 +52,11 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
   };
   const handleConfirmButtonClick = () => {
     setisgeneratemodal(false);
-    navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle } })
+    navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle, selectedCollection } })
   };
   const handleOk = () => {
     setisgeneratemodal(false);
-    navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle } })
+    navigate("/create-nft", { state: { inputValue, nftType, supply, selectedStyle, selectedCollection } })
 
   };
 

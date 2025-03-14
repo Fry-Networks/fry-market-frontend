@@ -8,7 +8,7 @@ import { FryMarketClient } from './contracts/FryMarket';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
 // const FRY_MARKET_ID: bigint = 729430779n;
-const FRY_MARKET_ID: bigint = 2591185846n;
+const FRY_MARKET_ID: bigint = 735641463n;
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
 const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
@@ -234,6 +234,8 @@ export const addCollectionRoyalty = async (
     royaltyBasis: number,
     collectionAddress: string
 ) => {
+    console.log(FRY_MARKET_ADDRESS);
+
     const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
     const { auctionClient } = await createFryAuctionClient(signer, sender)
     const atc = new algosdk.AtomicTransactionComposer();

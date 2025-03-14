@@ -10,7 +10,6 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 
 import OtherProfilePage from './components/artistProfile/otherProfilePage'
 import ConnectWallet from './components/ConnectWallet'
-import Footer from "./components/layout/footer"
 import Navbar from "./components/layout/navbar"
 import Transact from './components/Transact'
 import ContractHome from "./Home"
@@ -163,7 +162,7 @@ export default function App() {
 
           </Routes>
           {/* {isNavbar ? <Footer /> : ""} */}
-          <Footer />
+          {/* <Footer /> */}
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
           <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
         </WalletProvider>
