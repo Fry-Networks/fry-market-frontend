@@ -57,6 +57,7 @@ const SellMethod = () => {
       try {
         if (activeAccount?.address) {
           setLoading(true);
+          console.log("nftData.nftAddress", nftData)
           const response: any = await listNft(activeAccount?.address, nftData.nftAddress, signer, price * 1000000);
 
 

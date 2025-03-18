@@ -111,6 +111,7 @@ const CreateNft: React.FC = () => {
         ws.close();
         setLoading(false);
       } else if (data.error) {
+        console.log(data.error)
         toast.error("Error while generating NFTs");
         setIsFailed(true);
         setLoading(false);
@@ -194,13 +195,14 @@ const CreateNft: React.FC = () => {
     return new Promise(async (resolve, reject) => {
       try {
         setMintLoading(true);
-        const response: any = await mintMultipleNft(selectedImages, activeAccount?.address || "", signer, signTransactions, sendTransactions)
+        const response: any = await mintMultipleNft(selectedImages, activeAccount?.address || "", signer, signTransactions, sendTransactions, locationParams?.selectedCollection)
         if (response) {
           const add_nfts = selectedImages.map((image: any) => image._id);
           console.log(locationParams?.selectedCollection);
+          console.log("res", response)
 
-          const result = await axios.put(`${"https://0849-154-192-138-32.ngrok-free.app"}/update-collection-nft/${locationParams?.selectedCollection}`, {
-            add_nfts
+          const result = await axios.put(`${baseUrl}/update-collection-nft/${locationParams?.selectedCollection}`, {
+            add_nfts: [response['confirmed-round']]
           });
           console.log(result);
 
@@ -277,29 +279,7 @@ const CreateNft: React.FC = () => {
             </div>
           </div>
           <div className="singleNftCard flex items-center justify-between" style={{ flexWrap: "wrap", justifyContent: "flex-start", gap: "50px" }}>
-            {/* {images.map((image, index) => (
-              <div
-                key={index}
-                className="relative group overflow-hidden cursor-pointer"
-                onClick={() => toggleImageSelection(index)}
-              >
-                <img
-                  src={image}
-                  alt={`nft-${index}`}
-                  className={`w-full h-full max-w-[288px] max-h-[265px] object-cover ${selectedImages.includes(index) ? "opacity-70" : "opacity-1"
-                    }`}
-                />
-                {selectedImages.includes(index) && (
-                  <>
-                    <div className="absolute rounded-2xl inset-0 bg-black opacity-80"></div>
-                    <div className="absolute top-2  right-2 w-6 h-6 bg-transparent flex items-center justify-center">
-                      <Icon icon="teenyicons:tick-circle-outline" width="18" height="18" style={{ color: "white" }} />
 
-                    </div>
-                  </>
-                )}
-              </div>
-            ))} */}
             {generatedNfts.map((nftObject: any, index: any) => (
               <div
                 key={index}

@@ -6,7 +6,7 @@ import { getAllUserAuctions } from "../auctionMethod";
 import ReadyForNext from "../components/home/readyForNext";
 import PixacioBanner from "../components/topCollection/pixacioBanner";
 import PixoNft from "../components/topCollection/pixoNft";
-import { getAllListedByUser, getAllUserNfts } from "../fryMarketMethods";
+import { getAllListedByUser, getAllUserNfts, getNFTsFromGroupId } from "../fryMarketMethods";
 
 const TopCollection = () => {
 
@@ -28,7 +28,7 @@ const TopCollection = () => {
     try {
       setLoadingListed(true)
       const response = await getAllListedByUser(collectionData.collection_address)
-      // console.log('NftAll', response)
+      console.log('NftAll', response)
       setNfts(response)
       setLoadingListed(false)
 
@@ -36,7 +36,7 @@ const TopCollection = () => {
 
     } catch (e) {
 
-      // console.log("e", e);
+      console.log("e", e);
       setLoadingListed(false)
 
 
@@ -63,12 +63,22 @@ const TopCollection = () => {
 
   const getBoughtAllNft = async () => {
     try {
-
+      console.log("NftBought", collectionData);
       if (collectionData.collection_address) {
         setLoadingBought(true);
-        const response = await getAllUserNfts(collectionData.collection_address)
-        // console.log('NftAll', response)
-        setAllBoughtNft(response)
+        // const response2 = await getAllCollectionWListed(collectionData?.wallet_address)
+        // console.log('NftAll', response2)
+
+        const nftDetails = []
+        const response = await getAllUserNfts(collectionData?.wallet_address)
+        for (let i = 0; i < collectionData.minted_nfts.length; i++) {
+          const response2 = await getNFTsFromGroupId(collectionData.minted_nfts[i])
+          nftDetails.push(...response2)
+        }
+        // const response2 = await getNFTsFromGroupId(collectionData.minted_nfts[0])
+        console.log('NftAll', response)
+        console.log('nftDetails', nftDetails)
+        setAllBoughtNft(nftDetails)
         setLoadingBought(false);
 
       }
