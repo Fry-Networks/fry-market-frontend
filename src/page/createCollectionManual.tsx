@@ -87,36 +87,34 @@ const CreateNftCollectionManual = () => {
   }
 
   const uploadImage = async () => {
-
     try {
       return new Promise(async (resolve, reject) => {
-        // if (!token) {
-
-        //   reject(false);
-        // }
         try {
           if (activeAccount?.address) {
             const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
-            // console.log("added", addRoyaltyResponse);
+            if (addRoyaltyResponse) {
+              console.log("added", addRoyaltyResponse);
 
-            const formDataForImage = new FormData;
-            formDataForImage.append("images", prevImage);
-            const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-            // console.log("Response in upload Image", response.data);
-            setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
-            if (response.data?.image_urls[0]) {
+              const formDataForImage = new FormData;
+              formDataForImage.append("images", prevImage);
+              const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
+              // console.log("Response in upload Image", response.data);
+              setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
+              if (response.data?.image_urls[0]) {
 
-              if (await handleContinue(response.data?.image_urls[0])) {
-                resolve(true);
+                if (await handleContinue(response.data?.image_urls[0])) {
+                  resolve(true);
+                }
+                else {
+                  reject(false);
+                }
               }
               else {
                 reject(false);
               }
             }
             else {
-              // console.log("Some Error Occured while uploading image. Please try again.");
               reject(false);
-
             }
           }
           else {
@@ -125,25 +123,14 @@ const CreateNftCollectionManual = () => {
         }
         catch (e) {
           console.log("error", e);
-
           reject(false)
-
         }
-
-
-
-
       })
-
     }
     catch (e) {
       console.log("Error Uploading Image", e);
       return e;
-
-
     }
-
-
   }
 
   const handleContinue = async (imageUrl: any) => {

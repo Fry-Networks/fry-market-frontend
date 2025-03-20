@@ -32,7 +32,7 @@ const Banner = ({ prompt }: any) => {
   const [supply, setSupply] = useState(1)
   const [nftType, setNftType] = useState('single')
   const [collectionData, setCollectionData] = useState<any>([])
-  const [selectedCollection, setSelectedCollection] = useState('')
+  const [selectedCollection, setSelectedCollection] = useState('Select Collection')
   const showGenerateNftModal = () => {
     if (activeAccount?.address) {
       if (!collectionData) {

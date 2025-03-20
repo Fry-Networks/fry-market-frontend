@@ -23,26 +23,13 @@ const ExploreCard = ({ data }: any) => {
 
   const getProfileData = async (id: any) => {
     if (id) {
-
       try {
-
-        // const config = {
-        //   headers: { Authorization: `Bearer ${token}` }
-        // };
-
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${id}`);
-        // console.log("Hehe", response.data);
         setProfile(response.data)
         return (response.data)
-        // return true;
-
       }
       catch (e) {
-        // console.log("Error Updating Profile Data");
-        // toast.error("Error Getting Profile Data");
-        // return false
         return false
-
       }
     }
   }
@@ -96,7 +83,7 @@ const ExploreCard = ({ data }: any) => {
         <div className="inner flex flex-col gap-3 max-w-[417px] max-h-[276px] w-full h-full">
           <div className="headerArea flex justify-start items-center gap-3 w-full">
             <div className="max-w-[65px] h-[65px] object-cover rounded-3xl w-full flex items-center justify-center">
-              <img className="max-w-[65px] max-h-[65px] object-cover rounded-xl w-full h-full" src={data.image_url} alt="" />
+              <img className="max-w-[65px] max-h-[65px] object-cover rounded-xl w-full h-full" src={profile?.banner_image || bodyImg4} alt="" />
 
             </div>
             <div className='flex flex-col gap-2'>
@@ -112,7 +99,7 @@ const ExploreCard = ({ data }: any) => {
             <div className='grayDiv absolute py-[8px] px-[17px] bg-[#E7E7E7] rounded-lg bottom-0 left-[38%] ex-small font-normal lightGray'> Items  &nbsp;
               <span className="itemBox darkBlack font-bold">{formatPrice(totalListed + totalListedAuctioned)}</span>
             </div>
-            <img className="max-w-[397px] max-h-[178px] h-full w-full object-cover" src={profile.banner_image ? profile.banner_image : bodyImg4} alt="" />
+            <img className="max-w-[397px] max-h-[178px] h-full w-full object-cover" src={data.image_url ? data.image_url : bodyImg4} alt="" />
           </div>
 
         </div>

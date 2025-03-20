@@ -6,7 +6,7 @@ import { getAllUserAuctions } from "../auctionMethod";
 import ReadyForNext from "../components/home/readyForNext";
 import PixacioBanner from "../components/topCollection/pixacioBanner";
 import PixoNft from "../components/topCollection/pixoNft";
-import { getAllListedByUser, getAllUserNfts, getNFTsFromGroupId } from "../fryMarketMethods";
+import { getAllListedByUser, getNFTsFromGroupId } from "../fryMarketMethods";
 
 const TopCollection = () => {
 
@@ -70,13 +70,13 @@ const TopCollection = () => {
         // console.log('NftAll', response2)
 
         const nftDetails = []
-        const response = await getAllUserNfts(collectionData?.wallet_address)
+        // const response = await getAllUserNfts(collectionData?.wallet_address)
         for (let i = 0; i < collectionData.minted_nfts.length; i++) {
           const response2 = await getNFTsFromGroupId(collectionData.minted_nfts[i])
           nftDetails.push(...response2)
         }
         // const response2 = await getNFTsFromGroupId(collectionData.minted_nfts[0])
-        console.log('NftAll', response)
+        // console.log('NftAll', response)
         console.log('nftDetails', nftDetails)
         setAllBoughtNft(nftDetails)
         setLoadingBought(false);

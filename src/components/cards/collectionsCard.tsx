@@ -12,6 +12,7 @@ import Button from "../shared/button";
 
 
 const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProfilePage, label, collectionData = {}, setGetNftDataAgain, auctionCancel, otherAuction, otherAuctionData, otherList, profileOwned }: any) => {
+
   const [isSoldbtn, setIsSoldBtn] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [btnLoader, setBtnLoader] = useState(false);
@@ -423,7 +424,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
                       )
                     }
                     else if (label == "List") {
-
+                      console.log("data", data);
                       navigate("/sell-method", { state: { nftData: data } })
 
                       // toast.promise(
