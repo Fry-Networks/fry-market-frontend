@@ -400,12 +400,10 @@ export const buyNftWithRoyalty = async (
     });
 
     const result = await atc.execute(algodClient, 4);
-    for (const mr of result.methodResults) {
-      // console.log(`${mr.returnValue}`);
-    }
+
 
   } catch (e) {
-    // console.log(e)
+    console.log(e)
     throw e
   }
 }

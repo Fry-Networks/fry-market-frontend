@@ -9,7 +9,6 @@ import rightGlow from "../../assets/topCollection/rightGlow.webp";
 import { getAllBids, getSingleAuction } from "../../auctionMethod";
 import { replaceJsonWithJpg, replaceJsonWithPng, truncateString } from "../../utils/getImageFromJson";
 import TraitsBox from "../cards/traitsBox";
-import Button from "../shared/button";
 import AuctionReminder from "./auctionReminder";
 import Reminder from "./reminder";
 
@@ -23,12 +22,6 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   const [nftDataLatest, setNftDataLatest] = useState<any>(false)
   const navigate = useNavigate();
-
-  useEffect(() => {
-    // console.log("ahh", detail);
-    // console.log("ahhh", nftData);
-
-  }, [detail, nftData])
 
   const getNftMetaData = async (url: any) => {
     try {
@@ -107,113 +100,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
 
   }, [nftData, activeAccount])
 
-  const onChange = (key: any) => {
-    // console.log(key);
-  };
 
-  const traitData = [
-    {
-      id: 1,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 2,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 3,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 4,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 5,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 6,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 7,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 8,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-    {
-      id: 9,
-      text1: "EDITION",
-      foundationEdition: "52%",
-      floor: "12.75 ALGO",
-    },
-  ];
-
-  const listingColumns = [
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (text: string) => <span className="font-bold text-black">{text}</span>,
-    },
-    {
-      title: 'USD Price',
-      dataIndex: 'usd',
-      key: 'usd',
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
-    },
-    {
-      title: 'From',
-      dataIndex: 'from',
-      key: 'from',
-      render: (text: string) => (
-        <div className="flex items-center justify-between gap-[100px]">
-          <span>{text}</span>
-          <Button
-            className="button btn-primary font-medium"
-            minWidth={54}
-            minHeight={32}
-            text="Buy"
-          />
-        </div>
-      ),
-    },
-
-  ];
-
-  const listingData = [
-    {
-      key: '1',
-      price: '0.008 FRY',
-      usd: '$4.25',
-      quantity: '2',
-      from: '16DD55',
-    },
-
-  ];
 
   const offerColumns = [
     {
@@ -261,97 +148,6 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
       dataIndex: 'listTime',
       key: 'listTime',
     },
-  ];
-
-  const itemData = [
-    {
-      key: '1',
-      event: 'List',
-      price: '0.008 FRY',
-      from: '294693',
-      to: "",
-      date: '1 days',
-    },
-    {
-      key: '2',
-      event: 'List',
-      price: '',
-      from: '199016',
-      to: "126673",
-      date: '2mo ago',
-    },
-
-
-    {
-      key: '3',
-      event: 'Sale',
-      price: '0.008 FRY',
-      from: '294693',
-      to: '294693',
-      date: '2mo ago',
-    },
-
-  ];
-
-  const itemColumns = [
-    {
-      title: 'Event',
-      dataIndex: 'event',
-      key: 'event',
-
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (text: string) => <span className="font-bold text-black">{text}</span>,
-    },
-    {
-      title: 'From',
-      dataIndex: 'from',
-      key: 'from',
-    },
-    {
-      title: 'To',
-      dataIndex: 'to',
-      key: 'to',
-    },
-    {
-      title: "Date",
-      dataIndex: "date",
-      key: "date"
-    }
-  ];
-
-  const offerData = [
-    {
-      key: '1',
-      price: '0.008 FRY',
-      usd: '$4.25',
-      quantity: '2',
-      floor: "44% below",
-      from: '16DD55',
-    },
-
-    {
-      key: '2',
-      price: '0.008 FRY',
-      usd: '$4.25',
-      quantity: '2',
-      floor: "44% below",
-      from: '16DD55',
-    },
-
-
-    {
-      key: '3',
-      price: '0.008 FRY',
-      usd: '$4.25',
-      quantity: '2',
-      floor: "44% below",
-      from: '16DD55',
-    },
-
   ];
 
   const getFee = () => {
@@ -461,11 +257,8 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
                                 ))
 
                                 :
-
                                 "No Traits Added"}
                           </div>
-
-
                         </>
                       ),
                     },
@@ -500,43 +293,6 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
 
                 ""
               }
-
-
-
-
-
-              {/* <div className="listingAccordion">
-                <Collapse
-                  defaultActiveKey={"1"}
-                  expandIconPosition="end"
-                  items={[
-                    {
-                      key: "1",
-                      label: (
-                        <div className="custom-label">
-                          <div className="flex items-center gap-3">
-                            <img src="/src/assets/icons/pricetag.svg" alt="" />
-                            <span className="lightGray font-Roboto font-normal medium">
-                              Listings
-                            </span>
-                          </div>
-                        </div>
-                      ),
-                      children: (
-                        <>
-
-                          <Table
-                            columns={listingColumns}
-                            dataSource={listingData}
-                            pagination={false}
-                          />
-
-                        </>
-                      ),
-                    },
-                  ]}
-                />
-              </div> */}
               {
                 !onlyShow && !forList ?
                   <div className="listingAccordion">
@@ -656,40 +412,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
               </div>
             </div>
           </div>
-          {/* <div className="bottomSection">
-            <div className="itemActivityAccordion">
-              <Collapse
-                defaultActiveKey={["1"]}
-                expandIconPosition="end"
-                items={[
-                  {
-                    key: "1",
-                    label: (
-                      <div className="custom-label">
-                        <div className="flex items-center gap-3">
-                          <img src="/src/assets/icons/dotedMenu.png" alt="" />
-                          <span className="lightGray font-Roboto font-normal medium">
-                            Offers
-                          </span>
-                        </div>
-                      </div>
-                    ),
-                    children: (
-                      <>
 
-                        <Table
-                          columns={itemColumns}
-                          dataSource={itemData}
-                          pagination={false}
-                        />
-
-                      </>
-                    ),
-                  },
-                ]}
-              />
-            </div>
-          </div> */}
         </div>
       </div>
     </>

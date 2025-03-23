@@ -96,7 +96,7 @@ const CollectionsCard = ({ data, showHiddenDiv, isAuctionPage, showLayer, isProf
       return new Promise(async (resolve, reject) => {
         try {
           if (activeAccount?.address) {
-
+            console.log("data", data)
             const response = await buyNftWithRoyalty(
               activeAccount?.address,
               data.assetId,

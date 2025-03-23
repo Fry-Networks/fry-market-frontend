@@ -18,6 +18,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
       return new Promise(async (resolve, reject) => {
         try {
           if (activeAccount?.address) {
+            console.log("nftDatanftData", nftData)
             setLoading(true);
             const response = await buyNftWithRoyalty(
               activeAccount?.address,
@@ -134,8 +135,6 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
     }
   }
   const handleClaimNft = async () => {
-
-
     try {
       return new Promise(async (resolve, reject) => {
         try {
@@ -190,6 +189,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
       return;
     }
     if (nftData.seller == activeAccount?.address) {
+      console.log("first")
       setOwnerSectionsVisible(true)
     }
 
@@ -198,7 +198,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
     }
 
     getRecentListingData();
-  }, [nftData, activeAccount])
+  }, [activeAccount])
 
   return (
     <>
