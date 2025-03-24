@@ -8,6 +8,9 @@ import { formatPrice, replaceJsonWithJpg, truncateImageName } from "../../utils/
 import Button from "../shared/button";
 
 const AuctionCard = ({ data, getAuctionedNft, collectionData = {} }: any) => {
+  console.log("data1", collectionData);
+  console.log("data2", data);
+
   const navigate = useNavigate();
   const [isbidmodal, setisbidmodal] = useState(false);
   useEffect(() => {

@@ -65,7 +65,7 @@ const Home = () => {
         }
         )
         setCollectionData(obj)
-        // console.log("well", obj);
+        console.log("well", obj);
         // Object.keys(obj).map(async (key: string) => {
         //   console.log("called");
         //   const response = await getProfileData(key);

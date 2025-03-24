@@ -2,15 +2,6 @@ import { useWallet } from '@txnlab/use-wallet';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import auctionBack from "../../assets/home/images/auction/auctionBack.webp";
-import trendingNft1 from "../../assets/home/images/auction/auctionImg1.png";
-import trendingNft2 from "../../assets/home/images/auction/auctionImg2.png";
-import trendingNft3 from "../../assets/home/images/auction/auctionImg3.png";
-import trendingNft4 from "../../assets/home/images/auction/auctionImg4.png";
-import trendingNft5 from "../../assets/home/images/auction/auctionImg5.png";
-import trendingNft6 from "../../assets/home/images/auction/auctionImg6.png";
-import trendingNft7 from "../../assets/home/images/auction/auctionImg7.png";
-import trendingNft8 from "../../assets/home/images/auction/auctionImg8.png";
-import userImg1 from "../../assets/home/images/card-userImg.png";
 import moreUp from "../../assets/icons/moreUpArrow.svg";
 import { getAllAuctions } from '../../auctionMethod';
 import AuctionCard from '../cards/auctionCard';
@@ -19,7 +10,7 @@ import Button from "../shared/button";
 const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   const navigate = useNavigate();
   useEffect(() => {
-    // console.log("i", collectionData);
+    console.log("i", collectionData);
 
   })
   const goToAuction = () => {
@@ -40,7 +31,7 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
 
       setLoading(true);
       const response = await getAllAuctions();
-      // console.log("NftAuctionedh", response);
+      console.log("NftAuctionedh", response);
       if (moreByUser) {
         setAuctionedNfts(response.filter((item) => item?.isListed).filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address))
       }
@@ -52,13 +43,14 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
 
     }
     catch (e) {
+      console.log("Error Getting Auctioned Nft", e);
       setLoading(false);
     }
     // }
   }
 
   useEffect(() => {
-    // console.log("heeh");
+    console.log("heeh", auctionedNfts);
 
     // if (activeAccount?.address) {
     getAuctionedNft();
@@ -113,69 +105,4 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
 
 export default Auction;
 
-const auctionCard = [
-  {
-    id: 1,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft1,
-    price: "142.02",
-  },
-  {
-    id: 2,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft2,
-    price: "142.02",
-  },
-  {
-    id: 3,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft3,
-    price: "142.02",
-  },
-  {
-    id: 4,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft4,
-    price: "142.02",
-  },
-  {
-    id: 5,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft5,
-    price: "142.02",
-  },
-  {
-    id: 6,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft6,
-    price: "142.02",
-  },
-  {
-    id: 7,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft7,
-    price: "142.02",
-  },
-  {
-    id: 8,
-    userImg: userImg1,
-    userName: "STELLA NOVA",
-    userEmail: "@Stella Nova",
-    nftImg: trendingNft8,
-    price: "142.02",
-  },
-];
+

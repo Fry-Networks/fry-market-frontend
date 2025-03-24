@@ -196,7 +196,7 @@ const Home: React.FC<HomeProps> = () => {
   }
 
 
-  // Market Place Functions 
+  // Market Place Functions
   const marketInit = async () => {
     try {
       const init = await deployMarketplace(activeAddress!, signer, 1000)

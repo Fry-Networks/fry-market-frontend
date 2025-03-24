@@ -9,7 +9,7 @@ import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding';
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs';
 
 // export const AUCTION_ID: bigint = 729430870n;
-export const AUCTION_ID: bigint = 736222002n;
+export const AUCTION_ID: bigint = 736284880n;
 const AUCTION_ADDRESS: string = algosdk.getApplicationAddress(AUCTION_ID)
 const PRIMARY_FEE: number = 300;  // 100 represent 1% & 10000 represent 100%
 const SECONDARY_FEE: number = 100;  // 100 represent 1% & 10000 represent 100%
@@ -154,7 +154,8 @@ export const listNftAuction = async (
       creatorAddress: sender,
       findExistingUsing: indexer,
     } as AppDetails
-
+    console.log("appDetails", appDetails)
+    console.log("algodClient", algodClient)
     const biddingClient = new FryAuctionBiddingClient(appDetails, algodClient)
 
     const auctionParams = {
@@ -178,7 +179,7 @@ export const listNftAuction = async (
       atc.addTransaction({ txn: bidFunds, signer })
       const accountInfo = await algodClient.accountInformation(AUCTION_ADDRESS).do();
       const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset);
-
+      console.log("hasOptedIn", hasOptedIn)
       if (!hasOptedIn) {
         const auctionFund = await algorandClient.transactions.payment({
           sender,
@@ -195,6 +196,7 @@ export const listNftAuction = async (
           extraFee: algokit.algos(0.002),
           signer
         })
+        console.log("mbrPay", mbrPay)
 
         atc.addMethodCall({
           suggestedParams,
@@ -234,7 +236,7 @@ export const listNftAuction = async (
         amount: algokit.microAlgos(boxAmount),
         signer
       })
-
+      console.log("boxPay", boxPay)
       const feeAxfer = await algorandClient.transactions.assetTransfer({
         sender,
         signer,
@@ -242,6 +244,8 @@ export const listNftAuction = async (
         receiver: FEE_WALLET,
         amount: BigInt(fee),
       })
+      console.log("feeAxfer", feeAxfer)
+      console.log(FEE_WALLET, FRY_TOKEN_ID)
       atc.addMethodCall({
         suggestedParams,
         appID: Number(AUCTION_ID),
@@ -259,7 +263,7 @@ export const listNftAuction = async (
       });
       const result = await atc.execute(algodClient, 4);
       for (const mr of result.methodResults) {
-        // console.log(`${mr.returnValue}`);
+        console.log(`${mr.returnValue}`);
       }
     }).catch((e) => {
       console.log(e)
@@ -269,9 +273,8 @@ export const listNftAuction = async (
     return true;
 
   } catch (e) {
-    // console.log(e)
-    return undefined;
-
+    console.log(e)
+    throw e
   }
 }
 

@@ -39,14 +39,14 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: any) => {
         }
         )
         setCollectionData(obj)
-        // console.log("well", obj);
+        console.log("well", obj);
 
       }
 
 
     }
     catch (e) {
-      // console.log("Error Getting Collection", e);
+      console.log("Error Getting Collection", e);
       // toast.error("Error Creating Collection");
       setCollectionData("")
 

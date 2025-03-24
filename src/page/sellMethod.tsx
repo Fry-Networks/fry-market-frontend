@@ -191,7 +191,7 @@ const SellMethod = () => {
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" onError={({ currentTarget }) => {
+              <img className='  border-solid border-[20px] border-[white] rounded-3xl ' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = nftData?.url ? replaceJsonWithJpg(nftData?.url) : sellImg
               }} />

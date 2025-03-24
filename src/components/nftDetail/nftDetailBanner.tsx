@@ -181,7 +181,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, profileDat
         <div className="container">
           <div className="topSection flex items-start gap-6 mt-10">
             <div className="leftArea w-[546px]  flex flex-col gap-7 ">
-              <img className="pixicoImg max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff]  shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]" src={nftData.url || nftData.imgUrl ? replaceJsonWithPng(nftData.url || nftData.imgUrl) : rightSecPic} alt="" onError={({ currentTarget }) => {
+              <img className=" max-w-[546px] max-h-[610px] object-cover w-full h-full rounded-3xl border-solid border-[19px] border-[#fff] " src={nftData.url || nftData.imgUrl ? replaceJsonWithPng(nftData.url || nftData.imgUrl) : rightSecPic} alt="" onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = nftData.url || nftData.imgUrl ? replaceJsonWithJpg(nftData.url || nftData.imgUrl) : rightSecPic
               }} />
