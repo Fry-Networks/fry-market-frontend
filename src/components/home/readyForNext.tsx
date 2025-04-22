@@ -38,10 +38,10 @@ const ReadyForNext = () => {
       maxBodyLength: Infinity,
       url: `${baseUrl}/store-email`,
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/x-www-form-urlencoded'
       },
       data: {
-        "wallet_address": activeAccount?.address,
+        "wallet_address": activeAccount?.address.toString(),
         "email": email
       }
     };
@@ -78,17 +78,17 @@ const ReadyForNext = () => {
   return (
     <>
       <div className="nextNftWrapper">
-        <div className="container">
+        <div className="container mb-10">
           <h2 className="font-bold font-Oxanium capitalize darkBlack mb-10 text-center">
             Ready<span className="lowercase"> for  the</span> Next NFT Drop?
           </h2>
 
           <div
             style={{ width: "680px", height: "96px", margin: "0 auto" }}
-            className="relative nftDropInput"
+            className="relative nftDropInput "
           >
             <Input
-              wrapperClass="flex items-center justify-center mx-auto z-10 border-2 border-red-500 "
+              wrapperClass="flex items-center   justify-center mx-auto z-10 border-2 border-red-500 "
               placeholder="info@gmail.com"
               inputClass="ex-large font-normal font-Roboto primary mx-auto  flex items-center justify-center custom-placeholder border-2 border-red-500"
               width={680}

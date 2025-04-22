@@ -117,7 +117,7 @@ const SellMethod = () => {
         toast.promise(
           handleListNft(),
           {
-            pending: "NFT is lisitng",
+            pending: "NFT is listng",
             error: "There was an error Listing NFT",
             success: "NFT listed successfully"
 
@@ -134,7 +134,7 @@ const SellMethod = () => {
               toast.promise(
                 handleAuctionNft(),
                 {
-                  pending: "NFT is lisitng on aunction",
+                  pending: "NFT is listng on auction",
                   error: "There was an error Listing NFT on auction",
                   success: "NFT listed on auction successfully"
 

@@ -231,21 +231,6 @@ const ProfileNft = ({ collectionData, address }) => {
             <Tabs className="collectionTab" defaultActiveKey="1" activeKey={activeKey} onChange={onChange} tabBarStyle={{ padding: 0 }}>
               {!address ? (
                 <Tabs.TabPane tab="Owned" key="1">
-                  {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} isProfilePage={true}  />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} isProfilePage={true}  />
-            ))}
-              
-             </div> */}
-
                   {loadingAll ? (
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <Loader></Loader>
@@ -276,35 +261,7 @@ const ProfileNft = ({ collectionData, address }) => {
               ) : (
                 ''
               )}
-
-              {/* <Tabs.TabPane tab="Generated" key="2">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div>
-              </Tabs.TabPane> */}
               <Tabs.TabPane tab="Minted" key="3">
-                {/* {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))} */}
                 {loading ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Loader></Loader>
@@ -330,21 +287,6 @@ const ProfileNft = ({ collectionData, address }) => {
                 )}
               </Tabs.TabPane>
               <Tabs.TabPane tab="On Sale" key="4">
-                {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div> */}
-
                 {loadingListed ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Loader></Loader>
@@ -374,21 +316,6 @@ const ProfileNft = ({ collectionData, address }) => {
               </Tabs.TabPane>
 
               <Tabs.TabPane tab="Auction" key="5">
-                {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div> */}
-
                 {loadingAuctioned ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Loader></Loader>
@@ -419,40 +346,8 @@ const ProfileNft = ({ collectionData, address }) => {
                   </>
                 )}
               </Tabs.TabPane>
-
-              {/* <Tabs.TabPane tab="Sold" key="6">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div>
-              </Tabs.TabPane> */}
               {!address ? (
                 <Tabs.TabPane tab="Claimable" key="6">
-                  {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div> */}
-
                   {loadingClaimable ? (
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <Loader></Loader>
