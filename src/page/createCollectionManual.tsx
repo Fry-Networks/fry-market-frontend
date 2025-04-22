@@ -87,51 +87,50 @@ const CreateNftCollectionManual = () => {
   }
 
   const uploadImage = async () => {
-    try {
-      return new Promise(async (resolve, reject) => {
-        try {
-          if (activeAccount?.address) {
-            const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
-            if (addRoyaltyResponse) {
-              console.log("added", addRoyaltyResponse);
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (activeAccount?.address) {
+          const addRoyaltyResponse = await addCollectionRoyalty(
+            activeAccount?.address, signer, royalty, activeAccount?.address
+          );
+          console.log("Royalty Response", addRoyaltyResponse);
 
-              const formDataForImage = new FormData;
-              formDataForImage.append("images", prevImage);
-              const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-              // console.log("Response in upload Image", response.data);
-              setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
-              if (response.data?.image_urls[0]) {
+          if (addRoyaltyResponse) {
+            console.log("added", addRoyaltyResponse);
 
-                if (await handleContinue(response.data?.image_urls[0])) {
-                  resolve(true);
-                }
-                else {
-                  reject(false);
-                }
+            const formDataForImage = new FormData();
+            formDataForImage.append("images", prevImage);
+
+            const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
+            // Set image URL in form data
+            setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }));
+
+            if (response.data?.image_urls[0]) {
+              const continueHandled = await handleContinue(response.data?.image_urls[0]);
+
+              if (continueHandled) {
+                resolve("Image uploaded and collection created successfully.");
+              } else {
+                reject(new Error("Failed to continue after image upload."));
               }
-              else {
-                reject(false);
-              }
+            } else {
+              console.log("Image not uploaded");
+              reject(new Error("Image upload failed."));
             }
-            else {
-              reject(false);
-            }
+          } else {
+            console.log("Royalty not added");
+            reject(new Error("Royalty not added."));
           }
-          else {
-            reject(false)
-          }
+        } else {
+          reject(new Error("No wallet address connected."));
         }
-        catch (e) {
-          console.log("error", e);
-          reject(false)
-        }
-      })
-    }
-    catch (e) {
-      console.log("Error Uploading Image", e);
-      return e;
-    }
-  }
+      } catch (e) {
+        console.log("Error Uploading Image", e);
+        reject(new Error("Error occurred during image upload."));
+      }
+    });
+  };
+
 
   const handleContinue = async (imageUrl: any) => {
     if (!activeAccount?.address) {
@@ -285,38 +284,36 @@ const CreateNftCollectionManual = () => {
                         text="Continue"
                         onClick={(e: any) => {
                           e.preventDefault();
-                          // console.log("hello");
-                          //  navigate("/select-nft") 
-                          if (validation()) {
 
+                          if (validation()) {
+                            // Only proceed if validation is successful
                             toast.promise(
                               uploadImage().then((response) => {
                                 if (response) {
-                                  navigate("/manual-create-nft")
+                                  console.log("Image uploaded successfully");
+                                  // Only navigate if the uploadImage was successful
+                                  toast.success("Collection Created Successfully")
+                                  navigate("/manual-create-nft");
                                 }
-
-                              }).catch((err) => (console.log(err))),
+                              }).catch((err) => {
+                                console.log("err", err);  // Log any errors for debugging
+                                toast.error("There was an error Creating Collection");
+                              }),
                               {
                                 pending: "Collection is creating",
                                 error: "There was an error Creating Collection",
-                                success: "Collection created successfully ."
-
                               }
-
-
-                            )
-                          }
-                          else {
+                            );
+                          } else {
+                            // Handle validation failure
                             if (!activeAccount?.address) {
                               toast.error("Please connect wallet first");
-                            }
-                            else {
+                            } else {
                               toast.error("Please provide all information.");
                             }
-
                           }
-
                         }}
+
                       // disabled={collectionDataFound}
                       />
                     </div>

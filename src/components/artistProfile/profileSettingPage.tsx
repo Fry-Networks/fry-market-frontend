@@ -167,7 +167,20 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
         // console.log("h", profileImageUpload);
 
 
-        const response: any = await axios.post(`${baseUrl}/profile-settings`, { ...profileData, wallet_address: activeAccount?.address ? activeAccount?.address : 0, banner_image: (bannerImageUpload && profileImageUpload) || (bannerImageUpload) ? imageUrl[0] : profileData.banner_image, profile_image: (bannerImageUpload && profileImageUpload) ? imageUrl[1] : profileImageUpload ? imageUrl[0] : profileData.profile_image });
+        const response: any = await axios.post(
+          `${baseUrl}/profile-settings`,
+          new URLSearchParams({
+            ...profileData,
+            wallet_address: activeAccount?.address || '0', // Default to '0' if no address is found
+            banner_image: (bannerImageUpload && profileImageUpload) || (bannerImageUpload) ? imageUrl[0] : profileData.banner_image,
+            profile_image: (bannerImageUpload && profileImageUpload) ? imageUrl[1] : profileImageUpload ? imageUrl[0] : profileData.profile_image,
+          }).toString(),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded', // Specify content type
+            }
+          }
+        );
         // console.log("Hehe", response.data);
         return true;
       }
@@ -225,10 +238,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
 
 
                 <div
-                  // onClick={() => {
-                  //   setCurrentImage("banner")
-                  //   showImageModal()
-                  // }}
+
                   className="absolute top-[45%] left-[46%] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[138px] h-[34px] flex-center rounded-lg cursor-pointer"
                 >
 
@@ -258,25 +268,11 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
               </label>
             </div>
 
-            {/* <div className="w-full flex justify-center mt-24">
-              <button className=" ml-7 border-solid border-2  border-[#E7E7E7] bg-white small font-Roboto font-normal darkBlack py-1.5 w-[127px] h-[34px] flex-center rounded-lg"
-                onClick={() => {
-                  setCurrentImage("profileImage")
-                  showImageModal()
-                }}
-              >
-                Upload Profile
-              </button>
-            </div> */}
+
             <div className="formData mt-20 w-[817px] h-auto mx-auto flex flex-col gap-12">
               <div className="nftUserInfo mb-11">
                 <div
-                  // style={{
-                  //   width: "817px",
-                  //   height: "58px",
-                  //   margin: "0 auto",
-                  //   overflow: "visible",
-                  // }}
+
                   className="relative displayDiv "
                 >
                   <Input
@@ -292,7 +288,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.display_name}
                     onChange={handleProfileDataChange}
                     name="display_name"
-                    asterisk="*"
+                  // asterisk="*"
 
                   />
                 </div>
@@ -301,7 +297,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
               <div className="nftUserInfo">
                 <div className="bio">
                   <p className="mb-2 text-[20px] font-normal darkBlack font-Roboto">
-                    Bio <span style={{ color: "#FD0000", cursor: "pointer" }}> *</span>
+                    Bio
                   </p>
                   <textarea
                     className="textArea"
@@ -335,7 +331,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.email}
                     onChange={handleProfileDataChange}
                     name="email"
-                    asterisk="*"
+                  // asterisk="*"
                   />
                 </div>
               </div>
@@ -369,7 +365,7 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.website_link}
                     onChange={handleProfileDataChange}
                     name="website_link"
-                    asterisk="*"
+                  // asterisk="*"
                   />
                 </div>
               </div>
@@ -397,19 +393,11 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.twitter}
                     onChange={handleProfileDataChange}
                     name="twitter"
-                    asterisk="*"
+                  // asterisk="*"
 
                   />
 
-                  {/* <button
-                    style={{
-                      background:
-                        "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
-                    }}
-                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
-                  >
-                    Connect
-                  </button> */}
+
                 </div>
               </div>
 
@@ -436,19 +424,9 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.discord}
                     onChange={handleProfileDataChange}
                     name="discord"
-                    asterisk="*"
+                  // asterisk="*"
 
                   />
-
-                  {/* <button
-                    style={{
-                      background:
-                        "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
-                    }}
-                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
-                  >
-                    Connect
-                  </button> */}
                 </div>
               </div>
 
@@ -478,19 +456,11 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                     value={profileData.instagram}
                     onChange={handleProfileDataChange}
                     name="instagram"
-                    asterisk="*"
+                  // asterisk="*"
 
                   />
 
-                  {/* <button
-                    style={{
-                      background:
-                        "linear-gradient(318deg, #FD0000 26.88%, #FF9292 105.85%)",
-                    }}
-                    className="absolute top-[45px] right-3  bg-primary text-white small flex-center font-normal font-Roboto w-[101px] h-[36px] flex-center gap-2"
-                  >
-                    Connect
-                  </button> */}
+
                 </div>
               </div>
 
@@ -501,11 +471,9 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                 text="Save changes"
                 onClick={() => {
                   if (anyChange) {
-                    if (!validation()) {
-                      toast.error("Please provide all the data")
-                      return;
-                    }
+
                     if (!/^[a-zA-Z]+$/.test(profileData.display_name)) {
+                      console.log("name", profileData.display_name);
                       toast.error("Invalid Display Name");
                       return;
                     }
@@ -514,12 +482,15 @@ const ProfileSettingPage = ({ setIsPfpChange }: any) => {
                       return;
                     }
                     const webLinks = [profileData.website_link, profileData.twitter, profileData.discord, profileData.instagram];
-                    if (webLinks.some((name) => {
-                      return !(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})(\/[^\s]*)?$/.test(name));
+
+                    if (webLinks.some((link) => {
+                      // Only validate non-empty links
+                      return link && !(/^(https?:\/\/)?(www\.)?[a-zA-Z0-9-]+(\.[a-zA-Z]{2,})(\/[^\s]*)?$/.test(link));
                     })) {
                       toast.error("Invalid Links");
                       return;
                     }
+
                     toast.promise(
                       uploadImages(),
                       {
