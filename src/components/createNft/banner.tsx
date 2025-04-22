@@ -227,8 +227,8 @@ const Banner = ({ prompt }: any) => {
                       onChange={onSupply}
                       className="gray-input"
                       onBlur={(value: any) => {
-                        if (value?.target?.value > 25) {
-                          toast.error('Max 25 supply allowed!', { toastId: 'supplyLimitError' })
+                        if (value?.target?.value > 1000) {
+                          toast.error('Max 1000 supply allowed!', { toastId: 'supplyLimitError' })
                         }
                       }}
                     />
