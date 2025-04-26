@@ -11,7 +11,7 @@ import { getCollectionByNftId } from './utils/network/helper'
 // const FRY_MARKET_ID: bigint = 729430779n;
 // Access environment variables
 const FEE_WALLET = import.meta.env.VITE_FEE_WALLET
-const FRY_TOKEN_ID = BigInt(import.meta.env.VITE_FRY_TOKEN_ID_TESTNET) // Testnet FRY_TOKEN_ID
+const FRY_TOKEN_ID = BigInt(import.meta.env.VITE_FRY_TOKEN_ID) // Testnet FRY_TOKEN_ID
 const FRY_MARKET_ID = BigInt(import.meta.env.VITE_FRY_MARKET_ID)
 const FRY_MARKET_ADDRESS: string = algosdk.getApplicationAddress(FRY_MARKET_ID)
 
