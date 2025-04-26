@@ -1,5 +1,6 @@
 // @ts-ignore
 import { useWallet } from "@txnlab/use-wallet";
+import algosdk from "algosdk";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -9,10 +10,16 @@ import nft1 from "../assets/images/placeholder-image.webp";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
-import { addCollectionRoyalty, getRoyalty } from "../fryMarketMethods";
+import { addCollectionRoyalty } from "../fryMarketMethods";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 const CreateNftCollectionManual = () => {
+  const generateUniqueAddress = () => {
+    const account = algosdk.generateAccount();
+    return account.addr;
+  };
+
+  const uniqueCollectionAddress = generateUniqueAddress();
   const [prevImage, setPrevImage] = useState("")
   const navigate = useNavigate();
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
@@ -24,9 +31,8 @@ const CreateNftCollectionManual = () => {
     description: '',
   });
 
-  const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
+  // const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
   const [royalty, setRoyalty] = useState<any>(false)
-
 
   const getCollectionData = async () => {
     if (activeAccount?.address) {
@@ -35,16 +41,16 @@ const CreateNftCollectionManual = () => {
         // const config = {
         //   headers: { Authorization: `Bearer ${token}` }
         // };
-        const royalty = await getRoyalty(activeAccount?.address);
-        setRoyalty(Number(royalty) / 100)
-        const response = await axios.get(`${baseUrl}/get-collection/${activeAccount?.address}`);
+        // const royalty = await getRoyalty(activeAccount?.address);
+        // setRoyalty(Number(royalty) / 100)
+        const response = await axios.get(`${baseUrl}/get-collections/${activeAccount?.address}`);
         // console.log("Collection Data", response.data);
-        setCollectionDataFound(true);
-        setFormData(response.data)
+        // setCollectionDataFound(true);
+        // setFormData(response.data)
 
       }
       catch (e) {
-        // console.log("Error Getting Collection", e);
+        console.log("Error Getting Collection", e);
         // toast.error("Error Creating Collection");
 
       }
@@ -81,79 +87,78 @@ const CreateNftCollectionManual = () => {
   }
 
   const uploadImage = async () => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (activeAccount?.address) {
+          const addRoyaltyResponse = await addCollectionRoyalty(
+            activeAccount?.address, signer, royalty, activeAccount?.address
+          );
+          console.log("Royalty Response", addRoyaltyResponse);
 
-    try {
-      return new Promise(async (resolve, reject) => {
-        // if (!token) {
+          if (addRoyaltyResponse) {
+            console.log("added", addRoyaltyResponse);
 
-        //   reject(false);
-        // }
-        try {
-          if (activeAccount?.address) {
-            const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
-            // console.log("added", addRoyaltyResponse);
-
-            const formDataForImage = new FormData;
+            const formDataForImage = new FormData();
             formDataForImage.append("images", prevImage);
+
             const response = await axios.post(`${baseUrl}/upload-images`, formDataForImage);
-            // console.log("Response in upload Image", response.data);
-            setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }))
+            // Set image URL in form data
+            setFormData(prev => ({ ...prev, image_url: response.data?.image_urls[0] }));
+
             if (response.data?.image_urls[0]) {
+              const continueHandled = await handleContinue(response.data?.image_urls[0]);
 
-              if (await handleContinue(response.data?.image_urls[0])) {
-                resolve(true);
+              if (continueHandled) {
+                resolve("Image uploaded and collection created successfully.");
+              } else {
+                reject(new Error("Failed to continue after image upload."));
               }
-              else {
-                reject(false);
-              }
+            } else {
+              console.log("Image not uploaded");
+              reject(new Error("Image upload failed."));
             }
-            else {
-              // console.log("Some Error Occured while uploading image. Please try again.");
-              reject(false);
-
-            }
+          } else {
+            console.log("Royalty not added");
+            reject(new Error("Royalty not added."));
           }
-          else {
-            reject(false)
-          }
+        } else {
+          reject(new Error("No wallet address connected."));
         }
-        catch (e) {
-          // console.log("error", e);
+      } catch (e) {
+        console.log("Error Uploading Image", e);
+        reject(new Error("Error occurred during image upload."));
+      }
+    });
+  };
 
-          reject(false)
-
-        }
-
-
-
-
-      })
-
-    }
-    catch (e) {
-      // console.log("Error Uploading Image", e);
-      return e;
-
-
-    }
-
-
-  }
 
   const handleContinue = async (imageUrl: any) => {
+    if (!activeAccount?.address) {
+      toast.error("Wallet not connected");
+      return;
+    }
+
+    const data = {
+      collection_name: formData.collection_name,
+      collection_address: uniqueCollectionAddress,
+      wallet_address: activeAccount.address,
+      image_url: imageUrl,
+      description: formData.description,
+      royalty: royalty,
+    };
     try {
 
       const config = {
         headers: { Authorization: `Bearer ${token}` }
       };
 
-      const response: any = await axios.post(`${baseUrl}/create-collection`, { ...formData, image_url: imageUrl, collection_address: activeAccount?.address, royalty }, config);
+      const response: any = await axios.post(`${baseUrl}/create-collection`, data, config);
       // console.log("Hehe", response.data);
       return true;
 
     }
     catch (e) {
-      // console.log("Error Creating Collection");
+      console.log("Error Creating Collection", e);
       // toast.error("Error Creating Collection");
       return false
 
@@ -180,7 +185,7 @@ const CreateNftCollectionManual = () => {
                     <img src={
                       // @ts-ignore
                       formData.image_url ? formData.image_url : prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
-                    <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} disabled={collectionDataFound} />
+                    <input className="hidden" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
                     <span
                       className="btn-gray w-full darkGray mt-7 text-center block" style={{ cursor: "pointer", border: "1px solid #E7E7E7", borderRadius: "10px", padding: "10px" }}> Choose file<span style={{ color: "#FD0000", cursor: "pointer" }}> *</span> </span>
 
@@ -215,7 +220,7 @@ const CreateNftCollectionManual = () => {
                         name="collection_name"
                         value={formData.collection_name}
                         onChange={handleChange}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -224,7 +229,7 @@ const CreateNftCollectionManual = () => {
                         label="Token Symbol"
                         placeholder="$ CGPT, for example"
                         className="w-full input-nft"
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div>
@@ -270,7 +275,7 @@ const CreateNftCollectionManual = () => {
                         name="description"
                         value={formData.description}
                         onChange={handleChange}
-                        disabled={collectionDataFound}
+                      // disabled={collectionDataFound}
                       />
                     </div>
                     <div className="flex justify-end">
@@ -279,39 +284,37 @@ const CreateNftCollectionManual = () => {
                         text="Continue"
                         onClick={(e: any) => {
                           e.preventDefault();
-                          // console.log("hello");
-                          //  navigate("/select-nft") 
-                          if (validation()) {
 
+                          if (validation()) {
+                            // Only proceed if validation is successful
                             toast.promise(
                               uploadImage().then((response) => {
                                 if (response) {
-                                  navigate("/manual-create-nft")
+                                  console.log("Image uploaded successfully");
+                                  // Only navigate if the uploadImage was successful
+                                  toast.success("Collection Created Successfully")
+                                  navigate("/manual-create-nft");
                                 }
-
+                              }).catch((err) => {
+                                console.log("err", err);  // Log any errors for debugging
+                                toast.error("There was an error Creating Collection");
                               }),
                               {
                                 pending: "Collection is creating",
                                 error: "There was an error Creating Collection",
-                                success: "Collection created successfully ."
-
                               }
-
-
-                            )
-                          }
-                          else {
+                            );
+                          } else {
+                            // Handle validation failure
                             if (!activeAccount?.address) {
                               toast.error("Please connect wallet first");
-                            }
-                            else {
+                            } else {
                               toast.error("Please provide all information.");
                             }
-
                           }
-
                         }}
-                        disabled={collectionDataFound}
+
+                      // disabled={collectionDataFound}
                       />
                     </div>
                   </form>

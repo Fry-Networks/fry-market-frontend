@@ -50,16 +50,12 @@ const SellMethod = () => {
   }
 
   const handleListNft = async () => {
-
-
-
     return new Promise(async (resolve, reject) => {
       try {
         if (activeAccount?.address) {
           setLoading(true);
+          console.log("nftData.nftAddress", nftData)
           const response: any = await listNft(activeAccount?.address, nftData.nftAddress, signer, price * 1000000);
-
-
           // console.log("response", response);
           setLoading(false);
           if (response == undefined) {
@@ -121,7 +117,7 @@ const SellMethod = () => {
         toast.promise(
           handleListNft(),
           {
-            pending: "NFT is lisitng",
+            pending: "NFT is listng",
             error: "There was an error Listing NFT",
             success: "NFT listed successfully"
 
@@ -138,7 +134,7 @@ const SellMethod = () => {
               toast.promise(
                 handleAuctionNft(),
                 {
-                  pending: "NFT is lisitng on aunction",
+                  pending: "NFT is listng on auction",
                   error: "There was an error Listing NFT on auction",
                   success: "NFT listed on auction successfully"
 
@@ -173,7 +169,7 @@ const SellMethod = () => {
 
   useEffect(() => {
     if (location.state) {
-      // console.log("Nft Data in sell method", location.state.nftData);
+      console.log("Nft Data in sell method", location.state.nftData);
       setData(location.state?.nftData)
 
     }
@@ -195,7 +191,7 @@ const SellMethod = () => {
                 <img src={door} alt="" />
                 Back
               </button>
-              <img className='sellImg border-solid border-[20px] border-[white] rounded-3xl shadow-md' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" onError={({ currentTarget }) => {
+              <img className='  border-solid border-[20px] border-[white] rounded-3xl ' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = nftData?.url ? replaceJsonWithJpg(nftData?.url) : sellImg
               }} />

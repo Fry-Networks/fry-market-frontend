@@ -24,7 +24,7 @@ import Loader from '../Loader'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const ProfileNft = ({ collectionData, address }) => {
-  const [activeKey, setActiveKey] = React.useState(`${address ? "3" : "1"}`)
+  const [activeKey, setActiveKey] = React.useState(`${address ? '3' : '1'}`)
   const [mintedNft, setMintedNft] = useState([])
   const [boughtNft, setAllBoughtNft] = useState([])
   const [listedNft, setAllListedNft] = useState([])
@@ -140,12 +140,12 @@ const ProfileNft = ({ collectionData, address }) => {
   }
 
   const getAllNft = async () => {
+    console.log('cole', collectionData)
     try {
-      
       if (address || activeAccount?.address) {
         setLoadingAll(true)
         const response = await getAllUserNfts(address || activeAccount?.address)
-        // console.log('NftAll', response)
+        console.log('NftAll', response)
         setAllBoughtNft(response)
         setLoadingAll(false)
       }
@@ -170,14 +170,14 @@ const ProfileNft = ({ collectionData, address }) => {
       }
     } catch (e) {
       // console.log("ee", e);
-      
+
       setLoadingListed(false)
     }
   }
 
   const getAuctionedNft = async () => {
     // console.log("NftAuctionedd");
-    
+
     if (address || activeAccount?.address) {
       try {
         setLoadingAuctioned(true)
@@ -198,7 +198,7 @@ const ProfileNft = ({ collectionData, address }) => {
         setLoadingClaimable(true)
         const response = await getAllUserClaimable(address || activeAccount?.address, signer)
         // console.log('NftClaimable', response)
-        setClaimableNft(response.filter((data)=>data.highestBidder != data.sellerId))
+        setClaimableNft(response.filter((data) => data.highestBidder != data.sellerId))
         setLoadingClaimable(false)
       } catch (e) {
         // console.log('dd', e)
@@ -216,7 +216,7 @@ const ProfileNft = ({ collectionData, address }) => {
       getAllNft()
       getListedNft()
       getAuctionedNft()
-      if (!address){
+      if (!address) {
         getClaimableNft()
       }
     }
@@ -229,81 +229,39 @@ const ProfileNft = ({ collectionData, address }) => {
         <div className="container">
           <div className="nftContainer">
             <Tabs className="collectionTab" defaultActiveKey="1" activeKey={activeKey} onChange={onChange} tabBarStyle={{ padding: 0 }}>
-              {
-                !address ? 
-<Tabs.TabPane tab="Owned" key="1">
-                {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} isProfilePage={true}  />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} isProfilePage={true}  />
-            ))}
-              
-             </div> */}
-
-                {loadingAll ? (
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Loader></Loader>
-                  </div>
-                ) : (
-                  <>
-                    {boughtNft.length > 0 ? (
-                      <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-                        {boughtNft.map((data, index) => (
-                          <CollectionsCard 
-                          // data={{ index: data.nftAddress, params: data }} 
-                          data={{...data, imgUrl: data.url}} 
-                          // otherList={address ? true : false} 
-                          otherList={true} 
-                          profileOwned = { !address && true}
-                          otherAuctionData={data}
-                          label={address ? "" : "List"} collectionData={collectionData} />
-                        ))}
-                      </div>
-                    ) : (
-                      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>No Nft Owned yet.</div>
-                    )}
-                  </>
-                )}
-              </Tabs.TabPane>
-                :
-                ""
-              }
-              
-              {/* <Tabs.TabPane tab="Generated" key="2">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div>
-              </Tabs.TabPane> */}
+              {!address ? (
+                <Tabs.TabPane tab="Owned" key="1">
+                  {loadingAll ? (
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Loader></Loader>
+                    </div>
+                  ) : (
+                    <>
+                      {boughtNft.length > 0 ? (
+                        <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+                          {boughtNft.map((data, index) => (
+                            <CollectionsCard
+                              // data={{ index: data.nftAddress, params: data }}
+                              data={{ ...data, imgUrl: data.url }}
+                              // otherList={address ? true : false}
+                              otherList={true}
+                              profileOwned={!address && true}
+                              otherAuctionData={data}
+                              label={address ? '' : 'List'}
+                              collectionData={collectionData}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>No Nft Owned yet.</div>
+                      )}
+                    </>
+                  )}
+                </Tabs.TabPane>
+              ) : (
+                ''
+              )}
               <Tabs.TabPane tab="Minted" key="3">
-                {/* {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))} */}
                 {loading ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Loader></Loader>
@@ -311,10 +269,14 @@ const ProfileNft = ({ collectionData, address }) => {
                 ) : (
                   <>
                     {mintedNft.length > 0 ? (
-                      
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {mintedNft.map((data, index) => (
-                          <CollectionsCard data={{...data.params, imgUrl: data.params.url, assetId: data.index}} label="Minted" collectionData={collectionData} otherList={true}                           otherAuctionData={data}
+                          <CollectionsCard
+                            data={{ ...data.params, imgUrl: data.params.url, assetId: data.index }}
+                            label="Minted"
+                            collectionData={collectionData}
+                            otherList={true}
+                            otherAuctionData={data}
                           />
                         ))}
                       </div>
@@ -325,21 +287,6 @@ const ProfileNft = ({ collectionData, address }) => {
                 )}
               </Tabs.TabPane>
               <Tabs.TabPane tab="On Sale" key="4">
-                {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div> */}
-
                 {loadingListed ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Loader></Loader>
@@ -355,8 +302,8 @@ const ProfileNft = ({ collectionData, address }) => {
                             label="Cancel"
                             collectionData={collectionData}
                             setGetNftDataAgain={setGetNftDataAgain}
-                            otherList={true} 
-                            profileOwned = {!address && true}
+                            otherList={true}
+                            profileOwned={!address && true}
                             otherAuctionData={data}
                           />
                         ))}
@@ -369,21 +316,6 @@ const ProfileNft = ({ collectionData, address }) => {
               </Tabs.TabPane>
 
               <Tabs.TabPane tab="Auction" key="5">
-                {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div> */}
-
                 {loadingAuctioned ? (
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Loader></Loader>
@@ -393,9 +325,17 @@ const ProfileNft = ({ collectionData, address }) => {
                     {auctionedNft.length > 0 ? (
                       <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
                         {auctionedNft.map((data, index) => (
-                          <AuctionProfileCard data={data} otherAuction={true} otherAuctionData={data} label="Cancel" collectionData={collectionData} auctionCancel={true} setGetNftDataAgain={setGetNftDataAgain}  otherList={true} 
-                          profileOwned = {!address && true}
-                           />
+                          <AuctionProfileCard
+                            data={data}
+                            otherAuction={true}
+                            otherAuctionData={data}
+                            label="Cancel"
+                            collectionData={collectionData}
+                            auctionCancel={true}
+                            setGetNftDataAgain={setGetNftDataAgain}
+                            otherList={true}
+                            profileOwned={!address && true}
+                          />
                         ))}
                       </div>
                     ) : (
@@ -406,91 +346,50 @@ const ProfileNft = ({ collectionData, address }) => {
                   </>
                 )}
               </Tabs.TabPane>
-
-              {/* <Tabs.TabPane tab="Sold" key="6">
-              <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div>
-              </Tabs.TabPane> */}
-{
-
-!address ? 
-<Tabs.TabPane tab="Claimable" key="6">
-                {/* <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-             {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-             {
-                soldCardData.map((data,index)=>(
-                    <CollectionsCard data={data} key={data.id} showLayer={true}/>
-                ))
-            }
-              {featureCard.map((data, index) => (
-              <CollectionsCard data={data} />
-            ))}
-              
-             </div> */}
-
-                {loadingClaimable ? (
-                  <div style={{ display: 'flex', justifyContent: 'center' }}>
-                    <Loader></Loader>
-                  </div>
-                ) : (
-                  <>
-                    {claimableNft.length > 0 ? (
-                      <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
-                        {claimableNft.map((data, index) => (
-                          <CollectionsCard
-                            data={{
-                              ...data,
-                              index: data.nftAddress,
-                              params: {
-                                url: data.url,
-                                price: data.highestBidAmount,
-                                name: data.name,
-                                bidContract: data.bidContract,
-                                sellerId: data.sellerId,
-                              },
-                            }}
-                            // data={{...data, imgUrl: data.url}}
-                            label="Claim"
-                            collectionData={collectionData}
-                            
-                          
-                          otherList={true} 
-                          profileOwned = {true}
-                          otherAuctionData={data}
-                          setGetNftDataAgain={setGetNftDataAgain}
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', color: 'red' }}>
-                        No Claimable Nfts found!
-                      </div>
-                    )}
-                  </>
-                )}
-              </Tabs.TabPane>
-
-              :
-
-              ""
-
-
-}
-              
+              {!address ? (
+                <Tabs.TabPane tab="Claimable" key="6">
+                  {loadingClaimable ? (
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      <Loader></Loader>
+                    </div>
+                  ) : (
+                    <>
+                      {claimableNft.length > 0 ? (
+                        <div className="popularcardContainer grid grid-cols-4 gap-8 mt-5">
+                          {claimableNft.map((data, index) => (
+                            <CollectionsCard
+                              data={{
+                                ...data,
+                                index: data.nftAddress,
+                                params: {
+                                  url: data.url,
+                                  price: data.highestBidAmount,
+                                  name: data.name,
+                                  bidContract: data.bidContract,
+                                  sellerId: data.sellerId,
+                                },
+                              }}
+                              // data={{...data, imgUrl: data.url}}
+                              label="Claim"
+                              collectionData={collectionData}
+                              otherList={true}
+                              profileOwned={true}
+                              otherAuctionData={data}
+                              setGetNftDataAgain={setGetNftDataAgain}
+                            />
+                          ))}
+                        </div>
+                      ) : (
+                        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', color: 'red' }}>
+                          No Claimable Nfts found!
+                        </div>
+                      )}
+                    </>
+                  )}
+                </Tabs.TabPane>
+              ) : (
+                ''
+              )}
             </Tabs>
           </div>
         </div>

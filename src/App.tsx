@@ -10,29 +10,29 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 
 import OtherProfilePage from './components/artistProfile/otherProfilePage'
 import ConnectWallet from './components/ConnectWallet'
-import Footer from "./components/layout/footer"
-import Navbar from "./components/layout/navbar"
+import Navbar from './components/layout/navbar'
+import ExploreListedNfts from './components/nftDetail/nftExplore'
 import Transact from './components/Transact'
-import ContractHome from "./Home"
-import ArtistProfileArt from "./page/artistProfileArt"
-import ArtistsProfile from "./page/artistsProfile"
-import Auction from "./page/auction"
+import ContractHome from './Home'
+import ArtistProfileArt from './page/artistProfileArt'
+import ArtistsProfile from './page/artistsProfile'
+import Auction from './page/auction'
 import AuctionDetail from './page/auctionDetail'
 import CreateNftCollectionManual from './page/createCollectionManual'
-import CreateNft from "./page/createNft"
-import CreateNftCollection from "./page/createNftCollection"
-import CreateNftPage from "./page/createNftPage"
+import CreateNft from './page/createNft'
+import CreateNftCollection from './page/createNftCollection'
+import CreateNftPage from './page/createNftPage'
 import Home from './page/home'
 import ManualCreateNft from './page/manualCreateNft'
 import MultipleCollect from './page/multipleCollect'
-import NftCollection from "./page/nftCollection"
-import NftDetail from "./page/nftDetail"
+import NftCollection from './page/nftCollection'
+import NftDetail from './page/nftDetail'
 import NotFound from './page/notFound'
-import SelectedNft from "./page/selectedNft"
-import SellerCollection from "./page/sellerCollections"
-import SellMethod from "./page/sellMethod"
-import TopCollection from "./page/topCollection"
-import TopSeller from "./page/topSeller"
+import SelectedNft from './page/selectedNft'
+import SellerCollection from './page/sellerCollections'
+import SellMethod from './page/sellMethod'
+import TopCollection from './page/topCollection'
+import TopSeller from './page/topSeller'
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 let providersArray: ProvidersArray
@@ -60,32 +60,28 @@ if (import.meta.env.VITE_ALGOD_NETWORK === '') {
     // refer to https://github.com/TxnLab/use-wallet for detailed integration instructions
   ]
 }
-export const TokenContext = createContext<any>(null);
+export const TokenContext = createContext<any>(null)
 
 export default function App() {
-  const [openWalletModal, setOpenWalletModal] = useState<boolean>(false);
-  const [openDemoModal, setOpenDemoModal] = useState<boolean>(false);
-  const [isPfpChange, setIsPfpChange] = useState<any>(false);
-  const algodConfig = getAlgodConfigFromViteEnvironment();
-  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet();
+  const [openWalletModal, setOpenWalletModal] = useState<boolean>(false)
+  const [openDemoModal, setOpenDemoModal] = useState<boolean>(false)
+  const [isPfpChange, setIsPfpChange] = useState<any>(false)
+  const algodConfig = getAlgodConfigFromViteEnvironment()
+  const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
   const getToken = async () => {
     try {
       const result = await axios.post(`${baseUrl}/get-token`, {
-        wallet_address: activeAccount?.address
-      });
+        wallet_address: activeAccount?.address,
+      })
       if (result?.data?.token) {
-
         // console.log("Got the token", result?.data?.token);
         setToken(result?.data?.token)
+      } else {
+        setToken('')
       }
-      else {
-        setToken("");
-      }
-
     } catch (error) {
       // console.log("Error Getting Token", error);
-
     }
   }
 
@@ -93,10 +89,7 @@ export default function App() {
     if (activeAccount?.address) {
       // getToken();
     }
-
   }, [activeAccount])
-
-
 
   const walletProviders = useInitializeProviders({
     providers: providersArray,
@@ -109,28 +102,27 @@ export default function App() {
     algosdkStatic: algosdk,
   })
 
-  const location = useLocation();
+  const location = useLocation()
 
   const isNavbar =
-    location.pathname === "/" ||
-    location.pathname === "/auction" ||
-    location.pathname === "/nft-collection" ||
-    location.pathname === "/top-collection" ||
-    location.pathname === "/nft-detail" ||
-    location.pathname === "/top-seller" ||
-    location.pathname === "/seller-collection" ||
-    location.pathname === "/create-nft-page" ||
-    location.pathname === "/createnft-collect" ||
-    location.pathname === "/create-collection" ||
-    location.pathname === "/artist-profile" ||
-    location.pathname === "/artist-profile-others";
-
+    location.pathname === '/' ||
+    location.pathname === '/auction' ||
+    location.pathname === '/nft-collection' ||
+    location.pathname === '/top-collection' ||
+    location.pathname === '/nft-detail' ||
+    location.pathname === '/top-seller' ||
+    location.pathname === '/seller-collection' ||
+    location.pathname === '/create-nft-page' ||
+    location.pathname === '/createnft-collect' ||
+    location.pathname === '/create-collection' ||
+    location.pathname === '/artist-profile' ||
+    location.pathname === '/artist-profile-others'
 
   const toggleWalletModal = () => {
     setOpenWalletModal(!openWalletModal)
   }
 
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState('')
 
   return (
     <TokenContext.Provider value={token}>
@@ -140,8 +132,10 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/auction" element={<Auction />} />
+            <Route path="/explore-listed-nfts" element={<ExploreListedNfts />} />
             <Route path="/nft-collection" element={<NftCollection />} />
             <Route path="/top-collection" element={<TopCollection />} />
+            <Route path="/collection/:id" element={<TopCollection />} />
             <Route path="/top-seller" element={<TopSeller />} />
             <Route path="/seller-collection" element={<SellerCollection />} />
             <Route path="/create-nft" element={<CreateNft />} />
@@ -153,17 +147,15 @@ export default function App() {
             <Route path="/auction-detail" element={<AuctionDetail />} />
             <Route path="/create-nft-page" element={<CreateNftPage />} />
             <Route path="/artist-profile" element={<ArtistsProfile setIsPfpChange={setIsPfpChange} />} />
-            <Route path="/artist-profile-others" element={<OtherProfilePage />} />
+            <Route path="/artist-profile-others/:sellerId" element={<OtherProfilePage />} />
             <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
             <Route path="/sell-method" element={<SellMethod />} />
             <Route path="/manual-create-nft" element={<ManualCreateNft />} />
             <Route path="/contract" element={<ContractHome />} />
             <Route path="*" element={<NotFound />} />
-
-
           </Routes>
           {/* {isNavbar ? <Footer /> : ""} */}
-          <Footer />
+          {/* <Footer /> */}
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
           <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
         </WalletProvider>
