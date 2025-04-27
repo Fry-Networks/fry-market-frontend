@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as algokit from '@algorandfoundation/algokit-utils'
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
@@ -112,15 +113,48 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
         signer,
       })
       const optInAsset = await marketClient.optInAsset({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
-        // console.log(res)
       })
+      console.log('optInAsset', optInAsset)
     }
     return market
   } catch (e) {
     console.log(e)
   }
 }
+export const optInAsset = async (sender: string, signer: TransactionSigner, feePercent: number) => {
+  try {
+    console.log("daat", FRY_MARKET_ADDRESS, FRY_MARKET_ID, FRY_TOKEN_ID)
 
+    const { marketClient, algorandClient } = await createFryMarketClient(signer, sender, 2949974321)
+
+    await algorandClient.send.payment({
+      sender,
+      receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
+      amount: algokit.algos(0.1 + 0.1),
+      extraFee: algokit.algos(0.001),
+    })
+    console.log('optInAsset', FRY_MARKET_ID, FRY_TOKEN_ID)
+    if (FRY_MARKET_ID) {
+      console.log("mbrPay", FRY_MARKET_ID)
+      const mbrPay = await algorandClient.transactions.payment({
+        sender,
+        receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
+        amount: algokit.algos(0.1),
+        extraFee: algokit.algos(0.002),
+        signer,
+      })
+      console.log("marketClient", marketClient)
+      console.log("Fry", FRY_TOKEN_ID)
+      const optInAsset = await marketClient.optInAsset({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
+        console.log('optInAsset', res)
+      })
+      console.log('optInAsset', optInAsset)
+    }
+    return true
+  } catch (e) {
+    console.log(e)
+  }
+}
 //!Marketplace functions
 const BOX_PRICE = 2500 + 400 * 88
 export const listNft = async (sender: string, assetId: bigint, signer: TransactionSigner, price: number) => {

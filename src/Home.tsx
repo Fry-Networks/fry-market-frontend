@@ -9,7 +9,7 @@ import ConnectWallet from './components/ConnectWallet'
 import Transact from './components/Transact'
 import { AlgoMarketClient } from './contracts/AlgoMarket'
 import { CreateCollectionClient } from './contracts/CreateCollection'
-import { addCollectionRoyalty, buyNftWithRoyalty, cancelList, deployMarketplace, getAllListed, getAllUserNfts, getImgGenFee, getMarkeGlobalState, getRoyalty, getSingleNftlistData, listNft, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
+import { addCollectionRoyalty, buyNftWithRoyalty, cancelList, getAllListed, getAllUserNfts, getImgGenFee, getMarkeGlobalState, getRoyalty, getSingleNftlistData, listNft, optInAsset, trasnferFee, updateNftListPrice, userFryBalance } from './fryMarketMethods'
 import { getGlobalState, testingTxn } from './methods'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 
@@ -199,9 +199,9 @@ const Home: React.FC<HomeProps> = () => {
   // Market Place Functions
   const marketInit = async () => {
     try {
-      const init = await deployMarketplace(activeAddress!, signer, 1000)
-      // console.log("init", init)
-      enqueueSnackbar(`Market Id : ${init!.appId}`, {
+      const init = await optInAsset(activeAddress!, signer, 1000)
+      console.log("init", init)
+      enqueueSnackbar(`Market Id : ${init}`, {
         variant: "success"
       })
     } catch (e: any) {
@@ -399,7 +399,7 @@ const Home: React.FC<HomeProps> = () => {
             <label htmlFor="">Collection Address</label>
             <input type="text" value={collectionAddress} className='border-2 border-black rounded p-2' onChange={(e) => { setCollectionAddress(e.target.value) }} />
 
-            <button className="button btn-primary p-2 block w-full" onClick={marketInit}>Deploy Marketplace</button>
+            <button className="button btn-primary p-2 block w-full" onClick={marketInit}>Opt IN Assest</button>
             <button className="button btn-primary p-2 block w-full" onClick={initRoyalty}>Add Royalty</button>
             <button className="button btn-primary p-2 block w-full" onClick={getRoyalties}>get Royalty</button>
             <button className="button btn-primary p-2 block w-full" onClick={listMyNft}>List Nft</button>
