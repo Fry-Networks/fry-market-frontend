@@ -119,6 +119,7 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
     return market
   } catch (e) {
     console.log(e)
+
   }
 }
 export const optInAsset = async (sender: string, signer: TransactionSigner, feePercent: number) => {
@@ -153,6 +154,7 @@ export const optInAsset = async (sender: string, signer: TransactionSigner, feeP
     return true
   } catch (e) {
     console.log(e)
+    return false
   }
 }
 //!Marketplace functions

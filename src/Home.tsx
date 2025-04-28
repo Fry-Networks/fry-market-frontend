@@ -201,9 +201,15 @@ const Home: React.FC<HomeProps> = () => {
     try {
       const init = await optInAsset(activeAddress!, signer, 1000)
       console.log("init", init)
-      enqueueSnackbar(`Market Id : ${init}`, {
-        variant: "success"
-      })
+      if (init) {
+        enqueueSnackbar(`Market Id : ${init}`, {
+          variant: "success"
+        })
+      } else {
+        enqueueSnackbar(`Opted In Fail`, {
+          variant: "error"
+        })
+      }
     } catch (e: any) {
       // console.log(e)
       enqueueSnackbar(`${e.message}`, {
