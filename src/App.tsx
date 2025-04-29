@@ -13,7 +13,7 @@ import ConnectWallet from './components/ConnectWallet'
 import Navbar from './components/layout/navbar'
 import ExploreListedNfts from './components/nftDetail/nftExplore'
 import Transact from './components/Transact'
-import ContractHome from './Home'
+import { default as ContractHome, default as TestHome } from './Home'
 import ArtistProfileArt from './page/artistProfileArt'
 import ArtistsProfile from './page/artistsProfile'
 import Auction from './page/auction'
@@ -131,6 +131,7 @@ export default function App() {
           <Navbar open={openWalletModal} setOpen={toggleWalletModal} isPfpChange={isPfpChange} setIsPfpChange={setIsPfpChange} />
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/test" element={<TestHome />} />
             <Route path="/auction" element={<Auction />} />
             <Route path="/explore-listed-nfts" element={<ExploreListedNfts />} />
             <Route path="/nft-collection" element={<NftCollection />} />
