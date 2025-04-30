@@ -51,19 +51,15 @@ jobs:
           HOST_IP: ${{ secrets.PRODUCTION_HOST_IP }}
           REPO2_PRIVATE_KEY: ${{ secrets.REPO2_PRIVATE_KEY }}
         run: |
-          # Define TARGET_DIR
           TARGET_DIR='/root/front-end'
           
-          # Set up repo2 key for GitHub access only
           mkdir -p ~/.ssh
           echo "$REPO2_PRIVATE_KEY" > ~/.ssh/repo2
           chmod 600 ~/.ssh/repo2
           
-          # Start ssh-agent and add repo2 key
           eval "$(ssh-agent -s)"
           ssh-add ~/.ssh/repo2
           
-          # Configure SSH
           cat <<EOL > ~/.ssh/config
           Host github.com
             Hostname github.com
@@ -75,44 +71,42 @@ jobs:
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
           
-          # Deploy app
           sshpass -p "$SSH_PASSWORD" ssh -t -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << EOF
             set -e
             echo "Deploying to production"
+            
             TARGET_DIR='/root/front-end'
-
+            
             if [ ! -d "\$TARGET_DIR/.git" ]; then
-              echo "Cloning fresh repo"
+              echo "Cloning repository into \$TARGET_DIR"
               GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git clone git@github.com:Fry-Foundation/fry-market-frontend.git "\$TARGET_DIR"
             else
-              echo "Stashing local changes before pull"
-              GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git -C "\$TARGET_DIR" stash
-
-              echo "Pulling latest code"
+              echo "Updating repository at \$TARGET_DIR"
               GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git -C "\$TARGET_DIR" pull origin main
             fi
-
+            
             cd "\$TARGET_DIR"
-
+            
             if ! command -v node &> /dev/null; then
               curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
               sudo apt-get install -y nodejs
             fi
-
+            
             sudo npm install -g pm2
-
+            pm2 update
+            
             if pm2 list | grep -q 'fry-node'; then
               pm2 stop fry-node
               pm2 delete fry-node
             fi
-
+            
             if [ -f "package.json" ]; then
-              npm install
+              npm install --legacy-peer-deps
             else
-              echo "No package.json found"
+              echo "No package.json found in \$TARGET_DIR"
               exit 1
             fi
-
+            
             pm2 start start.sh --name fry-node
             pm2 save
             pm2 list
@@ -136,3 +130,4 @@ jobs:
       - name: Notify Success
         run: |
           echo "🎉 Production deployment was successful! 🚀"
+          echo "The latest changes have been deployed to production, and Nginx has been reconfigured."
