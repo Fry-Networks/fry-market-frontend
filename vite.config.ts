@@ -6,6 +6,6 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: '0.0.0.0', // allow external access
-    allowedHosts: ['0.0.0.0', 'localhost', 'www.fry.market'],
+    allowedHosts: ['0.0.0.0', 'localhost', 'www.fry.market', 'fry.market'],
   },
 })
