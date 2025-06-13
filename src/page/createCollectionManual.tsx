@@ -93,10 +93,10 @@ const CreateNftCollectionManual = () => {
           const addRoyaltyResponse = await addCollectionRoyalty(
             activeAccount?.address, signer, royalty, activeAccount?.address
           );
-          console.log("Royalty Response", addRoyaltyResponse);
+          // console.log("Royalty Response", addRoyaltyResponse);
 
           if (addRoyaltyResponse) {
-            console.log("added", addRoyaltyResponse);
+            // console.log("added", addRoyaltyResponse);
 
             const formDataForImage = new FormData();
             formDataForImage.append("images", prevImage);
@@ -290,7 +290,7 @@ const CreateNftCollectionManual = () => {
                             toast.promise(
                               uploadImage().then((response) => {
                                 if (response) {
-                                  console.log("Image uploaded successfully");
+                                  // console.log("Image uploaded successfully");
                                   // Only navigate if the uploadImage was successful
                                   toast.success("Collection Created Successfully")
                                   navigate("/manual-create-nft");

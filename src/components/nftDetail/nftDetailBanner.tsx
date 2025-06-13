@@ -167,11 +167,11 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
 
 
 
-  console.log(activeAccount?.address == profileData?.wallet_address, profileData)
+  // console.log(activeAccount?.address == profileData?.wallet_address, profileData)
   useEffect(() => {
     if (activeAccount?.address) {
       if (nftData.seller == activeAccount?.address && nftData.isListed) {
-        console.log('true snftData', nftData)
+        // console.log('true snftData', nftData)
         setIsOwner(true)
       }
     }

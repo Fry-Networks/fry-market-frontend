@@ -200,7 +200,7 @@ const Home: React.FC<HomeProps> = () => {
   const marketInit = async () => {
     try {
       const init = await optInAsset(activeAddress!, signer, 1000)
-      console.log("init", init)
+      // console.log("init", init)
       if (init) {
         enqueueSnackbar(`Market Id : ${init}`, {
           variant: "success"

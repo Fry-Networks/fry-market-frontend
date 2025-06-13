@@ -15,7 +15,7 @@ const ExploreCard = ({ data }: any) => {
   const [totalListedAuctioned, setTotalListedAuctioned] = useState<any>(0)
   const { activeAccount, signer } = useWallet()
   const navigate = useNavigate()
-  console.log("datac", data);
+  // console.log("datac", data);
   const handleClick = () => {
     navigate(`/collection/${data?.collection_address}`, { state: { profile: profile, collectionData: data } })
   }
