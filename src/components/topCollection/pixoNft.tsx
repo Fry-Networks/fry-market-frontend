@@ -28,7 +28,7 @@ import Input from "../shared/input";
 
 
 const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBought, loadingListed, loadingAuctioned }: any) => {
-  console.log("allBoughtNft", allBoughtNft);
+  // console.log("allBoughtNft", allBoughtNft);
   const [activeKey, setActiveKey] = useState(`1`)
   const { activeAccount, signer } = useWallet()
 
@@ -100,9 +100,9 @@ const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBou
                               {allBoughtNft.map((data: any, index: any) => (
                                 searchTerm ? data.name.toUpperCase().includes(searchTerm.toUpperCase()) ?
                                   <CollectionsCard
-                                    // data={{ index: data.nftAddress, params: data }} 
+                                    // data={{ index: data.nftAddress, params: data }}
                                     data={{ ...data, imgUrl: data.url }}
-                                    // otherList={address ? true : false} 
+                                    // otherList={address ? true : false}
                                     otherList={true}
                                     profileOwned={false}
                                     otherAuctionData={data}
@@ -111,9 +111,9 @@ const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBou
                                   index == allBoughtNft.length - 1 ? allBoughtNft.filter((data: any) => data.name.toUpperCase().includes(searchTerm.toUpperCase())).length > 0 ? "" : "No Result Found" : ""
                                   :
                                   <CollectionsCard
-                                    // data={{ index: data.nftAddress, params: data }} 
+                                    // data={{ index: data.nftAddress, params: data }}
                                     data={{ ...data, imgUrl: data.url }}
-                                    // otherList={address ? true : false} 
+                                    // otherList={address ? true : false}
                                     otherList={true}
                                     profileOwned={true}
                                     otherAuctionData={data}
@@ -166,7 +166,7 @@ const PixoNft = ({ nfts, collectionData, auctionedNfts, allBoughtNft, loadingBou
                                   :
                                   <div key={data.id} className="cursor-pointer">
                                     <CollectionsCard
-                                      // data={{ index: data.nftAddress, params: data }} 
+                                      // data={{ index: data.nftAddress, params: data }}
                                       data={data}
                                       label="Nft" collectionData={collectionData} />
                                   </div>

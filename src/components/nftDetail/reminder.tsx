@@ -7,7 +7,7 @@ import { buyNftWithRoyalty, cancelList, getSingleNftlistData } from '../../fryMa
 import Button from '../shared/button'
 
 const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forClaim }: any) => {
-  console.log('nftDataFromProps', nftDataFromProps)
+  // console.log('nftDataFromProps', nftDataFromProps)
 
   const [loading, setLoading] = useState<any>(false)
   const [isOwner, setOwner] = useState(false)
@@ -22,7 +22,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
       return new Promise(async (resolve, reject) => {
         try {
           if (activeAccount?.address) {
-            console.log('nftDatanftData', nftData)
+            // console.log('nftDatanftData', nftData)
             setLoading(true)
             const response = await buyNftWithRoyalty(activeAccount?.address, nftData.assetId, signer, nftData.seller, nftData.price)
             setLoading(false)

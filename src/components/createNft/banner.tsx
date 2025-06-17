@@ -85,7 +85,7 @@ const Banner = ({ prompt }: any) => {
         // };
 
         const response = await axios.get(`${baseUrl}/get-collections/${activeAccount.address}`)
-        console.log("Collection Data", response.data);
+        // console.log("Collection Data", response.data);
         setCollectionData(response.data.collections || [])
       } catch (e) {
         console.log("Error Getting Collection", e);

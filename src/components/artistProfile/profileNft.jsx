@@ -140,12 +140,12 @@ const ProfileNft = ({ collectionData, address }) => {
   }
 
   const getAllNft = async () => {
-    console.log('cole', collectionData)
+    // console.log('cole', collectionData)
     try {
       if (address || activeAccount?.address) {
         setLoadingAll(true)
         const response = await getAllUserNfts(address || activeAccount?.address)
-        console.log('NftAll', response)
+        // console.log('NftAll', response)
         setAllBoughtNft(response)
         setLoadingAll(false)
       }

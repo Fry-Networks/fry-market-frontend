@@ -160,8 +160,8 @@ export const listNftAuction = async (
       creatorAddress: sender,
       findExistingUsing: indexer,
     } as AppDetails
-    console.log('appDetails', appDetails)
-    console.log('algodClient', algodClient)
+    // console.log('appDetails', appDetails)
+    // console.log('algodClient', algodClient)
     const biddingClient = new FryAuctionBiddingClient(appDetails, algodClient)
 
     const auctionParams = {
@@ -186,7 +186,7 @@ export const listNftAuction = async (
         atc.addTransaction({ txn: bidFunds, signer })
         const accountInfo = await algodClient.accountInformation(AUCTION_ADDRESS).do()
         const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset)
-        console.log('hasOptedIn', hasOptedIn)
+        // console.log('hasOptedIn', hasOptedIn)
         if (!hasOptedIn) {
           const auctionFund = await algorandClient.transactions.payment({
             sender,
@@ -203,7 +203,7 @@ export const listNftAuction = async (
             extraFee: algokit.algos(0.002),
             signer,
           })
-          console.log('mbrPay', mbrPay)
+          // console.log('mbrPay', mbrPay)
 
           atc.addMethodCall({
             suggestedParams,
@@ -215,7 +215,7 @@ export const listNftAuction = async (
             appForeignAssets: [Number(asset)],
           })
         }
-        console.log('aseset', asset)
+        // console.log('aseset', asset)
         const xfer = await algorandClient.transactions.assetTransfer({
           sender,
           receiver: AUCTION_ADDRESS,
@@ -233,7 +233,7 @@ export const listNftAuction = async (
           .catch((e) => {
             if (e) false
           })
-        console.log(box)
+        // console.log(box)
         if (!box) {
           fee = (bidStartAmount * PRIMARY_FEE) / 10000
           boxAmount = AUCTION_BOX_PRICE
@@ -248,7 +248,7 @@ export const listNftAuction = async (
           amount: algokit.microAlgos(boxAmount),
           signer,
         })
-        console.log('boxPay', boxPay)
+        // console.log('boxPay', boxPay)
         const feeAxfer = await algorandClient.transactions.assetTransfer({
           sender,
           signer,
@@ -256,8 +256,8 @@ export const listNftAuction = async (
           receiver: FEE_WALLET,
           amount: BigInt(fee),
         })
-        console.log('feeAxfer', feeAxfer)
-        console.log(FEE_WALLET, FRY_TOKEN_ID)
+        // console.log('feeAxfer', feeAxfer)
+        // console.log(FEE_WALLET, FRY_TOKEN_ID)
         atc.addMethodCall({
           suggestedParams,
           appID: Number(AUCTION_ID),
@@ -285,7 +285,7 @@ export const listNftAuction = async (
         })
         const result = await atc.execute(algodClient, 4)
         for (const mr of result.methodResults) {
-          console.log(`${mr.returnValue}`)
+          // console.log(`${mr.returnValue}`)
         }
       })
       .catch((e) => {

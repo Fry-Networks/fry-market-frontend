@@ -38,7 +38,7 @@ const OtherProfilePage = () => {
         // };
 
         const response = await axios.get(`${baseUrl}/get-collection/${address}`);
-        console.log("Collection Data", response.data);
+        // console.log("Collection Data", response.data);
         setCollectionData(response.data)
 
       }
@@ -55,7 +55,7 @@ const OtherProfilePage = () => {
 
       if (address) {
         const response = await getAllListedByUser(address);
-        console.log("NftLisssted", response);
+        // console.log("NftLisssted", response);
         setAllListedNft(response);
         setTotalListed(Array.isArray(response) ? response.length : 0)
         // console.log("Listed", response.length);
@@ -72,7 +72,7 @@ const OtherProfilePage = () => {
 
       if (address) {
         const response = await getAllUserNfts(address);
-        console.log("NftLisssted", response);
+        // console.log("NftLisssted", response);
         setAllNft(response);
       }
     }
