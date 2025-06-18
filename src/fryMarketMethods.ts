@@ -111,14 +111,12 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
         extraFee: algokit.algos(0.002),
         signer,
       })
-      const optInAsset = await marketClient.optInAsset({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
-      })
+      const optInAsset = await marketClient.optInAsset({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => { })
       // console.log('optInAsset', optInAsset)
     }
     return market
   } catch (e) {
     console.log(e)
-
   }
 }
 export const optInAsset = async (sender: string, signer: TransactionSigner, feePercent: number) => {
@@ -135,7 +133,7 @@ export const optInAsset = async (sender: string, signer: TransactionSigner, feeP
     })
     // console.log('optInAsset', FRY_MARKET_ID, FRY_TOKEN_ID)
     if (FRY_MARKET_ID) {
-      console.log("mbrPay", FRY_MARKET_ID)
+      console.log('mbrPay', FRY_MARKET_ID)
       const mbrPay = await algorandClient.transactions.payment({
         sender,
         receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
@@ -210,7 +208,6 @@ export const listNft = async (sender: string, assetId: bigint, signer: Transacti
     const boxId = algosdk.encodeUint64(assetId)
 
     const boxIdString = new TextDecoder().decode(boxId)
-
 
     // const boxId = await algodClient.getApplicationBoxes(parseInt(FRY_MARKET_ID.toString())).do()
 
@@ -805,86 +802,195 @@ export const userFryBalance = async (user: string): Promise<number> => {
 export const getImgGenFee = async (isCollection: boolean, numofimgs: number, signer: TransactionSigner, sender: string) => {
   // Ensure FEE_WALLET is loaded, it's defined at the top of your file
   if (!FEE_WALLET) {
-    throw new Error('FEE_WALLET is not defined. Check your environment variables.');
+    throw new Error('FEE_WALLET is not defined. Check your environment variables.')
   }
-  if (!sender || sender === "123") { // Assuming "123" is a placeholder for an invalid/uninitialized sender
-    throw new Error('Invalid sender address provided for fee transaction.');
+  if (!sender || sender === '123') {
+    // Assuming "123" is a placeholder for an invalid/uninitialized sender
+    throw new Error('Invalid sender address provided for fee transaction.')
   }
 
-  const { algorandClient } = await createFryMarketClient(signer, sender);
+  const TARGET_USD_PER_IMAGE = 0.17 // Fixed USD cost per image
+
+  // Function to get real-time ALGO price in USD
+  const getAlgoPrice = async (): Promise<number> => {
+    try {
+      // Using CoinGecko API (free, no API key required)
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=algorand&vs_currencies=usd')
+      const data = await response.json()
+
+      if (data.algorand && data.algorand.usd) {
+        return data.algorand.usd
+      } else {
+        throw new Error('Invalid price data received')
+      }
+    } catch (error) {
+      console.error('Error fetching ALGO price:', error)
+      // Fallback to a reasonable default price if API fails
+      console.warn('Using fallback ALGO price of $0.25')
+      return 0.25
+    }
+  }
+
+  const { algorandClient } = await createFryMarketClient(signer, sender)
 
   // Get sender's account information to check Algo balance
-  const accountInfo = await algorandClient.account.getInformation(sender);
-  const algoBalance = accountInfo.amount; // Balance in microAlgos
+  const accountInfo = await algorandClient.account.getInformation(sender)
+  const algoBalance = accountInfo.amount // Balance in microAlgos
 
-  let pricePerImgInAlgos: number;
-  let totalFeeInAlgos: number;
-  let totalFeeInMicroAlgos: bigint;
+  try {
+    const algoPrice = await getAlgoPrice()
+    console.log(`Current ALGO price: $${algoPrice}`)
 
-  if (isCollection) {
-    pricePerImgInAlgos = 0.05; // Price per image in Algos
-    totalFeeInAlgos = pricePerImgInAlgos * numofimgs;
-    totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000));
+    const algosPerImage = TARGET_USD_PER_IMAGE / algoPrice
+    console.log(`Calculated ${algosPerImage.toFixed(6)} ALGO per image (${TARGET_USD_PER_IMAGE} USD)`)
 
-    if (totalFeeInMicroAlgos > algoBalance) {
-      throw new Error('Not Enough Algo Balance');
+    let totalFeeInAlgos: number
+    let totalFeeInMicroAlgos: bigint
+
+    if (isCollection) {
+      totalFeeInAlgos = algosPerImage * numofimgs
+      totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000))
+
+      console.log(`Collection fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} images`)
+
+      if (totalFeeInMicroAlgos > algoBalance) {
+        throw new Error('Not Enough Algo Balance')
+      }
+
+      // Using algokit-utils' AlgorandClient send.payment
+      const txResult = await algorandClient.send.payment({
+        sender,
+        receiver: FEE_WALLET,
+        amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)), // algokit.microAlgos expects number or bigint
+        note: `Image generation fee for collection: ${numofimgs} images at $${TARGET_USD_PER_IMAGE}/image`,
+      })
+      return txResult
+    } else {
+      if (numofimgs > 1) {
+        // This check might be redundant if UI restricts numofimgs to 1 for single NFT
+        throw new Error('Please select a valid number of images for a single NFT (should be 1)')
+      }
+
+      totalFeeInAlgos = algosPerImage * numofimgs // numofimgs should be 1 here
+      totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000))
+
+      console.log(`Single NFT fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} image`)
+
+      if (totalFeeInMicroAlgos > algoBalance) {
+        throw new Error('Not Enough Algo Balance')
+      }
+
+      const txResult = await algorandClient.send.payment({
+        sender,
+        receiver: FEE_WALLET,
+        amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)), // algokit.microAlgos expects number or bigint
+        note: `Image generation fee for single NFT at $${TARGET_USD_PER_IMAGE}`,
+      })
+      return txResult
+    }
+  } catch (error) {
+    console.error('Error processing fee payment:', error)
+
+    // Fallback to fixed ALGO amount if price fetching fails
+    const fallbackAlgoAmount = 0.68 // Approximately 0.17 USD at $0.25 per ALGO
+    console.warn(`Using fallback fee of ${fallbackAlgoAmount} ALGO per image`)
+
+    let totalFeeInAlgos: number
+    let totalFeeInMicroAlgos: bigint
+
+    if (isCollection) {
+      totalFeeInAlgos = fallbackAlgoAmount * numofimgs
+    } else {
+      if (numofimgs > 1) {
+        throw new Error('Please select a valid number of images for a single NFT (should be 1)')
+      }
+      totalFeeInAlgos = fallbackAlgoAmount * numofimgs
     }
 
-    // Using algokit-utils' AlgorandClient send.payment
+    totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000))
+
+    if (totalFeeInMicroAlgos > algoBalance) {
+      throw new Error('Not Enough Algo Balance')
+    }
+
     const txResult = await algorandClient.send.payment({
       sender,
       receiver: FEE_WALLET,
-      amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)), // algokit.microAlgos expects number or bigint
-      note: `Image generation fee for collection: ${numofimgs} images`,
-    });
-    return txResult;
-  } else {
-    if (numofimgs > 1) {
-      // This check might be redundant if UI restricts numofimgs to 1 for single NFT
-      throw new Error('Please select a valid number of images for a single NFT (should be 1)');
-    }
-    pricePerImgInAlgos = 0.05; // Price per image in Algos for a single NFT
-    totalFeeInAlgos = pricePerImgInAlgos * numofimgs; // numofimgs should be 1 here
-    totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000));
-
-    if (totalFeeInMicroAlgos > algoBalance) {
-      throw new Error('Not Enough Algo Balance');
-    }
-
-    const txResult = await algorandClient.send.payment({
-      sender,
-      receiver: FEE_WALLET,
-      amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)), // algokit.microAlgos expects number or bigint
-      note: `Image generation fee for single NFT`,
-    });
-    return txResult;
+      amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)),
+      note: `Image generation fee (fallback pricing): ${numofimgs} images`,
+    })
+    return txResult
   }
 }
 
-export const getImgGenFeeAmount = async (isCollection: boolean, numofimgs: number, signer?: TransactionSigner, sender?: string): Promise<number> => {
+export const getImgGenFeeAmount = async (
+  isCollection: boolean,
+  numofimgs: number,
+  signer?: TransactionSigner,
+  sender?: string,
+): Promise<number> => {
   // This function calculates the fee in Algos for display purposes.
   // Signer and sender are optional as they are not strictly needed for pure calculation.
 
-  let pricePerImgInAlgos: number;
+  const TARGET_USD_PER_IMAGE = 0.17 // Fixed USD cost per image
 
-  if (isCollection) {
-    pricePerImgInAlgos = 0.05; // 0.05 Algos per image
-    const totalFeeInAlgos = pricePerImgInAlgos * numofimgs;
-    return totalFeeInAlgos;
-  } else {
-    // For single NFT
-    if (numofimgs <= 0) {
-      // Default to 1 image if numofimgs is not valid for a single NFT.
-      // Or throw an error if numofimgs must be 1.
-      console.warn("Number of images for single NFT is not 1, defaulting to 1 for fee calculation.");
-      numofimgs = 1;
+  // Function to get real-time ALGO price in USD
+  const getAlgoPrice = async (): Promise<number> => {
+    try {
+      // Using CoinGecko API (free, no API key required)
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=algorand&vs_currencies=usd')
+      const data = await response.json()
+
+      if (data.algorand && data.algorand.usd) {
+        return data.algorand.usd
+      } else {
+        throw new Error('Invalid price data received')
+      }
+    } catch (error) {
+      console.error('Error fetching ALGO price:', error)
+      // Fallback to a reasonable default price if API fails
+      // You can adjust this fallback value based on recent ALGO prices
+      console.warn('Using fallback ALGO price of $0.25')
+      return 0.25
     }
-    if (numofimgs > 1) {
-      throw new Error('For a single NFT, the number of images should be 1.');
+  }
+
+  try {
+    const algoPrice = await getAlgoPrice()
+    console.log(`Current ALGO price: $${algoPrice}`)
+
+    const algosPerImage = TARGET_USD_PER_IMAGE / algoPrice
+    console.log(`Calculated ${algosPerImage.toFixed(6)} ALGO per image (${TARGET_USD_PER_IMAGE} USD)`)
+
+    if (isCollection) {
+      const totalFeeInAlgos = algosPerImage * numofimgs
+      console.log(`Collection fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} images`)
+      return parseFloat(totalFeeInAlgos.toFixed(6))
+    } else {
+      // For single NFT
+      if (numofimgs <= 0) {
+        console.warn('Number of images for single NFT is not 1, defaulting to 1 for fee calculation.')
+        numofimgs = 1
+      }
+      if (numofimgs > 1) {
+        throw new Error('For a single NFT, the number of images should be 1.')
+      }
+
+      const totalFeeInAlgos = algosPerImage * numofimgs // numofimgs will be 1 here
+      console.log(`Single NFT fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} image`)
+      return parseFloat(totalFeeInAlgos.toFixed(6))
     }
-    pricePerImgInAlgos = 0.05; // 1 Algo for a single NFT
-    const totalFeeInAlgos = pricePerImgInAlgos * numofimgs; // numofimgs will be 1 here
-    return totalFeeInAlgos;
+  } catch (error) {
+    console.error('Error calculating fee amount:', error)
+    // Fallback to fixed ALGO amount if price fetching fails
+    const fallbackAlgoAmount = 0.68 // Approximately 0.17 USD at $0.25 per ALGO
+    console.warn(`Using fallback fee of ${fallbackAlgoAmount} ALGO per image`)
+
+    if (isCollection) {
+      return fallbackAlgoAmount * numofimgs
+    } else {
+      return fallbackAlgoAmount
+    }
   }
 }
 
