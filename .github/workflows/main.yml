@@ -3,7 +3,127 @@ name: Deploy fry-market-frontend to Production server
 on:
   push:
     branches:
+      - mainname: Deploy fry-market-frontend to Production server
+
+on:
+  push:
+    branches:
       - main
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code using SSH
+        uses: actions/checkout@v4
+        with:
+          repository: Fry-Foundation/fry-market-frontend
+          persist-credentials: false
+          clean: true
+          fetch-depth: 1
+
+      - name: Install dependencies for deployment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass
+
+      - name: Add GitHub to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+  test:
+    runs-on: ubuntu-latest
+    needs: setup
+    steps:
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          if [ -f "test_cases.py" ]; then
+            python test_cases.py
+          else
+            echo "No test cases file found"
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: Deploy to Server
+        env:
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PASSWORD: ${{ secrets.PRODUCTION_SSH_PASSWORD }}
+          HOST_IP: ${{ secrets.PRODUCTION_HOST_IP }}
+          REPO2_PRIVATE_KEY: ${{ secrets.REPO2_PRIVATE_KEY }}
+        run: |
+          TARGET_DIR='/root/fry-market-frontend'
+          mkdir -p ~/.ssh
+          echo "$REPO2_PRIVATE_KEY" > ~/.ssh/repo2
+          chmod 600 ~/.ssh/repo2
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/repo2
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+          ssh-keyscan -H $HOST_IP >> ~/.ssh/known_hosts
+
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no $SSH_USERNAME@$HOST_IP << 'EOF'
+            set -e
+            echo "Connected to server"
+            TARGET_DIR="/root/fry-market-frontend"
+
+            # 🛠️ Fix Git "dubious ownership" issue
+            git config --global --add safe.directory "$TARGET_DIR"
+
+            cd "$TARGET_DIR"
+            echo "Resetting local changes"
+            git reset --hard
+            git clean -fd
+
+            echo "Pulling latest code"
+            GIT_SSH_COMMAND="ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes" git pull origin main
+
+            echo "🔧 Checking Node.js"
+            if ! command -v node &> /dev/null; then
+              curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+              sudo apt-get install -y nodejs
+            fi
+
+            echo "Installing dependencies"
+            npm install --legacy-peer-deps
+
+            echo "🔨 Building project"
+            npm run build
+
+            echo "🚀 Restarting PM2"
+            sudo npm install -g pm2
+            pm2 update
+            if pm2 list | grep -q 'fry-node'; then
+              pm2 stop fry-node
+              pm2 delete fry-node
+            fi
+            pm2 start start.sh --name fry-node
+            pm2 save
+            pm2 list
+EOF
+
+  nginx_config:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Configure and Restart Nginx
+        run: |
+          sudo nginx -t
+          sudo systemctl restart nginx
+          sudo systemctl status nginx
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: nginx_config
+    if: success()
+    steps:
+      - name: Notify Success
+        run: |
+          echo "🎉 Production deployment was successful! 🚀"
+          echo "The latest changes have been deployed to production, and Nginx has been reconfigured."
+
 
 jobs:
   setup:
