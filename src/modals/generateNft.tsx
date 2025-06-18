@@ -169,7 +169,7 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
             </div>
             <div className="paymentMethod py-[14px] px-[25px] bg-[#F4F3F3] flex flex-col gap-3 justify-start w-full rounded-md">
               <p className="darkBlack font-Roboto medium font-normal">Payment Method</p>
-              <p className="lightGray small font-Roboto font-normal">Cost of Generation : {fee ? fee : 'Calculating...'} Algo</p>
+              <p className="lightGray small font-Roboto font-normal">Cost of Generation : {fee ? fee : 'Calculating...'} FRY</p>
             </div>
             <img src={redline} alt="" />
             <div className="btnWrapper w-full flex justify-end mt-3">
