@@ -811,113 +811,121 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
 
   const TARGET_USD_PER_IMAGE = 0.17 // Fixed USD cost per image
 
-  // Function to get real-time ALGO price in USD
-  const getAlgoPrice = async (): Promise<number> => {
+  // Function to get real-time FRY price in USD
+  const getFryPrice = async (): Promise<number> => {
     try {
-      // Using CoinGecko API (free, no API key required)
-      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=algorand&vs_currencies=usd')
+      // Using CoinGecko API for FRY token price
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=FRY&vs_currencies=usd')
       const data = await response.json()
 
-      if (data.algorand && data.algorand.usd) {
-        return data.algorand.usd
+      if (data.fry && data.fry.usd) {
+        return data.fry.usd
       } else {
-        throw new Error('Invalid price data received')
+        throw new Error('Invalid FRY price data received')
       }
     } catch (error) {
-      console.error('Error fetching ALGO price:', error)
+      console.error('Error fetching FRY price:', error)
       // Fallback to a reasonable default price if API fails
-      console.warn('Using fallback ALGO price of $0.25')
-      return 0.25
+      console.warn('Using fallback FRY price of $0.108635')
+      return 0.108635
     }
   }
 
   const { algorandClient } = await createFryMarketClient(signer, sender)
 
-  // Get sender's account information to check Algo balance
+  // Get sender's account information to check FRY balance
   const accountInfo = await algorandClient.account.getInformation(sender)
-  const algoBalance = accountInfo.amount // Balance in microAlgos
+  const fryAsset = accountInfo.assets?.find(asset => asset.assetId === Number(FRY_TOKEN_ID))
+
+  if (!fryAsset) {
+    throw new Error('FRY token not found in wallet. Please opt-in to FRY token first.')
+  }
+
+  const fryBalance = fryAsset.amount // Balance in smallest FRY units
 
   try {
-    const algoPrice = await getAlgoPrice()
-    console.log(`Current ALGO price: $${algoPrice}`)
+    const fryPrice = await getFryPrice()
+    console.log(`Current FRY price: $${fryPrice}`)
 
-    const algosPerImage = TARGET_USD_PER_IMAGE / algoPrice
-    console.log(`Calculated ${algosPerImage.toFixed(6)} ALGO per image (${TARGET_USD_PER_IMAGE} USD)`)
+    const fryPerImage = TARGET_USD_PER_IMAGE / fryPrice
+    console.log(`Calculated ${fryPerImage.toFixed(6)} FRY per image (${TARGET_USD_PER_IMAGE} USD)`)
 
-    let totalFeeInAlgos: number
-    let totalFeeInMicroAlgos: bigint
+    let totalFeeInFry: number
+    let totalFeeInMicroFry: bigint
 
     if (isCollection) {
-      totalFeeInAlgos = algosPerImage * numofimgs
-      totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000))
+      totalFeeInFry = fryPerImage * numofimgs
+      totalFeeInMicroFry = BigInt(Math.floor(totalFeeInFry * 1000000)) // Assuming FRY has 6 decimals
 
-      console.log(`Collection fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} images`)
+      console.log(`Collection fee: ${totalFeeInFry.toFixed(6)} FRY for ${numofimgs} images`)
 
-      if (totalFeeInMicroAlgos > algoBalance) {
-        throw new Error('Not Enough Algo Balance')
+      if (totalFeeInMicroFry > BigInt(fryBalance)) {
+        throw new Error('Not Enough FRY Balance')
       }
 
-      // Using algokit-utils' AlgorandClient send.payment
-      const txResult = await algorandClient.send.payment({
+      // Using FRY token transfer instead of ALGO payment
+      const txResult = await algorandClient.send.assetTransfer({
         sender,
         receiver: FEE_WALLET,
-        amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)), // algokit.microAlgos expects number or bigint
-        note: `Image generation fee for collection: ${numofimgs} images at $${TARGET_USD_PER_IMAGE}/image`,
+        assetId: FRY_TOKEN_ID,
+        amount: totalFeeInMicroFry,
+        note: `Image generation fee for collection: ${numofimgs} images at $${TARGET_USD_PER_IMAGE}/image (FRY)`,
       })
       return txResult
     } else {
       if (numofimgs > 1) {
-        // This check might be redundant if UI restricts numofimgs to 1 for single NFT
         throw new Error('Please select a valid number of images for a single NFT (should be 1)')
       }
 
-      totalFeeInAlgos = algosPerImage * numofimgs // numofimgs should be 1 here
-      totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000))
+      totalFeeInFry = fryPerImage * numofimgs // numofimgs should be 1 here
+      totalFeeInMicroFry = BigInt(Math.floor(totalFeeInFry * 1000000)) // Assuming FRY has 6 decimals
 
-      console.log(`Single NFT fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} image`)
+      console.log(`Single NFT fee: ${totalFeeInFry.toFixed(6)} FRY for ${numofimgs} image`)
 
-      if (totalFeeInMicroAlgos > algoBalance) {
-        throw new Error('Not Enough Algo Balance')
+      if (totalFeeInMicroFry > BigInt(fryBalance)) {
+        throw new Error('Not Enough FRY Balance')
       }
 
-      const txResult = await algorandClient.send.payment({
+      const txResult = await algorandClient.send.assetTransfer({
         sender,
         receiver: FEE_WALLET,
-        amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)), // algokit.microAlgos expects number or bigint
-        note: `Image generation fee for single NFT at $${TARGET_USD_PER_IMAGE}`,
+        assetId: FRY_TOKEN_ID,
+        amount: totalFeeInMicroFry,
+        note: `Image generation fee for single NFT at $${TARGET_USD_PER_IMAGE} (FRY)`,
       })
       return txResult
     }
   } catch (error) {
     console.error('Error processing fee payment:', error)
 
-    // Fallback to fixed ALGO amount if price fetching fails
-    const fallbackAlgoAmount = 0.68 // Approximately 0.17 USD at $0.25 per ALGO
-    console.warn(`Using fallback fee of ${fallbackAlgoAmount} ALGO per image`)
+    // Fallback to fixed FRY amount if price fetching fails
+    const fallbackFryAmount = 1.565 // Approximately 0.17 USD at $0.108635 per FRY
+    console.warn(`Using fallback fee of ${fallbackFryAmount} FRY per image`)
 
-    let totalFeeInAlgos: number
-    let totalFeeInMicroAlgos: bigint
+    let totalFeeInFry: number
+    let totalFeeInMicroFry: bigint
 
     if (isCollection) {
-      totalFeeInAlgos = fallbackAlgoAmount * numofimgs
+      totalFeeInFry = fallbackFryAmount * numofimgs
     } else {
       if (numofimgs > 1) {
         throw new Error('Please select a valid number of images for a single NFT (should be 1)')
       }
-      totalFeeInAlgos = fallbackAlgoAmount * numofimgs
+      totalFeeInFry = fallbackFryAmount * numofimgs
     }
 
-    totalFeeInMicroAlgos = BigInt(Math.floor(totalFeeInAlgos * 1000000))
+    totalFeeInMicroFry = BigInt(Math.floor(totalFeeInFry * 1000000))
 
-    if (totalFeeInMicroAlgos > algoBalance) {
-      throw new Error('Not Enough Algo Balance')
+    if (totalFeeInMicroFry > BigInt(fryBalance)) {
+      throw new Error('Not Enough FRY Balance')
     }
 
-    const txResult = await algorandClient.send.payment({
+    const txResult = await algorandClient.send.assetTransfer({
       sender,
       receiver: FEE_WALLET,
-      amount: algokit.microAlgos(Number(totalFeeInMicroAlgos)),
-      note: `Image generation fee (fallback pricing): ${numofimgs} images`,
+      assetId: FRY_TOKEN_ID,
+      amount: totalFeeInMicroFry,
+      note: `Image generation fee (fallback FRY pricing): ${numofimgs} images`,
     })
     return txResult
   }
@@ -929,43 +937,41 @@ export const getImgGenFeeAmount = async (
   signer?: TransactionSigner,
   sender?: string,
 ): Promise<number> => {
-  // This function calculates the fee in Algos for display purposes.
-  // Signer and sender are optional as they are not strictly needed for pure calculation.
+  // This function calculates the fee in FRY tokens for display purposes.
 
   const TARGET_USD_PER_IMAGE = 0.17 // Fixed USD cost per image
 
-  // Function to get real-time ALGO price in USD
-  const getAlgoPrice = async (): Promise<number> => {
+  // Function to get real-time FRY price in USD
+  const getFryPrice = async (): Promise<number> => {
     try {
-      // Using CoinGecko API (free, no API key required)
-      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=algorand&vs_currencies=usd')
+      // Using CoinGecko API for FRY token price
+      const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=FRY&vs_currencies=usd')
       const data = await response.json()
 
-      if (data.algorand && data.algorand.usd) {
-        return data.algorand.usd
+      if (data.fry && data.fry.usd) {
+        return data.fry.usd
       } else {
-        throw new Error('Invalid price data received')
+        throw new Error('Invalid FRY price data received')
       }
     } catch (error) {
-      console.error('Error fetching ALGO price:', error)
+      console.error('Error fetching FRY price:', error)
       // Fallback to a reasonable default price if API fails
-      // You can adjust this fallback value based on recent ALGO prices
-      console.warn('Using fallback ALGO price of $0.25')
-      return 0.25
+      console.warn('Using fallback FRY price of $0.108635')
+      return 0.108635
     }
   }
 
   try {
-    const algoPrice = await getAlgoPrice()
-    console.log(`Current ALGO price: $${algoPrice}`)
+    const fryPrice = await getFryPrice()
+    console.log(`Current FRY price: $${fryPrice}`)
 
-    const algosPerImage = TARGET_USD_PER_IMAGE / algoPrice
-    console.log(`Calculated ${algosPerImage.toFixed(6)} ALGO per image (${TARGET_USD_PER_IMAGE} USD)`)
+    const fryPerImage = TARGET_USD_PER_IMAGE / fryPrice
+    console.log(`Calculated ${fryPerImage.toFixed(6)} FRY per image (${TARGET_USD_PER_IMAGE} USD)`)
 
     if (isCollection) {
-      const totalFeeInAlgos = algosPerImage * numofimgs
-      console.log(`Collection fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} images`)
-      return parseFloat(totalFeeInAlgos.toFixed(6))
+      const totalFeeInFry = fryPerImage * numofimgs
+      console.log(`Collection fee: ${totalFeeInFry.toFixed(6)} FRY for ${numofimgs} images`)
+      return parseFloat(totalFeeInFry.toFixed(6))
     } else {
       // For single NFT
       if (numofimgs <= 0) {
@@ -976,20 +982,20 @@ export const getImgGenFeeAmount = async (
         throw new Error('For a single NFT, the number of images should be 1.')
       }
 
-      const totalFeeInAlgos = algosPerImage * numofimgs // numofimgs will be 1 here
-      console.log(`Single NFT fee: ${totalFeeInAlgos.toFixed(6)} ALGO for ${numofimgs} image`)
-      return parseFloat(totalFeeInAlgos.toFixed(6))
+      const totalFeeInFry = fryPerImage * numofimgs // numofimgs will be 1 here
+      console.log(`Single NFT fee: ${totalFeeInFry.toFixed(6)} FRY for ${numofimgs} image`)
+      return parseFloat(totalFeeInFry.toFixed(6))
     }
   } catch (error) {
     console.error('Error calculating fee amount:', error)
-    // Fallback to fixed ALGO amount if price fetching fails
-    const fallbackAlgoAmount = 0.68 // Approximately 0.17 USD at $0.25 per ALGO
-    console.warn(`Using fallback fee of ${fallbackAlgoAmount} ALGO per image`)
+    // Fallback to fixed FRY amount if price fetching fails
+    const fallbackFryAmount = 1.565 // Approximately 0.17 USD at $0.108635 per FRY
+    console.warn(`Using fallback fee of ${fallbackFryAmount} FRY per image`)
 
     if (isCollection) {
-      return fallbackAlgoAmount * numofimgs
+      return fallbackFryAmount * numofimgs
     } else {
-      return fallbackAlgoAmount
+      return fallbackFryAmount
     }
   }
 }
