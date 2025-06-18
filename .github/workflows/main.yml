@@ -45,34 +45,52 @@ jobs:
           ssh-add ~/.ssh/repo2
           ssh-keyscan -H github.com >> ~/.ssh/known_hosts
           ssh-keyscan -H "$HOST_IP" >> ~/.ssh/known_hosts
+
           echo 'Running remote SSH script...'
           sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no "$SSH_USERNAME@$HOST_IP" bash -c "'
             set -e
             echo Connected to server
+
             TARGET_DIR=/root/fry-market-frontend
+
+            # 🛠️ Fix SSH config permissions
+            if [ -f ~/.ssh/config ]; then
+              chmod 600 ~/.ssh/config
+            fi
+            chmod 700 ~/.ssh
+            chown -R \$USER:\$USER ~/.ssh
+
             git config --global --add safe.directory \$TARGET_DIR
             cd \$TARGET_DIR
+
             echo Resetting local changes
             git reset --hard
             git clean -fd
+
             echo Pulling latest code
             GIT_SSH_COMMAND=\"ssh -i ~/.ssh/repo2 -o IdentitiesOnly=yes\" git pull origin main
+
             echo Checking Node.js
             if ! command -v node &> /dev/null; then
               curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
               sudo apt-get install -y nodejs
             fi
+
             echo Installing dependencies
             npm install --legacy-peer-deps
+
             echo Building project
             npm run build
+
             echo Restarting PM2
             sudo npm install -g pm2
             pm2 update
+
             if pm2 list | grep -q fry-node; then
               pm2 stop fry-node
               pm2 delete fry-node
             fi
+
             pm2 start start.sh --name fry-node
             pm2 save
             pm2 list
