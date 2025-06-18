@@ -53,12 +53,11 @@ jobs:
 
             TARGET_DIR=/root/fry-market-frontend
 
-            # 🛠️ Fix SSH config permissions
-            if [ -f ~/.ssh/config ]; then
-              chmod 600 ~/.ssh/config
-            fi
-            chmod 700 ~/.ssh
-            chown -R \$USER:\$USER ~/.ssh
+            echo 🔐 Fixing key permissions...
+            chmod 600 ~/.ssh/repo2 || true
+            chmod 600 ~/.ssh/fry_backend || true
+            chmod 700 ~/.ssh || true
+            chown -R \$USER:\$USER ~/.ssh || true
 
             git config --global --add safe.directory \$TARGET_DIR
             cd \$TARGET_DIR
