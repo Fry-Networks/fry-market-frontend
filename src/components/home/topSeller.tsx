@@ -25,9 +25,7 @@ const TopSeller = ({ collectionDataFull }: any) => {
                         <h2 className="font-normal font-Apex uppercase mb-10">
                             SELLERS
                         </h2>
-                        <p className='primary large font-medium font-Roboto cursor-pointer' onClick={(() => (
-                            navigate("/top-seller")
-                        ))}>View All</p>
+                        <p className='primary large font-medium font-Roboto cursor-pointer' onClick={() => navigate("/top-seller")}>View All</p>
                     </div>
 
                     <div className="sellerCardDiv grid grid-cols-4 place-items-center gap-10" style={{ placeItems: "center" }}>

@@ -5,11 +5,11 @@ import { toast } from 'react-toastify';
 import auctionPrice from "../assets/artistsProfile/auction.png";
 import fixedPrice from "../assets/artistsProfile/fixedPrice.png";
 import sellImg from "../assets/artistsProfile/sell.webp";
-import door from "../assets/icons/door.svg";
 import fryIcon from "../assets/icons/fryIcon.svg";
 import tick from "../assets/icons/priceTick.svg"; // Import tick icon
 import bgBack from "../assets/sellMethod/bgGlow.webp";
 import { listNftAuction } from '../auctionMethod';
+import BackButton from "../components/shared/backButton";
 import Button from "../components/shared/button";
 import { listNft } from '../fryMarketMethods';
 import { replaceJsonWithJpg, replaceJsonWithPng } from '../utils/getImageFromJson';
@@ -182,15 +182,11 @@ const SellMethod = () => {
         <div className="container">
           <div className="inner my-20 flex gap-[20px] h-full">
             <div className="leftArea w-1/4 flex flex-col justify-start gap-5">
-              <button
+              <BackButton
                 onClick={() => navigate("/artist-profile")}
-                style={{ boxShadow: "4px 4px 15px 0px rgba(0, 0, 0, 0.20)" }}
-                className=" doorBtn flex-center gap-3 w-[126px] h-[64px] rounded-2xl bg-white large darkBlack font-normal"
-
-              >
-                <img src={door} alt="" />
-                Back
-              </button>
+                className="shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)] w-[126px] h-[64px] rounded-2xl bg-white large darkBlack font-normal"
+                text="Back"
+              />
               <img className='  border-solid border-[20px] border-[white] rounded-3xl ' src={nftData?.url ? replaceJsonWithPng(nftData?.url) : sellImg} alt="" onError={({ currentTarget }) => {
                 currentTarget.onerror = null; // prevents looping
                 currentTarget.src = nftData?.url ? replaceJsonWithJpg(nftData?.url) : sellImg

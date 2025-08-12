@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from 'react-toastify';
 import { TokenContext } from "../App";
 import nft1 from "../assets/images/placeholder-image.webp";
+import BackButton from "../components/shared/backButton";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from "../components/shared/textarea";
@@ -177,6 +178,11 @@ const CreateNftCollectionManual = () => {
       <div>
         <div className="nftCollection mt-[107px] h-[110vh]">
           <div className="container">
+            {/* Back Button */}
+            <div className="backButtonSection mb-6">
+              <BackButton />
+            </div>
+
             <div className="contentWrapper flex gap-8 w-full">
               <div className=" leftContent flex flex-col  items-start">
                 <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow" style={{ cursor: "pointer" }}>
@@ -285,6 +291,12 @@ const CreateNftCollectionManual = () => {
                         onClick={(e: any) => {
                           e.preventDefault();
 
+                          // Check wallet connection first
+                          if (!activeAccount?.address) {
+                            toast.error("Please connect wallet first");
+                            return;
+                          }
+
                           if (validation()) {
                             // Only proceed if validation is successful
                             toast.promise(
@@ -305,12 +317,8 @@ const CreateNftCollectionManual = () => {
                               }
                             );
                           } else {
-                            // Handle validation failure
-                            if (!activeAccount?.address) {
-                              toast.error("Please connect wallet first");
-                            } else {
-                              toast.error("Please provide all information.");
-                            }
+                            // Handle validation failure - now only field validation
+                            toast.error("Please provide all information.");
                           }
                         }}
 

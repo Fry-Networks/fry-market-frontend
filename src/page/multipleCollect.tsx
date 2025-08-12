@@ -1,19 +1,13 @@
+import { Icon } from "@iconify/react";
 import React, { useState } from "react";
-import nft1 from "../assets/images/createNft/nftimage1.webp";
-import nft2 from "../assets/images/createNft/nftimage2.webp";
-import nft3 from "../assets/images/createNft/nftimage3.webp";
-import nft4 from "../assets/images/createNft/nftimage4.webp";
-import nft5 from "../assets/images/createNft/nftimage1.webp";
-import nft6 from "../assets/images/createNft/nftimage2.webp";
-import nft7 from "../assets/images/createNft/nftimage3.webp";
-import nft8 from "../assets/images/createNft/nftimage4.webp";
-import nft9 from "../assets/images/createNft/nftimage1.webp";
-import nft10 from "../assets/images/createNft/nftimage2.webp";
-import Navbar from "../components/layout/navbar";
-import Button from "../components/shared/button";
 import { useNavigate } from "react-router-dom";
 import bgGlow from "../assets/images/createNft/bgGlow.webp";
-import { Icon } from "@iconify/react";
+import { default as nft1, default as nft5, default as nft9 } from "../assets/images/createNft/nftimage1.webp";
+import { default as nft10, default as nft2, default as nft6 } from "../assets/images/createNft/nftimage2.webp";
+import { default as nft3, default as nft7 } from "../assets/images/createNft/nftimage3.webp";
+import { default as nft4, default as nft8 } from "../assets/images/createNft/nftimage4.webp";
+import BackButton from "../components/shared/backButton";
+import Button from "../components/shared/button";
 
 const MultipleCollect: React.FC = () => {
   const images: string[] = [nft1, nft2, nft3, nft4, nft5, nft6, nft7, nft8, nft9, nft10];
@@ -37,6 +31,11 @@ const MultipleCollect: React.FC = () => {
       <div className="createNft my-16 relative">
         <img className="absolute top-[-200px] w-full -z-10" src={bgGlow} alt="" />
         <div className="container">
+          {/* Back Button */}
+          <div className="backButtonSection mb-6">
+            <BackButton />
+          </div>
+
           <div className="nftBtnContainer flex items-center justify-between mb-[75px]">
             <div className="singlenft flex items-center justify-between gap-4">
               <Button
@@ -72,15 +71,14 @@ const MultipleCollect: React.FC = () => {
                 <img
                   src={image}
                   alt={`nft-${index}`}
-                  className={`w-full h-full object-cover max-w-[288px] max-h-[265px] ${
-                    selectedImages.includes(index) ? "opacity-70" : "opacity-1"
-                  }`}
+                  className={`w-full h-full object-cover max-w-[288px] max-h-[265px] ${selectedImages.includes(index) ? "opacity-70" : "opacity-1"
+                    }`}
                 />
                 {selectedImages.includes(index) && (
                   <>
                     <div className="absolute rounded-2xl inset-0 bg-black opacity-80"></div>
                     <div className="absolute top-2 right-2 w-6 h-6 bg-transparent rounded-full flex items-center justify-center">
-                    <Icon icon="teenyicons:tick-circle-outline" width="18" height="18"  style={{color: "white"}} />
+                      <Icon icon="teenyicons:tick-circle-outline" width="18" height="18" style={{ color: "white" }} />
                     </div>
                   </>
                 )}
