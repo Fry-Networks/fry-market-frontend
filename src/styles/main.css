@@ -2,15 +2,148 @@
 @tailwind components;
 @tailwind utilities;
 
-
-.wallet-provider-btn{
-    border: 1px solid #FD0000;
-    color: #000;
+.wallet-provider-btn {
+  border: 1px solid #fd0000;
+  color: #000;
 }
-.wallet-provider-btn:hover{
-    color: #fff !important;
+.wallet-provider-btn:hover {
+  color: #fff !important;
 }
 
 .ant-modal .ant-modal-content {
-    border-radius: 25px !important;
+  border-radius: 25px !important;
+}
+
+/* Back Button Responsive Styles */
+.backButtonSection {
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .backButtonSection {
+    margin-bottom: 1rem;
+  }
+
+  .backButtonSection button {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.875rem !important;
+  }
+
+  .backButtonSection button svg {
+    width: 1rem !important;
+    height: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .backButtonSection button span {
+    display: none;
+  }
+
+  .backButtonSection button {
+    min-width: 2.5rem !important;
+    padding: 0.5rem !important;
+  }
+}
+
+/* Enhanced Pagination Styles */
+.custom-pagination .ant-pagination-item {
+  border-radius: 12px !important;
+  border: 2px solid #f0f0f0 !important;
+  margin: 0 4px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  line-height: 36px !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-weight: 500 !important;
+  transition: all 0.3s ease !important;
+}
+
+.custom-pagination .ant-pagination-item:hover {
+  border-color: #fe0101 !important;
+  color: #fe0101 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(254, 1, 1, 0.2) !important;
+}
+
+.custom-pagination .ant-pagination-item-active {
+  background: #fe0101 !important;
+  border-color: #fe0101 !important;
+  color: white !important;
+  box-shadow: 0 4px 12px rgba(254, 1, 1, 0.3) !important;
+}
+
+.custom-pagination .ant-pagination-item-active:hover {
+  background: #e50000 !important;
+  border-color: #e50000 !important;
+  transform: translateY(-2px) !important;
+}
+
+.custom-pagination .ant-pagination-prev,
+.custom-pagination .ant-pagination-next {
+  border-radius: 12px !important;
+  border: 2px solid #f0f0f0 !important;
+  margin: 0 4px !important;
+  min-width: 40px !important;
+  height: 40px !important;
+  line-height: 36px !important;
+  transition: all 0.3s ease !important;
+}
+
+.custom-pagination .ant-pagination-prev:hover,
+.custom-pagination .ant-pagination-next:hover {
+  border-color: #fe0101 !important;
+  color: #fe0101 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(254, 1, 1, 0.2) !important;
+}
+
+.custom-pagination .ant-pagination-disabled,
+.custom-pagination .ant-pagination-disabled:hover {
+  border-color: #f0f0f0 !important;
+  color: #d9d9d9 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Mobile Responsive Enhancements */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .custom-pagination .ant-pagination-item,
+  .custom-pagination .ant-pagination-prev,
+  .custom-pagination .ant-pagination-next {
+    min-width: 32px !important;
+    height: 32px !important;
+    line-height: 28px !important;
+    font-size: 12px !important;
+    margin: 0 2px !important;
+  }
+
+  .searchAndFiltersWrapper {
+    margin-bottom: 2rem !important;
+  }
+
+  .filtersSection {
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-pagination .ant-pagination-item,
+  .custom-pagination .ant-pagination-prev,
+  .custom-pagination .ant-pagination-next {
+    min-width: 28px !important;
+    height: 28px !important;
+    line-height: 24px !important;
+    font-size: 11px !important;
+    margin: 0 1px !important;
+  }
+
+  .nftWrapper {
+    gap: 0.75rem !important;
+  }
 }

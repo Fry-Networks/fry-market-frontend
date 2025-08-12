@@ -20,6 +20,7 @@ import ts3 from "../assets/images/topSellers/ts3.jpg";
 import ts1 from "../assets/images/topSellers/tss1.webp";
 import leftGlow from "../assets/nftCollection/redGlow.webp";
 import ReadyForNext from "../components/home/readyForNext";
+import BackButton from "../components/shared/backButton";
 import { truncateString } from "../utils/getImageFromJson";
 
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
@@ -313,6 +314,11 @@ const TopSeller = () => {
         <img className=" bannerBack absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
         <img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
         <div className="container">
+          {/* Back Button */}
+          <div className="backButtonSection pt-6 mb-6">
+            <BackButton />
+          </div>
+
           <div className="flex bannerWrapper  gap-[146px] items-center h-[80vh]">
             <div className="headingDiv w-1/2">
               <h2 className="font-bold font-Apex darkBlack">

@@ -1,5 +1,6 @@
 // import leftImg from "../../assets/topCollection/bannerLeftImg.png";
 import { Icon } from '@iconify/react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import discord from '../../assets/icons/discordTC.svg'
 import internet from '../../assets/icons/internetIcon.png'
@@ -17,12 +18,38 @@ const PixacioBanner = ({
   totalListed = 0,
   totalListedAuctioned = 0,
 }: any) => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="topCollectionBanner w-full h-screenlg:h-auto flex-center my-24 ">
         <img src={topLeftGrid} className="top-0  left-0 absolute" alt="" />
         <img className=" grid absolute top-[-400px] right-0 -z-50" src={grid} alt="" />
         <div className="container">
+          {/* Back Button */}
+          <div className="backButtonSection mb-6">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-gray-300"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Back
+            </button>
+          </div>
+
           <div className="inner flex-center gap-2">
             <div className="leftArea w-2/5">
               <img

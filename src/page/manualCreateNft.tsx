@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
 import nft1 from "../assets/images/placeholder-image.webp";
+import BackButton from "../components/shared/backButton";
 import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 import Textarea from '../components/shared/textarea';
@@ -329,6 +330,11 @@ const ManualCreateNft = () => {
         <div className="nftCollection mt-[107px] h-[110vh] relative">
           <img className="glow absolute top-[-200px] -z-50" src={selectNftGlow} alt="" />
           <div className="container">
+            {/* Back Button */}
+            <div className="backButtonSection mb-6">
+              <BackButton />
+            </div>
+
             <div className="contentWrapper flex gap-8 leftArea">
               <div className="leftContent  flex flex-col items-start">
                 <div className='uploadDiv w-[300px] cursor-pointer'>
@@ -569,6 +575,12 @@ const ManualCreateNft = () => {
                             text="Mint NFT"
                             onClick={
                               () => {
+                                // Check validation first, then wallet connection
+                                if (!activeAccount?.address) {
+                                  toast.error("Please connect wallet first");
+                                  return;
+                                }
+
                                 if (validation()) {
                                   toast.promise(
                                     uploadImage(),
@@ -581,12 +593,7 @@ const ManualCreateNft = () => {
                                   )
                                 }
                                 else {
-                                  if (!activeAccount?.address) {
-                                    toast.error("Please connect wallet first");
-                                  }
-                                  else {
-                                    toast.error("Please provide all information.");
-                                  }
+                                  toast.error("Please provide all information.");
                                 }
                               }
                             }

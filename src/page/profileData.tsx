@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ProfilePage from "../components/artistProfile/profilePage";
 import ProfileSettingPage from "../components/artistProfile/profileSettingPage";
+import BackButton from "../components/shared/backButton";
 // fry
 const ProfileData = ({ setIsPfpChange }: any) => {
   const [activePage, setActivePage] = useState("profile");
@@ -20,6 +21,11 @@ const ProfileData = ({ setIsPfpChange }: any) => {
     <>
       <div className="profileDataWrapper">
         <div className="container">
+          {/* Back Button */}
+          <div className="backButtonSection mt-6 mb-4">
+            <BackButton />
+          </div>
+
           <div className="mt-12sm:mt:2 relative z-90 tabSection w-[236px] h-[50px] p-2 rounded-[10px] border border-3 border-solid border-[#E7E7E7]">
             <button
               className={`small font-medium font-Roboto w-[90px] h-[34px] ${activePage === "profile" ? "bg-red-500 text-white" : "darkBlack"

@@ -182,6 +182,30 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
         <img src={leftGlow} className="leftGlow absolute top-[-400px] left-0 -z-10" alt="" />
         <img src={rightGlow} className=" rightGlow absolute top-[-200px] right-0 -z-10" alt="" />
         <div className="container">
+          {/* Back Button */}
+          <div className="backButtonSection mt-6 mb-4">
+            <button
+              onClick={() => navigate(-1)}
+              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-gray-300"
+            >
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Back
+            </button>
+          </div>
+
           <div className="topSection flex items-start gap-6 mt-10">
             <div className="leftArea w-[546px]  flex flex-col gap-7 ">
               <img
