@@ -30,6 +30,7 @@ const CreateNftCollectionManual = () => {
   const [formData, setFormData] = useState({
     collection_name: '',
     description: '',
+    image_url: '',
   })
 
   // const [collectionDataFound, setCollectionDataFound] = useState<any>(false)
@@ -186,7 +187,9 @@ const CreateNftCollectionManual = () => {
                           ? formData.image_url
                           : prevImage == '' || prevImage == undefined
                             ? nft1
-                            : URL.createObjectURL(prevImage)
+                            : typeof prevImage === 'string'
+                              ? prevImage
+                              : URL.createObjectURL(prevImage)
                       }
                       alt="profile image"
                       style={{ width: '288px', objectFit: 'cover', cursor: 'pointer' }}
