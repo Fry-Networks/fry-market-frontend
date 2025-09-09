@@ -15,7 +15,6 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
   const [ownerSectionsVisible, setOwnerSectionsVisible] = useState(false)
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
-
   const navigate = useNavigate()
   const handleBuyNft = async () => {
     try {
@@ -155,10 +154,23 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
           <div className="area2 flex-start gap-3">
             <>
               <Button
-                className="button btn-primary large font-medium btnOffer"
+                className={`button btn-primary large font-medium btnOffer ${!activeAccount?.address ? 'relative' : ''}`}
                 minWidth={343}
                 minHeight={44}
-                text={isOwner ? (nftData.isListed ? 'Cancel' : 'List now') : forList ? (forClaim ? 'Claim now' : 'List now') : 'Buy now'}
+                text={
+                  isOwner
+                    ? nftData.isListed
+                      ? 'Cancel'
+                      : 'List now'
+                    : forList
+                      ? forClaim
+                        ? 'Claim now'
+                        : 'List now'
+                      : !activeAccount?.address
+                        ? 'Buy now 🔗'
+                        : 'Buy now'
+                }
+                title={!activeAccount?.address ? 'Connect wallet to buy NFTs' : undefined}
                 disabled={loading}
                 onClick={() => {
                   if (activeAccount?.address) {

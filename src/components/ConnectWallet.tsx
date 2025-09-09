@@ -1,8 +1,8 @@
-import { Provider, useWallet } from '@txnlab/use-wallet';
-import { Modal } from 'antd';
-import navTopLogo from "../assets/home/images/homeImages/navTopLogo.png";
-import redline from "../assets/modals/redLine.png";
-import Account from './Account';
+import { Provider, useWallet } from '@txnlab/use-wallet'
+import { Modal } from 'antd'
+import navTopLogo from '../assets/home/images/homeImages/navTopLogo.png'
+import redline from '../assets/modals/redLine.png'
+import Account from './Account'
 
 interface ConnectWalletInterface {
   openModal: boolean
@@ -14,20 +14,35 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
 
   const isKmd = (provider: Provider) => provider.metadata.name.toLowerCase() === 'kmd'
   const handleOk = () => {
-    closeModal();
-  };
+    // Prevent double execution
+    if (closeModal) {
+      closeModal()
+    }
+  }
+
+  const handleCancel = () => {
+    // Prevent double execution
+    if (closeModal) {
+      closeModal()
+    }
+  }
   return (
     <Modal
       open={openModal}
       onOk={handleOk}
-      onCancel={closeModal}
+      onCancel={handleCancel}
       centered={true}
       width={415}
-      footer={null}>
+      footer={null}
+      maskClosable={false}
+      destroyOnClose={true}
+    >
       <form method="dialog" className="relative modal-box bg-white max-w-md">
         <div className="w-full flex flex-col items-center justify-center gap-6 mt-5">
-          <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2] walletText">{activeAddress ? "Wallet Is Connected" : "Connect Your Wallet"}</h3>
-          <img className='max-w-[106px] max-h-[80px] w-full h-full object-cover' src={navTopLogo} alt="fry-logo" />
+          <h3 className="text-black uppercase text-2xl text-center font-[ApexMK2] walletText">
+            {activeAddress ? 'Wallet Is Connected' : 'Connect Your Wallet'}
+          </h3>
+          <img className="max-w-[106px] max-h-[80px] w-full h-full object-cover" src={navTopLogo} alt="fry-logo" />
           <img src={redline} alt="redline" />
           <div className="grid mb-2 w-full">
             {activeAddress && (
@@ -37,7 +52,6 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
               </>
             )}
             <div className="innerContent flex flex-col items-center gap-4 mt-4 ">
-
               {!activeAddress &&
                 providers?.map((provider) => (
                   <button
@@ -55,7 +69,7 @@ const ConnectWallet = ({ openModal, closeModal }: ConnectWalletInterface) => {
                         style={{ objectFit: 'contain', width: '30px', height: 'auto' }}
                       />
                     )}
-                    <span className='text-[#808080] font-Roboto'>{isKmd(provider) ? 'LocalNet Wallet' : provider.metadata.name}</span>
+                    <span className="text-[#808080] font-Roboto">{isKmd(provider) ? 'LocalNet Wallet' : provider.metadata.name}</span>
                   </button>
                 ))}
             </div>

@@ -33,6 +33,7 @@ const Banner = ({ prompt }: any) => {
   const [nftType, setNftType] = useState('single')
   const [collectionData, setCollectionData] = useState<any>([])
   const [selectedCollection, setSelectedCollection] = useState('Select Collection')
+  const [selectedCollectionData, setSelectedCollectionData] = useState<any>(null)
   const showGenerateNftModal = () => {
     if (activeAccount?.address) {
       if (!collectionData) {
@@ -44,6 +45,7 @@ const Banner = ({ prompt }: any) => {
           toast.error('Please enter a valid prompt.')
           return
         }
+        const selectedCollectionData = collectionData.find((col: any) => col._id === selectedCollection)
         setisgeneratemodal(true)
         // navigation("create-nft")
       } else {
@@ -88,7 +90,7 @@ const Banner = ({ prompt }: any) => {
         // console.log("Collection Data", response.data);
         setCollectionData(response.data.collections || [])
       } catch (e) {
-        console.log("Error Getting Collection", e);
+        console.log('Error Getting Collection', e)
         // toast.error("Error Creating Collection");
         setCollectionData([])
       }
@@ -151,10 +153,12 @@ const Banner = ({ prompt }: any) => {
                     />
                     <button
                       onClick={showGenerateNftModal}
-                      className="absolute top-[18px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2"
+                      className={`absolute top-[18px] right-3 bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2 transition-all duration-200 ${!activeAccount?.address ? 'hover:bg-red-600 cursor-pointer relative' : 'hover:opacity-80'
+                        }`}
+                      title={!activeAccount?.address ? 'Connect wallet to generate NFTs' : 'Generate NFT'}
                     >
-                      Generate
                       <img src={generateIcon} alt="" />
+                      {!activeAccount?.address && <span className="ml-1 text-xs">🔗</span>}
                     </button>
                   </div>
                 </div>
@@ -248,11 +252,18 @@ const Banner = ({ prompt }: any) => {
                 <div className="part4 flex flex-col w-full items-center gap-4">
                   <p className="font-semibold text-[#504e4e]">OR</p>
                   <Button
-                    className="button btn-primary large font-medium btnConnect font-Roboto"
+                    className={`button btn-primary large font-medium btnConnect font-Roboto ${!activeAccount?.address ? 'relative' : ''}`}
                     minWidth={213}
                     minHeight={58}
-                    text="Manual Create Nft"
-                    onClick={() => navigate('/manual-create-nft')}
+                    text={!activeAccount?.address ? 'Manual Create NFT 🔗' : 'Manual Create NFT'}
+                    title={!activeAccount?.address ? 'Connect wallet to create NFTs manually' : 'Create NFT manually'}
+                    onClick={() => {
+                      if (!activeAccount?.address) {
+                        toast.error('Please connect wallet first')
+                        return
+                      }
+                      navigate('/manual-create-nft')
+                    }}
                   />
                 </div>
               </div>

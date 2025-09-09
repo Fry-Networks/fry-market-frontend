@@ -20,26 +20,34 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
 
   const getAuctionedNft = async () => {
-    // if (activeAccount?.address) {
-
     try {
       setLoading(true)
       const response = await getAllAuctions()
+
+      let filteredAuctions = []
       if (moreByUser) {
-        setAuctionedNfts(
-          response
-            .filter((item) => item?.isListed)
-            .filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address),
-        )
+        filteredAuctions = response
+          .filter((item) => item?.isListed)
+          .filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address)
       } else {
-        setAuctionedNfts(response.filter((item) => item?.isListed))
+        filteredAuctions = response.filter((item) => item?.isListed)
       }
+
+      // Further filter for active auctions
+      const activeAuctions = filteredAuctions.filter((item) => {
+        const now = Date.now()
+        const startTime = Number(item.biddingStartTime) * 1000
+        const endTime = Number(item.biddingEndTime) * 1000
+        return startTime <= now && endTime > now
+      })
+
+      setAuctionedNfts(activeAuctions)
       setLoading(false)
     } catch (e) {
       console.log('Error Getting Auctioned Nft', e)
+      setAuctionedNfts([])
       setLoading(false)
     }
-    // }
   }
 
   useEffect(() => {
@@ -56,32 +64,35 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
             {/* {auctionCard.map((data, index) => (
               <AuctionCard key={data.id} data={data} showHiddenDiv={true} isAuctionPage={true} />
             ))} */}
-            {loading ? <div className="w-full h-full flex justify-center items-center col-span-4">
-              <Loader></Loader>
-            </div> :
-              Array.isArray(auctionedNfts) &&
-                auctionedNfts.filter(
-                  (data) => Number(data.biddingStartTime) * 1000 < Date.now() && Number(data.biddingEndTime) * 1000 > Date.now(),
-                ).length > 0
-                ? auctionedNfts
-                  .filter((data) => Number(data.biddingStartTime) * 1000 < Date.now() && Number(data.biddingEndTime) * 1000 > Date.now())
-                  .map((data: any, index: any) =>
-                    Number(data.biddingStartTime) * 1000 < Date.now() ? (
-                      <>
-                        <AuctionCard
-                          key={index}
-                          data={data}
-                          showHiddenDiv={true}
-                          isAuctionPage={true}
-                          getAuctionedNft={getAuctionedNft}
-                          collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]}
-                        />
-                      </>
-                    ) : (
-                      ''
-                    ),
-                  )
-                : 'No Nfts currently listed on Auction'}
+            {loading ? (
+              <div className="w-full h-full flex justify-center items-center col-span-4">
+                <Loader></Loader>
+              </div>
+            ) : Array.isArray(auctionedNfts) &&
+              auctionedNfts.filter(
+                (data) => Number(data.biddingStartTime) * 1000 < Date.now() && Number(data.biddingEndTime) * 1000 > Date.now(),
+              ).length > 0 ? (
+              auctionedNfts
+                .filter((data) => Number(data.biddingStartTime) * 1000 < Date.now() && Number(data.biddingEndTime) * 1000 > Date.now())
+                .map((data: any, index: any) =>
+                  Number(data.biddingStartTime) * 1000 < Date.now() ? (
+                    <>
+                      <AuctionCard
+                        key={index}
+                        data={data}
+                        showHiddenDiv={true}
+                        isAuctionPage={true}
+                        getAuctionedNft={getAuctionedNft}
+                        collectionData={collectionData[data?.sellerId ? data?.sellerId : 0]}
+                      />
+                    </>
+                  ) : (
+                    ''
+                  ),
+                )
+            ) : (
+              'No NFTs currently listed on Auction'
+            )}
           </div>
 
           <Button

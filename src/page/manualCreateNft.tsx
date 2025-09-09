@@ -1,68 +1,66 @@
-import { CloseOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons';
-import { useWallet } from '@txnlab/use-wallet';
-import { message } from 'antd';
-import { RcFile } from 'antd/es/upload';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import selectNftGlow from '../assets/createNft/selectedNftGlow.webp';
-import nft1 from "../assets/images/placeholder-image.webp";
-import BackButton from "../components/shared/backButton";
-import Button from "../components/shared/button";
-import Input from "../components/shared/input";
-import Textarea from '../components/shared/textarea';
-import { getAllCollectionNft, mintMultipleNft } from '../fryMarketMethods';
-import AddTraits from '../modals/addTraits';
-import MintNft from '../modals/mintNft';
+import { CloseOutlined, LoadingOutlined, PlusOutlined } from '@ant-design/icons'
+import { useWallet } from '@txnlab/use-wallet'
+import { message } from 'antd'
+import { RcFile } from 'antd/es/upload'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
+import selectNftGlow from '../assets/createNft/selectedNftGlow.webp'
+import nft1 from '../assets/images/placeholder-image.webp'
+import BackButton from '../components/shared/backButton'
+import Button from '../components/shared/button'
+import Input from '../components/shared/input'
+import Textarea from '../components/shared/textarea'
+import { getAllCollectionNft, mintMultipleNft } from '../fryMarketMethods'
+import AddTraits from '../modals/addTraits'
+import MintNft from '../modals/mintNft'
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
-
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const getBase64 = (img: RcFile, callback: (url: string) => void) => {
-  const reader = new FileReader();
-  reader.addEventListener('load', () => callback(reader.result as string));
-  reader.readAsDataURL(img);
-};
+  const reader = new FileReader()
+  reader.addEventListener('load', () => callback(reader.result as string))
+  reader.readAsDataURL(img)
+}
 
 const beforeUpload = (file: RcFile) => {
-  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
   if (!isJpgOrPng) {
-    message.error('You can only upload JPG/PNG file!');
+    message.error('You can only upload JPG/PNG file!')
   }
-  const isLt2M = file.size / 1024 / 1024 < 2;
+  const isLt2M = file.size / 1024 / 1024 < 2
   if (!isLt2M) {
-    message.error('Image must smaller than 2MB!');
+    message.error('Image must smaller than 2MB!')
   }
-  return isJpgOrPng && isLt2M;
-};
+  return isJpgOrPng && isLt2M
+}
 
 const ManualCreateNft = () => {
-
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
   const onSwitch = (checked: any) => {
     // console.log(`switch to ${checked}`);
-  };
-  const [loading, setLoading] = useState(false);
+  }
+  const [loading, setLoading] = useState(false)
   const [mintLoading, setMintLoading] = useState(false)
-  const [imageUrl, setImageUrl] = useState<string | null>(null);
-  const [showOriginalContent, setShowOriginalContent] = useState(true);
-  const [value, setValue] = useState("blue: fox");
-  const [isEditing, setIsEditing] = useState(false);
-  const [istraitmodal, setistraitmodal] = useState(false);
-  const [ismintmodal, setismintmodal] = useState(false);
-  const [prevImage, setPrevImage] = useState("")
-  const [collectionData, setCollectionData] = useState<any>(false);
+  const [imageUrl, setImageUrl] = useState<string | null>(null)
+  const [showOriginalContent, setShowOriginalContent] = useState(true)
+  const [value, setValue] = useState('blue: fox')
+  const [isEditing, setIsEditing] = useState(false)
+  const [istraitmodal, setistraitmodal] = useState(false)
+  const [ismintmodal, setismintmodal] = useState(false)
+  const [prevImage, setPrevImage] = useState('')
+  const [collectionData, setCollectionData] = useState<any>(false)
   const [formData, setFormData] = useState<any>({})
   const [collectionSelected, setCollectionSelected] = useState(false)
   const [traits, setTraits] = useState<any>({})
-  const [traitName, setTraitName] = useState<any>("")
-  const [traitValue, setTraitValue] = useState<any>("")
-  const [selectedCollection, setSelectedCollection] = useState<string | null>(null);
+  const [traitName, setTraitName] = useState<any>('')
+  const [traitValue, setTraitValue] = useState<any>('')
+  const [selectedCollection, setSelectedCollection] = useState<string | null>(null)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const { activeAccount, signer, signTransactions, sendTransactions } = useWallet()
   // const handleChange = (info: any) => {
   //     if (info.file.status === 'uploading') {
@@ -78,12 +76,12 @@ const ManualCreateNft = () => {
   // };
 
   const handleChange = (event: any) => {
-    const { name, value } = event.target;
+    const { name, value } = event.target
     setFormData((prevData: any) => ({
       ...prevData,
       [name]: value,
-    }));
-  };
+    }))
+  }
 
   const handleInput = (e: any) => {
     // console.log(e.target.files[0])
@@ -102,160 +100,141 @@ const ManualCreateNft = () => {
         alignItems: 'center',
         justifyContent: 'center',
         cursor: 'pointer',
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
       }}
     >
       {loading ? <LoadingOutlined /> : <PlusOutlined style={{ fontSize: 24 }} />}
       <div style={{ marginTop: 8, fontSize: 16, color: '#bfbfbf' }}>Upload</div>
     </div>
-  );
+  )
 
   const handleEditClick = () => {
-    setIsEditing(true);
-  };
+    setIsEditing(true)
+  }
 
   const handleClearClick = (key: any) => {
     // console.log('f', key);
 
     setTraits((prev: any) => {
-      let traits = { ...prev };
+      const traits = { ...prev }
       // console.log("rr", traits);
 
       delete traits[key]
       // console.log("rr", traits);
 
-      return traits;
+      return traits
     })
-  };
+  }
 
   const handleBackClick = () => {
     if (!showOriginalContent) {
-      setShowOriginalContent(true);
+      setShowOriginalContent(true)
     } else {
       // Handle navigation to create-nft page here
     }
-  };
+  }
 
   const handleChooseFromExistedClick = () => {
-    setShowOriginalContent(false);
-  };
+    setShowOriginalContent(false)
+  }
 
   const showAddTraitModal = () => {
-    setistraitmodal(true);
-  };
+    setistraitmodal(true)
+  }
 
   const showMintModal = () => {
-    setismintmodal(true);
-  };
+    setismintmodal(true)
+  }
 
   const getCollectionData = async () => {
     if (activeAccount?.address) {
       try {
-        const response = await axios.get(`${baseUrl}/get-collections/${activeAccount.address}`);
-        setCollectionData(response.data.collections);
-        console.log("Collections", response.data.collections);
+        const response = await axios.get(`${baseUrl}/get-collections/${activeAccount.address}`)
+        setCollectionData(response.data.collections)
+        console.log('Collections', response.data.collections)
       } catch (error) {
-        console.error("Error fetching collections:", error);
-        toast.error("Error loading collections");
+        console.error('Error fetching collections:', error)
+        toast.error('Error loading collections')
       }
     }
-  };
+  }
   const validation = () => {
     const baseValidation =
       formData.itemName?.trim() &&
       formData.itemSymbol?.trim() &&
       formData.itemDescription?.trim() &&
       prevImage &&
-      Object.keys(traits).length > 0;
+      Object.keys(traits).length > 0
 
     if (collectionData.length > 0) {
-      return baseValidation && selectedCollection !== null;
+      return baseValidation && selectedCollection !== null
     }
 
-    return baseValidation;
-  };
+    return baseValidation
+  }
   const uploadImage = async () => {
-
     try {
       return new Promise(async (resolve, reject) => {
         try {
-          setMintLoading(true);
-          const formDataForImage = new FormData;
-          formDataForImage.append("image", prevImage);
-          const response = await axios.post(`${baseUrl}/upload-nft-image`, formDataForImage);
+          setMintLoading(true)
+          const formDataForImage = new FormData()
+          formDataForImage.append('image', prevImage)
+          const response = await axios.post(`${baseUrl}/upload-nft-image`, formDataForImage)
           // console.log("Response in upload Image", response.data);
           setFormData((prev: any) => ({ ...prev, image_url: response.data?.url }))
           if (response.data?.url) {
-            let metaData = {
-              "image": response.data?.url,
-              "name": formData.itemName,
-              "description": formData.itemDescription,
-              "extra": {},
-              "standard": "arc3",
-              "properties": {
-                ...traits
+            const metaData = {
+              image: response.data?.url,
+              name: formData.itemName,
+              description: formData.itemDescription,
+              extra: {},
+              standard: 'arc3',
+              properties: {
+                ...traits,
               },
-              "image_mime_type": "image/png",
-              "extra_properties": {}
+              image_mime_type: 'image/png',
+              extra_properties: {},
             }
-            const metaDataResponse = await axios.post(`${baseUrl}/upload-metadata`, metaData);
+            const metaDataResponse = await axios.post(`${baseUrl}/upload-metadata`, metaData)
             // console.log("Response in upload Image", metaDataResponse?.data?.url);
             if (metaDataResponse?.data?.url) {
-
-
-
               if (await mintNft({ ...metaData, metadata: metaDataResponse?.data?.url })) {
-                setMintLoading(false);
+                setMintLoading(false)
 
-                resolve(true);
-                navigate("/artist-profile")
-              }
-              else {
-                setMintLoading(false);
+                resolve(true)
+                navigate('/artist-profile')
+              } else {
+                setMintLoading(false)
 
                 reject(false)
               }
-            }
-            else {
+            } else {
               // console.log("Some Error Occured while uploading meta data. Please try again.");
-              setMintLoading(false);
+              setMintLoading(false)
 
               reject(false)
-
             }
-
-          }
-          else {
+          } else {
             // console.log("Some Error Occured while uploading image. Please try again.");
-            setMintLoading(false);
+            setMintLoading(false)
 
             reject(false)
-
           }
-        }
-        catch (e) {
-          setMintLoading(false);
+        } catch (e) {
+          setMintLoading(false)
 
-          reject(false);
+          reject(false)
         }
-
       })
-
-
-
-    }
-    catch (e) {
+    } catch (e) {
       // console.log("Error Uploading Image", e);
-      return e;
-
+      return e
     }
-
-
   }
 
   const mintNft = async (imageUrl: any) => {
     try {
-      const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || "", signer, signTransactions, sendTransactions, "")
+      const response: any = await mintMultipleNft([imageUrl], activeAccount?.address || '', signer, signTransactions, sendTransactions, '')
       // console.log("response after minting", response);
       // toast.success("Mint Successful")
       // if (response) {
@@ -266,61 +245,48 @@ const ManualCreateNft = () => {
 
       // }
       return true
-
-    }
-    catch (e) {
+    } catch (e) {
       // console.log("Error Creating Collection");
       // toast.error("Error Creating Collection");
       return false
-
     }
   }
 
-
-
   useEffect(() => {
     if (activeAccount?.address) {
-
       getCollectionData()
     }
   }, [activeAccount])
 
   useEffect(() => {
-    getNfts();
+    getNfts()
   }, [activeAccount])
   const getNfts = async () => {
     try {
       // console.log("hehehe");
 
       if (activeAccount?.address) {
-
-        const response = await getAllCollectionNft(activeAccount?.address);
+        const response = await getAllCollectionNft(activeAccount?.address)
         // console.log("got NFTS", response);
-
       }
-
-    } catch (error) {
-
-    }
+    } catch (error) { }
   }
 
   const handleTraitAdd = () => {
     if (traitName && traitValue) {
       if (!Object.keys(traits).includes(traitName)) {
         if (traitName?.replace(/\s+/g, '').length == 0 && traitValue?.replace(/\s+/g, '').length == 0) {
-          toast.error("Trait name and value can not be empty")
-          return;
+          toast.error('Trait name and value can not be empty')
+          return
         }
         setTraits((prev: any) => ({ ...prev, [traitName]: traitValue }))
-        setTraitName("")
-        setTraitValue("")
+        setTraitName('')
+        setTraitValue('')
+      } else {
+        toast.error('Trait already exists')
       }
-      else {
-        toast.error("Trait already exists")
-      }
-    }
-    else {
-      toast.error("Please give trait name and trait value");
+    } else {
+      toast.error('Please give trait name and trait value')
     }
   }
 
@@ -337,7 +303,7 @@ const ManualCreateNft = () => {
 
             <div className="contentWrapper flex gap-8 leftArea">
               <div className="leftContent  flex flex-col items-start">
-                <div className='uploadDiv w-[300px] cursor-pointer'>
+                <div className="uploadDiv w-[300px] cursor-pointer">
                   {/* <Upload
                                         name="avatar"
                                         listType="picture-card"
@@ -363,24 +329,37 @@ const ManualCreateNft = () => {
                                     </Upload> */}
 
                   <label htmlFor="collectionImage" className="block cursor-pointer">
-                    <img src={
-                      // @ts-ignore
-                      prevImage == "" || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)} alt="profile image" style={{ width: "288px", objectFit: "cover", cursor: "pointer" }} />
-                    <input className="hidden cursor-pointer" id="collectionImage" type="file" accept="image/png, image/jpeg, image/webp,image/jpg" onChange={handleInput} />
+                    <img
+                      src={
+                        // @ts-ignore
+                        prevImage == '' || prevImage == undefined ? nft1 : URL.createObjectURL(prevImage)
+                      }
+                      alt="profile image"
+                      style={{ width: '288px', objectFit: 'cover', cursor: 'pointer' }}
+                    />
+                    <input
+                      className="hidden cursor-pointer"
+                      id="collectionImage"
+                      type="file"
+                      accept="image/png, image/jpeg, image/webp,image/jpg"
+                      onChange={handleInput}
+                    />
                     <span
-                      className="btn-gray w-full darkGray mt-7 text-center block" style={{ border: "1px solid #E7E7E7", borderRadius: "10px", padding: "10px" }}> Choose file <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span> </span>
+                      className="btn-gray w-full darkGray mt-7 text-center block"
+                      style={{ border: '1px solid #E7E7E7', borderRadius: '10px', padding: '10px' }}
+                    >
+                      {' '}
+                      Choose file <span style={{ color: '#FD0000', cursor: 'pointer' }}>*</span>{' '}
+                    </span>
                   </label>
-
                 </div>
               </div>
 
               <div className="w-[992px]  rightContent">
                 {showOriginalContent ? (
-                  <div className='rightText'>
+                  <div className="rightText">
                     <div className="manualDiv py-4 px-[89px] bg-white box-shadow rounded-[20px]">
-                      <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">
-                        MANUAL CREATE NFT
-                      </h2>
+                      <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24">Manual Create NFT</h2>
                       <div className="flex flex-col gap-7">
                         <div>
                           <Input
@@ -412,11 +391,10 @@ const ManualCreateNft = () => {
                               <>
                                 <div className="flex flex-col gap-2">
                                   <span className="mb-1 font-medium">
-                                    Description <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span>
+                                    Description <span style={{ color: '#FD0000', cursor: 'pointer' }}>*</span>
                                   </span>
                                   <span className="medium ">
-                                    The description will be included on the
-                                    item's detail page underneath its image.
+                                    The description will be included on the item's detail page underneath its image.
                                   </span>
                                 </div>
                               </>
@@ -432,7 +410,7 @@ const ManualCreateNft = () => {
                         <div className="chooseCollection my-3">
                           <div className="chooseContent w-full flex justify-between items-center">
                             <p className="darkBlack large font-medium font-Roboto">
-                              Choose Collection <span style={{ color: "#FD0000" }}>*</span>
+                              Choose Collection <span style={{ color: '#FD0000' }}>*</span>
                             </p>
                           </div>
 
@@ -442,17 +420,13 @@ const ManualCreateNft = () => {
                                 <div
                                   key={collection._id}
                                   className={`collectionItem p-4 rounded-xl border-2 cursor-pointer transition-all ${selectedCollection === collection._id
-                                    ? 'border-primary shadow-lg'
-                                    : 'border-[#E7E7E7] hover:border-gray-400'
+                                      ? 'border-primary shadow-lg'
+                                      : 'border-[#E7E7E7] hover:border-gray-400'
                                     }`}
                                   onClick={() => setSelectedCollection(collection._id)}
                                 >
                                   <div className="flex items-center gap-4">
-                                    <img
-                                      src={collection.image_url}
-                                      alt={collection.name}
-                                      className="w-16 h-16 rounded-lg object-cover"
-                                    />
+                                    <img src={collection.image_url} alt={collection.name} className="w-16 h-16 rounded-lg object-cover" />
                                     <div>
                                       <h4 className="font-medium text-lg">{collection.collection_name}</h4>
                                       {/* <p className="text-gray-500 text-sm">
@@ -467,13 +441,11 @@ const ManualCreateNft = () => {
                             <div className="newCollectionDiv mt-4">
                               <div
                                 className="createNewCollection rounded-xl border-2 border-dashed border-[#E7E7E7] p-4 text-center cursor-pointer hover:border-gray-400 transition-all"
-                                onClick={() => navigate("/create-collection")}
+                                onClick={() => navigate('/create-collection')}
                               >
                                 <PlusOutlined className="text-2xl mb-2" />
                                 <p className="font-medium">Create New Collection</p>
-                                <p className="text-sm text-gray-500 mt-1">
-                                  You need a collection to mint NFTs
-                                </p>
+                                <p className="text-sm text-gray-500 mt-1">You need a collection to mint NFTs</p>
                               </div>
                             </div>
                           )}
@@ -481,16 +453,31 @@ const ManualCreateNft = () => {
 
                         <div className="addTraits flex flex-col gap-3">
                           <p className="darkBlack large font-medium font-Roboto">
-                            Add Traits <span style={{ color: "#FD0000", cursor: "pointer" }}>*</span>
+                            Add Traits <span style={{ color: '#FD0000', cursor: 'pointer' }}>*</span>
                           </p>
                           <p className="darkBlack font-Roboto medium font-normal">
-                            Traits describe attributes of your item. They appear
-                            as filters inside your collection page and are also
-                            shown on the item's detail page.
+                            Traits describe attributes of your item. They appear as filters inside your collection page and are also shown
+                            on the item's detail page.
                           </p>
-                          <div className='flex items-center justify-start gap-7 w-full flex-wrap'>
-                            <input type="text" placeholder='Trait Name' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' value={traitName} onChange={(e) => { setTraitName(e.target.value) }} />
-                            <input type="text" placeholder='Trait Value' className='flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4' value={traitValue} onChange={(e) => { setTraitValue(e.target.value) }} />
+                          <div className="flex items-center justify-start gap-7 w-full flex-wrap">
+                            <input
+                              type="text"
+                              placeholder="Trait Name"
+                              className="flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4"
+                              value={traitName}
+                              onChange={(e) => {
+                                setTraitName(e.target.value)
+                              }}
+                            />
+                            <input
+                              type="text"
+                              placeholder="Trait Value"
+                              className="flex w-[195px] h-[50px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl pl-4"
+                              value={traitValue}
+                              onChange={(e) => {
+                                setTraitValue(e.target.value)
+                              }}
+                            />
 
                             <Button
                               className="button btn-primary small font-medium btnConnect font-Roboto"
@@ -510,8 +497,7 @@ const ManualCreateNft = () => {
                                 onChange={(e: any) => setValue(e.target.value)}
                                 placeholder={`${keyName}: ${traits[keyName]}`}
                                 className="w-full"
-                                inputClass={`w-full  bg-[#F4F4F4] border-none pl-4 pr-12 ${isEditing ? "outline-none focus:ring-2" : ""
-                                  }`}
+                                inputClass={`w-full  bg-[#F4F4F4] border-none pl-4 pr-12 ${isEditing ? 'outline-none focus:ring-2' : ''}`}
                                 readOnly={!isEditing}
                               />
                               <div className="absolute inset-y-0 right-5 top-2 flex items-center space-x-8 pr-2">
@@ -520,14 +506,9 @@ const ManualCreateNft = () => {
                                                                     onClick={() => { handleEditClick(); showAddTraitModal(); }}
                                                                 /> */}
                                 <div className="h-[24px] w-[1px] bg-gray-400"></div>
-                                <CloseOutlined
-                                  className="text-gray-500 cursor-pointer"
-                                  onClick={() => handleClearClick(keyName)}
-                                />
+                                <CloseOutlined className="text-gray-500 cursor-pointer" onClick={() => handleClearClick(keyName)} />
                               </div>
                             </div>
-
-
                           ))}
 
                           {/* <Button
@@ -546,7 +527,6 @@ const ManualCreateNft = () => {
                                                         onClick={showMintModal}
                                                     />
                                                 </div> */}
-
 
                         {/* <div onClick={showAddTraitModal} className="flex w-[195px] h-[58px] justify-center gap-2 border-2 border-[#E7E7E7] border-solid items-center rounded-2xl">
                                                     <p className="lightGray font-normal medium font-Roboto">
@@ -571,44 +551,35 @@ const ManualCreateNft = () => {
                                                         onClick={showMintModal}
                                                     /> */}
                           <Button
-                            className="btn-primary px-8 py-4 mb-5"
-                            text="Mint NFT"
-                            onClick={
-                              () => {
-                                // Check validation first, then wallet connection
-                                if (!activeAccount?.address) {
-                                  toast.error("Please connect wallet first");
-                                  return;
-                                }
-
-                                if (validation()) {
-                                  toast.promise(
-                                    uploadImage(),
-                                    {
-                                      pending: "NFT is minting Please don\'t leave the page",
-                                      error: "There was an error Minting NFT",
-                                      success: "NFT minted successfully"
-
-                                    }
-                                  )
-                                }
-                                else {
-                                  toast.error("Please provide all information.");
-                                }
+                            className={`btn-primary px-8 py-4 mb-5 ${!activeAccount?.address ? 'relative' : ''}`}
+                            text={!activeAccount?.address ? 'Mint NFT 🔗' : 'Mint NFT'}
+                            title={!activeAccount?.address ? 'Connect wallet to mint NFTs' : 'Mint your NFT'}
+                            onClick={() => {
+                              // Check validation first, then wallet connection
+                              if (!activeAccount?.address) {
+                                toast.error('Please connect wallet first')
+                                return
                               }
-                            }
+
+                              if (validation()) {
+                                toast.promise(uploadImage(), {
+                                  pending: "NFT is minting Please don't leave the page",
+                                  error: 'There was an error Minting NFT',
+                                  success: 'NFT minted successfully',
+                                })
+                              } else {
+                                toast.error('Please provide all information.')
+                              }
+                            }}
                             disabled={loading}
                           />
                         </div>
-
                       </div>
                     </div>
                   </div>
                 ) : (
                   <div className="w-full">
-                    <p className="text-center mt-[100px] text-xl font-semibold">
-                      Choose Collection
-                    </p>
+                    <p className="text-center mt-[100px] text-xl font-semibold">Choose Collection</p>
                   </div>
                 )}
               </div>
@@ -618,20 +589,12 @@ const ManualCreateNft = () => {
       </div>
 
       {/* Add Traits Modal */}
-      <AddTraits
-        isModalOpen={istraitmodal}
-        handleCancel={() => setistraitmodal(false)}
-        handleOk={() => setistraitmodal(false)}
-      />
+      <AddTraits isModalOpen={istraitmodal} handleCancel={() => setistraitmodal(false)} handleOk={() => setistraitmodal(false)} />
 
       {/* Mint NFT Modal */}
-      <MintNft
-        isModalOpen={ismintmodal}
-        handleCancel={() => setismintmodal(false)}
-        handleOk={() => setismintmodal(false)}
-      />
+      <MintNft isModalOpen={ismintmodal} handleCancel={() => setismintmodal(false)} handleOk={() => setismintmodal(false)} />
     </>
-  );
-};
+  )
+}
 
-export default ManualCreateNft;
+export default ManualCreateNft

@@ -10,6 +10,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 
 import OtherProfilePage from './components/artistProfile/otherProfilePage'
 import ConnectWallet from './components/ConnectWallet'
+import Footer from './components/layout/footer'
 import Navbar from './components/layout/navbar'
 import ExploreListedNfts from './components/nftDetail/nftExplore'
 import Transact from './components/Transact'
@@ -110,6 +111,7 @@ export default function App() {
     location.pathname === '/nft-collection' ||
     location.pathname === '/top-collection' ||
     location.pathname === '/nft-detail' ||
+    location.pathname.startsWith('/nft/') ||
     location.pathname === '/top-seller' ||
     location.pathname === '/seller-collection' ||
     location.pathname === '/create-nft-page' ||
@@ -145,6 +147,7 @@ export default function App() {
             <Route path="/select-nft" element={<SelectedNft />} />
             <Route path="/multiple-collect" element={<MultipleCollect />} />
             <Route path="/nft-detail" element={<NftDetail />} />
+            <Route path="/nft/:assetId" element={<NftDetail />} />
             <Route path="/auction-detail" element={<AuctionDetail />} />
             <Route path="/create-nft-page" element={<CreateNftPage />} />
             <Route path="/artist-profile" element={<ArtistsProfile setIsPfpChange={setIsPfpChange} />} />
@@ -155,8 +158,7 @@ export default function App() {
             <Route path="/contract" element={<ContractHome />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
-          {/* {isNavbar ? <Footer /> : ""} */}
-          {/* <Footer /> */}
+          {isNavbar ? <Footer /> : ''}
           <ConnectWallet openModal={openWalletModal} closeModal={toggleWalletModal} />
           <Transact openModal={openDemoModal} setModalState={setOpenDemoModal} />
         </WalletProvider>

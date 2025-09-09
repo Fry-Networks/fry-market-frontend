@@ -1,113 +1,162 @@
-import { Pagination, Select } from 'antd';
-import { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import bannerGrid from "../../assets/auction/auctionGrid.png";
-import auctionTopGrid from "../../assets/auction/auctionTopGrid.webp";
-import bannerImg1 from "../../assets/auction/bannerImg1.webp";
-import bannerImg2 from "../../assets/auction/bannerImg2.png";
-import bannerImg3 from "../../assets/auction/bannerImg3.png";
-import bannerImg4 from "../../assets/auction/bannerImg4.png";
-import CollectionsCard from '../cards/collectionsCard';
-import Input from '../shared/input';
+import { Pagination, Select } from 'antd'
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+import bannerGrid from '../../assets/auction/auctionGrid.png'
+import auctionTopGrid from '../../assets/auction/auctionTopGrid.webp'
+import bannerImg1 from '../../assets/auction/bannerImg1.webp'
+import bannerImg2 from '../../assets/auction/bannerImg2.png'
+import bannerImg3 from '../../assets/auction/bannerImg3.png'
+import bannerImg4 from '../../assets/auction/bannerImg4.png'
+import { getAllListed } from '../../fryMarketMethods'
+import CollectionsCard from '../cards/collectionsCard'
+import Input from '../shared/input'
 
 const ExploreListedNfts = () => {
-  const location = useLocation();
-  const { listedNfts } = location.state || {}; // Get the listed NFTs passed via state
+  const location = useLocation()
+  const { listedNfts } = (location.state || {}) as any // Get the listed NFTs passed via state if available
 
   // Pagination and search state
-  const [searchTerm, setSearchTerm] = useState('');
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(12); // 12 items per page (3 rows of 4)
-  const [sortBy, setSortBy] = useState('name'); // Default sort
-  const [priceRange, setPriceRange] = useState('all');
+  const [searchTerm, setSearchTerm] = useState('')
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize] = useState(12) // 12 items per page (3 rows of 4)
+  const [sortBy, setSortBy] = useState('name') // Default sort
+  const [priceRange, setPriceRange] = useState('all')
+
+  // Use a local copy so we can fetch if location state wasn't provided
+  const [localListedNfts, setLocalListedNfts] = useState<any[]>(Array.isArray(listedNfts) ? listedNfts : [])
 
   // Filter and sort NFTs based on criteria
   const getFilteredAndSortedNfts = () => {
-    let filtered = Array.isArray(listedNfts)
-      ? listedNfts.filter((nft: any) =>
-        nft.isListed && (
-          nft.nftName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          nft.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          nft.seller?.toLowerCase().includes(searchTerm.toLowerCase())
-        )
-      )
-      : [];
+    const base = Array.isArray(localListedNfts) ? localListedNfts : []
+
+    const filtered = base.filter((nft: any) => {
+      if (!nft || !nft.isListed) return false
+
+      // normalize searchable strings (support several possible shapes)
+      const name = (nft.name || nft.nftName || nft.params?.name || '').toString().toLowerCase()
+      const description = (nft.description || nft.params?.description || '').toString().toLowerCase()
+      const seller = (nft.seller || nft.params?.creator || '').toString().toLowerCase()
+      const q = searchTerm.toLowerCase()
+
+      if (!q) return true
+      return name.includes(q) || description.includes(q) || seller.includes(q)
+    })
 
     // Price filtering
     if (priceRange !== 'all') {
       filtered = filtered.filter((nft: any) => {
-        const price = parseFloat(nft.price) / 1000000; // Convert from micro units
+        const price = parseFloat(nft.price || nft.params?.price || '0') / 1000000 // Convert from micro units
         switch (priceRange) {
-          case 'low': return price < 10;
-          case 'medium': return price >= 10 && price <= 100;
-          case 'high': return price > 100;
-          default: return true;
+          case 'low':
+            return price < 10
+          case 'medium':
+            return price >= 10 && price <= 100
+          case 'high':
+            return price > 100
+          default:
+            return true
         }
-      });
+      })
     }
 
     // Sorting
     filtered.sort((a: any, b: any) => {
       switch (sortBy) {
         case 'name':
-          return (a.nftName || '').localeCompare(b.nftName || '');
+          return (a.nftName || '').localeCompare(b.nftName || '')
         case 'price-low':
-          return parseFloat(a.price) - parseFloat(b.price);
+          return parseFloat(a.price) - parseFloat(b.price)
         case 'price-high':
-          return parseFloat(b.price) - parseFloat(a.price);
+          return parseFloat(b.price) - parseFloat(a.price)
         case 'newest':
-          return new Date(b.listTime).getTime() - new Date(a.listTime).getTime();
+          return new Date(b.listTime).getTime() - new Date(a.listTime).getTime()
         default:
-          return 0;
+          return 0
       }
-    });
+    })
 
-    return filtered;
-  };
+    return filtered
+  }
 
-  const filteredNfts = getFilteredAndSortedNfts();
+  const filteredNfts = getFilteredAndSortedNfts()
 
   // Calculate pagination
-  const startIndex = (currentPage - 1) * pageSize;
-  const endIndex = startIndex + pageSize;
-  const paginatedNfts = filteredNfts.slice(startIndex, endIndex);
+  const startIndex = (currentPage - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  const paginatedNfts = filteredNfts.slice(startIndex, endIndex)
 
   const handleSearch = (e: any) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1); // Reset to first page when searching
-  };
+    setSearchTerm(e.target.value)
+    setCurrentPage(1) // Reset to first page when searching
+  }
 
   const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
   const clearFilters = () => {
-    setSearchTerm('');
-    setSortBy('name');
-    setPriceRange('all');
-    setCurrentPage(1);
-  };
+    setSearchTerm('')
+    setSortBy('name')
+    setPriceRange('all')
+    setCurrentPage(1)
+  }
+
+  // If the user navigated directly to the page (no state), fetch listings
+  useEffect(() => {
+    const loadIfNeeded = async () => {
+      if (!Array.isArray(listedNfts) || listedNfts.length === 0) {
+        try {
+          const resp = await getAllListed()
+          setLocalListedNfts(resp || [])
+        } catch (e) {
+          setLocalListedNfts([])
+        }
+      } else {
+        setLocalListedNfts(listedNfts)
+      }
+    }
+    loadIfNeeded()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     // Scroll to the top when this component is mounted
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
   return (
     <div className="exploreWrapper ">
       <div className="container">
         <div className="auctionBannerWrapper my-20 sm:my-40 relative pb-7">
-          <img className='bannergrid absolute right-[0px] bottom-[-300px] -z-10 hidden sm:block' src={bannerGrid} alt="" />
-          <img className='bannergrid absolute left-[0px] top-[-100px] -z-10 hidden sm:block' src={auctionTopGrid} alt="" />
+          <img className="bannergrid absolute right-[0px] bottom-[-300px] -z-10 hidden sm:block" src={bannerGrid} alt="" />
+          <img className="bannergrid absolute left-[0px] top-[-100px] -z-10 hidden sm:block" src={auctionTopGrid} alt="" />
 
           <div className="container">
             <div className="bannerInner flex flex-col items-center justify-start gap-4 sm:gap-6">
-              <h1 className='text-4xl sm:text-6xl md:text-8xl lg:text-[150px] primary font-bold font-Apex text-center tracking-wider lg:tracking-[6px]'>LISTING</h1>
+              <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-[150px] primary font-bold font-Apex text-center tracking-wider lg:tracking-[6px]">
+                LISTING
+              </h1>
               <div className="nftDiv flex flex-wrap sm:flex-nowrap items-end justify-center gap-2 sm:gap-4 px-4 sm:px-0">
-                <img className='max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[120px] sm:max-h-[200px] lg:max-h-[273px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]' src={bannerImg1} alt="" />
-                <img className='max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[80px] sm:max-h-[120px] lg:max-h-[162px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]' src={bannerImg2} alt="" />
-                <img className='max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[80px] sm:max-h-[120px] lg:max-h-[162px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]' src={bannerImg3} alt="" />
-                <img className='max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[120px] sm:max-h-[200px] lg:max-h-[273px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]' src={bannerImg4} alt="" />
+                <img
+                  className="max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[120px] sm:max-h-[200px] lg:max-h-[273px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]"
+                  src={bannerImg1}
+                  alt=""
+                />
+                <img
+                  className="max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[80px] sm:max-h-[120px] lg:max-h-[162px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]"
+                  src={bannerImg2}
+                  alt=""
+                />
+                <img
+                  className="max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[80px] sm:max-h-[120px] lg:max-h-[162px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]"
+                  src={bannerImg3}
+                  alt=""
+                />
+                <img
+                  className="max-w-[120px] sm:max-w-[200px] lg:max-w-[273px] max-h-[120px] sm:max-h-[200px] lg:max-h-[273px] w-full h-full object-cover rounded-xl sm:rounded-2xl lg:rounded-3xl border-solid border-4 sm:border-6 lg:border-[10px] border-[#fff] shadow-[2px_2px_8px_0px_rgba(0,0,0,0.15)] sm:shadow-[4px_4px_15px_0px_rgba(0,0,0,0.20)]"
+                  src={bannerImg4}
+                  alt=""
+                />
               </div>
             </div>
           </div>
@@ -149,15 +198,8 @@ const ExploreListedNfts = () => {
               <div className="flex flex-col sm:flex-row gap-4 flex-1">
                 {/* Sort By */}
                 <div className="filterGroup flex-1 min-w-0">
-                  <label className="font-Roboto font-medium darkBlack mb-2 block text-xs sm:text-sm">
-                    Sort By
-                  </label>
-                  <Select
-                    value={sortBy}
-                    onChange={setSortBy}
-                    style={{ width: '100%', height: 40 }}
-                    className="custom-select w-full"
-                  >
+                  <label className="font-Roboto font-medium darkBlack mb-2 block text-xs sm:text-sm">Sort By</label>
+                  <Select value={sortBy} onChange={setSortBy} style={{ width: '100%', height: 40 }} className="custom-select w-full">
                     <Select.Option value="name">Name (A-Z)</Select.Option>
                     <Select.Option value="price-low">Price (Low to High)</Select.Option>
                     <Select.Option value="price-high">Price (High to Low)</Select.Option>
@@ -167,9 +209,7 @@ const ExploreListedNfts = () => {
 
                 {/* Price Range */}
                 <div className="filterGroup flex-1 min-w-0">
-                  <label className="font-Roboto font-medium darkBlack mb-2 block text-xs sm:text-sm">
-                    Price Range
-                  </label>
+                  <label className="font-Roboto font-medium darkBlack mb-2 block text-xs sm:text-sm">Price Range</label>
                   <Select
                     value={priceRange}
                     onChange={setPriceRange}
@@ -187,14 +227,10 @@ const ExploreListedNfts = () => {
               {/* Results Info */}
               <div className="resultsInfo mt-4 lg:mt-0 lg:ml-6">
                 <div className="bg-gradient-to-r from-red-50 to-pink-50 rounded-lg sm:rounded-xl p-3 sm:p-4 text-center lg:text-left min-w-fit">
-                  <p className="font-Roboto font-bold darkBlack text-lg sm:text-xl">
-                    {filteredNfts.length}
-                  </p>
+                  <p className="font-Roboto font-bold darkBlack text-lg sm:text-xl">{filteredNfts.length}</p>
                   <p className="font-Roboto lightGray text-xs sm:text-sm">
                     NFT{filteredNfts.length !== 1 ? 's' : ''} found
-                    {searchTerm && (
-                      <span className="block">for "{searchTerm}"</span>
-                    )}
+                    {searchTerm && <span className="block">for "{searchTerm}"</span>}
                   </p>
                 </div>
               </div>
@@ -218,7 +254,7 @@ const ExploreListedNfts = () => {
               <CollectionsCard
                 key={data.assetId}
                 data={data}
-                label={"Buy"}
+                label={'Buy'}
                 collectionData={data.seller} // You may want to adjust this for the collection data
               />
             ))
@@ -271,7 +307,7 @@ const ExploreListedNfts = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ExploreListedNfts;
+export default ExploreListedNfts
