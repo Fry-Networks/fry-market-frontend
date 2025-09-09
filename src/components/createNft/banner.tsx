@@ -34,6 +34,8 @@ const Banner = ({ prompt }: any) => {
   const [collectionData, setCollectionData] = useState<any>([])
   const [selectedCollection, setSelectedCollection] = useState('Select Collection')
   const [selectedCollectionData, setSelectedCollectionData] = useState<any>(null)
+
+
   const showGenerateNftModal = () => {
     if (activeAccount?.address) {
       if (!collectionData) {
@@ -73,11 +75,6 @@ const Banner = ({ prompt }: any) => {
     // console.log("handleChange", e.target.value);
     setInputValue(e.target.value)
   }
-  const handleGenerate = () => {
-    // console.log("generate")
-    // console.log("inputValue", inputValue)
-    // console.log("Supply", supply)
-  }
 
   const getCollectionData = async () => {
     if (activeAccount?.address) {
@@ -114,8 +111,18 @@ const Banner = ({ prompt }: any) => {
       setInputValue(prompt)
     }
   }, [activeAccount])
-  const handleCollectionChange = (value: any) => {
-    setSelectedCollection(value)
+
+  const handleCollectionChange = (value: any, option: any) => {
+    setSelectedCollection(value) // This is the collection ID
+
+    // Find the full collection data based on the selected ID
+    // Use the state variable, not the parameter name
+    const selectedCollectionInfo = collectionData.find((col: any) => col._id === value)
+    setSelectedCollectionData(selectedCollectionInfo)
+
+    // Optional: Log the collection name
+    console.log('Selected collection:', option.label) // This is the collection name
+    console.log('Selected collection data:', selectedCollectionInfo)
   }
   return (
     <>
@@ -287,6 +294,7 @@ const Banner = ({ prompt }: any) => {
         supply={supply}
         selectedStyle={selectedStyle}
         selectedCollection={selectedCollection}
+        selectedCollectionData={selectedCollectionData} // Full collection data including name
       />
     </>
   )

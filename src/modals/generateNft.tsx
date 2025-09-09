@@ -13,7 +13,7 @@ const getGenerationKey = (params: { inputValue: string, selectedStyle: string, s
   return `genKey-prompt:${params.inputValue}-style:${params.selectedStyle}-supply:${params.supply}`;
 };
 
-const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType, supply, selectedStyle, selectedCollection }: any) => {
+const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType, supply, selectedStyle, selectedCollection, selectedCollectionData }: any) => {
   const [loading, setLoading] = useState(false)
   const [isPaymentSuccessfull, setIsPaymentSuccessfull] = useState(false) // This state can be used for UI feedback if needed
   const [fee, setFee] = useState<any>(0)
@@ -85,14 +85,14 @@ const GenerateNft = ({ isgeneratemodal, setisgeneratemodal, inputValue, nftType,
 
   const handleConfirmButtonClick = () => {
     setisgeneratemodal(false)
-    navigate('/create-nft', { state: { inputValue, nftType, supply, selectedStyle, selectedCollection } })
+    navigate('/create-nft', { state: { inputValue, nftType, supply, selectedStyle, selectedCollection, selectedCollectionData } })
   }
 
   // This handleOk seems redundant if CONFIRM button is the primary action.
   // If it's for a different flow, ensure its logic is intended.
   const handleOk = () => {
     setisgeneratemodal(false)
-    navigate('/create-nft', { state: { inputValue, nftType, supply, selectedStyle, selectedCollection } })
+    navigate('/create-nft', { state: { inputValue, nftType, supply, selectedStyle, selectedCollection, selectedCollectionData } })
   }
 
   const handleCancel = () => {

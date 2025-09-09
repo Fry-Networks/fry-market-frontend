@@ -49,7 +49,7 @@ const CreateNft: React.FC = () => {
 
   useEffect(() => {
     const state = location.state as any
-
+    console.log('Location state on CreateNft load:', state?.selectedCollectionData?.collection_name)
     if (state && state.inputValue && state.selectedStyle && state.supply) {
       setLocationParams(state)
       const generationKey = getGenerationKey(state)
@@ -141,20 +141,22 @@ const CreateNft: React.FC = () => {
     setSelectedImages([])
     localStorage.setItem(`${key}_attempted`, 'true')
 
-    const ws = new WebSocket('wss://nftproduction.fry.market/ws')
+    const ws = new WebSocket('ws://127.0.0.1:8000/ws')
     wsRef.current = ws
     const currentWalletAddress = walletAddressRef.current || 'fallback_wallet_address_on_start'
     let localGeneratedNftsAccumulator: any[] = [...initialNfts]
 
     ws.onopen = () => {
       if (wsRef.current !== ws) return // Stale WebSocket
-      console.log('WebSocket connected. Requesting', numImagesToRequest, 'new images.')
+      console.log('WebSocket connected. Requesting', params, numImagesToRequest, 'new images.')
+
       ws.send(
         JSON.stringify({
           wallet_address: currentWalletAddress,
           prompt: params.inputValue,
           style: params.selectedStyle,
           num_images: numImagesToRequest,
+          collection_name: params.selectedCollectionData?.collection_name || 'Unnamed Collection'
         }),
       )
     }
@@ -514,8 +516,8 @@ const CreateNft: React.FC = () => {
                   className={`w-full h-full object-cover transition-opacity duration-300 rounded-2xl ${selectedImages.some(
                     (selectedNft: any) => (selectedNft.id && selectedNft.id === nftObject.id) || selectedNft.image === nftObject.image,
                   )
-                      ? 'opacity-70'
-                      : 'opacity-100'
+                    ? 'opacity-70'
+                    : 'opacity-100'
                     }`}
                 />
                 {selectedImages.some(
