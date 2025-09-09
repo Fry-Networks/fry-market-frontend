@@ -29,7 +29,7 @@ const ExploreListedNfts = () => {
   const getFilteredAndSortedNfts = () => {
     const base = Array.isArray(localListedNfts) ? localListedNfts : []
 
-    const filtered = base.filter((nft: any) => {
+    let filtered = base.filter((nft: any) => {
       if (!nft || !nft.isListed) return false
 
       // normalize searchable strings (support several possible shapes)
