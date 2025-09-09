@@ -1,7 +1,7 @@
 // import React, { useState } from "react";
 import { Icon } from '@iconify/react'
 import { useWallet } from '@txnlab/use-wallet'
-import { Drawer } from 'antd'
+import { Drawer, Dropdown, MenuProps } from 'antd'
 import { useEffect, useState } from 'react'
 import { NavLink, useLocation, useNavigate } from 'react-router-dom'
 import navTopLogo from '../../assets/home/images/homeImages/navTopLogo.png'
@@ -74,6 +74,7 @@ const Navbar = (props: Toggle) => {
     location.pathname === '/nft-collection' ||
     location.pathname === '/top-collection' ||
     location.pathname === '/nft-detail' ||
+    location.pathname.startsWith('/nft/') ||
     location.pathname === '/top-seller' ||
     location.pathname === '/seller-collection' ||
     location.pathname === '/auction-detail'
@@ -130,6 +131,90 @@ const Navbar = (props: Toggle) => {
   const toggleWalletModal = () => {
     props.setOpen(!props.open)
   }
+
+  // Marketplace dropdown menu items
+  const marketplaceItems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <NavLink to="/explore-listed-nfts" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:grid-view" width="16" height="16" />
+          Listed NFTs
+        </NavLink>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <NavLink to="/auction" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:gavel" width="16" height="16" />
+          Auctions
+        </NavLink>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <NavLink to="/" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:trending-up" width="16" height="16" />
+          Trending NFTs
+        </NavLink>
+      ),
+    },
+  ]
+
+  // Community dropdown menu items
+  const communityItems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <NavLink to="/top-seller" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:person-star" width="16" height="16" />
+          Top Sellers
+        </NavLink>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <NavLink to="/top-collection" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:collections" width="16" height="16" />
+          Collections
+        </NavLink>
+      ),
+    },
+  ]
+
+  // Create dropdown menu items
+  const createItems: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <NavLink to="/create-nft-page" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:auto-awesome" width="16" height="16" />
+          AI NFT Generation
+        </NavLink>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <NavLink to="/manual-create-nft" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:draw" width="16" height="16" />
+          Manual Create NFT
+        </NavLink>
+      ),
+    },
+    {
+      key: '3',
+      label: (
+        <NavLink to="/create-collection" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:library-add" width="16" height="16" />
+          Create Collection
+        </NavLink>
+      ),
+    },
+  ]
   return (
     <>
       <div className="navWrapper mt-5 ">
@@ -144,11 +229,44 @@ const Navbar = (props: Toggle) => {
                   <li>Home</li>
                 </NavLink>
 
-                <NavLink className={`navlink ${isNftActive ? 'active' : ''}`} to="/create-nft-page">
-                  <li>AI Nft Generation</li>
-                </NavLink>
-                <NavLink className={`navlink ${isCollectionActive ? 'active' : ''}`} to="/create-collection">
-                  <li>Create Collection</li>
+                <li className="relative">
+                  <Dropdown
+                    menu={{ items: marketplaceItems }}
+                    placement="bottomCenter"
+                    trigger={['hover']}
+                    overlayClassName="custom-dropdown"
+                  >
+                    <span className="navlink flex items-center gap-1 cursor-pointer hover:text-primary">
+                      Marketplace
+                      <Icon icon="material-symbols:keyboard-arrow-down" width="16" height="16" />
+                    </span>
+                  </Dropdown>
+                </li>
+
+                <li className="relative">
+                  <Dropdown
+                    menu={{ items: communityItems }}
+                    placement="bottomCenter"
+                    trigger={['hover']}
+                    overlayClassName="custom-dropdown"
+                  >
+                    <span className="navlink flex items-center gap-1 cursor-pointer hover:text-primary">
+                      Community
+                      <Icon icon="material-symbols:keyboard-arrow-down" width="16" height="16" />
+                    </span>
+                  </Dropdown>
+                </li>
+
+                <li className="relative">
+                  <Dropdown menu={{ items: createItems }} placement="bottomCenter" trigger={['hover']} overlayClassName="custom-dropdown">
+                    <span className="navlink flex items-center gap-1 cursor-pointer hover:text-primary">
+                      Create
+                      <Icon icon="material-symbols:keyboard-arrow-down" width="16" height="16" />
+                    </span>
+                  </Dropdown>
+                </li>
+                <NavLink className={`navlink ${location.pathname === '/artist-profile' ? 'active' : ''}`} to="/artist-profile">
+                  <li>Profile</li>
                 </NavLink>
               </ul>
             </div>
@@ -180,7 +298,7 @@ const Navbar = (props: Toggle) => {
                   className="button btn-primary large font-medium btnConnect font-Roboto"
                   minWidth={213}
                   minHeight={58}
-                  text={activeAddress ? activeAddress.slice(0, 6) + '....' + activeAddress.slice(-6) : 'Connect Wallet'}
+                  text={activeAddress ? `${activeAddress.slice(0, 6)}....${activeAddress.slice(-6)}` : 'Connect Wallet'}
                   onClick={toggleWalletModal}
                 />
                 <Button
@@ -238,16 +356,51 @@ const Navbar = (props: Toggle) => {
               <NavLink className={`navlink ${isHomeActive ? 'active' : ''}`} to="/" onClick={onClose}>
                 <li>Home</li>
               </NavLink>
-              {/* <NavLink className="cursor-default" to="#">
-                  <li>Marketplace</li>
-                </NavLink> */}
-              <NavLink className={`navlink ${isNftActive ? 'active' : ''}`} to="/create-nft-page" onClick={onClose}>
-                <li>AI Nft Generation</li>
+              <NavLink className={`navlink text-sm`} to="/artist-profile" onClick={onClose}>
+                <li>Profile</li>
               </NavLink>
-              {/*
-                <NavLink className="navlink" to="/createnft-collect">
-                  <li>Create NFt Collection</li>
-                </NavLink> */}
+
+              <div className="mobile-dropdown-section">
+                <p className="text-sm font-semibold text-gray-600 mb-2">MARKETPLACE</p>
+                <div className="ml-4 flex flex-col gap-2">
+                  <NavLink className={`navlink text-sm`} to="/explore-listed-nfts" onClick={onClose}>
+                    <li>Listed NFTs</li>
+                  </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/auction" onClick={onClose}>
+                    <li>Auctions</li>
+                  </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/" onClick={onClose}>
+                    <li>Trending NFTs</li>
+                  </NavLink>
+                </div>
+              </div>
+
+              <div className="mobile-dropdown-section">
+                <p className="text-sm font-semibold text-gray-600 mb-2">COMMUNITY</p>
+                <div className="ml-4 flex flex-col gap-2">
+                  <NavLink className={`navlink text-sm`} to="/top-seller" onClick={onClose}>
+                    <li>Top Sellers</li>
+                  </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/top-collection" onClick={onClose}>
+                    <li>Collections</li>
+                  </NavLink>
+                </div>
+              </div>
+
+              <div className="mobile-dropdown-section">
+                <p className="text-sm font-semibold text-gray-600 mb-2">CREATE</p>
+                <div className="ml-4 flex flex-col gap-2">
+                  <NavLink className={`navlink text-sm`} to="/create-nft-page" onClick={onClose}>
+                    <li>AI NFT Generation</li>
+                  </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/manual-create-nft" onClick={onClose}>
+                    <li>Manual Create NFT</li>
+                  </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/create-collection" onClick={onClose}>
+                    <li>Create Collection</li>
+                  </NavLink>
+                </div>
+              </div>
             </ul>
           </div>
           <div className="navbar-btns flex flex-col gap-4 mt-5">
@@ -255,7 +408,7 @@ const Navbar = (props: Toggle) => {
               className="button btn-primary small font-medium btnConnect font-Roboto"
               width={150}
               minHeight={39}
-              text={activeAddress ? activeAddress.slice(0, 6) + '....' + activeAddress.slice(-6) : 'Connect Wallet'}
+              text={activeAddress ? `${activeAddress.slice(0, 6)}....${activeAddress.slice(-6)}` : 'Connect Wallet'}
               data-test-id="connect-wallet"
               onClick={toggleWalletModal}
             ></Button>

@@ -1,308 +1,63 @@
-import { useWallet } from '@txnlab/use-wallet'
-import { InputNumber, Select } from 'antd'
-import axios from 'axios'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-toastify'
-import bannerImg from '../../assets/createNft/bannerImg.webp'
-import vectorBtm from '../../assets/icons/bottomVector.png'
-import generateIcon from '../../assets/icons/generateIcon.svg'
-import downArrow from '../../assets/icons/nft-down-arrow.svg'
-import plus from '../../assets/icons/plus.svg'
-import vectorTop from '../../assets/icons/topVector.png'
-import banerGlow from '../../assets/images/topSellers/bannerGlow.webp'
-import Button from '../../components/shared/button'
-import AddStyleModal from '../../modals/addStyleModal'
-import GenerateNft from '../../modals/generateNft'
-import Input from '../shared/input'
-const baseUrl = import.meta.env.VITE_API_BASE_URL
+import { useState } from 'react'
+import AuctionCard from '../cards/auctionCard'
+import Loader from '../Loader'
 
-const Banner = ({ prompt }: any) => {
-  const [isstylemodal, setisstylemodal] = useState(false)
-  const [selectedStyle, setSelectedStyle] = useState<string | null>(null)
-  const navigate = useNavigate()
-  const showAddStyleModal = () => {
-    setisstylemodal(true)
-  }
+interface AuctionData {
+  assetId?: string
+  biddingStartTime: string | number
+  biddingEndTime: string | number
+  name?: string
+  url?: string
+  collectionData?: Record<string, unknown>
+  [key: string]: unknown
+}
 
-  const [isgeneratemodal, setisgeneratemodal] = useState(false)
-  const { activeAccount } = useWallet()
+interface LiveAuctionProps {
+  auctionedNfts: AuctionData[]
+  getAuctionedNft: () => void
+}
 
-  const [inputValue, setInputValue] = useState('')
-  const [supply, setSupply] = useState(1)
-  const [nftType, setNftType] = useState('single')
-  const [collectionData, setCollectionData] = useState<any>([])
-  const [selectedCollection, setSelectedCollection] = useState('Select Collection')
-  const showGenerateNftModal = () => {
-    if (activeAccount?.address) {
-      if (!collectionData) {
-        toast.error('Create Collection first')
-        return
-      }
-      if (inputValue && supply && nftType && selectedStyle && selectedCollection) {
-        if (!validation()) {
-          toast.error('Please enter a valid prompt.')
-          return
-        }
-        setisgeneratemodal(true)
-        // navigation("create-nft")
-      } else {
-        toast.error('Please provide all details')
-      }
-    } else {
-      toast.error('Please connect wallet first')
-    }
-  }
-  const onChange = (value: any) => {
-    // console.log(`selected ${value}`);
-    setNftType(value)
-  }
-  const onSearch = (value: any) => {
-    // console.log("search:", value);
-    setNftType(value)
-  }
+const LiveAuction = ({ auctionedNfts, getAuctionedNft }: LiveAuctionProps) => {
+  const [_loading, _setLoading] = useState(false)
 
-  const onSupply = (value: any) => {
-    // console.log("changed", value);
+  // Filter auctions that are currently active (between start and end time)
+  const activeAuctions =
+    auctionedNfts?.filter((auction: AuctionData) => {
+      const now = Date.now()
+      const startTime = Number(auction.biddingStartTime) * 1000
+      const endTime = Number(auction.biddingEndTime) * 1000
+      return startTime <= now && endTime > now
+    }) || []
 
-    setSupply(value)
-  }
-  const handleChange = (e: any) => {
-    // console.log("handleChange", e.target.value);
-    setInputValue(e.target.value)
-  }
-  const handleGenerate = () => {
-    // console.log("generate")
-    // console.log("inputValue", inputValue)
-    // console.log("Supply", supply)
-  }
-
-  const getCollectionData = async () => {
-    if (activeAccount?.address) {
-      try {
-        // const config = {
-        //   headers: { Authorization: `Bearer ${token}` }
-        // };
-
-        const response = await axios.get(`${baseUrl}/get-collections/${activeAccount.address}`)
-        // console.log("Collection Data", response.data);
-        setCollectionData(response.data.collections || [])
-      } catch (e) {
-        console.log("Error Getting Collection", e);
-        // toast.error("Error Creating Collection");
-        setCollectionData([])
-      }
-    }
-  }
-
-  const validation = () => {
-    // console.log("here", inputValue.replace(/\s+/g, '').length != 0);
-
-    if (inputValue.replace(/\s+/g, '').length != 0) {
-      return true
-    } else {
-      return false
-    }
-  }
-
-  useEffect(() => {
-    getCollectionData()
-    // console.log("d", prompt);
-    if (prompt) {
-      setInputValue(prompt)
-    }
-  }, [activeAccount])
-  const handleCollectionChange = (value: any) => {
-    setSelectedCollection(value)
-  }
   return (
-    <>
-      <div className="bannerWrapper mb-44 relative">
-        <img className="absolute top-[-250px] right-0 -z-30" src={banerGlow} alt="" />
-        <div className="container ">
-          <div className="inner">
-            <h2 className="font-normal font-Apex uppercase darkBlack text-center mt-20">
-              Create your own{' '}
-              <span className="primary  relative">
-                {' '}
-                masterpiece
-                <img className="topVector absolute top-[-25%] left-[-2%] -z-50" src={vectorTop} alt="" />
-                <img className="btmVector absolute bottom-[-16%] right-[-3%] -z-50" src={vectorBtm} alt="" />
-              </span>
-            </h2>
-            <img className="mt-10 w-full h-full max-w-[1320px] object-cover" src={bannerImg} alt="" />
-            <div>
-              <div className="earnMoneyDiv flex flex-col justify-center items-center gap-5">
-                <div className="part1">
-                  <p className="lightGray text-[16px] font-normal font-Roboto capitalize">get onboard and earn money like a pro</p>
-                </div>
-                <div className="part2">
-                  <div style={{ width: '1002px', margin: '0 auto' }} className="relative earnInput">
-                    <Input
-                      wrapperClass="flex items-center justify-center mx-auto z-10"
-                      placeholder="Fantasy Creature holding a sword..."
-                      inputClass="medium font-normal font-Roboto lightGray mx-auto flex items-center justify-center"
-                      width={1002}
-                      height={70}
-                      type="text"
-                      className="m-auto"
-                      onChange={handleChange}
-                      value={inputValue}
-                    />
-                    <button
-                      onClick={showGenerateNftModal}
-                      className="absolute top-[18px] right-3  bg-primary text-white medium font-bold font-Roboto py-3 px-3 flex-center gap-2"
-                    >
-                      Generate
-                      <img src={generateIcon} alt="" />
-                    </button>
-                  </div>
-                </div>
+    <div className="liveAuctionWrapper mb-52 relative">
+      <div className="container">
+        <h2 className="font-normal font-Apex uppercase mb-10">LIVE AUCTIONS</h2>
 
-                <div className="part3 my-5 flex-center gap-16">
-                  <div className="slectDiv">
-                    {/* <Select
-                      showSearch
-                      style={{ width: 370, height:"55px" }}
-                      placeholder="Single NFT"
-                      optionFilterProp="label"
-                      onChange={onChange}
-                      onSearch={onSearch}
-                      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
-                      options={[
-                        {
-                          value: "single",
-                          label: "Single NFT Image",
-                        },
-                        {
-                          value: "multiple",
-                          label: "Multi-NFT Collection",
-                        },
-                      ]}
-                    /> */}
-
-                    <Select
-                      className=""
-                      // defaultValue="Single NFT"
-                      placeholder="Select NFT type"
-                      style={{ width: 270, height: '55px' }}
-                      suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
-                      onChange={onChange} // Make sure this is not preventing default behavior
-                      options={[
-                        { value: 'single', label: 'Single NFT Image' },
-                        { value: 'multiple', label: 'Multi-NFT Collection' },
-                      ]}
-                      value={nftType}
-                    />
-                  </div>
-                  <div className="slectDiv">
-                    {collectionData.length === 0 ? (
-                      <Button
-                        className="button btn-primary large font-medium btnConnect font-Roboto"
-                        minWidth={213}
-                        minHeight={58}
-                        text="Create Collection"
-                        onClick={() => {
-                          if (!activeAccount?.address) {
-                            toast.error(
-                              'Wallet Connection Required! Please connect your wallet to create a collection.',
-                              {
-                                toastId: 'wallet-connection-required-collection',
-                                autoClose: 6000
-                              }
-                            );
-                            return;
-                          }
-                          navigate('/create-collection');
-                        }}
-                      />
-                    ) : (
-                      <Select
-                        style={{ width: 270, height: '55px' }}
-                        placeholder="Select Collection"
-                        suffixIcon={<img className="cursor-pointer" src={downArrow} alt="dropdown icon" />}
-                        onChange={handleCollectionChange}
-                        value={selectedCollection}
-                        options={collectionData?.map((collection: any) => ({
-                          value: collection._id,
-                          label: collection.collection_name,
-                        }))}
-                      />
-                    )}
-                  </div>
-                  <div className="supplyDiv flex-center gap-4">
-                    <p className="medium font-normal font-Roboto lightGray">Supply</p>
-                    <InputNumber
-                      min={1}
-                      max={1000}
-                      defaultValue={1}
-                      onChange={onSupply}
-                      className="gray-input"
-                      onBlur={(value: any) => {
-                        if (value?.target?.value > 1000) {
-                          toast.error('Max 1000 supply allowed!', { toastId: 'supplyLimitError' })
-                        }
-                      }}
-                    />
-                  </div>
-                  <div className="addStyle flex justify-between items-center cursor-pointer" onClick={showAddStyleModal}>
-                    <p className="lightGray font-normal medium font-Roboto" style={{ color: `${!selectedStyle ? '' : 'black'}` }}>
-                      {!selectedStyle ? 'Add Styles' : selectedStyle}
-                    </p>
-                    <img src={plus} alt="" />
-                  </div>
-
-                  {/* <div className="addStyle flex justify-between items-center">
-                    <p className="lightGray font-normal medium font-Roboto">Add Traits</p>
-                    <img src="/src/assets/icons/plus.svg" alt="" />
-                  </div> */}
-                </div>
-                <div className="part4 flex flex-col w-full items-center gap-4">
-                  <p className="font-semibold text-[#504e4e]">OR</p>
-                  <Button
-                    className="button btn-primary large font-medium btnConnect font-Roboto"
-                    minWidth={213}
-                    minHeight={58}
-                    text="Manual Create Nft"
-                    onClick={() => {
-                      if (!activeAccount?.address) {
-                        toast.error(
-                          'Wallet Connection Required! Please connect your wallet.',
-                          {
-                            toastId: 'wallet-connection-required-manual',
-                            autoClose: 6000
-                          }
-                        );
-                        return;
-                      }
-                      navigate('/manual-create-nft');
-                    }}
-                  />
-                </div>
-              </div>
-            </div>
+        {_loading ? (
+          <div className="w-full h-full flex justify-center items-center col-span-4">
+            <Loader />
           </div>
-        </div>
+        ) : activeAuctions.length > 0 ? (
+          <div className="auctionGrid mt-10 grid grid-cols-4 gap-x-10 gap-y-9 relative z-20">
+            {activeAuctions.map((auction: AuctionData, index: number) => (
+              <AuctionCard
+                key={auction.assetId || index}
+                data={auction}
+                getAuctionedNft={getAuctionedNft}
+                collectionData={auction.collectionData || {}}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-20">
+            <p className="text-xl text-gray-500">No live auctions currently available</p>
+            <p className="text-sm text-gray-400 mt-2">Check back later for upcoming auctions</p>
+          </div>
+        )}
       </div>
-
-      <AddStyleModal
-        isstylemodal={isstylemodal}
-        setisstylemodal={setisstylemodal}
-        selectedStyle={selectedStyle}
-        setSelectedStyle={setSelectedStyle}
-      />
-
-      <GenerateNft
-        isgeneratemodal={isgeneratemodal}
-        setisgeneratemodal={setisgeneratemodal}
-        inputValue={inputValue}
-        nftType={nftType}
-        supply={supply}
-        selectedStyle={selectedStyle}
-        selectedCollection={selectedCollection}
-      />
-    </>
+    </div>
   )
 }
 
-export default Banner
+export default LiveAuction

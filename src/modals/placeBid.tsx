@@ -100,18 +100,18 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
               <p className="darkBlack font-Roboto medium font-normal">Enter bid amount</p>
               <input
                 className="rounded-lg py-3.5 px-6 w-full border-solid border-2 border-[red]"
-                placeholder={`Minimum bid should be more than ${(parseInt(data.highestBidAmount) + parseInt(data.minBidAmount)) / 1000000 + ' FRY'}`}
+                placeholder={`Minimum bid should be more than ${`${(parseInt(data.highestBidAmount) + parseInt(data.minBidAmount)) / 1000000} FRY`}`}
                 type="number"
                 value={bidAmount}
                 onChange={(e: any) => {
-                  const value = e.target.value;
+                  const value = e.target.value
 
                   // Allow clearing the input (empty string) or limit value to 999 if a number is entered
-                  if (value === "") {
-                    setBidAMount(value);  // Allow empty value
+                  if (value === '') {
+                    setBidAMount(value) // Allow empty value
                   } else {
-                    const numericValue = Math.min(Number(value), 999);  // Limit the value to a maximum of 999
-                    setBidAMount(numericValue);
+                    const numericValue = Math.min(Number(value), 999) // Limit the value to a maximum of 999
+                    setBidAMount(numericValue)
                   }
                 }}
               />
@@ -147,7 +147,8 @@ const PlaceBid = ({ isbidmodal, setisbidmodal, data, getAuctionedNft }: any) => 
                 className="button btn-primary medium font-Roboto font-medium bidPlace"
                 width={166}
                 minHeight={53}
-                text="Place bid"
+                text={!activeAccount?.address ? 'Place Bid 🔗' : 'Place bid'}
+                title={!activeAccount?.address ? 'Connect wallet to place bids' : 'Place your bid'}
                 onClick={async () => {
                   if (activeAccount?.address) {
                     if (Number(bidAmount) > Number(data.highestBidAmount / 1000000 + data.minBidAmount / 1000000)) {

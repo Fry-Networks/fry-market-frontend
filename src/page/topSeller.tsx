@@ -1,38 +1,38 @@
-import { useWallet } from "@txnlab/use-wallet";
-import { Table } from "antd";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import bannerback from "../assets/home/images/topSeller/bannerBack.webp";
-import table1 from "../assets/icons/topSeller/ts1.svg";
-import table11 from "../assets/icons/topSeller/ts11.svg";
-import table2 from "../assets/icons/topSeller/ts2.svg";
-import table3 from "../assets/icons/topSeller/ts3.svg";
-import table5 from "../assets/icons/topSeller/ts5.svg";
-import table8 from "../assets/icons/topSeller/ts8.svg";
-import table9 from "../assets/icons/topSeller/ts9.svg";
-import table10 from "../assets/icons/topSeller/tss10.webp";
-import table4 from "../assets/icons/topSeller/tss4.webp";
-import table6 from "../assets/icons/topSeller/tss6.webp";
-import table7 from "../assets/icons/topSeller/tss7.webp";
-import ts2 from "../assets/images/topSellers/ts2.jpg";
-import ts3 from "../assets/images/topSellers/ts3.jpg";
-import ts1 from "../assets/images/topSellers/tss1.webp";
-import leftGlow from "../assets/nftCollection/redGlow.webp";
-import ReadyForNext from "../components/home/readyForNext";
-import BackButton from "../components/shared/backButton";
-import { truncateString } from "../utils/getImageFromJson";
+import { useWallet } from '@txnlab/use-wallet'
+import { Table } from 'antd'
+import axios from 'axios'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import bannerback from '../assets/home/images/topSeller/bannerBack.webp'
+import table1 from '../assets/icons/topSeller/ts1.svg'
+import table11 from '../assets/icons/topSeller/ts11.svg'
+import table2 from '../assets/icons/topSeller/ts2.svg'
+import table3 from '../assets/icons/topSeller/ts3.svg'
+import table5 from '../assets/icons/topSeller/ts5.svg'
+import table8 from '../assets/icons/topSeller/ts8.svg'
+import table9 from '../assets/icons/topSeller/ts9.svg'
+import table10 from '../assets/icons/topSeller/tss10.webp'
+import table4 from '../assets/icons/topSeller/tss4.webp'
+import table6 from '../assets/icons/topSeller/tss6.webp'
+import table7 from '../assets/icons/topSeller/tss7.webp'
+import ts2 from '../assets/images/topSellers/ts2.jpg'
+import ts3 from '../assets/images/topSellers/ts3.jpg'
+import ts1 from '../assets/images/topSellers/tss1.webp'
+import leftGlow from '../assets/nftCollection/redGlow.webp'
+import ReadyForNext from '../components/home/readyForNext'
+import BackButton from '../components/shared/backButton'
+import { truncateString } from '../utils/getImageFromJson'
 
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const TopSeller = () => {
   const [profileData, setProfileData] = useState<any>({})
-  const { activeAccount } = useWallet();
-  const navigate = useNavigate();
+  const { activeAccount } = useWallet()
+  const navigate = useNavigate()
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    window.scrollTo(0, 0)
+  }, [])
 
   const handleRowClick = (record: any) => {
     // navigate("/seller-collection");
@@ -40,37 +40,27 @@ const TopSeller = () => {
     // console.log("Ff", activeAccount?.address);
 
     if (activeAccount?.address == record?.allProfileData?.wallet_address) {
-      navigate("/artist-profile")
-
+      navigate('/artist-profile')
+    } else {
+      navigate('/artist-profile-others', { state: { profileData: record.allProfileData } })
     }
-    else {
-      navigate("/artist-profile-others", { state: { profileData: record.allProfileData } });
-
-    }
-  };
+  }
 
   const getProfileData = async () => {
-
-
     try {
-
       // const config = {
       //   headers: { Authorization: `Bearer ${token}` }
       // };
 
-      const response: any = await axios.get(`${baseUrl}/get-all-profiles`);
+      const response: any = await axios.get(`${baseUrl}/get-all-profiles`)
       // console.log("All Profiles", response.data);
       setProfileData(response.data)
       // return true;
-
-    }
-    catch (e) {
+    } catch (e) {
       // console.log("Error Updating Profile Data");
       // toast.error("Error Getting Profile Data");
       // return false
-
     }
-
   }
 
   useEffect(() => {
@@ -78,174 +68,173 @@ const TopSeller = () => {
   }, [])
 
   interface DataType {
-    key: string;
-    collection: string;
-    volume: number;
-    follower: number;
-    percentage: string;
-    price: string;
-    items: string;
-    image: string;
-
+    key: string
+    collection: string
+    volume: number
+    follower: number
+    percentage: string
+    price: string
+    items: string
+    image: string
   }
   const data: DataType[] = [
     {
-      key: "1",
-      collection: "Jacob Jones",
+      key: '1',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 100,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table1,
     },
     {
-      key: "2",
-      collection: "Jacob Jones",
+      key: '2',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 150,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table2,
     },
     {
-      key: "3",
-      collection: "Jacob Jones",
+      key: '3',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 75,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table3,
     },
     {
-      key: "4",
-      collection: "Jacob Jones",
+      key: '4',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 75,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table4,
     },
     {
-      key: "5",
-      collection: "Jacob Jones",
+      key: '5',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 33,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table5,
     },
     {
-      key: "6",
-      collection: "Jacob Jones",
+      key: '6',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 24,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table6,
     },
     {
-      key: "7",
-      collection: "Jacob Jones",
+      key: '7',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 22,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table7,
     },
     {
-      key: "8",
-      collection: "Jacob Jones",
+      key: '8',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 64,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table1,
     },
     {
-      key: "9",
-      collection: "Jacob Jones",
+      key: '9',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 877,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table8,
     },
     {
-      key: "10",
-      collection: "Jacob Jones",
+      key: '10',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 55,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table9,
     },
     {
-      key: "11",
-      collection: "Jacob Jones",
+      key: '11',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 35,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table10,
     },
     {
-      key: "12",
-      collection: "Jacob Jones",
+      key: '12',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 32,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table3,
     },
     {
-      key: "13",
-      collection: "Jacob Jones",
+      key: '13',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 94,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table2,
     },
     {
-      key: "14",
-      collection: "Jacob Jones",
+      key: '14',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 75,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table1,
     },
     {
-      key: "15",
-      collection: "Jacob Jones",
+      key: '15',
+      collection: 'Jacob Jones',
       volume: 154.0,
       follower: 25,
-      percentage: "+237.67%",
-      price: "4,901",
-      items: "9.8k",
+      percentage: '+237.67%',
+      price: '4,901',
+      items: '9.8k',
       image: table11,
     },
-  ];
+  ]
   const columns = [
     {
-      title: "Profile",
-      dataIndex: "image",
-      key: "image",
-      width: "330px",
+      title: 'Profile',
+      dataIndex: 'image',
+      key: 'image',
+      width: '330px',
       render: (_: any, record: any, index: number) => (
         <div className="flex items-center">
           {/* <span className="mr-4">{String(index + 1).padStart(2, '0')}</span> */}
@@ -255,10 +244,10 @@ const TopSeller = () => {
       ),
     },
     {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-      width: "156px",
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+      width: '156px',
 
       render: (text: any) => (
         <div className="flex items-center">
@@ -297,21 +286,23 @@ const TopSeller = () => {
     //   key: "items",
     //   width: "100px",
     // },
-  ];
-
-
+  ]
 
   const handleChange = (value: any) => {
     // console.log(`selected ${value}`);
-  };
-
+  }
 
   // console.log(data);
 
   return (
     <>
-      <div className="topSell relative">
-        <img className=" bannerBack absolute top-[-80px] left-0 -z-10" src={bannerback} alt="" />
+      <div className="topSell relative overflow-hidden">
+        <img
+          className="bannerBack absolute top-[-80px] left-0 -z-10 w-full max-w-full object-cover"
+          src={bannerback}
+          alt=""
+          style={{ maxWidth: '100vw' }}
+        />
         <img className="absolute left-0 bottom-0 -z-10" src={leftGlow} alt="" />
         <div className="container">
           {/* Back Button */}
@@ -376,25 +367,23 @@ const TopSeller = () => {
           </div> */}
 
           <div className="collectionTable relative">
-
             <Table
               columns={columns}
-              dataSource={profileData.length > 0 ?
-                profileData.filter((data: any) => data.wallet_address ? true : false).map((profileData: any, index: any) => (
-                  {
-                    image: profileData.profile_image || "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
-                    collection: profileData.display_name || "Unknown",
-                    address: truncateString(profileData.wallet_address),
-                    allProfileData: profileData
-                  }
-                ))
-
-                :
-
-                []
+              dataSource={
+                profileData.length > 0
+                  ? profileData
+                    .filter((data: any) => (data.wallet_address ? true : false))
+                    .map((profileData: any, index: any) => ({
+                      image:
+                        profileData.profile_image ||
+                        'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+                      collection: profileData.display_name || 'Unknown',
+                      address: truncateString(profileData.wallet_address),
+                      allProfileData: profileData,
+                    }))
+                  : []
               }
               pagination={false}
-
               rowClassName="cursor-pointer"
               onRow={(record) => ({
                 onClick: () => handleRowClick(record),
@@ -406,9 +395,8 @@ const TopSeller = () => {
       </div>
 
       <ReadyForNext />
-
     </>
-  );
-};
+  )
+}
 
-export default TopSeller;
+export default TopSeller

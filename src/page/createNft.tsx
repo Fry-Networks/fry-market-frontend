@@ -63,25 +63,25 @@ const CreateNft: React.FC = () => {
       const incomingSupply = Number(state.supply)
       setCurrentExpectedSupply(incomingSupply)
 
-      const supplyKey = generationKey + '_expectedSupply'
+      const supplyKey = `${generationKey}_expectedSupply`
       localStorage.setItem(supplyKey, incomingSupply.toString())
 
-      const storedNftsData = localStorage.getItem(generationKey + '_nfts')
+      const storedNftsData = localStorage.getItem(`${generationKey}_nfts`)
       let existingNfts: any[] = []
       if (storedNftsData) {
         try {
           existingNfts = JSON.parse(storedNftsData)
           console.log(`Loaded ${existingNfts.length} NFTs from localStorage for key ${generationKey}.`)
         } catch (e) {
-          console.error('Failed to parse stored NFTs from localStorage for key ' + generationKey + ':', e)
-          localStorage.removeItem(generationKey + '_nfts')
+          console.error(`Failed to parse stored NFTs from localStorage for key ${generationKey}:`, e)
+          localStorage.removeItem(`${generationKey}_nfts`)
         }
       } else {
         console.log('No NFTs found in localStorage for key:', generationKey)
       }
       setGeneratedNfts(existingNfts)
 
-      const generationAttempted = localStorage.getItem(generationKey + '_attempted') === 'true'
+      const generationAttempted = localStorage.getItem(`${generationKey}_attempted`) === 'true'
       const numAlreadyGenerated = existingNfts.length
 
       console.log(
@@ -92,7 +92,7 @@ const CreateNft: React.FC = () => {
         console.log('All images already generated and loaded for key:', generationKey)
         setLoading(false)
         setIsFailed(false)
-        localStorage.setItem(generationKey + '_attempted', 'true')
+        localStorage.setItem(`${generationKey}_attempted`, 'true')
       } else if (generationAttempted || numAlreadyGenerated > 0) {
         // Resume if attempted or if some images are already there
         console.log(`Resuming generation for key: ${generationKey}. Target: ${incomingSupply}, Have: ${numAlreadyGenerated}`)
@@ -122,7 +122,7 @@ const CreateNft: React.FC = () => {
       setLoading(false) // Ensure loading is false
       setIsFailed(false)
       if (numAlreadyHave >= targetTotalSupply) {
-        localStorage.setItem(key + '_attempted', 'true')
+        localStorage.setItem(`${key}_attempted`, 'true')
       }
       return
     }
@@ -139,7 +139,7 @@ const CreateNft: React.FC = () => {
     setGeneratedNfts([...initialNfts])
     setCurrentExpectedSupply(targetTotalSupply)
     setSelectedImages([])
-    localStorage.setItem(key + '_attempted', 'true')
+    localStorage.setItem(`${key}_attempted`, 'true')
 
     const ws = new WebSocket('wss://nftproduction.fry.market/ws')
     wsRef.current = ws
@@ -170,7 +170,7 @@ const CreateNft: React.FC = () => {
         const newNftData = { image: data.data, id: `nft-${Date.now()}-${Math.random()}` }
         localGeneratedNftsAccumulator.push(newNftData)
         setGeneratedNfts((prevNfts) => [...prevNfts, newNftData])
-        localStorage.setItem(key + '_nfts', JSON.stringify(localGeneratedNftsAccumulator))
+        localStorage.setItem(`${key}_nfts`, JSON.stringify(localGeneratedNftsAccumulator))
         console.log(`Received image. Total in accumulator: ${localGeneratedNftsAccumulator.length}. Saved to localStorage.`)
 
         // Check if we have all images and metadata
@@ -190,7 +190,7 @@ const CreateNft: React.FC = () => {
           nft.image === metadata.image ? { ...nft, ...metadata } : nft,
         )
         setGeneratedNfts([...localGeneratedNftsAccumulator])
-        localStorage.setItem(key + '_nfts', JSON.stringify(localGeneratedNftsAccumulator))
+        localStorage.setItem(`${key}_nfts`, JSON.stringify(localGeneratedNftsAccumulator))
         console.log(`Received metadata. Total in accumulator: ${localGeneratedNftsAccumulator.length}. Saved to localStorage.`)
 
         // Check if we have all images and metadata
@@ -208,7 +208,7 @@ const CreateNft: React.FC = () => {
         console.log(
           `WebSocket event: All requested images and metadata sent for key: ${key}. Accumulator size: ${localGeneratedNftsAccumulator.length}`,
         )
-        localStorage.setItem(key + '_nfts', JSON.stringify(localGeneratedNftsAccumulator))
+        localStorage.setItem(`${key}_nfts`, JSON.stringify(localGeneratedNftsAccumulator))
         console.log(`Final save: ${localGeneratedNftsAccumulator.length} NFTs to localStorage for key ${key}.`)
 
         // IMPORTANT: Set loading to false here
@@ -276,12 +276,12 @@ const CreateNft: React.FC = () => {
   const handleGenerateAgain = () => {
     if (locationParams) {
       const generationKey = getGenerationKey(locationParams)
-      const targetSupplyForRegen = Number(localStorage.getItem(generationKey + '_expectedSupply')) || Number(locationParams.supply) || 0
+      const targetSupplyForRegen = Number(localStorage.getItem(`${generationKey}_expectedSupply`)) || Number(locationParams.supply) || 0
 
       if (generationKey && targetSupplyForRegen > 0) {
         console.log('Generate Again clicked for key:', generationKey, 'Target Supply:', targetSupplyForRegen)
-        localStorage.removeItem(generationKey + '_nfts')
-        localStorage.removeItem(generationKey + '_attempted')
+        localStorage.removeItem(`${generationKey}_nfts`)
+        localStorage.removeItem(`${generationKey}_attempted`)
         _startImageGeneration(locationParams, generationKey, [], targetSupplyForRegen)
       } else {
         toast.error('Cannot generate again: parameters or target supply are invalid.')
@@ -443,14 +443,21 @@ const CreateNft: React.FC = () => {
         <img className="absolute top-[-200px] -z-10" src={bgGlow} alt="" />
         <div className="container">
           <div className="nftBtnContainer flex items-center justify-between mb-[75px]">
-            <div className="singlenft flex items-center justify-between gap-4">
-              <Button
-                text={`${locationParams?.nftType === 'single' ? 'Single NFT' : 'Multiple NFT'}`}
-                className="py-4 px-8 lightGray font-normal font-Roboto border cursor-default"
-              />
-              <p className="large lightGray font-normal font-Roboto">
-                {generatedNfts.length} / {currentExpectedSupply || locationParams?.supply || 0} Generated
-              </p>
+            <div className="leftSection flex items-center gap-8">
+              <div className="singlenft flex items-center justify-between gap-4">
+                <Button
+                  text={`${locationParams?.nftType === 'single' ? 'Single NFT' : 'Multiple NFT'}`}
+                  className="py-4 px-8 lightGray font-normal font-Roboto border cursor-default"
+                />
+                <p className="large lightGray font-normal font-Roboto">
+                  {generatedNfts.length} / {currentExpectedSupply || locationParams?.supply || 0} Generated
+                </p>
+              </div>
+              <div className="collectionInfo">
+                <p className="lightGray font-normal font-Roboto text-base">
+                  Collection: {locationParams?.selectedCollection ? 'Selected' : 'None'}
+                </p>
+              </div>
             </div>
             <div className="selectnft flex justify-center items-center gap-3">
               <p className="lightGray font-normal font-Roboto text-base">
@@ -458,6 +465,22 @@ const CreateNft: React.FC = () => {
                   ? `${selectedImages.length} NFT${selectedImages.length > 1 ? 's' : ''} selected`
                   : 'Select NFT(s) to mint'}
               </p>
+              {generatedNfts.length > 0 && (
+                <Button
+                  className="button btn-secondary text-[12px] font-semibold"
+                  width={100}
+                  minHeight={37}
+                  text={selectedImages.length === generatedNfts.length ? 'Deselect All' : 'Select All'}
+                  onClick={() => {
+                    if (selectedImages.length === generatedNfts.length) {
+                      setSelectedImages([])
+                    } else {
+                      setSelectedImages([...generatedNfts])
+                    }
+                  }}
+                  disabled={loading || mintLoading}
+                />
+              )}
               <Button
                 className="button btn-primary text-[12px] font-semibold"
                 width={96}

@@ -237,16 +237,18 @@ const CollectionsCard = ({
                 if (label == 'Minted') {
                   // console.log("Ff", data);
 
-                  navigate('/nft-detail', { state: { data: data, collectionData, onlyShow: true } })
+                  navigate(`/nft/${data.assetId}`, { state: { data: data, collectionData, onlyShow: true } })
                 } else if (label == 'List' && profileOwned) {
-                  navigate('/nft-detail', { state: { data: data, collectionData, forList: true } })
+                  navigate(`/nft/${data.assetId}`, { state: { data: data, collectionData, forList: true } })
                 } else if (label == 'Claim' && profileOwned) {
-                  navigate('/nft-detail', { state: { data: data, collectionData, forList: true, forClaim: true } })
+                  navigate(`/nft/${data.assetId}`, { state: { data: data, collectionData, forList: true, forClaim: true } })
                 } else {
-                  navigate('/nft-detail', { state: { data: otherAuctionData, collectionData, onlyShow: true } })
+                  navigate(`/nft/${otherAuctionData?.assetId || data.assetId}`, {
+                    state: { data: otherAuctionData, collectionData, onlyShow: true },
+                  })
                 }
               } else {
-                navigate('/nft-detail', { state: { data, collectionData } })
+                navigate(`/nft/${data.assetId}`, { state: { data, collectionData } })
               }
             }
           }
@@ -368,18 +370,23 @@ const CollectionsCard = ({
           </div>
           <div className="relative">
             <img
-              className="rounded-lg w-[292px] h-[314px]  object-cover"
+              className="rounded-lg w-[292px] h-[314px] object-cover bg-gray-100"
               src={
                 data?.params?.url ? replaceJsonWithPng(data?.params?.url) : data?.imgUrl ? replaceJsonWithPng(data?.imgUrl) : data.nftImg
               }
-              alt=""
+              alt={data?.name || data?.params?.name || 'NFT'}
+              loading="lazy"
               onError={({ currentTarget }) => {
                 currentTarget.onerror = null // prevents looping
-                currentTarget.src = data?.params?.url
-                  ? replaceJsonWithJpg(data?.params?.url)
-                  : data?.imgUrl
-                    ? replaceJsonWithJpg(data?.imgUrl)
-                    : data.nftImg
+                // Try JPG fallback first
+                if (data?.params?.url && !currentTarget.src.includes('.jpg')) {
+                  currentTarget.src = replaceJsonWithJpg(data?.params?.url)
+                } else if (data?.imgUrl && !currentTarget.src.includes('.jpg')) {
+                  currentTarget.src = replaceJsonWithJpg(data?.imgUrl)
+                } else {
+                  // Final fallback to a placeholder
+                  currentTarget.src = 'https://via.placeholder.com/292x314/f3f4f6/9ca3af?text=NFT'
+                }
               }}
             />
             {data?.params?.url?.includes('/AI/') || data?.imgUrl?.includes('/AI/') ? (

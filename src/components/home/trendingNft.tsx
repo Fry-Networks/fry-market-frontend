@@ -35,27 +35,27 @@ const TrendingNft = ({ collectionData }: any) => {
       <img className="absolute top-[-400px] right-0 left-0 -z-50" src={colectionBack} alt="" />
       <div className="container">
         <div className="flex inner items-center justify-between">
-          <h2 className="font-normal font-Apex uppercase">Trending NFT'S</h2>
+          <h2 className="font-normal font-Apex uppercase">Trending NFTs</h2>
         </div>
 
         <div className="nftWrapper mt-10 grid grid-cols-4   gap-x-5 xxl:gap-x-10 gap-y-7 place-items-center">
-          {loading ?
+          {loading ? (
             <div className="w-full h-full flex justify-center items-center col-span-4">
               <Loader></Loader>
-            </div> :
-            Array.isArray(listedNfts) && listedNfts.length > 0 ? (
-              listedNfts
-                .sort((data1: any, data2: any) => data1.list_count - data2.list_count)
-                .map((data: any, index: any) =>
-                  data.isListed ? (
-                    <CollectionsCard key={data.assetId} data={data} label={'Buy'} collectionData={collectionData[data.seller]} />
-                  ) : (
-                    ''
-                  ),
-                )
-            ) : (
-              <p>No Nft Listed</p>
-            )}
+            </div>
+          ) : Array.isArray(listedNfts) && listedNfts.length > 0 ? (
+            listedNfts
+              .sort((data1: any, data2: any) => data1.list_count - data2.list_count)
+              .map((data: any, index: any) =>
+                data.isListed ? (
+                  <CollectionsCard key={data.assetId} data={data} label={'Buy'} collectionData={collectionData[data.seller]} />
+                ) : (
+                  ''
+                ),
+              )
+          ) : (
+            <p>No NFTs Listed</p>
+          )}
         </div>
       </div>
     </div>
