@@ -8,7 +8,7 @@ This starter React project has been generated using AlgoKit. See below for defau
 
 #### 1. Clone the Repository
 
-Start by cloning this repository to your local machine.
+Start by cloning this repository to your local machine. 
 
 #### 2. Install Pre-requisites
 
