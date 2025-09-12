@@ -221,6 +221,17 @@ const CollectionsCard = ({
     }
   }
 
+  const handleNftAddressClick = (e: any, nftAddress: number) => {
+    e.stopPropagation() // Prevent the card click event
+    const peraExplorerUrl = `https://explorer.perawallet.app/asset/${nftAddress}`
+    window.open(peraExplorerUrl, '_blank')
+  }
+
+  const truncateAddress = (address: string | number, startChars = 6, endChars = 4) => {
+    const addressStr = address.toString()
+    if (addressStr.length <= startChars + endChars) return addressStr
+    return `${addressStr.slice(0, startChars)}...${addressStr.slice(-endChars)}`
+  }
   function replaceJsonWithPng(str: any) {
     return str.includes('.json') ? str.replace('.json', '.png') : str
   }
@@ -277,6 +288,32 @@ const CollectionsCard = ({
             <p className="ex-small font-light font-Roboto lightGray opacity-80">
               @{collectionData?.collection_name ? collectionData?.collection_name : 'collection'}
             </p>
+
+            {/* NFT Address Display */}
+            {data?.nftAddress && (
+              <div
+                className="flex items-center gap-1 cursor-pointer hover:opacity-70 transition-opacity"
+                onClick={(e) => handleNftAddressClick(e, data.nftAddress)}
+                title={`View on Pera Explorer: ${data.nftAddress}`}
+              >
+                <p className="ex-small font-medium font-Roboto text-blue-600 underline">
+                  Asa ID: {truncateAddress(data.nftAddress)}
+                </p>
+                <svg
+                  className="w-3 h-3 text-blue-600"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
+                </svg>
+              </div>
+            )}
           </div>
         </div>
         <div className="cardBody relative">
