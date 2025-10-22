@@ -27,13 +27,14 @@ const PixacioBanner = ({
         <img className=" grid absolute top-[-400px] right-0 -z-50" src={grid} alt="" />
         <div className="container">
           {/* Back Button */}
+          {/* Back Button */}
           <div className="backButtonSection mb-6">
             <button
               onClick={() => navigate(-1)}
-              className="flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-gray-300"
+              className="flex items-center gap-2 px-3 py-2 md:px-4 md:py-2 text-gray-600 hover:text-gray-800 transition-colors duration-200 bg-white rounded-lg shadow-sm border border-gray-200 hover:border-gray-300 text-sm md:text-base relative z-10"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 md:w-5 md:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -46,7 +47,8 @@ const PixacioBanner = ({
                   d="M15 19l-7-7 7-7"
                 />
               </svg>
-              Back
+              <span className="hidden sm:inline">Back</span>
+              <span className="sm:hidden">←</span>
             </button>
           </div>
 
