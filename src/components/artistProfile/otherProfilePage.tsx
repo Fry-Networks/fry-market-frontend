@@ -11,6 +11,7 @@ import ProfileNft from './profileNft';
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 
 const OtherProfilePage = () => {
+  console.log("=== OtherProfilePage rendered ===");
   const { sellerId } = useParams(); // Extract sellerId from the URL
 
   const [collectionData, setCollectionData] = useState<any>({})

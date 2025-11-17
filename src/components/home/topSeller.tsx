@@ -13,92 +13,92 @@ import SellerCard from '../cards/sellerCard';
 
 
 const TopSeller = ({ collectionDataFull }: any) => {
+  console.log("Collection Data in Top Seller", collectionDataFull);
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
+  return (
+    <>
+      <div className="topsellerWrapper my-40 relative lg:mb-24">
+        <img className='absolute top-[-500px] right-0 w-full left-0 -z-10' src={sellerBack} alt="" />
+        <div className="container">
+          <div className='flex justify-between items-center headWrappr'>
+            <h2 className="font-normal font-Apex uppercase mb-10">
+              SELLERS
+            </h2>
+            <p className='primary large font-medium font-Roboto cursor-pointer' onClick={() => navigate("/top-seller")}>View All</p>
+          </div>
 
-    return (
-        <>
-            <div className="topsellerWrapper my-40 relative lg:mb-24">
-                <img className='absolute top-[-500px] right-0 w-full left-0 -z-10' src={sellerBack} alt="" />
-                <div className="container">
-                    <div className='flex justify-between items-center headWrappr'>
-                        <h2 className="font-normal font-Apex uppercase mb-10">
-                            SELLERS
-                        </h2>
-                        <p className='primary large font-medium font-Roboto cursor-pointer' onClick={() => navigate("/top-seller")}>View All</p>
-                    </div>
-
-                    <div className="sellerCardDiv grid grid-cols-4 place-items-center gap-10" style={{ placeItems: "center" }}>
-                        {/* {
+          <div className="sellerCardDiv grid grid-cols-4 place-items-center gap-10" style={{ placeItems: "center" }}>
+            {/* {
                             sellerData.map((data, index) => (
                                 <SellerCard data={data} key={data.id} />
                             ))
                         } */}
-                        {Array.isArray(collectionDataFull) && collectionDataFull.length > 0 ?
-                            collectionDataFull.map((data: any, index: any) => (
-                                <SellerCard data={data} key={data._id} />
-                            ))
-                            :
+            {Array.isArray(collectionDataFull) && collectionDataFull.length > 0 ?
+              collectionDataFull.map((data: any, index: any) => (
+                <SellerCard data={data} key={data._id} />
+              ))
+              :
 
-                            <p>No Seller Found</p>
-                        }
-                    </div>
-                </div>
-            </div>
-        </>
-    )
+              <p>No Seller Found</p>
+            }
+          </div>
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default TopSeller;
 
 const sellerData = [
-    {
-        id: 1,
-        sellerImg: sellerImg1,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 2,
-        sellerImg: sellerImg2,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 3,
-        sellerImg: sellerImg3,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 4,
-        sellerImg: sellerImg4,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 5,
-        sellerImg: sellerImg5,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 6,
-        sellerImg: sellerImg6,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 7,
-        sellerImg: sellerImg7,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    },
-    {
-        id: 8,
-        sellerImg: sellerImg8,
-        sellerName: "Jacob Jones",
-        rate: "245.5 FRY"
-    }
+  {
+    id: 1,
+    sellerImg: sellerImg1,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 2,
+    sellerImg: sellerImg2,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 3,
+    sellerImg: sellerImg3,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 4,
+    sellerImg: sellerImg4,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 5,
+    sellerImg: sellerImg5,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 6,
+    sellerImg: sellerImg6,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 7,
+    sellerImg: sellerImg7,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  },
+  {
+    id: 8,
+    sellerImg: sellerImg8,
+    sellerName: "Jacob Jones",
+    rate: "245.5 FRY"
+  }
 
 ]
