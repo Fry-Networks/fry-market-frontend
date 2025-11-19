@@ -109,6 +109,7 @@ export default function App() {
     location.pathname === '/' ||
     location.pathname === '/auction' ||
     location.pathname === '/nft-collection' ||
+    location.pathname === '/explore-listed-nfts' ||
     location.pathname === '/top-collection' ||
     location.pathname === '/nft-detail' ||
     location.pathname.startsWith('/nft/') ||

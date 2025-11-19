@@ -330,6 +330,7 @@ export const addCollectionRoyalty = async (sender: string, signer: TransactionSi
     })
 
     const result = await atc.execute(algodClient, 4)
+    console.log(result)
     return result
   } catch (e) {
     console.log(e)

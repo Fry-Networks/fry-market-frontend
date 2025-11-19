@@ -4,17 +4,6 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import bannerback from '../assets/home/images/topSeller/bannerBack.webp'
-import table1 from '../assets/icons/topSeller/ts1.svg'
-import table11 from '../assets/icons/topSeller/ts11.svg'
-import table2 from '../assets/icons/topSeller/ts2.svg'
-import table3 from '../assets/icons/topSeller/ts3.svg'
-import table5 from '../assets/icons/topSeller/ts5.svg'
-import table8 from '../assets/icons/topSeller/ts8.svg'
-import table9 from '../assets/icons/topSeller/ts9.svg'
-import table10 from '../assets/icons/topSeller/tss10.webp'
-import table4 from '../assets/icons/topSeller/tss4.webp'
-import table6 from '../assets/icons/topSeller/tss6.webp'
-import table7 from '../assets/icons/topSeller/tss7.webp'
 import ts2 from '../assets/images/topSellers/ts2.jpg'
 import ts3 from '../assets/images/topSellers/ts3.jpg'
 import ts1 from '../assets/images/topSellers/tss1.webp'
@@ -35,17 +24,17 @@ const TopSeller = () => {
   }, [])
 
   const handleRowClick = (record: any) => {
-    // navigate("/seller-collection");
-    // console.log("Ff", record?.allProfileData);
-    // console.log("Ff", activeAccount?.address);
+    console.log("Clicked profile:", record?.allProfileData);
 
     if (activeAccount?.address == record?.allProfileData?.wallet_address) {
       navigate('/artist-profile')
     } else {
-      navigate('/artist-profile-others', { state: { profileData: record.allProfileData } })
+      // Fixed: Changed 'artist-profile-other' to 'artist-profile-others'
+      navigate(`/artist-profile-others/${record.allProfileData.wallet_address}`, {
+        state: { profileData: record.allProfileData }
+      })
     }
   }
-
   const getProfileData = async () => {
     try {
       // const config = {
@@ -53,7 +42,7 @@ const TopSeller = () => {
       // };
 
       const response: any = await axios.get(`${baseUrl}/get-all-profiles`)
-      // console.log("All Profiles", response.data);
+      console.log("All Profiles", response.data);
       setProfileData(response.data)
       // return true;
     } catch (e) {
@@ -77,158 +66,7 @@ const TopSeller = () => {
     items: string
     image: string
   }
-  const data: DataType[] = [
-    {
-      key: '1',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 100,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table1,
-    },
-    {
-      key: '2',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 150,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table2,
-    },
-    {
-      key: '3',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 75,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table3,
-    },
-    {
-      key: '4',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 75,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table4,
-    },
-    {
-      key: '5',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 33,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table5,
-    },
-    {
-      key: '6',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 24,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table6,
-    },
-    {
-      key: '7',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 22,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table7,
-    },
-    {
-      key: '8',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 64,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table1,
-    },
-    {
-      key: '9',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 877,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table8,
-    },
-    {
-      key: '10',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 55,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table9,
-    },
-    {
-      key: '11',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 35,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table10,
-    },
-    {
-      key: '12',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 32,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table3,
-    },
-    {
-      key: '13',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 94,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table2,
-    },
-    {
-      key: '14',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 75,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table1,
-    },
-    {
-      key: '15',
-      collection: 'Jacob Jones',
-      volume: 154.0,
-      follower: 25,
-      percentage: '+237.67%',
-      price: '4,901',
-      items: '9.8k',
-      image: table11,
-    },
-  ]
+
   const columns = [
     {
       title: 'Profile',
@@ -336,35 +174,7 @@ const TopSeller = () => {
             </div>
           </div>
 
-          {/* <div className="flex justify-between mt-9 mb-9">
-            {/* <Button className="btn-white" text="Catagory"/>
-            <div className="catagorySelector">
-              <Select
-                defaultValue="Catagory"
-                style={{
-                  width: 138,
-                  height: 48,
-                  boxShadow: "4px 4px 15px 0px rgba(0, 0, 0, 0.20)",
-                  borderRadius: 8,
 
-                }}
-                // className="btn-white"
-                onChange={handleChange}
-                // autoFocus={false}
-                options={[
-                  {
-                    value: "catagory1",
-                    label: "Catagory 1",
-                  },
-                  {
-                    value: "catagory2",
-                    label: "Catagory 2",
-                  },
-                ]}
-              />
-            </div>
-            <Button className="btn-white small font-semibold" text="Last 30 days" />
-          </div> */}
 
           <div className="collectionTable relative">
             <Table

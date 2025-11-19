@@ -38,7 +38,7 @@ const TopCollections = ({ collectionDataFull, profile }: any) => {
               }}
               className="primary large font-medium font-Roboto cursor-pointer"
             >
-              View More Collection
+              View More Collections
             </p>
           </div>
           <div className="nftCardContainer flex items-center justify-center gap-8 mt-12">

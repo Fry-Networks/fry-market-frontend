@@ -92,8 +92,9 @@ const CreateNftCollectionManual = () => {
     return new Promise(async (resolve, reject) => {
       try {
         if (activeAccount?.address) {
+          console.log("royalty", royalty);
           const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
-          // console.log("Royalty Response", addRoyaltyResponse);
+          console.log("Royalty Response", addRoyaltyResponse);
 
           if (addRoyaltyResponse) {
             // console.log("added", addRoyaltyResponse);
@@ -263,7 +264,7 @@ const CreateNftCollectionManual = () => {
 
                           if (e.target.value == '' || (e.target.value >= 0 && e.target.value <= 15)) {
                             setRoyalty(e.target.value)
-                            // console.log("D");
+                            console.log("D", royalty);
                           }
                         }}
                       // disabled={collectionDataFound}

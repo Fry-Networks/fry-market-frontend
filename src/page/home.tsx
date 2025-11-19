@@ -17,7 +17,7 @@ const Home = () => {
   const [collectionData, setCollectionData] = useState<any>('')
   const [collectionDataFull, setCollectionDataFull] = useState<any>([])
   const { activeAccount } = useWallet()
-
+  console.log("Active Account in Home", activeAccount);
   const getProfileData = async (id: any) => {
     if (id) {
       try {
