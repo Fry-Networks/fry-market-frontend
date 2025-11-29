@@ -154,7 +154,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <button
-                    onClick={() => navigate('/')}
+                    onClick={() => navigate('/trending-nft')}
                     className="text-gray-300 hover:text-red-400 font-normal font-Roboto transition-all duration-300 hover:translate-x-2 transform hover:font-medium text-base flex items-center group"
                   >
                     <span className="w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-red-500 transition-colors duration-300"></span>
@@ -197,7 +197,7 @@ const Footer = () => {
                     Top Collections
                   </button>
                 </li>
-                <li>
+                {/* <li>
                   <button
                     onClick={() => navigate('/top-seller')}
                     className="text-gray-300 hover:text-red-400 font-normal font-Roboto transition-all duration-300 hover:translate-x-2 transform hover:font-medium text-base flex items-center group"
@@ -205,7 +205,7 @@ const Footer = () => {
                     <span className="w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-red-500 transition-colors duration-300"></span>
                     Artist Profiles
                   </button>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>

@@ -34,6 +34,7 @@ import SellerCollection from './page/sellerCollections'
 import SellMethod from './page/sellMethod'
 import TopCollection from './page/topCollection'
 import TopSeller from './page/topSeller'
+import TrendingNftPage from './page/trendingNftPage'
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 let providersArray: ProvidersArray
@@ -137,6 +138,7 @@ export default function App() {
             <Route path="/test" element={<TestHome />} />
             <Route path="/auction" element={<Auction />} />
             <Route path="/explore-listed-nfts" element={<ExploreListedNfts />} />
+            <Route path="/trending-nft" element={<TrendingNftPage />} />
             <Route path="/nft-collection" element={<NftCollection />} />
             <Route path="/top-collection" element={<TopCollection />} />
             <Route path="/collection/:id" element={<TopCollection />} />
