@@ -94,7 +94,7 @@ const Footer = () => {
                   <img className="w-5 h-5" src={linkedIn} alt="LinkedIn" />
                 </a>
                 <a
-                  href="https://discord.gg/fry-foundation-1004603899598082069"
+                  href="https://discord.com/invite/frynetworks"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-gray-700 hover:bg-red-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-gray-600 hover:border-red-500"
@@ -102,7 +102,7 @@ const Footer = () => {
                   <img className="w-5 h-5" src={discord} alt="Discord" />
                 </a>
                 <a
-                  href="https://github.com/Fry-Foundation"
+                  href="https://github.com/FrysCrypto/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-gray-700 hover:bg-red-600 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border border-gray-600 hover:border-red-500"
@@ -118,7 +118,7 @@ const Footer = () => {
                   <img className="w-5 h-5" src={reddit} alt="Reddit" />
                 </a>
                 <a
-                  href="https://twitter.com/FrysCrypto"
+                  href="https://x.com/FryNetworks"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-white hover:bg-red-50 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 border-2 border-gray-300 hover:border-red-500"
@@ -199,7 +199,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <button
-                    onClick={() => navigate('/artist-profile')}
+                    onClick={() => navigate('/top-seller')}
                     className="text-gray-300 hover:text-red-400 font-normal font-Roboto transition-all duration-300 hover:translate-x-2 transform hover:font-medium text-base flex items-center group"
                   >
                     <span className="w-2 h-2 bg-gray-600 rounded-full mr-3 group-hover:bg-red-500 transition-colors duration-300"></span>
