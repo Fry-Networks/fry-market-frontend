@@ -170,15 +170,15 @@ const CreateNftCollectionManual = () => {
   return (
     <>
       <div>
-        <div className="nftCollection mt-[107px] h-[110vh]">
+        <div className="nftCollection mt-[107px] mb-40 pb-20">
           <div className="container">
             {/* Back Button */}
             <div className="backButtonSection mb-6">
               <BackButton />
             </div>
 
-            <div className="contentWrapper flex gap-8 w-full">
-              <div className=" leftContent flex flex-col  items-start">
+            <div className="contentWrapper flex flex-col lg:flex-row gap-8 w-full">
+              <div className=" leftContent flex flex-col items-center lg:items-start">
                 <div className="p-[20px] bg-white flex justify-center rounded-[20px] box-shadow" style={{ cursor: 'pointer' }}>
                   <label htmlFor="collectionImage" className="block">
                     <img
@@ -213,7 +213,7 @@ const CreateNftCollectionManual = () => {
                 </div>
               </div>
 
-              <div className="w-[992px] rightContent">
+              <div className="w-full lg:w-[992px] rightContent">
                 <div className="flex gap-3 items-center rightText">
                   {/* <Button
                     className="btn-gray w-32 lightGray"
@@ -224,8 +224,8 @@ const CreateNftCollectionManual = () => {
                     text="100 Items"
                   /> */}
                 </div>
-                <div className="py-4 px-[89px] bg-white box-shadow rounded-[20px] manualDiv">
-                  <h2 className="text-center font-normal text-[40px] font-Apex darkBlack mb-24 uppercase mt-[20px]">Create a collection</h2>
+                <div className="py-4 px-5 md:px-[89px] bg-white box-shadow rounded-[20px] manualDiv">
+                  <h2 className="text-center font-normal text-[30px] md:text-[40px] font-Apex darkBlack mb-10 md:mb-24 uppercase mt-[20px]">Create a collection </h2>
                   <form action="" className="flex flex-col gap-7">
                     <div>
                       <Input

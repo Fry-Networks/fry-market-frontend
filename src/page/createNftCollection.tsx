@@ -109,7 +109,7 @@ const CreateNftCollection = () => {
                           text="Continue"
                           onClick={(e: any) => {
                             e.preventDefault();
-                            // console.log("hello"); 
+                            // console.log("hello");
                             navigate("/artist-profile-art")
                           }}
                         />

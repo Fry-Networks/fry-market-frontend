@@ -39,7 +39,7 @@ const LiveAuction = ({ auctionedNfts, getAuctionedNft }: LiveAuctionProps) => {
             <Loader />
           </div>
         ) : activeAuctions.length > 0 ? (
-          <div className="auctionGrid mt-10 grid grid-cols-4 gap-x-10 gap-y-9 relative z-20">
+          <div className="auctionGrid mt-10 grid lg:grid-cols-4 gap-x-10 gap-y-9 relative z-20">
             {activeAuctions.map((auction: AuctionData, index: number) => (
               <AuctionCard
                 key={auction.assetId || index}
