@@ -275,7 +275,7 @@ const ManualCreateNft = () => {
   const handleTraitAdd = () => {
     if (traitName && traitValue) {
       if (!Object.keys(traits).includes(traitName)) {
-        if (traitName?.replace(/\s+/g, '').length == 0 && traitValue?.replace(/\s+/g, '').length == 0) {
+        if (traitName?.replace(/\s+/g, '').length == 0 || traitValue?.replace(/\s+/g, '').length == 0) {
           toast.error('Trait name and value can not be empty')
           return
         }

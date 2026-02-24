@@ -22,7 +22,6 @@ const NftDetail = () => {
     if (id) {
       try {
         const response: any = await axios.get(`${baseUrl}/get-profile-settings/${id}`)
-        console.log("Hehehe", response.data);
         setProfileData(response.data)
         // return true;
       } catch (e) {
@@ -33,7 +32,6 @@ const NftDetail = () => {
 
   useEffect(() => {
     if (location.state) {
-      console.log("Location", location.state);
       if (location.state.collectionData && location.state.data) {
         setCollectionData(location.state.collectionData)
         setNftData(location.state.data)

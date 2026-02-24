@@ -256,7 +256,7 @@ const CreateNftCollectionManual = () => {
                         asterisk="*"
                         placeholder="Enter Royalty Percentage (0-15%)"
                         className="w-full input-nft"
-                        name="collection_name"
+                        name="royalty"
                         value={royalty}
                         onKeyDown={(evt: any) => evt.key === 'e' && evt.preventDefault()}
                         onChange={(e: any) => {
@@ -264,7 +264,6 @@ const CreateNftCollectionManual = () => {
 
                           if (e.target.value == '' || (e.target.value >= 0 && e.target.value <= 15)) {
                             setRoyalty(e.target.value)
-                            console.log("D", royalty);
                           }
                         }}
                       // disabled={collectionDataFound}

@@ -231,7 +231,7 @@ export const listNftAuction = async (
           .getAppBoxValue(AUCTION_ID, boxId, algodClient)
           .then((res) => res)
           .catch((e) => {
-            if (e) false
+            return null
           })
         // console.log(box)
         if (!box) {
@@ -343,7 +343,7 @@ export const createBid = async (
       .getAppBoxValue(AUCTION_ID, boxId, algodClient)
       .then((res) => res)
       .catch((e) => {
-        if (e) false
+        return null
       })
     if (box) {
       const listedCount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
@@ -530,7 +530,7 @@ export const claimNftRoyalty = async (
       .getAppBoxValue(AUCTION_ID, boxId, algodClient)
       .then((res) => res)
       .catch((e) => {
-        if (e) false
+        return null
       })
     if (box) {
       const listedCount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')

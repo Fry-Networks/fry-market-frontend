@@ -14,10 +14,9 @@ import TrendingNft from '../components/home/trendingNft'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const Home = () => {
-  const [collectionData, setCollectionData] = useState<any>('')
+  const [collectionData, setCollectionData] = useState<any>({})
   const [collectionDataFull, setCollectionDataFull] = useState<any>([])
   const { activeAccount } = useWallet()
-  console.log("Active Account in Home", activeAccount);
   const getProfileData = async (id: any) => {
     if (id) {
       try {
@@ -66,7 +65,7 @@ const Home = () => {
     } catch (e) {
       // console.log("Error Getting Collection", e);
       // toast.error("Error Creating Collection");
-      setCollectionData('')
+      setCollectionData({})
     }
   }
 
