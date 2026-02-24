@@ -28,7 +28,10 @@ const Auction = ({ collectionData = {}, auctionText, moreByUser }: any) => {
       if (moreByUser) {
         filteredAuctions = response
           .filter((item) => item?.isListed)
-          .filter((item) => item.sellerId == collectionData[Object.keys(collectionData)[0]].collection_address)
+          .filter((item) => {
+            const keys = Object.keys(collectionData || {})
+            return keys.length && item.sellerId == collectionData[keys[0]]?.collection_address
+          })
       } else {
         filteredAuctions = response.filter((item) => item?.isListed)
       }

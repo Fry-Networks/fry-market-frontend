@@ -39,7 +39,7 @@ const MintNft = ({ ismintmodal, setismintmodal }: any) => {
 
             <div className="uploadImg flex-center   gap-2  w-full">
               <img src={checkIcon} alt="" />
-              <p className="lightGray font-Roboto largefont-normal">Upload images</p>
+              <p className="lightGray font-Roboto large font-normal">Upload images</p>
             </div>
             <p className="ex-large darkBlack font-Roboto font-medium ">Mint</p>
             <p className="lightGray font-Roboto medium font-normal text-center">We’ve sent a transaction to create your NFT, check your wallet</p>

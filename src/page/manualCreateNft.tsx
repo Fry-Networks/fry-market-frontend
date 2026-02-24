@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import selectNftGlow from '../assets/createNft/selectedNftGlow.webp'
+import plusIcon from '../assets/icons/plus.svg'
 import nft1 from '../assets/images/placeholder-image.webp'
 import BackButton from '../components/shared/backButton'
 import Button from '../components/shared/button'
@@ -275,7 +276,7 @@ const ManualCreateNft = () => {
   const handleTraitAdd = () => {
     if (traitName && traitValue) {
       if (!Object.keys(traits).includes(traitName)) {
-        if (traitName?.replace(/\s+/g, '').length == 0 && traitValue?.replace(/\s+/g, '').length == 0) {
+        if (traitName?.replace(/\s+/g, '').length == 0 || traitValue?.replace(/\s+/g, '').length == 0) {
           toast.error('Trait name and value can not be empty')
           return
         }
@@ -532,7 +533,7 @@ const ManualCreateNft = () => {
                                                     <p className="lightGray font-normal medium font-Roboto">
                                                         Add Traits
                                                     </p>
-                                                    <img src="/src/assets/icons/plus.svg" alt="" />
+                                                    <img src={plusIcon} alt="" />
                                                 </div>
                                                 <div className="royality flex flex-col gap-5">
                                                     <p className="darkBlack font-Roboto large font-medium">

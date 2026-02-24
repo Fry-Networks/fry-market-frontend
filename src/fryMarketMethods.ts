@@ -123,7 +123,7 @@ export const optInAsset = async (sender: string, signer: TransactionSigner, feeP
   try {
     // console.log("daat", FRY_MARKET_ADDRESS, FRY_MARKET_ID, FRY_TOKEN_ID)
 
-    const { marketClient, algorandClient } = await createFryMarketClient(signer, sender, 2949974321)
+    const { marketClient, algorandClient } = await createFryMarketClient(signer, sender, Number(FRY_MARKET_ID))
 
     await algorandClient.send.payment({
       sender,
@@ -216,8 +216,8 @@ export const listNft = async (sender: string, assetId: bigint, signer: Transacti
     const box = await algokit
       .getAppBoxValue(FRY_MARKET_ID, boxId, algodClient)
       .then((res) => res)
-      .catch((e) => {
-        if (e) false
+      .catch(() => {
+        return null
       })
     // console.log(box)
     if (!box) {
@@ -376,8 +376,8 @@ export const buyNftWithRoyalty = async (sender: string, assetId: bigint, signer:
     const box: any = await algokit
       .getAppBoxValue(FRY_MARKET_ID, boxId, algodClient)
       .then((res) => res)
-      .catch((e) => {
-        if (e) false
+      .catch(() => {
+        return null
       })
     if (box) {
       const listedCount = algosdk.decodeUint64(box.slice(40, 48), 'mixed')

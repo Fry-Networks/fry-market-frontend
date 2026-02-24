@@ -2,7 +2,7 @@ import { useWallet } from '@txnlab/use-wallet'
 import { useEffect, useState } from 'react'
 import { useLocation, useParams } from 'react-router-dom'
 // import artistImage from '../../src/assets/topCollection/leftImg.webp'
-import artistImage from "../../src/assets/images/placeholder-image.webp"
+import artistImage from "../assets/images/placeholder-image.webp"
 import { getAllUserAuctions } from '../auctionMethod'
 import ReadyForNext from '../components/home/readyForNext'
 import PixacioBanner from '../components/topCollection/pixacioBanner'
@@ -12,7 +12,7 @@ import { getCollectionDataByAddress } from '../utils/network/helper'
 const TopCollection = () => {
   const location = useLocation()
   const params = useParams()
-  const [collectionData, setCollectionData] = useState<any>('')
+  const [collectionData, setCollectionData] = useState<any>(null)
   const [profileData, setProfileData] = useState<any>([])
   const [loadingBought, setLoadingBought] = useState<any>(false)
   const [loadingListed, setLoadingListed] = useState<any>(false)
@@ -26,9 +26,9 @@ const TopCollection = () => {
 
   const getAllNft = async () => {
     try {
+      if (!collectionData?.wallet_address) return
       setLoadingListed(true)
       const response = await getAllListedByUser(collectionData.wallet_address)
-      console.log('NftAll', response)
       setNfts(response)
       setLoadingListed(false)
 
@@ -57,8 +57,7 @@ const TopCollection = () => {
 
   const getBoughtAllNft = async () => {
     try {
-      console.log('NftBought', collectionData)
-      if (collectionData.collection_address) {
+      if (collectionData?.collection_address && collectionData?.minted_nfts?.length) {
         setLoadingBought(true)
 
         const nftDetails = []
@@ -66,7 +65,6 @@ const TopCollection = () => {
           const response2 = await getNFTsFromGroupId(collectionData.minted_nfts[i])
           nftDetails.push(...response2)
         }
-        console.log('nftDetails', nftDetails)
         setAllBoughtNft(nftDetails)
         setLoadingBought(false)
       }
@@ -101,7 +99,6 @@ const TopCollection = () => {
     // console.log("ahh");
   }, [])
   useEffect(() => {
-    console.log('collectionData', collectionData)
     if (collectionData) {
       getAllNft()
       getAuctionedNft()

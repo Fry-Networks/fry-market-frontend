@@ -44,17 +44,6 @@ const CollectionsCard = ({
     }
   }, [showHiddenDiv])
 
-  useEffect(() => {
-    if (showLayer) {
-      setIsSoldBtn(true)
-    }
-  }, [showLayer])
-  useEffect(() => {
-    if (showHiddenDiv) {
-      setIsVisible(true)
-    }
-  }, [showHiddenDiv])
-
   const [isboostmodal, setisboostmodal] = useState(false)
 
   const showBoostModal = () => {

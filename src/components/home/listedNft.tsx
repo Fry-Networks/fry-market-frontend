@@ -25,8 +25,10 @@ const ListedNft = ({ collectionData, listedText, moreByUser }: any) => {
 
   const getListedNftByUser = async () => {
     try {
+      const keys = Object.keys(collectionData || {})
+      if (!keys.length || !collectionData[keys[0]]?.collection_address) return
       setLoading(true)
-      const response = await getAllListedByUser(collectionData[Object.keys(collectionData)[0]].collection_address)
+      const response = await getAllListedByUser(collectionData[keys[0]].collection_address)
       setListedNfts(response)
       setLoading(false)
     } catch (e) {

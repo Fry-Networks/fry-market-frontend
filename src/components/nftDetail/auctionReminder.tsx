@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { cancelAuction } from "../../auctionMethod";
+import grayClockIcon from '../../assets/icons/grayClock.svg'
 import PlaceBid from "../../modals/placeBid";
 import Button from "../shared/button";
 
@@ -124,7 +125,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
     <>
       <div className="salesEndDiv bg-white flex flex-col mt-6">
         <div className="salesHeader p-5">
-          <img src="/src/assets/icons/grayClock.svg" alt="" />
+          <img src={grayClockIcon} alt="" />
           <p className="lightGray font-normal text-[16px]">Sale ends at {(new Date(nftData.biddingEndTime * 1000)).toLocaleString()} </p>
           {/* {nftData.biddingEndTime ? (<Countdown date={Date.now() + ((nftData.biddingEndTime * 1000) - Date.now())} />) : ""} */}
           {(nftData.biddingEndTime * 1000) < Date.now() ?
@@ -183,7 +184,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
         isbidmodal={isbidmodal}
         setisbidmodal={setisbidmodal}
         data={nftData}
-
+        getAuctionedNft={() => {}}
       />
 
     </>
