@@ -176,8 +176,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
                   if (activeAccount?.address) {
                     if (isOwner && !nftData.isListed) {
                       navigate('/sell-method', { state: { nftData: nftDataFromProps } })
-                    }
-                    if (isOwner) {
+                    } else if (isOwner) {
                       toast.promise(handleCancelNftList(), {
                         pending: 'NFT Listing Cancellation in progress',
                         error: 'There was an error Cancelling NFT Listing',

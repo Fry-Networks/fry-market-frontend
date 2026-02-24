@@ -183,7 +183,7 @@ const AuctionReminder = ({ hide, showReminder, nftData, highestBid }: any) => {
         isbidmodal={isbidmodal}
         setisbidmodal={setisbidmodal}
         data={nftData}
-
+        getAuctionedNft={() => {}}
       />
 
     </>

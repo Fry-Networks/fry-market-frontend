@@ -39,7 +39,7 @@ const SelectedNft = () => {
   const [value, setValue] = useState("blue: fox");
   const [isEditing, setIsEditing] = useState(false);
 
-  const { activeAddress, signer, sendTransactions, signTransactions } = useWallet()
+  const { activeAccount, signer, sendTransactions, signTransactions } = useWallet()
   algokit.Config.configure({ populateAppCallResources: true });
 
   const algodConfig = getAlgodConfigFromViteEnvironment()
@@ -106,7 +106,7 @@ const SelectedNft = () => {
       expandedUris = expandedUris.slice(0, 16);
 
       // console.log(expandedUris.length)
-      const mintingTsx: Uint8Array[] = await mintMultipleNft(algorandClient, expandedUris, activeAddress!, signer)
+      const mintingTsx: Uint8Array[] = await mintMultipleNft(algorandClient, expandedUris, activeAccount?.address!, signer)
 
       const signedTransactions = await signTransactions(mintingTsx)
       const waitRoundsToConfirm = 4
@@ -125,12 +125,12 @@ const SelectedNft = () => {
     // await mintNft(e)
 
     //! list Nfts
-    // const nftList = await listNft(activeAddress!, BigInt(assetId), signer)
+    // const nftList = await listNft(activeAccount?.address!, BigInt(assetId), signer)
     // console.log(nftList)
 
     //! update Nft Price
 
-    // const updatePrice = await updateNftListPrice(activeAddress!, BigInt(assetId), signer, BigInt(2000000))
+    // const updatePrice = await updateNftListPrice(activeAccount?.address!, BigInt(assetId), signer, BigInt(2000000))
     // console.log(updatePrice)
 
     //! get listed nfts
@@ -138,15 +138,15 @@ const SelectedNft = () => {
     // console.log(listedNfts)
 
     //! cancel list
-    // const cancellist = await cancelList(activeAddress!, BigInt(assetId), signer)
+    // const cancellist = await cancelList(activeAccount?.address!, BigInt(assetId), signer)
     // console.log(cancellist)
 
     //! Buy Nft
-    // const buyListedNft = await buyNft(activeAddress!, BigInt(assetId), signer, "FW5K3IUZ2WQDCFDWPCBBSXAZXQQDONNN54FDVYHFCMOCK7PFDLROPGTTWM", 1000000)
+    // const buyListedNft = await buyNft(activeAccount?.address!, BigInt(assetId), signer, "FW5K3IUZ2WQDCFDWPCBBSXAZXQQDONNN54FDVYHFCMOCK7PFDLROPGTTWM", 1000000)
     // console.log(buyListedNft)
 
     //!getAllNfts
-    const nfts = await getAllCollectionNft(activeAddress!);
+    const nfts = await getAllCollectionNft(activeAccount?.address!);
     // console.log(nfts)
 
 

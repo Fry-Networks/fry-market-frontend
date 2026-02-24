@@ -48,12 +48,11 @@ const SellMethod = () => {
       try {
         if (activeAccount?.address) {
           setLoading(true)
-          console.log('nftData.nftAddress', nftData)
           const response: any = await listNft(activeAccount?.address, nftData.nftAddress, signer, price * 1000000)
           // console.log("response", response);
           setLoading(false)
           if (response == undefined) {
-            loading(false)
+            setLoading(false)
             reject(false)
             return
           }
@@ -83,7 +82,7 @@ const SellMethod = () => {
           )
 
           if (response == undefined) {
-            loading(false)
+            setLoading(false)
 
             reject(false)
             return
@@ -143,7 +142,6 @@ const SellMethod = () => {
 
   useEffect(() => {
     if (location.state) {
-      console.log('Nft Data in sell method', location.state.nftData)
       setData(location.state?.nftData)
     }
   }, [])

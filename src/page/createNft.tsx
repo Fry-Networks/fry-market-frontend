@@ -141,7 +141,7 @@ const CreateNft: React.FC = () => {
     setSelectedImages([])
     localStorage.setItem(`${key}_attempted`, 'true')
 
-    const ws = new WebSocket('wss://nftproduction.fry.market/ws')
+    const ws = new WebSocket(import.meta.env.VITE_WS_URL || 'wss://nftproduction.fry.market/ws')
     wsRef.current = ws
     const currentWalletAddress = walletAddressRef.current || 'fallback_wallet_address_on_start'
     let localGeneratedNftsAccumulator: any[] = [...initialNfts]

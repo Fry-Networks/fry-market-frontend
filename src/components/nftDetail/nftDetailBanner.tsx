@@ -94,16 +94,18 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
   }, [nftData])
   const biddingRef = useRef<any>()
   useEffect(() => {
-    if (nftData.url && !forClaim) {
+    if (nftData.bidContract && !detail && !forClaim) {
+      getBidDetails()
+      getHighestBid()
       biddingRef.current = setInterval(() => {
         getBidDetails()
         getHighestBid()
-      }, 3000)
+      }, 10000)
     }
     return () => {
       clearInterval(biddingRef.current)
     }
-  }, [nftData, activeAccount])
+  }, [nftData, activeAccount, detail, forClaim])
 
   const offerColumns = [
     {
@@ -154,11 +156,12 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
   ]
 
   const getFee = () => {
-    if (nftData) {
+    if (nftData && nftData.price) {
+      const priceInFry = Number(nftData.price) / 1000000
       if (nftData.list_count == 1) {
-        return (Number(nftData.price) / 100000000) * 3
+        return (priceInFry * 3 / 100).toFixed(2)
       } else {
-        return (Number(nftData.price) / 100000000) * 1
+        return (priceInFry * 1 / 100).toFixed(2)
       }
     } else {
       return 0
@@ -396,7 +399,11 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
                           <div className="flex flex-col gap-3">
                             <div className="w-full flex justify-between">
                               <p className="lightGray small font-normal font-Roboto">Contract Address</p>
-                              <p className="lightGray small font-normal font-Roboto">0x5848...1713</p>
+                              <p className="lightGray small font-normal font-Roboto">
+                                {collectionData?.collection_address
+                                  ? ellipseAddress(collectionData.collection_address)
+                                  : 'N/A'}
+                              </p>
                             </div>
 
                             <div className="w-full flex justify-between">
