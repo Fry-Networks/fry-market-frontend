@@ -279,7 +279,7 @@ const Navbar = (props: Toggle) => {
                     src={
                       profile?.profile_image
                         ? profile.profile_image
-                        : '	https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                        : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
                     }
                     alt="button"
                     className="cursor-pointer"
@@ -314,7 +314,7 @@ const Navbar = (props: Toggle) => {
                     src={
                       profile?.profile_image
                         ? profile.profile_image
-                        : '	https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                        : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
                     }
                     alt="button"
                     className="cursor-pointer"

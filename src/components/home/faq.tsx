@@ -1,7 +1,7 @@
 import { Collapse, theme } from "antd";
 import rightGlow from "../../assets/home/images/homeImages/faqRightt.webp";
-import minus from "/src/assets/icons/minus.svg";
-import plus from "/src/assets/icons/plus.svg";
+import minus from "../../assets/icons/minus.svg";
+import plus from "../../assets/icons/plus.svg";
 
 
 const text1 = `

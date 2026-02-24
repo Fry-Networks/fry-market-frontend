@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { claimNftRoyalty } from '../../auctionMethod'
 import { buyNftWithRoyalty, cancelList, getSingleNftlistData } from '../../fryMarketMethods'
+import grayClockIcon from '../../assets/icons/grayClock.svg'
 import Button from '../shared/button'
 
 const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forClaim }: any) => {
@@ -136,7 +137,7 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
       <div className="salesEndDiv bg-white flex flex-col mt-6">
         {!forList && !ownerSectionsVisible ? (
           <div className="salesHeader p-5">
-            <img src="/src/assets/icons/grayClock.svg" alt="" />
+            <img src={grayClockIcon} alt="" />
             <p className="lightGray font-normal text-[16px]">Listed at {new Date(nftDataFromProps.listTime * 1000).toLocaleString()}</p>
           </div>
         ) : (

@@ -12,6 +12,10 @@ import { replaceJsonWithJpg, replaceJsonWithPng, truncateString } from '../../ut
 import TraitsBox from '../cards/traitsBox'
 import AuctionReminder from './auctionReminder'
 import Reminder from './reminder'
+import menuLinesIcon from '../../assets/icons/menuLines.svg'
+import pricetagIcon from '../../assets/icons/pricetag.svg'
+import dotedMenuIcon from '../../assets/icons/dotedMenu.png'
+import detailIcon from '../../assets/icons/detailIcon.svg'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
 const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, forList, forClaim }: any) => {
@@ -230,7 +234,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
                       label: (
                         <div className="custom-label">
                           <div className="flex items-center gap-3">
-                            <img src="/src/assets/icons/menuLines.svg" alt="" />
+                            <img src={menuLinesIcon} alt="" />
                             <span className="lightGray font-Roboto font-normal medium">Description</span>
                           </div>
                         </div>
@@ -274,7 +278,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
                       label: (
                         <div className="custom-label">
                           <div className="flex items-center gap-3">
-                            <img src="/src/assets/icons/pricetag.svg" alt="" />
+                            <img src={pricetagIcon} alt="" />
                             <span className="lightGray font-Roboto font-normal medium">Traits</span>
                           </div>
                         </div>
@@ -338,7 +342,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
                         label: (
                           <div className="custom-label">
                             <div className="flex items-center gap-3">
-                              <img src="/src/assets/icons/dotedMenu.png" alt="" />
+                              <img src={dotedMenuIcon} alt="" />
                               <span className="lightGray font-Roboto font-normal medium">{detail ? 'Listing Details' : 'Offers'}</span>
                             </div>
                           </div>
@@ -389,7 +393,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
                       label: (
                         <div className="custom-label">
                           <div className="flex items-center gap-3">
-                            <img src="/src/assets/icons/detailIcon.svg" alt="" />
+                            <img src={detailIcon} alt="" />
                             <span className="lightGray font-Roboto font-normal medium">Details</span>
                           </div>
                         </div>
