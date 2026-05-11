@@ -21,24 +21,26 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
     try {
       return new Promise(async (resolve, reject) => {
         try {
-          if (activeAccount?.address) {
-            // console.log('nftDatanftData', nftData)
-            setLoading(true)
-            const response = await buyNftWithRoyalty(activeAccount?.address, nftData.assetId, signer, nftData.seller, nftData.price)
-            setLoading(false)
-            resolve(true)
-            navigate('/artist-profile')
-          } else {
+          if (!activeAccount?.address) {
             reject(false)
+            return
           }
+          if (!nftData.seller || !nftData.price || nftData.price <= 0) {
+            toast.error('NFT is not listed for sale')
+            reject(false)
+            return
+          }
+          setLoading(true)
+          const response = await buyNftWithRoyalty(activeAccount?.address, nftData.assetId, signer, nftData.seller, nftData.price)
+          setLoading(false)
+          resolve(true)
+          navigate('/artist-profile')
         } catch (e) {
           setLoading(false)
-
           reject(false)
         }
       })
     } catch (e) {
-      // console.log("Error Uploading Image", e);
       return e
     }
   }
@@ -131,6 +133,18 @@ const Reminder = ({ hide, showReminder, nftData: nftDataFromProps, forList, forC
 
     getRecentListingData()
   }, [activeAccount, nftDataFromProps])
+
+  const isUnlisted = nftDataFromProps?.isUnlisted || (!nftDataFromProps?.seller && !nftDataFromProps?.price)
+
+  if (isUnlisted) {
+    return (
+      <div className="salesEndDiv bg-white flex flex-col mt-6">
+        <div className="salesBody p-5 flex flex-col gap-5">
+          <p className="font-medium text-black text-[16px]">This NFT is not currently listed for sale.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <>
