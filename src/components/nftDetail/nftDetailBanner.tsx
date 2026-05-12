@@ -18,7 +18,7 @@ import dotedMenuIcon from '../../assets/icons/dotedMenu.png'
 import detailIcon from '../../assets/icons/detailIcon.svg'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 
-const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, forList, forClaim }: any) => {
+const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, forList, forClaim, isUnlisted }: any) => {
   // console.log('nftData', nftData?.collectionData?._id['$oid'])
 
   // console.log("nftData", nftData);
@@ -413,7 +413,7 @@ const NftDetailBanner = ({ detail, collectionData = {}, nftData = {}, onlyShow, 
                             <div className="w-full flex justify-between">
                               <p className="lightGray small font-normal font-Roboto">Token ID</p>
                               <p className="lightGray small font-normal font-Roboto">
-                                {nftData.nftAddress || nftData.assetId ? nftData.nftAddress || nftData.assetId : 'Unabel to get'}
+                                {nftData.nftAddress || nftData.assetId ? nftData.nftAddress || nftData.assetId : 'Unable to retrieve'}
                               </p>
                             </div>
 
