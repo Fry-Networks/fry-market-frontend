@@ -93,7 +93,7 @@ const CreateNftCollectionManual = () => {
       try {
         if (activeAccount?.address) {
           console.log("royalty", royalty);
-          const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, activeAccount?.address)
+          const addRoyaltyResponse = await addCollectionRoyalty(activeAccount?.address, signer, royalty, 0)
           console.log("Royalty Response", addRoyaltyResponse);
 
           if (addRoyaltyResponse) {

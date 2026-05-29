@@ -2,10 +2,11 @@ import * as algokit from '@algorandfoundation/algokit-utils'
 import { TransactionSignerAccount } from '@algorandfoundation/algokit-utils/types/account'
 import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
 import { Txn } from '@txnlab/use-wallet'
-import algosdk, { ABIContract, TransactionSigner } from 'algosdk'
+import algosdk, { TransactionSigner } from 'algosdk'
 import { FryAuctionClient } from './contracts/FryAuction'
 
 import { FryAuctionBiddingClient } from './contracts/FryAuctionBidding'
+import { BIDDING_APPROVAL_PROGRAM, BIDDING_CLEAR_PROGRAM } from './contracts/FryAuctionBiddingTeal'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 import { getCollectionByNftId } from './utils/network/helper'
 
@@ -103,7 +104,7 @@ export const deployAuction = async (sender: string, signer: TransactionSigner) =
     const auctionClientDeploy = new FryAuctionClient(appDetails, algodClient)
 
     const auction = await auctionClientDeploy.create
-      .initAuction({ fryId: FRY_TOKEN_ID, primaryFee: PRIMARY_FEE, secondaryFee: SECONDARY_FEE, admin: FEE_WALLET })
+      .create({ fryId: FRY_TOKEN_ID, primaryFee: PRIMARY_FEE, secondaryFee: SECONDARY_FEE })
       .then((res) => {
         // console.log(res)
         return res
@@ -122,14 +123,7 @@ export const deployAuction = async (sender: string, signer: TransactionSigner) =
       extraFee: algokit.algos(0.001),
     })
     if (auction.appId) {
-      const mbrPay = await algorandClient.transactions.payment({
-        sender,
-        receiver: algosdk.getApplicationAddress(auction?.appId),
-        amount: algokit.algos(0.1),
-        extraFee: algokit.algos(0.002),
-        signer,
-      })
-      const optInAsset = await auctionClient.assetOptIn({ mbrPay, asset: FRY_TOKEN_ID }).then((res) => {
+      const optInAsset = await auctionClient.assetOptIn({ asset: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.002) } }).then((res) => {
         // console.log(res)
       })
     }
@@ -152,146 +146,94 @@ export const listNftAuction = async (
 ) => {
   try {
     const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
-    const indexer = await getIndexerClient()
 
-    const appDetails = {
-      resolveBy: 'creatorAndName',
-      sender: { signer, addr: sender } as TransactionSignerAccount,
-      creatorAddress: sender,
-      findExistingUsing: indexer,
-    } as AppDetails
-    // console.log('appDetails', appDetails)
-    // console.log('algodClient', algodClient)
-    const biddingClient = new FryAuctionBiddingClient(appDetails, algodClient)
+    const atc = new algosdk.AtomicTransactionComposer()
+    const suggestedParams = await algodClient.getTransactionParams().do()
 
-    const auctionParams = {
-      assetId: asset,
-      bidStartAmount: BigInt(bidStartAmount),
-      minBidAmount: BigInt(minBidAmount),
-      biddingStartTime: BigInt(biddingStartTime),
-      biddingEndTime: BigInt(biddingEndTime),
+    // Check if auction app has opted in to asset
+    const accountInfo = await algodClient.accountInformation(AUCTION_ADDRESS).do()
+    const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset)
+    if (!hasOptedIn) {
+      const auctionFund = await algorandClient.transactions.payment({
+        sender,
+        receiver: algosdk.getApplicationAddress(AUCTION_ID),
+        amount: algokit.algos(0.1 + 0.1),
+        extraFee: algokit.algos(0.001),
+      })
+      atc.addTransaction({ txn: auctionFund, signer })
+
+      atc.addMethodCall({
+        suggestedParams: { ...suggestedParams, fee: 2000, flatFee: true },
+        appID: Number(AUCTION_ID),
+        method: auctionClient.appClient.getABIMethod('asset_opt_in')!,
+        methodArgs: [Number(asset)],
+        sender: sender,
+        signer: signer,
+        appForeignAssets: [Number(asset)],
+      })
     }
 
-    const bidding = await biddingClient.create
-      .initBidding({ ...auctionParams, seller: sender })
-      .then(async (res) => {
-        const atc = new algosdk.AtomicTransactionComposer()
-        const suggestedParams = await algodClient.getTransactionParams().do()
-        const bidFunds = await algorandClient.transactions.payment({
-          sender,
-          receiver: algosdk.getApplicationAddress(res.confirmation?.applicationIndex!),
-          amount: algokit.microAlgos(100000),
-          signer,
-        })
-        atc.addTransaction({ txn: bidFunds, signer })
-        const accountInfo = await algodClient.accountInformation(AUCTION_ADDRESS).do()
-        const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset)
-        // console.log('hasOptedIn', hasOptedIn)
-        if (!hasOptedIn) {
-          const auctionFund = await algorandClient.transactions.payment({
-            sender,
-            receiver: algosdk.getApplicationAddress(AUCTION_ID),
-            amount: algokit.algos(0.1 + 0.1),
-            extraFee: algokit.algos(0.001),
-          })
-          atc.addTransaction({ txn: auctionFund, signer })
+    // NFT transfer to auction app
+    const xfer = await algorandClient.transactions.assetTransfer({
+      sender,
+      receiver: AUCTION_ADDRESS,
+      amount: BigInt(1),
+      assetId: BigInt(asset),
+      signer,
+    })
 
-          const mbrPay = await algorandClient.transactions.payment({
-            sender,
-            receiver: algosdk.getApplicationAddress(AUCTION_ID),
-            amount: algokit.algos(0.1),
-            extraFee: algokit.algos(0.002),
-            signer,
-          })
-          // console.log('mbrPay', mbrPay)
+    // Box MBR — prefix 'a' (0x61) + encodeUint64(asset) = 9 bytes key
+    let boxAmount = 0
+    const boxName = new Uint8Array([0x61, ...algosdk.encodeUint64(asset)])
+    const box = await algokit
+      .getAppBoxValue(AUCTION_ID, boxName, algodClient)
+      .then((res) => res)
+      .catch(() => null)
+    if (!box) {
+      boxAmount = AUCTION_BOX_PRICE
+    }
 
-          atc.addMethodCall({
-            suggestedParams,
-            appID: Number(AUCTION_ID),
-            method: auctionClient.appClient.getABIMethod('assetOptIn')!,
-            methodArgs: [Number(asset), { txn: mbrPay, signer }],
-            sender: sender,
-            signer: signer,
-            appForeignAssets: [Number(asset)],
-          })
-        }
-        // console.log('aseset', asset)
-        const xfer = await algorandClient.transactions.assetTransfer({
-          sender,
-          receiver: AUCTION_ADDRESS,
-          amount: BigInt(1),
-          assetId: BigInt(asset),
-          signer,
-        })
-
-        let boxAmount = 0
-        let fee = 0
-        const boxId = algosdk.encodeUint64(asset)
-        const box = await algokit
-          .getAppBoxValue(AUCTION_ID, boxId, algodClient)
-          .then((res) => res)
-          .catch((e) => {
-            return null
-          })
-        // console.log(box)
-        if (!box) {
-          fee = (bidStartAmount * PRIMARY_FEE) / 10000
-          boxAmount = AUCTION_BOX_PRICE
-        } else {
-          fee = (bidStartAmount * SECONDARY_FEE) / 10000
-          boxAmount = 0
-        }
-
-        const boxPay = await algorandClient.transactions.payment({
-          sender,
-          receiver: AUCTION_ADDRESS,
-          amount: algokit.microAlgos(boxAmount),
-          signer,
-        })
-        // console.log('boxPay', boxPay)
-        const feeAxfer = await algorandClient.transactions.assetTransfer({
-          sender,
-          signer,
-          assetId: FRY_TOKEN_ID,
-          receiver: FEE_WALLET,
-          amount: BigInt(fee),
-        })
-        // console.log('feeAxfer', feeAxfer)
-        // console.log(FEE_WALLET, FRY_TOKEN_ID)
-        atc.addMethodCall({
-          suggestedParams,
-          appID: Number(AUCTION_ID),
-          method: auctionClient.appClient.getABIMethod('listNftOnAuction')!,
-          methodArgs: [
-            Number(asset),
-            auctionParams.bidStartAmount,
-            auctionParams.minBidAmount,
-            auctionParams.biddingStartTime,
-            auctionParams.biddingEndTime,
-            BigInt(res.appId),
-            { txn: xfer, signer },
-            { txn: feeAxfer, signer },
-            { txn: boxPay, signer },
-          ],
-          sender: sender,
-          signer: signer,
-          appForeignAssets: [Number(asset)],
-          boxes: [
-            {
-              appIndex: Number(AUCTION_ID),
-              name: algosdk.encodeUint64(asset),
-            },
-          ],
-        })
-        const result = await atc.execute(algodClient, 4)
-        for (const mr of result.methodResults) {
-          // console.log(`${mr.returnValue}`)
-        }
+    if (boxAmount > 0) {
+      const boxPay = await algorandClient.transactions.payment({
+        sender,
+        receiver: AUCTION_ADDRESS,
+        amount: algokit.microAlgos(boxAmount),
+        signer,
       })
-      .catch((e) => {
-        console.log(e)
-        throw e
-      })
+      atc.addTransaction({ txn: boxPay, signer })
+    }
+
+    // Phase 6: list_nft_on_auction(asset, bid_start_amount, min_bid_amount, bidding_start_time, bidding_end_time, collection_id, nft_axfer, bidding_approval, bidding_clear)
+    // Contract creates bidding app via inner txn using factory TEAL bytes
+    atc.addMethodCall({
+      suggestedParams: { ...suggestedParams, fee: 5000, flatFee: true },
+      appID: Number(AUCTION_ID),
+      method: auctionClient.appClient.getABIMethod('list_nft_on_auction')!,
+      methodArgs: [
+        Number(asset),
+        BigInt(bidStartAmount),
+        BigInt(minBidAmount),
+        BigInt(biddingStartTime),
+        BigInt(biddingEndTime),
+        0n, // collection_id
+        { txn: xfer, signer },
+        BIDDING_APPROVAL_PROGRAM,
+        BIDDING_CLEAR_PROGRAM,
+      ],
+      sender: sender,
+      signer: signer,
+      appForeignAssets: [Number(asset)],
+      boxes: [
+        {
+          appIndex: Number(AUCTION_ID),
+          name: boxName,
+        },
+      ],
+    })
+    const result = await atc.execute(algodClient, 4)
+    for (const mr of result.methodResults) {
+      // console.log(`${mr.returnValue}`)
+    }
 
     return true
   } catch (e) {
@@ -324,88 +266,21 @@ export const createBid = async (
   previousHighestBidder: string,
 ): Promise<string> => {
   try {
-    const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
+    const { algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
     const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
-    const atc = new algosdk.AtomicTransactionComposer()
-    // console.log("previous", previousHighestBidder)
-    const suggestedParams = await algodClient.getTransactionParams().do()
-    suggestedParams.fee = 3000
-    suggestedParams.flatFee = true
-    const boxPay = await algorandClient.transactions.payment({
+
+    // Phase 6: bid(pay) — single ALGO payment to bidding app. Contract handles all state updates.
+    const payTxn = await algorandClient.transactions.payment({
       sender,
       receiver: algosdk.getApplicationAddress(biddingAppId),
-      amount: algokit.microAlgos(BID_BOX_PRICE),
+      amount: algokit.microAlgos(bidAmount),
       signer,
     })
-    let fee = 0
-    const boxId = algosdk.encodeUint64(asset)
-    const box = await algokit
-      .getAppBoxValue(AUCTION_ID, boxId, algodClient)
-      .then((res) => res)
-      .catch((e) => {
-        return null
-      })
-    if (box) {
-      const listedCount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
-      // console.log("listedCount : ", listedCount)
-      if (listedCount > 1) {
-        fee = (bidAmount * SECONDARY_FEE) / 10000
-      } else {
-        fee = (bidAmount * PRIMARY_FEE) / 10000
-      }
-    }
-    const feeAxfer = await algorandClient.transactions.assetTransfer({
-      sender,
-      signer,
-      assetId: FRY_TOKEN_ID,
-      receiver: FEE_WALLET,
-      amount: BigInt(fee),
-    })
-    const priceTransferTx = await algorandClient.transactions.assetTransfer({
-      sender,
-      assetId: FRY_TOKEN_ID,
-      amount: BigInt(bidAmount),
-      receiver: AUCTION_ADDRESS,
-    })
 
-    atc.addMethodCall({
-      suggestedParams,
-      appID: biddingAppId,
-      method: biddingClient.appClient.getABIMethod('bid')!,
-      methodArgs: [bidAmount, { txn: boxPay, signer }],
-      sender: sender,
-      signer: signer,
-      appForeignAssets: [Number(asset)],
-      boxes: [
-        {
-          appIndex: biddingAppId,
-          name: algosdk.decodeAddress(sender).publicKey,
-        },
-      ],
-    })
-    atc.addMethodCall({
-      suggestedParams,
-      appID: Number(AUCTION_ID),
-      method: auctionClient.appClient.getABIMethod('bid')!,
-      methodArgs: [BigInt(asset), previousHighestBidder, BigInt(bidAmount), { txn: priceTransferTx, signer }, { txn: feeAxfer, signer }],
-      sender: sender,
-      signer: signer,
-      appForeignAssets: [Number(asset), Number(FRY_TOKEN_ID)],
-      appAccounts: [previousHighestBidder],
-      boxes: [
-        {
-          appIndex: Number(AUCTION_ID),
-          name: algosdk.encodeUint64(asset),
-        },
-      ],
-    })
-    const result = await atc.execute(algodClient, 4)
-    for (const mr of result.methodResults) {
-      // console.log(`${mr.returnValue}`);
-    }
-
-    // await biddingClient.bid({ bidAmount: BigInt(bidAmount), boxPay })
-    // await auctionClient.bid({ asset: BigInt(asset), bidAmount: BigInt(bidAmount), previousBidder: previousHighestBidder, bidAxfer: priceTransferTx }, { sendParams: { fee: algokit.algos(0.003) } })
+    await biddingClient.bid(
+      { payment: payTxn },
+      { sendParams: { fee: algokit.algos(0.003) } },
+    )
 
     return 'Bid Placed'
   } catch (e: any) {
@@ -436,22 +311,10 @@ export const cancelBid = async (
   }>,
 ): Promise<string> => {
   try {
-    const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
     const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
 
-    const allBids: Bid[] = await getAllBids(biddingAppId)
-    const previousBids = allBids.filter((bid) => bid.bidder != sender)
-
-    const bids = previousBids.map((bid) => bid.bidTime)
-    const maxBid = Math.max(...bids)
-    const previousBidder: Bid = previousBids.filter((bid) => bid.bidTime === maxBid)[0]
-
-    await biddingClient.cancelBid({ previousHighestBidder: previousBidder.bidder }, { sendParams: { fee: algokit.algos(0.002) } })
-    await auctionClient.cancelBid({
-      asset: BigInt(asset),
-      previousHighestBid: BigInt(previousBidder.bidAmount),
-      previousHighestBidder: previousBidder.bidder,
-    })
+    // Phase 6: cancel_bid() — no args. Contract handles refund via inner txns.
+    await biddingClient.cancelBid({}, { sendParams: { fee: algokit.algos(0.003) } })
 
     return 'Bid Canceled'
   } catch (e: any) {
@@ -486,8 +349,9 @@ export const cancelAuction = async (
     const { auctionClient, algorandClient, algodClient } = await createFryAuctionClient(signer, sender)
     const { biddingClient } = await createBiddingClient(signer, sender, biddingAppId)
 
+    // Phase 6: cancel_nft_auction(uint64 asset) — no highestBidder arg
     await auctionClient.cancelNftAuction(
-      { asset: BigInt(asset), highestBidder: previousHighestBidder! },
+      { asset: BigInt(asset) },
       { sendParams: { fee: algokit.algos(0.004) } },
     )
 
@@ -513,7 +377,7 @@ export const claimNftRoyalty = async (
     const hasOptedIn = accountInfo?.assets?.some((assetId: any) => assetId['asset-id'] === asset)
     const atc = new algosdk.AtomicTransactionComposer()
     const suggestedParams = await algodClient.getTransactionParams().do()
-    suggestedParams.fee = 3000
+    suggestedParams.fee = 5000
     suggestedParams.flatFee = true
     if (!hasOptedIn) {
       const opIn = await algorandClient.transactions.assetOptIn({
@@ -524,58 +388,28 @@ export const claimNftRoyalty = async (
       atc.addTransaction({ txn: opIn, signer: signer })
     }
 
-    let fee = 0
-    const boxId = algosdk.encodeUint64(asset)
-    const box = await algokit
-      .getAppBoxValue(AUCTION_ID, boxId, algodClient)
-      .then((res) => res)
-      .catch((e) => {
-        return null
-      })
-    if (box) {
-      const listedCount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
-      if (listedCount > 1) {
-        fee = (bidAmount * SECONDARY_FEE) / 10000
-      } else {
-        fee = (bidAmount * PRIMARY_FEE) / 10000
-      }
-    }
-    const feeAxfer = await algorandClient.transactions.assetTransfer({
-      sender,
-      signer,
-      assetId: FRY_TOKEN_ID,
-      receiver: FEE_WALLET,
-      amount: BigInt(fee),
-    })
-
-    const assetDetails = await algodClient.getAssetByID(Number(asset)).do()
+    // Phase 6: claim_nft_royalty(uint64 asset, uint64 bidding_app) — contract handles fees/royalties internally
+    const boxName = new Uint8Array([0x61, ...algosdk.encodeUint64(asset)])
     atc.addMethodCall({
       suggestedParams,
       appID: Number(AUCTION_ID),
-      method: auctionClient.appClient.getABIMethod('claimNftRoyalty')!,
-      methodArgs: [asset, FRY_TOKEN_ID, seller, { txn: feeAxfer, signer }],
+      method: auctionClient.appClient.getABIMethod('claim_nft_royalty')!,
+      methodArgs: [asset, biddingAppId],
       sender: sender,
       signer: signer,
-      appForeignAssets: [Number(asset), Number(FRY_TOKEN_ID)],
+      appForeignAssets: [Number(asset)],
       boxes: [
         {
           appIndex: Number(AUCTION_ID),
-          name: algosdk.encodeUint64(asset),
-        },
-        {
-          appIndex: Number(AUCTION_ID),
-          name: algosdk.decodeAddress(assetDetails?.params?.creator).publicKey,
+          name: boxName,
         },
       ],
-      appAccounts: [FEE_WALLET, assetDetails?.params?.creator],
     })
 
     const result = await atc.execute(algodClient, 4)
     for (const mr of result.methodResults) {
       // console.log(`${mr.returnValue}`);
     }
-
-    // await auctionClient.claimNftRoyalty({ asset: BigInt(asset), nftSeller: seller, fryId: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.006) } })
 
     return 'nftClaimed'
   } catch (e: any) {
@@ -587,30 +421,26 @@ export const claimNftRoyalty = async (
 export const getAllAuctions = async () => {
   const algod = await getAlgodClient()
   const listings = await algokit.getAppBoxNames(AUCTION_ID, algod)
-  const filteredBoxes = listings.filter((bx) => bx.nameRaw.byteLength == 8)
+  // Phase 6: auction box key = prefix 'a' (0x61) + encodeUint64(asset) = 9 bytes
+  const filteredBoxes = listings.filter((bx) => bx.nameRaw.byteLength === 9 && bx.nameRaw[0] === 0x61)
   const allListings: any[] = []
   for (const listBox of filteredBoxes) {
-    const decoded = algosdk.decodeUint64(listBox.nameRaw, 'safe')
+    const decoded = algosdk.decodeUint64(listBox.nameRaw.slice(1), 'safe')
     const box = await algokit.getAppBoxValue(AUCTION_ID, listBox.nameRaw, algod)
-    // console.log('Box', box)
     const nftData = await algod.getAssetByID(decoded).do()
+    // Phase 6 auction box layout (136 bytes):
     const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-    const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), 'mixed')
-    const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), 'mixed')
-    const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), 'mixed')
-    const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), 'mixed')
+    const assetId = algosdk.decodeUint64(box.slice(32, 40), 'mixed')
+    const bidStartAmount = algosdk.decodeUint64(box.slice(40, 48), 'mixed')
+    const minBidAmount = algosdk.decodeUint64(box.slice(48, 56), 'mixed')
+    const bidContract = algosdk.decodeUint64(box.slice(56, 64), 'mixed')
     const highestBidder = algosdk.encodeAddress(box.slice(64, 96))
     const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'mixed')
-    const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
-    const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
-    const totalListcount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
-    const isListed = algosdk.decodeUint64(box.slice(128, 136), 'mixed')
-    // const test = algosdk.decodeUint64(box.slice(136, 144), 'mixed')
-    // Query the first AssetConfig transaction by assetID
-    // Set up the Algorand indexer client
-    // Set up the Algorand indexer client
+    const biddingStartTime = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
+    const biddingEndTime = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
+    const status = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
+    const collectionId = algosdk.decodeUint64(box.slice(128, 136), 'mixed')
     const collectionData = await getCollectionByNftId(nftData.index)
-    // console.log('collectionData', collectionData)
     const listedData = {
       nftAddress: decoded,
       sellerId,
@@ -621,38 +451,41 @@ export const getAllAuctions = async () => {
       highestBidder,
       highestBidAmount: Number(highestBidAmount),
       bidContract,
-      totalBidders,
-      totalListcount,
-      isListed: isListed == 1 ? true : false,
+      status: Number(status),
+      collectionId: Number(collectionId),
+      // Backward compat
+      isListed: status === 1n || status === 1,
+      totalBidders: 0,
+      totalListcount: 0,
       ...nftData.params,
       collectionData,
     }
     allListings.push(listedData)
   }
-  // console.log(allListings)
   return allListings
 }
 
 export const getSingleAuction = async (nftId: number) => {
   const algod = await getAlgodClient()
-  const boxId = algosdk.encodeUint64(nftId)
-  const decoded = algosdk.decodeUint64(boxId, 'safe')
+  // Phase 6: prefix 'a' (0x61) + encodeUint64(nftId)
+  const boxName = new Uint8Array([0x61, ...algosdk.encodeUint64(nftId)])
 
-  const box = await algokit.getAppBoxValue(AUCTION_ID, boxId, algod)
-  const nftData = await algod.getAssetByID(decoded).do()
+  const box = await algokit.getAppBoxValue(AUCTION_ID, boxName, algod)
+  const nftData = await algod.getAssetByID(nftId).do()
+  // Phase 6 auction box layout
   const sellerId = algosdk.encodeAddress(box.slice(0, 32))
-  const bidStartAmount = algosdk.decodeUint64(box.slice(32, 40), 'mixed')
-  const minBidAmount = algosdk.decodeUint64(box.slice(40, 48), 'mixed')
-  const biddingStartTime = algosdk.decodeUint64(box.slice(48, 56), 'mixed')
-  const biddingEndTime = algosdk.decodeUint64(box.slice(56, 64), 'mixed')
+  const assetId = algosdk.decodeUint64(box.slice(32, 40), 'mixed')
+  const bidStartAmount = algosdk.decodeUint64(box.slice(40, 48), 'mixed')
+  const minBidAmount = algosdk.decodeUint64(box.slice(48, 56), 'mixed')
+  const bidContract = algosdk.decodeUint64(box.slice(56, 64), 'mixed')
   const highestBidder = algosdk.encodeAddress(box.slice(64, 96))
   const highestBidAmount = algosdk.decodeUint64(box.slice(96, 104), 'mixed')
-  const bidContract = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
-  const totalBidders = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
-  const totalListcount = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
-  const isListed = algosdk.decodeUint64(box.slice(128, 136), 'mixed')
+  const biddingStartTime = algosdk.decodeUint64(box.slice(104, 112), 'mixed')
+  const biddingEndTime = algosdk.decodeUint64(box.slice(112, 120), 'mixed')
+  const status = algosdk.decodeUint64(box.slice(120, 128), 'mixed')
+  const collectionId = algosdk.decodeUint64(box.slice(128, 136), 'mixed')
   const listedData = {
-    nftAddress: decoded,
+    nftAddress: nftId,
     sellerId,
     bidStartAmount,
     minBidAmount,
@@ -661,9 +494,11 @@ export const getSingleAuction = async (nftId: number) => {
     highestBidder,
     highestBidAmount,
     bidContract,
-    totalBidders,
-    totalListcount,
-    isListed: isListed == 1 ? true : false,
+    status: Number(status),
+    collectionId: Number(collectionId),
+    isListed: status === 1n || status === 1,
+    totalBidders: 0,
+    totalListcount: 0,
     ...nftData.params,
   }
   return listedData
@@ -675,19 +510,22 @@ export const getAllBids = async (bidContract: number): Promise<Bid[]> => {
     const biddings = await algokit.getAppBoxNames(bidContract, algod)
     const allBids: Bid[] = []
     for (const bid of biddings) {
-      const bidder = algosdk.encodeAddress(bid.nameRaw)
-      const bidData = await algokit.getAppBoxValue(bidContract, bid, algod)
+      // Phase 6: bid box key = prefix 'b' (0x62) + address (32 bytes) = 33 bytes
+      if (bid.nameRaw.byteLength === 33 && bid.nameRaw[0] === 0x62) {
+        const bidder = algosdk.encodeAddress(bid.nameRaw.slice(1))
+        const bidData = await algokit.getAppBoxValue(bidContract, bid.nameRaw, algod)
 
-      const bidAmount = algosdk.decodeUint64(bidData.slice(0, 8), 'safe')
-      const bidTime = algosdk.decodeUint64(bidData.slice(8, 16), 'safe')
+        const bidAmount = algosdk.decodeUint64(bidData.slice(0, 8), 'safe')
+        const bidTime = algosdk.decodeUint64(bidData.slice(8, 16), 'safe')
 
-      const bidding: Bid = {
-        bidder,
-        bidAmount,
-        bidTime,
+        const bidding: Bid = {
+          bidder,
+          bidAmount,
+          bidTime,
+        }
+
+        allBids.push(bidding)
       }
-
-      allBids.push(bidding)
     }
     return allBids
   } catch (e) {
@@ -700,8 +538,9 @@ export const getAllBids = async (bidContract: number): Promise<Bid[]> => {
 export const getAllUserClaimable = async (user: string, signer: TransactionSigner) => {
   try {
     const auctions = await getAllAuctions()
+    // Phase 6: status 1 = active auction
     const claimable = auctions
-      .filter((item) => item?.isListed)
+      .filter((item) => item?.status === 1 || item?.isListed)
       .filter((item) => item.highestBidder === user && item.biddingEndTime < Math.floor(Date.now() / 1000))
     return claimable
   } catch (error) {
@@ -717,14 +556,6 @@ export const getAllUserAuctions = async (user: string, signer: TransactionSigner
   } catch (error) {
     return error
   }
-}
-
-const getMethodByName = (name: string, contract: ABIContract): algosdk.ABIMethod => {
-  const m = contract.methods.find((mt: algosdk.ABIMethod) => {
-    return mt.name == name
-  })
-  if (m === undefined) throw Error('Method undefined')
-  return m
 }
 
 interface Bid {

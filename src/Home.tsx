@@ -258,7 +258,7 @@ const Home: React.FC<HomeProps> = () => {
   }
 
   const initRoyalty = async () => {
-    const royal = await addCollectionRoyalty(activeAddress!, signer, royaltyBasis, collectionAddress)
+    const royal = await addCollectionRoyalty(activeAddress!, signer, royaltyBasis, Number(collectionAddress))
   }
 
   const getRoyalties = async () => {
