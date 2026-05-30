@@ -154,6 +154,45 @@ export const optInAsset = async (sender: string, signer: TransactionSigner, feeP
     return false
   }
 }
+
+export const createCollection = async (sender: string, signer: TransactionSigner, collectionId: number, creator: string) => {
+  try {
+    const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
+    const atc = new algosdk.AtomicTransactionComposer()
+    const suggestedParams = await algodClient.getTransactionParams().do()
+
+    // MBR for collection box (prefix 'c' + 8-byte uint64 key + 32-byte address value = 41 bytes)
+    const mbrPay = await algorandClient.transactions.payment({
+      sender,
+      signer,
+      amount: algokit.microAlgos(2500 + 400 * (1 + 8 + 32)),
+      receiver: FRY_MARKET_ADDRESS,
+    })
+    atc.addTransaction({ txn: mbrPay, signer })
+
+    atc.addMethodCall({
+      suggestedParams,
+      appID: Number(FRY_MARKET_ID),
+      method: marketClient.appClient.getABIMethod('create_collection')!,
+      methodArgs: [collectionId, creator],
+      sender,
+      signer,
+      boxes: [
+        {
+          appIndex: Number(FRY_MARKET_ID),
+          name: new Uint8Array([0x63, ...algosdk.encodeUint64(collectionId)]),
+        },
+      ],
+    })
+
+    const result = await atc.execute(algodClient, 4)
+    console.log(result)
+    return result
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
 //!Marketplace functions
 const BOX_PRICE = 2500 + 400 * 88
 export const listNft = async (sender: string, assetId: bigint, signer: TransactionSigner, price: number) => {
