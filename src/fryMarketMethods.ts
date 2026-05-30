@@ -194,7 +194,7 @@ export const createCollection = async (sender: string, signer: TransactionSigner
   }
 }
 //!Marketplace functions
-const BOX_PRICE = 2500 + 400 * 88
+const BOX_PRICE = 2500 + 400 * 89
 export const listNft = async (sender: string, assetId: bigint, signer: TransactionSigner, price: number) => {
   try {
     // console.log(sender, assetId, signer, price)
