@@ -119,39 +119,105 @@ export const deployMarketplace = async (sender: string, signer: TransactionSigne
     console.log(e)
   }
 }
-export const optInAsset = async (sender: string, signer: TransactionSigner, feePercent: number) => {
+export const optInAsset = async (sender: string, signer: TransactionSigner) => {
   try {
-    // console.log("daat", FRY_MARKET_ADDRESS, FRY_MARKET_ID, FRY_TOKEN_ID)
+    const { marketClient, algodClient } = await createFryMarketClient(signer, sender, Number(FRY_MARKET_ID))
 
-    const { marketClient, algorandClient } = await createFryMarketClient(signer, sender, Number(FRY_MARKET_ID))
-
-    await algorandClient.send.payment({
-      sender,
-      receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
-      amount: algokit.algos(0.1 + 0.1),
-      extraFee: algokit.algos(0.001),
-    })
-    // console.log('optInAsset', FRY_MARKET_ID, FRY_TOKEN_ID)
-    if (FRY_MARKET_ID) {
-      console.log('mbrPay', FRY_MARKET_ID)
-      const mbrPay = await algorandClient.transactions.payment({
-        sender,
-        receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
-        amount: algokit.algos(0.1),
-        extraFee: algokit.algos(0.002),
-        signer,
-      })
-      // console.log("marketClient", marketClient)
-      // console.log("Fry", FRY_TOKEN_ID)
-      const optInAsset = await marketClient.assetOptIn({ asset: FRY_TOKEN_ID }, { sendParams: { fee: algokit.algos(0.002) } }).then((res) => {
-        console.log('optInAsset', res)
-      })
-      // console.log('optInAsset', optInAsset)
+    // Already-opted guard
+    try {
+      await algodClient.accountAssetInformation(FRY_MARKET_ADDRESS, Number(FRY_TOKEN_ID)).do()
+      console.log('App already opted into asset', Number(FRY_TOKEN_ID))
+      return true
+    } catch (e: any) {
+      if (e.status !== 404 && !(e.message?.includes('asset info not found'))) throw e
     }
+
+    // Atomic group: 100k MBR payment + asset_opt_in call
+    // Fee: payment 1,000 (base) + call 2,000 (self + inner AssetTransfer) = 3,000 total
+    const suggestedParams = await algodClient.getTransactionParams().do()
+    const atc = new algosdk.AtomicTransactionComposer()
+
+    const paymentTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+      from: sender,
+      to: FRY_MARKET_ADDRESS,
+      amount: 100000,
+      suggestedParams,
+    })
+    atc.addTransaction({ txn: paymentTxn, signer })
+
+    atc.addMethodCall({
+      suggestedParams: { ...suggestedParams, fee: 2000, flatFee: true },
+      appID: Number(FRY_MARKET_ID),
+      method: marketClient.appClient.getABIMethod('asset_opt_in')!,
+      methodArgs: [Number(FRY_TOKEN_ID)],
+      sender,
+      signer,
+      appForeignAssets: [Number(FRY_TOKEN_ID)],
+    })
+
+    await atc.execute(algodClient, 4)
     return true
   } catch (e) {
     console.log(e)
     return false
+  }
+}
+
+export const batchOptInAssets = async (
+  sender: string,
+  signer: TransactionSigner,
+  assetIds: number[]
+) => {
+  try {
+    const { marketClient, algodClient } = await createFryMarketClient(signer, sender, Number(FRY_MARKET_ID))
+
+    // Filter already-opted assets
+    const toOptIn: number[] = []
+    const skipped: number[] = []
+    for (const assetId of assetIds) {
+      try {
+        await algodClient.accountAssetInformation(FRY_MARKET_ADDRESS, assetId).do()
+        skipped.push(assetId)
+      } catch {
+        toOptIn.push(assetId)
+      }
+    }
+
+    if (toOptIn.length === 0) {
+      console.log('All assets already opted in', skipped)
+      return { opted: [] as number[], skipped }
+    }
+
+    // Atomic group: N × (100k MBR payment + asset_opt_in call)
+    // Fee per pair: payment 1,000 (base) + call 2,000 = 3,000. Group total = N × 3,000
+    const suggestedParams = await algodClient.getTransactionParams().do()
+    const atc = new algosdk.AtomicTransactionComposer()
+
+    for (const assetId of toOptIn) {
+      const paymentTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+        from: sender,
+        to: FRY_MARKET_ADDRESS,
+        amount: 100000,
+        suggestedParams,
+      })
+      atc.addTransaction({ txn: paymentTxn, signer })
+
+      atc.addMethodCall({
+        suggestedParams: { ...suggestedParams, fee: 2000, flatFee: true },
+        appID: Number(FRY_MARKET_ID),
+        method: marketClient.appClient.getABIMethod('asset_opt_in')!,
+        methodArgs: [assetId],
+        sender,
+        signer,
+        appForeignAssets: [assetId],
+      })
+    }
+
+    await atc.execute(algodClient, 4)
+    return { opted: toOptIn, skipped }
+  } catch (e) {
+    console.log(e)
+    return { opted: [] as number[], skipped: [] as number[], error: e }
   }
 }
 

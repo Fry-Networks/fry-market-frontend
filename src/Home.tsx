@@ -199,7 +199,7 @@ const Home: React.FC<HomeProps> = () => {
   // Market Place Functions
   const marketInit = async () => {
     try {
-      const init = await optInAsset(activeAddress!, signer, 1000)
+      const init = await optInAsset(activeAddress!, signer)
       // console.log("init", init)
       if (init) {
         enqueueSnackbar(`Market Id : ${init}`, {
