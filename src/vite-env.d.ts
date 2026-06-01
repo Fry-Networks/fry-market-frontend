@@ -17,6 +17,14 @@ interface ImportMetaEnv {
   readonly VITE_KMD_PORT: string
   readonly VITE_KMD_PASSWORD: string
   readonly VITE_KMD_WALLET: string
+
+  readonly VITE_FEE_WALLET: string
+  readonly VITE_FRY_TOKEN_ID: string
+  readonly VITE_FRY_MARKET_ID: string
+  readonly VITE_FRY_AUCTION_ID: string
+  readonly VITE_API_BASE_URL: string
+  readonly VITE_FEE_ROUTER_APP_ID: string
+  readonly VITE_FEE_ROUTER_ADDR: string
 }
 
 interface ImportMeta {

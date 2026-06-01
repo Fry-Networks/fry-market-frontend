@@ -5,6 +5,7 @@ import { AppDetails } from '@algorandfoundation/algokit-utils/types/app-client'
 import algosdk, { Transaction, TransactionSigner } from 'algosdk'
 import { AUCTION_ID, createFryAuctionClient } from './auctionMethod'
 import { FryMarketClient } from './contracts/FryMarket'
+import { routeFeeViaRouter } from './services/FeeService'
 import { getAlgodConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 import { getCollectionByNftId } from './utils/network/helper'
 
@@ -773,18 +774,12 @@ export const getRoyalty = async (collection: string) => {
   return royaltPercent
 }
 
-//! Transaction for fee
+//! Transaction for fee — routed through FeeRouter for pool/treasury split
 export const trasnferFee = async (amount: number, sender: string, signer: TransactionSigner) => {
   try {
-    const { algorandClient } = await createFryMarketClient(signer, sender)
-    const tx = await algorandClient.send.assetTransfer({
-      sender,
-      assetId: FRY_TOKEN_ID,
-      receiver: FEE_WALLET,
-      amount: BigInt(amount),
-    })
-
-    return tx
+    const algodClient = await getAlgodClient()
+    const result = await routeFeeViaRouter(sender, signer, amount, Number(FRY_TOKEN_ID), algodClient)
+    return result
   } catch (e) {
     console.log(e)
     return e
@@ -918,14 +913,9 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
         throw new Error('Not Enough FRY Balance')
       }
 
-      // Using FRY token transfer instead of ALGO payment
-      const txResult = await algorandClient.send.assetTransfer({
-        sender,
-        receiver: FEE_WALLET,
-        assetId: FRY_TOKEN_ID,
-        amount: totalFeeInMicroFry,
-        note: `Image generation fee for collection: ${numofimgs} images at $${TARGET_USD_PER_IMAGE}/image (FRY)`,
-      })
+      // Route FRY fee through FeeRouter for pool/treasury split
+      const algodClient = await getAlgodClient()
+      const txResult = await routeFeeViaRouter(sender, signer, Number(totalFeeInMicroFry), Number(FRY_TOKEN_ID), algodClient)
       return txResult
     } else {
       if (numofimgs > 1) {
@@ -941,13 +931,9 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
         throw new Error('Not Enough FRY Balance')
       }
 
-      const txResult = await algorandClient.send.assetTransfer({
-        sender,
-        receiver: FEE_WALLET,
-        assetId: FRY_TOKEN_ID,
-        amount: totalFeeInMicroFry,
-        note: `Image generation fee for single NFT at $${TARGET_USD_PER_IMAGE} (FRY)`,
-      })
+      // Route FRY fee through FeeRouter for pool/treasury split
+      const algodClient = await getAlgodClient()
+      const txResult = await routeFeeViaRouter(sender, signer, Number(totalFeeInMicroFry), Number(FRY_TOKEN_ID), algodClient)
       return txResult
     }
   } catch (error) {
@@ -975,13 +961,9 @@ export const getImgGenFee = async (isCollection: boolean, numofimgs: number, sig
       throw new Error('Not Enough FRY Balance')
     }
 
-    const txResult = await algorandClient.send.assetTransfer({
-      sender,
-      receiver: FEE_WALLET,
-      assetId: FRY_TOKEN_ID,
-      amount: totalFeeInMicroFry,
-      note: `Image generation fee (fallback FRY pricing): ${numofimgs} images`,
-    })
+    // Route FRY fee through FeeRouter (fallback pricing path)
+    const algodClient = await getAlgodClient()
+    const txResult = await routeFeeViaRouter(sender, signer, Number(totalFeeInMicroFry), Number(FRY_TOKEN_ID), algodClient)
     return txResult
   }
 }
