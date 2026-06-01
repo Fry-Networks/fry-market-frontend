@@ -3,7 +3,7 @@
     .leftArea {
       .descriptionAccordion {
         .ant-collapse {
-          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: var(--card-shadow);
           border-radius: 10px;
           width: auto;
           padding: 0px !important;
@@ -14,7 +14,7 @@
               border-radius: 10px;
               padding: 23px 20px;
               //border-bottom: 2.8px solid #E7E7E7;
-              background: #fff;
+              background: var(--bg-surface);
               .custom-label {
                 display: flex;
                 justify-content: space-between;
@@ -28,7 +28,7 @@
               }
             }
             .ant-collapse-content {
-              border-top: 2px solid #d9d9d9;
+              border-top: 2px solid var(--divider);
               padding: 10px;
 
               .ant-collapse-content-box {
@@ -43,10 +43,10 @@
     }
     .rightArea {
       .salesEndDiv {
-        box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--card-shadow);
         border-radius: 8px;
         .salesHeader {
-          border-bottom: 3px solid #e7e7e7;
+          border-bottom: 3px solid var(--border-color);
           display: flex;
           justify-content: flex-start;
           gap: 10px;
@@ -56,8 +56,8 @@
       .listingAccordion {
         .ant-collapse {
           width: auto;
-          background-color: white;
-          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          background-color: var(--bg-surface);
+          box-shadow: var(--card-shadow);
           border-radius: 10px;
           padding: 0px !important;
 
@@ -68,7 +68,7 @@
               padding: 23px 20px;
               border-radius: 20px;
               //border-bottom: 2.8px solid #E7E7E7;
-              background: #fff;
+              background: var(--bg-surface);
               .custom-label {
                 display: flex;
                 justify-content: space-between;
@@ -82,7 +82,7 @@
               }
             }
             .ant-collapse-content {
-              border-top: 2px solid #d9d9d9;
+              border-top: 2px solid var(--divider);
               padding: 10px;
 
               .ant-collapse-content-box {
@@ -113,9 +113,9 @@
       }
       .detailsAccordion {
         .ant-collapse {
-          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: var(--card-shadow);
           width: auto;
-          background-color: white;
+          background-color: var(--bg-surface);
           border-radius: 10px;
           padding: 0px !important;
 
@@ -125,7 +125,7 @@
             .ant-collapse-header {
               padding: 23px 20px;
               //border-bottom: 2.8px solid #E7E7E7;
-              background: #fff;
+              background: var(--bg-surface);
               border-radius: 20px;
               .custom-label {
                 display: flex;
@@ -140,7 +140,7 @@
               }
             }
             .ant-collapse-content {
-              border-top: 2px solid #d9d9d9;
+              border-top: 2px solid var(--divider);
               padding: 10px;
 
               .ant-collapse-content-box {
@@ -160,9 +160,9 @@
     .itemActivityAccordion {
       .ant-collapse {
         padding: 0px !important;
-        box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+        box-shadow: var(--card-shadow);
         width: auto;
-        background-color: white;
+        background-color: var(--bg-surface);
         border-radius: 8px;
 
         .ant-collapse-item {
@@ -173,7 +173,7 @@
             padding: 23px 20px;
             //border-bottom: 2.8px solid #E7E7E7;
             border-radius: 20px;
-            background: #fff;
+            background: var(--bg-surface);
             .custom-label {
               display: flex;
               justify-content: space-between;
@@ -187,7 +187,7 @@
             }
           }
           .ant-collapse-content {
-            border-top: 2px solid #d9d9d9;
+            border-top: 2px solid var(--divider);
             padding: 10px;
 
             .ant-collapse-content-box {

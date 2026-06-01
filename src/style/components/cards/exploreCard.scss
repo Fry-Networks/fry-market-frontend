@@ -1,6 +1,6 @@
 .exploreCard {
   position: relative;
-  background-color: white;
+  background-color: var(--bg-surface);
   &:before{
 content: "";
 top: -3px;

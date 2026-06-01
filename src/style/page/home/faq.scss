@@ -7,7 +7,7 @@
 }
 .ant-collapse-item {
   border-radius: 20px !important;
-  border: 3px solid #e7e7e7 !important;
+  border: 3px solid var(--border-color) !important;
 }
 .ant-collapse-item {
   padding: 7px !important;
@@ -35,7 +35,7 @@
   > .ant-collapse-content
   > .ant-collapse-content-box {
   padding: 25px 31px 30px 80px;
-  color: #808080;
+  color: var(--lightGray);
   letter-spacing: 0.54px;
   font-size: 18px;
   font-weight: 400;
@@ -78,7 +78,7 @@
     }
   }
   .ant-collapse-header {
-    background-color: #ffe0e0;
+    background-color: var(--bg-faq-header, #ffe0e0);
     border-radius: 20px;
     padding: 30px 15px !important;
     display: flex;

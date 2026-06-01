@@ -6,14 +6,14 @@
           .earnInput {
             .input-box {
               .input-wrapper {
-                border: 3px solid #e7e7e7;
+                border: 3px solid var(--border-color);
                 box-shadow: none;
                 padding-right: 130px;
 
                 input {
                   font-size: 18px;
                   &::placeholder {
-                    color: #808080;
+                    color: var(--lightGray);
                     font-size: 18px !important;
                   }
                 }
@@ -32,12 +32,12 @@
                 font-size: 18px;
                 padding: 20px;
                 display: flex;
-                border: 3px solid #e7e7e7;
+                border: 3px solid var(--border-color);
                 border-radius: 15px;
-                color: #808080;
+                color: var(--lightGray);
                 height: 58px;
                 font-weight: 400;
-                background: #fff;
+                background: var(--bg-surface);
                 .ant-select-selection {
                   &::placeholder {
                     color: #808080 !important;
@@ -55,19 +55,19 @@
               }
             }
             .ant-select-single.ant-select-show-arrow .ant-select-selection-placeholder {
-              color: #808080;
+              color: var(--lightGray);
             }
             .ant-select-single {
               height: 58px;
             }
             .custom-select .ant-select-selection-placeholder {
-              color: #808080;
+              color: var(--lightGray);
             }
           }
 
           .supplyDiv {
             .ant-input-number {
-              border: 3px solid #e7e7e7;
+              border: 3px solid var(--border-color);
               width: 109px;
               height: 58px;
               font-size: 18px;
@@ -75,18 +75,18 @@
               display: flex;
               align-items: center;
               justify-content: center;
-              background: #fff;
+              background: var(--bg-surface);
             }
             .gray-input .ant-input-number-input {
-              color: #808080;
+              color: var(--lightGray);
             }
           }
           .addStyle {
             width: 198px;
             height: 58px;
             border-radius: 15px;
-            border: 3px solid #e7e7e7;
-            background: #fff;
+            border: 3px solid var(--border-color);
+            background: var(--bg-surface);
             padding: 19px 30px;
           }
         }
@@ -183,8 +183,8 @@
 }
 
 :where(.css-dev-only-do-not-override-1gwfwyx).ant-select-single.ant-select-show-arrow .ant-select-selection-item{
-  color: black !important;
+  color: var(--text-primary) !important;
 }
 .ant-input-number-input{
-  color: black !important;
+  color: var(--text-primary) !important;
 }

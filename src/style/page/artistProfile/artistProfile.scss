@@ -11,10 +11,10 @@
             .input-wrapper {
               box-shadow: none;
               input {
-                border: 3px solid #e7e7e7;
+                border: 3px solid var(--border-color);
                 padding: 19px 30px 18px 30px;
                 &::placeholder {
-                  color: #808080 !important;
+                  color: var(--lightGray) !important;
                 }
               }
             }
@@ -27,7 +27,7 @@
               height: 170px;
               padding: 19px 30px 18px 30px;
               border-radius: 15px;
-              border: 3px solid #e7e7e7;
+              border: 3px solid var(--border-color);
             }
           }
         }
@@ -46,7 +46,7 @@
             .input-wrapper {
               box-shadow: none;
               input {
-                border: 3px solid #e7e7e7;
+                border: 3px solid var(--border-color);
                 padding: 19px 30px 18px 30px;
                 padding-right: 140px;
               }

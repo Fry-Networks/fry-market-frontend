@@ -4,8 +4,8 @@
           width: 292px;
          // padding: 20px !important;
           border-radius: 30px;
-          background: #fff;
-          box-shadow: 4px 4px 15px 0px rgba(0, 0, 0, 0.2);
+          background: var(--bg-surface);
+          box-shadow: var(--card-shadow);
 
           #first-element {
             // background: red;
@@ -17,7 +17,7 @@
             .ant-collapse-header {
               align-items: center;
               span {
-                color: #2b2b2b;
+                color: var(--text-secondary);
                 font-family: Roboto;
                 font-size: 18px;
                 font-style: normal;
@@ -53,10 +53,10 @@
                   .ant-collapse-item {
                     margin-bottom: 20px;
                     border-radius: 8px !important;
-                    border: 2.8px solid #e7e7e7;
+                    border: 2.8px solid var(--border-color);
                     .ant-collapse-header {
                       span {
-                        color: #2b2b2b;
+                        color: var(--text-secondary);
                         font-family: Roboto;
                         font-size: 18px;
                         font-style: normal;
@@ -83,8 +83,8 @@
                 
                     .input-wrapper{
                         box-shadow: none;
-                        border: 3px solid #E7E7E7;
-                        background: #FFF9F9;
+                        border: 3px solid var(--border-color);
+                        background: var(--bodyBg);
                         padding-left: 30px;
                         font-size: 18px;
                     

@@ -1,0 +1,355 @@
+// ============================================
+// Dark Mode Overrides
+// Targets hardcoded colors across all SCSS +
+// Tailwind arbitrary-value classes under .dark
+// ============================================
+
+// --- Global element overrides ---
+.dark {
+  // Body & page backgrounds
+  body,
+  .ant-layout {
+    background-color: var(--bodyBg);
+    color: var(--text-primary);
+  }
+
+  // Headings
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+  }
+
+  // Paragraphs and spans with hardcoded dark text
+  p, span, label, li, td, th, a {
+    color: inherit;
+  }
+
+  // --- Navbar ---
+  .navWrapper .container .nav-content .nav-items ul .navlink {
+    color: var(--text-primary);
+  }
+
+  .custom-dropdown .ant-dropdown-menu {
+    background-color: var(--bg-elevated);
+    border-color: var(--border-color);
+    box-shadow: var(--dropdown-shadow);
+
+    .ant-dropdown-menu-item {
+      &:hover {
+        background-color: var(--bg-secondary);
+      }
+      a {
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  .mobile-dropdown-section p {
+    color: var(--text-muted);
+  }
+
+  // Mobile drawer
+  .ant-drawer-content {
+    background-color: var(--bg-surface) !important;
+  }
+  .ant-drawer-header {
+    background-color: var(--bg-surface) !important;
+    border-bottom-color: var(--border-color) !important;
+  }
+
+  // --- Buttons ---
+  button {
+    &.btn-whiteClr {
+      color: var(--text-primary);
+      background-color: var(--bg-surface);
+      border-color: var(--border-color);
+    }
+    &.btn-grayDark {
+      background-color: var(--bg-secondary) !important;
+      border-color: var(--border-color);
+      color: var(--text-primary);
+    }
+    &.btn-secondary {
+      background: var(--bg-surface);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+    &.btn-white {
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      box-shadow: var(--card-shadow);
+    }
+    &.btn-gray {
+      background-color: var(--bg-surface);
+      border-color: var(--border-color);
+    }
+  }
+
+  // --- Inputs ---
+  .input-box .input-wrapper {
+    background: var(--bg-surface);
+    box-shadow: var(--card-shadow);
+
+    input {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+
+      &::placeholder {
+        color: var(--text-muted);
+      }
+    }
+  }
+
+  input, textarea, select {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+  }
+
+  // --- Cards ---
+  .exploreCard {
+    background-color: var(--bg-surface);
+  }
+
+  .collectionCard {
+    .whiteCard {
+      filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.1));
+    }
+  }
+
+  .collectionCardd {
+    box-shadow:
+      24.875px -24.875px 24.875px 0px rgba(0, 0, 0, 0.2),
+      -24.875px 24.875px 24.875px 0px rgba(0, 0, 0, 0.2);
+  }
+
+  // --- NFT Detail page ---
+  .nftDetailBannerWrapper {
+    .topSection {
+      .leftArea .descriptionAccordion .ant-collapse .ant-collapse-item .ant-collapse-header,
+      .rightArea .listingAccordion .ant-collapse .ant-collapse-item .ant-collapse-header,
+      .rightArea .detailsAccordion .ant-collapse .ant-collapse-item .ant-collapse-header {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+      }
+
+      .rightArea {
+        .salesEndDiv {
+          box-shadow: var(--card-shadow);
+          .salesHeader {
+            border-bottom-color: var(--border-color);
+          }
+        }
+        .listingAccordion .ant-collapse,
+        .detailsAccordion .ant-collapse {
+          background-color: var(--bg-surface);
+          box-shadow: var(--card-shadow);
+        }
+      }
+    }
+
+    .bottomSection .itemActivityAccordion .ant-collapse {
+      background-color: var(--bg-surface);
+      box-shadow: var(--card-shadow);
+
+      .ant-collapse-item .ant-collapse-header {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+      }
+    }
+  }
+
+  // --- Ant Design component overrides ---
+  // Collapse / Accordion
+  .ant-collapse {
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+
+    .ant-collapse-item {
+      border-color: var(--border-color);
+    }
+    .ant-collapse-header {
+      color: var(--text-primary) !important;
+    }
+    .ant-collapse-content {
+      background-color: var(--bg-surface);
+      border-top-color: var(--divider);
+      color: var(--text-primary);
+    }
+  }
+
+  // Table
+  .ant-table {
+    background-color: var(--bg-surface);
+    color: var(--text-primary);
+
+    .ant-table-thead > tr > th {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      border-bottom-color: var(--border-color);
+    }
+    .ant-table-tbody > tr > td {
+      border-bottom-color: var(--border-color);
+    }
+    .ant-table-tbody > tr:hover > td {
+      background-color: var(--bg-tertiary);
+    }
+  }
+
+  // Modal
+  .ant-modal-content {
+    background-color: var(--bg-surface) !important;
+    color: var(--text-primary);
+  }
+  .ant-modal-header {
+    background-color: var(--bg-surface) !important;
+    border-bottom-color: var(--border-color) !important;
+  }
+  .ant-modal-title {
+    color: var(--text-primary) !important;
+  }
+  .ant-modal-close-x {
+    color: var(--text-muted);
+  }
+
+  // Select
+  .ant-select-selector {
+    background-color: var(--bg-surface) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+  }
+  .ant-select-dropdown {
+    background-color: var(--bg-elevated);
+  }
+  .ant-select-item {
+    color: var(--text-primary);
+    &:hover, &-option-active {
+      background-color: var(--bg-secondary);
+    }
+  }
+
+  // Tabs
+  .ant-tabs-tab {
+    color: var(--text-muted);
+    &.ant-tabs-tab-active .ant-tabs-tab-btn {
+      color: var(--primary);
+    }
+  }
+
+  // Tooltip
+  .ant-tooltip-inner {
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+
+  // Pagination
+  .ant-pagination-item {
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+    a {
+      color: var(--text-primary);
+    }
+  }
+
+  // Card (Ant)
+  .ant-card {
+    background-color: var(--bg-surface);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  // Tag
+  .ant-tag {
+    background-color: var(--bg-secondary);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+  }
+
+  // Popover
+  .ant-popover-inner {
+    background-color: var(--bg-elevated);
+    color: var(--text-primary);
+  }
+
+  // --- Modals (custom) ---
+  .connectModal .innerContent .wltbtn {
+    background: var(--bg-secondary);
+    background-color: var(--bg-secondary);
+  }
+
+  // --- Footer overrides ---
+  // Footer at 600px has hardcoded background-color: red — keep as-is since it's a brand color
+
+  // --- Tailwind arbitrary-value class overrides ---
+  // Background whites
+  .bg-white,
+  [class*="bg-\[\#fff\]"],
+  [class*="bg-\[\#FFF\]"],
+  [class*="bg-\[\#ffffff\]"],
+  [class*="bg-\[\#FFFFFF\]"],
+  [class*="bg-\[\#FFF9F9\]"] {
+    background-color: var(--bg-surface) !important;
+  }
+
+  // Background light grays
+  [class*="bg-\[\#f4f4f4\]"],
+  [class*="bg-\[\#F4F4F4\]"],
+  [class*="bg-\[\#f8f9fa\]"],
+  [class*="bg-\[\#e7e7e7\]"],
+  [class*="bg-\[\#E7E7E7\]"] {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  // Text blacks
+  .text-black,
+  [class*="text-\[\#000\]"],
+  [class*="text-\[\#000000\]"],
+  [class*="text-\[\#2b2b2b\]"],
+  [class*="text-\[\#2B2B2B\]"],
+  [class*="text-\[\#333\]"],
+  [class*="text-\[\#333333\]"] {
+    color: var(--text-primary) !important;
+  }
+
+  // Text grays
+  [class*="text-\[\#6b6b6b\]"],
+  [class*="text-\[\#6B6B6B\]"],
+  [class*="text-\[\#808080\]"],
+  [class*="text-\[\#8b8b8b\]"],
+  [class*="text-\[\#8B8B8B\]"],
+  [class*="text-\[\#666\]"],
+  [class*="text-\[\#666666\]"] {
+    color: var(--text-muted) !important;
+  }
+
+  // Text whites (invert for dark mode — keep white text white)
+  // .text-white stays as-is
+
+  // Border overrides
+  [class*="border-\[\#e7e7e7\]"],
+  [class*="border-\[\#E7E7E7\]"],
+  [class*="border-\[\#f0f0f0\]"],
+  [class*="border-\[\#d9d9d9\]"],
+  [class*="border-\[\#eaeaea\]"],
+  [class*="border-\[\#f4f3f3\]"] {
+    border-color: var(--border-color) !important;
+  }
+
+  // Shadow overrides for Tailwind shadow classes
+  .shadow-md, .shadow-lg, .shadow-xl {
+    --tw-shadow-color: rgba(0, 0, 0, 0.4);
+  }
+
+  // --- Scrollbar ---
+  &::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+  &::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+  }
+
+  // --- Selection ---
+  ::selection {
+    background-color: var(--primary);
+    color: white;
+  }
+}

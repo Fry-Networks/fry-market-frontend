@@ -14,7 +14,7 @@
           z-index: 9999;
 
           .navlink {
-            color: black;
+            color: var(--text-primary);
             z-index: 9999;
             &.active {
               color: red;
@@ -49,8 +49,8 @@
 .custom-dropdown {
   .ant-dropdown-menu {
     border-radius: 12px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-    border: 1px solid #f0f0f0;
+    box-shadow: var(--dropdown-shadow);
+    border: 1px solid var(--border-light);
     padding: 8px;
     min-width: 200px;
 
@@ -60,7 +60,7 @@
       padding: 0;
 
       &:hover {
-        background-color: #f8f9fa;
+        background-color: var(--bg-tertiary);
       }
 
       &:last-child {
@@ -68,7 +68,7 @@
       }
 
       a {
-        color: #333;
+        color: var(--text-secondary);
         text-decoration: none;
         display: flex;
         align-items: center;
@@ -89,7 +89,7 @@
   margin: 16px 0;
 
   p {
-    color: #666;
+    color: var(--text-muted);
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.5px;
