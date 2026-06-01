@@ -39,6 +39,9 @@ import SellMethod from './page/sellMethod'
 import TopCollection from './page/topCollection'
 import TopSeller from './page/topSeller'
 import TrendingNftPage from './page/trendingNftPage'
+import Events from './page/events'
+import Launchpad from './page/launchpad'
+import GenesisNft from './page/genesisNft'
 import { getAlgodConfigFromViteEnvironment, getKmdConfigFromViteEnvironment } from './utils/network/getAlgoClientConfigs'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 let providersArray: ProvidersArray
@@ -170,7 +173,10 @@ function AppInner({
     location.pathname === '/createnft-collect' ||
     location.pathname === '/create-collection' ||
     location.pathname === '/artist-profile' ||
-    location.pathname === '/artist-profile-others'
+    location.pathname === '/artist-profile-others' ||
+    location.pathname === '/events' ||
+    location.pathname === '/launchpad' ||
+    location.pathname === '/genesis'
 
   return (
     <ConfigProvider theme={{ algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm }}>
@@ -203,6 +209,9 @@ function AppInner({
             <Route path="/artist-profile-art" element={<ArtistProfileArt />} />
             <Route path="/sell-method" element={<SellMethod />} />
             <Route path="/manual-create-nft" element={<ManualCreateNft />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/launchpad" element={<Launchpad />} />
+            <Route path="/genesis" element={<GenesisNft />} />
             <Route path="/contract" element={<ContractHome />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

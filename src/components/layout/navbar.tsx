@@ -13,6 +13,7 @@ import logo1 from '../../assets/icons/topSeller/walletLogo.svg'
 import Button from '../shared/button'
 import ChainSwitcher from '../shared/ChainSwitcher'
 import ThemeToggle from '../shared/ThemeToggle'
+import { useChain } from '../../contexts/ChainContext'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 interface Toggle {
   open: boolean
@@ -97,6 +98,7 @@ const Navbar = (props: Toggle) => {
   const [open, setOpen] = useState(false)
   const [placement, setPlacement] = useState<string>('left')
   const { activeAccount } = useWallet()
+  const { hasFeature } = useChain()
 
   const getAuthToken = async () => {
     try {
@@ -163,6 +165,24 @@ const Navbar = (props: Toggle) => {
         </NavLink>
       ),
     },
+    {
+      key: '4',
+      label: (
+        <NavLink to="/events" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:event" width="16" height="16" />
+          Events
+        </NavLink>
+      ),
+    },
+    {
+      key: '5',
+      label: (
+        <NavLink to="/launchpad" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+          <Icon icon="material-symbols:rocket-launch" width="16" height="16" />
+          Launchpad
+        </NavLink>
+      ),
+    },
   ]
 
   // Community dropdown menu items
@@ -185,6 +205,19 @@ const Navbar = (props: Toggle) => {
         </NavLink>
       ),
     },
+    ...(hasFeature('genesisNft')
+      ? [
+          {
+            key: '3',
+            label: (
+              <NavLink to="/genesis" className="flex items-center gap-2 py-2 px-3 hover:bg-gray-50 rounded">
+                <Icon icon="material-symbols:diamond" width="16" height="16" />
+                Genesis NFT
+              </NavLink>
+            ),
+          },
+        ]
+      : []),
   ]
 
   // Create dropdown menu items
@@ -377,6 +410,12 @@ const Navbar = (props: Toggle) => {
                   <NavLink className={`navlink text-sm`} to="/" onClick={onClose}>
                     <li>Trending NFTs</li>
                   </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/events" onClick={onClose}>
+                    <li>Events</li>
+                  </NavLink>
+                  <NavLink className={`navlink text-sm`} to="/launchpad" onClick={onClose}>
+                    <li>Launchpad</li>
+                  </NavLink>
                 </div>
               </div>
 
@@ -389,6 +428,11 @@ const Navbar = (props: Toggle) => {
                   <NavLink className={`navlink text-sm`} to="/top-collection" onClick={onClose}>
                     <li>Collections</li>
                   </NavLink>
+                  {hasFeature('genesisNft') && (
+                    <NavLink className={`navlink text-sm`} to="/genesis" onClick={onClose}>
+                      <li>Genesis NFT</li>
+                    </NavLink>
+                  )}
                 </div>
               </div>
 
