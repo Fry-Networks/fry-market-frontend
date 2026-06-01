@@ -3,10 +3,12 @@ import { DaffiWalletConnect } from '@daffiwallet/connect'
 import { PeraWalletConnect } from '@perawallet/connect'
 import { PROVIDER_ID, ProvidersArray, WalletProvider, useInitializeProviders, useWallet } from '@txnlab/use-wallet'
 import algosdk from 'algosdk'
+import { ConfigProvider, theme as antdTheme } from 'antd'
 import axios from 'axios'
 import { SnackbarProvider } from 'notistack'
 import { createContext, useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import { ThemeProvider, useTheme } from './contexts/ThemeContext'
 
 import OtherProfilePage from './components/artistProfile/otherProfilePage'
 import ConnectWallet from './components/ConnectWallet'
@@ -104,6 +106,48 @@ export default function App() {
     algosdkStatic: algosdk,
   })
 
+  const toggleWalletModal = () => {
+    setOpenWalletModal(!openWalletModal)
+  }
+
+  const [token, setToken] = useState('')
+
+  return (
+    <ThemeProvider>
+      <AppInner
+        token={token}
+        walletProviders={walletProviders}
+        openWalletModal={openWalletModal}
+        toggleWalletModal={toggleWalletModal}
+        isPfpChange={isPfpChange}
+        setIsPfpChange={setIsPfpChange}
+        openDemoModal={openDemoModal}
+        setOpenDemoModal={setOpenDemoModal}
+      />
+    </ThemeProvider>
+  )
+}
+
+function AppInner({
+  token,
+  walletProviders,
+  openWalletModal,
+  toggleWalletModal,
+  isPfpChange,
+  setIsPfpChange,
+  openDemoModal,
+  setOpenDemoModal,
+}: {
+  token: string
+  walletProviders: any
+  openWalletModal: boolean
+  toggleWalletModal: () => void
+  isPfpChange: any
+  setIsPfpChange: (v: any) => void
+  openDemoModal: boolean
+  setOpenDemoModal: (v: boolean) => void
+}) {
+  const { isDark } = useTheme()
   const location = useLocation()
 
   const isNavbar =
@@ -122,13 +166,8 @@ export default function App() {
     location.pathname === '/artist-profile' ||
     location.pathname === '/artist-profile-others'
 
-  const toggleWalletModal = () => {
-    setOpenWalletModal(!openWalletModal)
-  }
-
-  const [token, setToken] = useState('')
-
   return (
+    <ConfigProvider theme={{ algorithm: isDark ? antdTheme.darkAlgorithm : antdTheme.defaultAlgorithm }}>
     <TokenContext.Provider value={token}>
       <SnackbarProvider maxSnack={3}>
         <WalletProvider value={walletProviders}>
@@ -167,5 +206,6 @@ export default function App() {
         </WalletProvider>
       </SnackbarProvider>
     </TokenContext.Provider>
+    </ConfigProvider>
   )
 }
