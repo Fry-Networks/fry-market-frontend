@@ -8,7 +8,9 @@ import axios from 'axios'
 import { SnackbarProvider } from 'notistack'
 import { createContext, useEffect, useState } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
+import { ChainProvider } from './contexts/ChainContext'
 import { ThemeProvider, useTheme } from './contexts/ThemeContext'
+import { VoiWalletProvider } from './contexts/VoiWalletContext'
 
 import OtherProfilePage from './components/artistProfile/otherProfilePage'
 import ConnectWallet from './components/ConnectWallet'
@@ -113,18 +115,22 @@ export default function App() {
   const [token, setToken] = useState('')
 
   return (
-    <ThemeProvider>
-      <AppInner
-        token={token}
-        walletProviders={walletProviders}
-        openWalletModal={openWalletModal}
-        toggleWalletModal={toggleWalletModal}
-        isPfpChange={isPfpChange}
-        setIsPfpChange={setIsPfpChange}
-        openDemoModal={openDemoModal}
-        setOpenDemoModal={setOpenDemoModal}
-      />
-    </ThemeProvider>
+    <ChainProvider>
+      <VoiWalletProvider>
+        <ThemeProvider>
+          <AppInner
+            token={token}
+            walletProviders={walletProviders}
+            openWalletModal={openWalletModal}
+            toggleWalletModal={toggleWalletModal}
+            isPfpChange={isPfpChange}
+            setIsPfpChange={setIsPfpChange}
+            openDemoModal={openDemoModal}
+            setOpenDemoModal={setOpenDemoModal}
+          />
+        </ThemeProvider>
+      </VoiWalletProvider>
+    </ChainProvider>
   )
 }
 

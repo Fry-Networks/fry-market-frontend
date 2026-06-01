@@ -11,6 +11,7 @@ import mobileLogo from '../../assets/icons/navbarLogo.svg'
 import logo from '../../assets/icons/newLogo.svg'
 import logo1 from '../../assets/icons/topSeller/walletLogo.svg'
 import Button from '../shared/button'
+import ChainSwitcher from '../shared/ChainSwitcher'
 import ThemeToggle from '../shared/ThemeToggle'
 const baseUrl = import.meta.env.VITE_API_BASE_URL
 interface Toggle {
@@ -273,6 +274,7 @@ const Navbar = (props: Toggle) => {
             </div>
             {isCreateNftPage ? (
               <div className="flex gap-x-3 items-center">
+                <ChainSwitcher />
                 <ThemeToggle />
                 <img src={logo1} alt="button" className="cursor-pointer" onClick={toggleWalletModal} />
 
@@ -294,6 +296,7 @@ const Navbar = (props: Toggle) => {
               </div>
             ) : (
               <div className="nav-btns flex items-center gap-x-3 font-Roboto">
+                <ChainSwitcher />
                 <ThemeToggle />
 
                 <Button
@@ -405,7 +408,8 @@ const Navbar = (props: Toggle) => {
               </div>
             </ul>
           </div>
-          <div className="flex items-center mt-4 mb-2">
+          <div className="flex items-center gap-3 mt-4 mb-2">
+            <ChainSwitcher />
             <ThemeToggle />
           </div>
           <div className="navbar-btns flex flex-col gap-4 mt-5">
