@@ -263,77 +263,52 @@ export const createCollection = async (sender: string, signer: TransactionSigner
 const BOX_PRICE = 2500 + 400 * 89
 export const listNft = async (sender: string, assetId: bigint, signer: TransactionSigner, price: number) => {
   try {
-    // console.log(sender, assetId, signer, price)
     const { marketClient, algorandClient, algodClient } = await createFryMarketClient(signer, sender)
-
-    const accountInfo = await algodClient.accountInformation(FRY_MARKET_ADDRESS).do()
-    const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === parseInt(assetId?.toString()))
 
     const atc = new algosdk.AtomicTransactionComposer()
     const suggestedParams = await algodClient.getTransactionParams().do()
 
-    if (!hasOptedIn) {
-      const paymentTxn = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
-        from: sender,
-        suggestedParams,
-        to: FRY_MARKET_ADDRESS,
-        amount: 200000,
-      })
-      atc.addTransaction({ txn: paymentTxn, signer: signer })
+    // Calculate MBR needed (contract handles opt-in inline)
+    let mbrAmount = 0
+    const accountInfo = await algodClient.accountInformation(FRY_MARKET_ADDRESS).do()
+    const hasOptedIn = accountInfo.assets.some((asset: any) => asset['asset-id'] === Number(assetId))
+    if (!hasOptedIn) mbrAmount += 100_000 // asset opt-in MBR
 
-      atc.addMethodCall({
-        suggestedParams: { ...suggestedParams, fee: 2000, flatFee: true },
-        appID: Number(FRY_MARKET_ID),
-        method: marketClient.appClient.getABIMethod('asset_opt_in')!,
-        methodArgs: [Number(assetId)],
-        sender: sender,
-        signer: signer,
-        appForeignAssets: [Number(assetId)],
-      })
-    }
+    const boxName = new Uint8Array([0x6C, ...algosdk.encodeUint64(assetId)])
+    const boxExists = await algokit
+      .getAppBoxValue(FRY_MARKET_ID, boxName, algodClient)
+      .then(() => true)
+      .catch(() => false)
+    if (!boxExists) mbrAmount += BOX_PRICE // listing box MBR
 
-    const assetTransferTx = await algorandClient.transactions.assetTransfer({
-      sender,
-      receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
-      assetId: assetId,
-      amount: BigInt(1),
-      signer,
+    // Build transactions (don't add to ATC separately)
+    const mbrPay = algosdk.makePaymentTxnWithSuggestedParamsFromObject({
+      from: sender,
+      to: FRY_MARKET_ADDRESS,
+      amount: mbrAmount,
+      suggestedParams,
     })
 
-    // Check if listing box already exists (determines MBR payment)
-    const boxName = new Uint8Array([0x6C, ...algosdk.encodeUint64(assetId)])
-    let boxAmount = 0
-    const box = await algokit
-      .getAppBoxValue(FRY_MARKET_ID, boxName, algodClient)
-      .then((res) => res)
-      .catch(() => {
-        return null
-      })
-    if (!box) {
-      boxAmount = BOX_PRICE
-    }
+    const assetTransferTx = algosdk.makeAssetTransferTxnWithSuggestedParamsFromObject({
+      from: sender,
+      to: FRY_MARKET_ADDRESS,
+      assetIndex: Number(assetId),
+      amount: 1,
+      suggestedParams,
+    })
 
-    // MBR payment for box creation (separate from method call)
-    if (boxAmount > 0) {
-      const boxPay = await algorandClient.transactions.payment({
-        sender,
-        receiver: algosdk.getApplicationAddress(FRY_MARKET_ID),
-        amount: algokit.microAlgos(boxAmount),
-        signer,
-      })
-      atc.addTransaction({ txn: boxPay, signer })
-    }
-
+    // list_asset ABI call — ATC places pay before appl
+    // Inner opt-in needs extra fee (2000 covers 1 inner txn)
     atc.addMethodCall({
-      suggestedParams: { ...suggestedParams, fee: 2000, flatFee: true },
+      suggestedParams: { ...suggestedParams, fee: hasOptedIn ? 1000 : 2000, flatFee: true },
       appID: Number(FRY_MARKET_ID),
       method: marketClient.appClient.getABIMethod('list_asset')!,
       methodArgs: [
+        { txn: mbrPay, signer }, // pay ref — ATC places before appl
         Number(assetId),
         BigInt(price),
-        BigInt(0), // collection_id (default)
-        BigInt(0), // is_primary (default)
-        { txn: assetTransferTx, signer },
+        BigInt(0), // collection_id
+        BigInt(0), // is_primary
       ],
       sender: sender,
       signer: signer,
@@ -345,9 +320,11 @@ export const listNft = async (sender: string, assetId: bigint, signer: Transacti
         },
       ],
     })
-    // console.log('before execute')
-    const result = await atc.execute(algodClient, 4)
 
+    // NFT transfer AFTER the appl (not an ABI ref — validated via op.GTxn)
+    atc.addTransaction({ txn: assetTransferTx, signer })
+
+    const result = await atc.execute(algodClient, 4)
     return true
   } catch (e) {
     console.log(e)
